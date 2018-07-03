@@ -51,15 +51,6 @@ class RegistrationForm extends React.Component {
         callback();
     }
 
-    handleWebsiteChange = (value) => {
-        let autoCompleteResult;
-        if (!value) {
-            autoCompleteResult = [];
-        } else {
-            autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`);
-        }
-        this.setState({ autoCompleteResult });
-    }
 
     render()
     {
@@ -97,9 +88,7 @@ class RegistrationForm extends React.Component {
             </Select>
         );
 
-        const websiteOptions = autoCompleteResult.map(website => (
-            <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
-        ));
+
 
         return (
             <Layout>
@@ -144,7 +133,7 @@ class RegistrationForm extends React.Component {
                                 >
                                     {getFieldDecorator('name', {
                                         rules: [{
-                                            type: 'name', message: 'The input is not valid name!',
+                                            type: 'name', message: '请输入你的名字!',
                                         }, {
                                             required: true, message: '请输入你的名字!',
                                         }],
@@ -217,7 +206,7 @@ class RegistrationForm extends React.Component {
                                     )}
                                 </FormItem>
                                 <FormItem {...tailFormItemLayout}>
-                                    <Button type="primary" htmlType="submit">注册</Button>
+                                    <Button type="primary"  onClick={this.handleRegister}>注册</Button>
                                 </FormItem>
                             </Form>
                         </Content>

@@ -5,6 +5,11 @@ import Search from './Search/Search';
 import Statistics from './Statistics/Statistics';
 import Login from './User/Login';
 import Register from './User/Register'
+import AddUser from './Management/AddUser';
+import DeleteUser from './Management/DeleteUser';
+import ModifyUser from './Management/ModifyUser';
+import AddBusNumber from './Management/AddBusNumber';
+
 import './App.css';
 import { HashRouter as Router, Route } from "react-router-dom";
 import {Switch} from "react-router";
@@ -22,6 +27,10 @@ class App extends Component {
                     <Route exact path="/statistics" component={Statistics}/>
                     <Route exact path="/login" component={Login}/>
                     <Route exact path="/register" component={Register}/>
+                    <Route exact path="/adduser" component={AddUser}/>
+                    <Route exact path="/deleteuser" component={DeleteUser}/>
+                    <Route exact path="/modifyuser" component={ModifyUser}/>
+                    <Route exact path="/addbusnumber" component={AddBusNumber}/>
                 </Switch>
             </div>
         </Router>

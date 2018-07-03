@@ -1,12 +1,80 @@
-import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+/**
+ * Created by 励颖 on 2018/7/3.
+ */
+/**
+ * Created by 励颖 on 2018/7/3.
+ */
+import { Layout, Menu, Breadcrumb, Icon, Input, Select, Button, Popconfirm, Table, } from 'antd';
 import React, { Component } from 'react';
 import './../App.css';
 import {Link} from "react-router-dom";
 
+
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
+const Option = Select.Option;
 
-class Management extends React.Component {
+class DeleteUser extends React.Component {
+    constructor(props){
+        super(props);
+        this.state={
+            data:[{
+                name: 'Jack',
+                ID: '516030910000',
+                phone:'12345678901',
+                credit: '95',
+                identity: '本科生',
+            }],
+            count:0,
+            content:''
+        }
+        this.columns = [{
+            title: '姓名',
+            dataIndex: 'name',
+            key: 'name',
+            width: '15%'
+        }, {
+            title: 'ID',
+            dataIndex: 'ID',
+            key: 'ID',
+            width: '20%'
+        }, {
+            title: '电话号码',
+            dataIndex: 'phone',
+            key: 'phone',
+            width: '20%'
+        }, {
+            title: '积分',
+            dataIndex: 'credit' ,
+            key: 'credit',
+            width: '15%'
+        }, {
+            title: '身份',
+            dataIndex: 'identity' ,
+            key: 'identity',
+            width: '18%'
+        },{
+            title: '删除',
+            dataIndex: 'operation',
+
+            render: (text, record) => {
+                return (
+                    <Popconfirm title="确定删除?" onConfirm={() => this.onDelete(record.key)}>
+                        <a href="javascript:"><Icon type="delete"/></a>
+                    </Popconfirm>)
+            }
+        }];
+    }
+
+    onDelete = (key) => {
+        const data = [...this.state.data];
+        this.setState({data: data.filter(item => item.key !== key)});
+    };
+
+    handleSearch = (e) => {
+
+    };
+
     render(){
         return(
             <Layout>
@@ -62,8 +130,13 @@ class Management extends React.Component {
                                 </SubMenu>
                             </Menu>
                         </Sider>
-                        <Content style={{ padding: '0 24px', minHeight: 280 }}>
-                            Content
+                        <Content>
+                            <Input name="content" label="搜索内容" size="large" style={{width: '30%', marginLeft:'100px' }}
+                                   prefix={<Icon type="search"/>} placeholder="请输入用户相关信息" onChange={this.onChangeContent}/>
+                            <Button type="primary"  size="large" style={{width: '10%', marginLeft: '10px'}} onClick = {this.handleSearch}>搜索</Button>
+                            <h1></h1>
+                            <Table style={{width:'88%', marginLeft:'70px'}}columns={this.columns} dataSource={this.state.data} />
+
                         </Content>
                     </Layout>
                 </Content>
@@ -76,6 +149,6 @@ class Management extends React.Component {
 
 }
 
-export default Management;/**
+export default DeleteUser;/**
  * Created by 励颖 on 2018/7/2.
  */

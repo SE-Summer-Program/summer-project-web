@@ -1,13 +1,89 @@
-import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+/**
+ * Created by 励颖 on 2018/7/3.
+ */
+
+import { Layout, Menu, Breadcrumb, Icon, Input, Select, Button, InputNumber} from 'antd';
 import React, { Component } from 'react';
 import './../App.css';
 import {Link} from "react-router-dom";
 
+
+
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
+const Option = Select.Option;
+const kindData=["校内巴士","校区巴士"]
+const stationData={
+    校内巴士:["菁菁堂","东川路地铁站"],
+    校区巴士:["闵行","徐汇","七宝"]
+}
+const stations1 = ["徐汇","闵行","七宝"];
+const stations2 = ["菁菁堂","东川路地铁站"];
 
-class Management extends React.Component {
+class AddBusNumber extends React.Component {
+    constructor(props){
+        super(props);
+        this.state={
+            stations:stationData[kindData[0]],
+            startStation:'',
+        }
+    }
+
+    handleKindChange = (value) => {
+        this.setState({
+            stations: stationData[value],
+            startStation: value,
+        });
+    }
+
+    handleStartStationChange = (value) => {
+        this.setState({
+            startStation: value,
+        });
+    }
+
+
+    handleAdd = (e) => {
+        e.preventDefault();
+        let username = this.state.username;
+        let id = this.state.id;
+        let password = this.state.password;
+        let passwordConfirm = this.state.passwordConfirm;
+        let credit = this.state.credit;
+        let identity = this.state.identity;
+        let phoneNumber = this.state.phoneNumber;
+        if (username.length === 0) {
+            alert("用户名不能为空");
+        }
+        else if (id.length === 0) {
+            alert("用户ID不能为空");
+        }
+        else if (password.length === 0) {
+            alert("密码不能为空");
+        }
+        else if (passwordConfirm.length === 0) {
+            alert("密码不能为空");
+        }
+        else if (phoneNumber.length === 0) {
+            alert("电话号码不能为空");
+        }
+        else if (identity.length === 0) {
+            alert("还未选择用户身份");
+        }
+        else if (password != passwordConfirm)
+            alert("两次输入密码错误");
+
+        console.log("username:",username);
+        console.log("password:",password);
+        console.log("id:",id);
+        console.log("phone:",phoneNumber);
+        console.log("credit:",credit);
+        console.log("identity:",identity);
+    };
+
     render(){
+        const kindOptions = kindData.map(kind => <Option key={kind}>{kind}</Option>);
+        const stationOptions = this.state.stations.map(station => <Option key={station}>{station}</Option>);
         return(
             <Layout>
                 <Header className="header">
@@ -34,7 +110,7 @@ class Management extends React.Component {
                         <Sider width={200} style={{ background: '#fff' }}>
                             <Menu
                                 mode="inline"
-                                defaultOpenKeys={['sub1']}
+                                defaultOpenKeys={['sub2']}
                                 style={{ height: '100%' }}
                             >
                                 <SubMenu key="sub1" title={<span><Icon type="user" />普通用户管理</span>}>
@@ -62,8 +138,33 @@ class Management extends React.Component {
                                 </SubMenu>
                             </Menu>
                         </Sider>
-                        <Content style={{ padding: '0 24px', minHeight: 280 }}>
-                            Content
+                        <Content>
+                            <h1></h1>
+                            <span style={{marginLeft: '284px', fontSize:'16px'}}>巴士类型： </span>
+                                <Select defaultValue="请选择" size="large" style={{width:'200px'}}onChange={this.handleKindChange}>
+                                    {kindOptions}
+                                </Select>
+
+                            <h1></h1>
+                            <span style={{marginLeft: '300px', fontSize:'16px'}}>始发站： </span>
+                            <Select defaultValue="请选择" size="large" style={{width:'200px'}}onChange={this.handleStartStationChange}>
+                                {stationOptions}
+                            </Select>
+
+                            <h1></h1>
+
+                            <h1></h1>
+
+                            <h1></h1>
+
+                            <h1></h1>
+
+                            <h1></h1>
+
+                            <h1></h1>
+
+                            <Button type="primary"  size="large" style={{width: '10%', marginLeft: '600px'}} onClick = {this.handleAdd}>添加用户</Button>
+
                         </Content>
                     </Layout>
                 </Content>
@@ -76,6 +177,7 @@ class Management extends React.Component {
 
 }
 
-export default Management;/**
+export default AddBusNumber;
+/**
  * Created by 励颖 on 2018/7/2.
  */
