@@ -1,29 +1,32 @@
 /**
- * Created by 励颖 on 2018/7/3.
+ * Created by 励颖 on 2018/7/4.
  */
 /**
  * Created by 励颖 on 2018/7/3.
  */
-import { Layout, Menu, Breadcrumb, Icon, Input, Select, Button, Popconfirm, Table, } from 'antd';
+
+import { Layout, Menu, Breadcrumb, Icon, Input, Select, Button, Checkbox, InputNumber} from 'antd';
 import React, { Component } from 'react';
 import './../App.css';
 import {Link} from "react-router-dom";
 
 
+
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
-const Option = Select.Option;
 
-class DeleteUser extends React.Component {
+
+
+class DeleteShift extends React.Component {
     constructor(props){
         super(props);
         this.state={
             data:[{
-                name: 'Jack',
-                ID: '516030910000',
-                phone:'12345678901',
-                credit: '95',
-                identity: '本科生',
+                startStation:'菁菁堂',
+                endStation:'菁菁堂',
+                startTime: '9:20',
+                seat: '0',
+                viaStation:'/'
             }],
             count:0,
             content:''
@@ -76,6 +79,10 @@ class DeleteUser extends React.Component {
     };
 
     render(){
+        const kindOptions = kindData.map(kind => <Option key={kind}>{kind}</Option>);
+        const stationOptions = this.state.stations.map(station => <Option key={station}>{station}</Option>);
+        const hourOptions = hourData.map(hour => <Option key={hour}>{hour}</Option>);
+        const minuteOptions = minuteData.map(minute => <Option key={minute}>{minute}</Option>);
         return(
             <Layout>
                 <Header className="header">
@@ -102,8 +109,8 @@ class DeleteUser extends React.Component {
                         <Sider width={200} style={{ background: '#fff' }}>
                             <Menu
                                 mode="inline"
-                                defaultOpenKeys={['sub1']}
-                                defaultSelectedKeys={['2']}
+                                defaultOpenKeys={['sub2']}
+                                defaultSelectedKeys={['5']}
                                 style={{ height: '100%' }}
                             >
                                 <SubMenu key="sub1" title={<span><Icon type="user" />普通用户管理</span>}>
@@ -126,14 +133,46 @@ class DeleteUser extends React.Component {
                                     <Menu.Item key="13">删除发车</Menu.Item>
                                     <Menu.Item key="14">修改发车</Menu.Item>
                                 </SubMenu>
+
                             </Menu>
                         </Sider>
                         <Content>
-                            <Input name="content" label="搜索内容" size="large" style={{width: '30%', marginLeft:'100px' }}
-                                   prefix={<Icon type="search"/>} placeholder="请输入用户相关信息" onChange={this.onChangeContent}/>
-                            <Button type="primary"  size="large" style={{width: '10%', marginLeft: '10px'}} onClick = {this.handleSearch}>搜索</Button>
                             <h1></h1>
-                            <Table style={{width:'88%', marginLeft:'70px'}}columns={this.columns} dataSource={this.state.data} />
+                            <span style={{marginLeft: '284px', fontSize:'16px'}}>巴士类型： </span>
+                            <Select defaultValue={kindData[0]} size="large" style={{width:'200px'}} onChange={this.handleKindChange}>
+                                {kindOptions}
+                            </Select>
+
+                            <h1></h1>
+                            <span style={{marginLeft: '300px', fontSize:'16px'}}>始发站： </span>
+                            <Select value={this.state.startStation} size="large" style={{width:'200px'}} onChange={this.handleStartStationChange}>
+                                {stationOptions}
+                            </Select>
+                            <h1></h1>
+                            <span style={{marginLeft: '300px', fontSize:'16px'}}>终点站： </span>
+                            <Select value={this.state.endStation} size="large" style={{width:'200px'}} onChange={this.handleEndStationChange}>
+                                {stationOptions}
+                            </Select>
+                            <h1></h1>
+                            <span style={{marginLeft: '284px', fontSize:'16px'}}>出发时刻： </span>
+                            <Select  defaultValue={'6'} size="large" style={{width:'65px'}} onChange={this.handleStartTimeHour}>
+                                {hourOptions}
+                            </Select>
+                            <span style={{marginLeft: '8px', fontSize:'16px'}}>时 </span>
+                            <Select  defaultValue={'00'} size="large" style={{marginLeft:'8px',width:'75px'}} onChange={this.handleStartTimeMinute}>
+                                {minuteOptions}
+                            </Select>
+                            <span style={{marginLeft: '8px', fontSize:'16px'}}>分</span>
+                            <h1></h1>
+                            <span style={{marginLeft: '268px', fontSize:'16px'}}>预留座位数： </span>
+                            <InputNumber disabled={this.state.disabled} defaultValue={30} min={1} max={55} onChange={this.handleSeatNumber} />
+                            <h1></h1>
+                            <span style={{marginLeft: '284px', fontSize:'16px'}}>途径站点： </span>
+                            <CheckboxGroup options={viaStationData} disabled={this.state.disabled} onChange={this.handleViaStation} />
+
+                            <h1></h1>
+                            <br></br>
+                            <Button type="primary"  size="large" style={{width: '10%', marginLeft:'350px'}} onClick = {this.handleAdd}>添加班次</Button>
 
                         </Content>
                     </Layout>
@@ -147,6 +186,7 @@ class DeleteUser extends React.Component {
 
 }
 
-export default DeleteUser;/**
+export default DeleteShift;
+/**
  * Created by 励颖 on 2018/7/2.
  */

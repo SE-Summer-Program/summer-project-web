@@ -43,7 +43,7 @@ class Management extends React.Component {
                                     <Menu.Item key="3"><Link to="modifyuser">修改用户</Link></Menu.Item>
                                 </SubMenu>
                                 <SubMenu key="sub2" title={<span><Icon type="car" />班次信息管理</span>}>
-                                    <Menu.Item key="5"><Link to="addbusnumber">添加班次</Link></Menu.Item>
+                                    <Menu.Item key="5"><Link to="addshift">添加班次</Link></Menu.Item>
                                     <Menu.Item key="6">删除班次</Menu.Item>
                                     <Menu.Item key="7">修改班次</Menu.Item>
                                 </SubMenu>
@@ -52,13 +52,10 @@ class Management extends React.Component {
                                     <Menu.Item key="10">删除司机</Menu.Item>
                                     <Menu.Item key="11">修改司机</Menu.Item>
                                 </SubMenu>
-                                <SubMenu key="sub4" title={<span><Icon type="schedule" />时刻表管理</span>}>
-                                    <Menu.Item key="12">校内巴士</Menu.Item>
-                                    <Menu.Item key="13">校区巴士</Menu.Item>
-                                </SubMenu>
-                                <SubMenu key="sub5" title={<span><Icon type="environment" />线路管理</span>}>
-                                    <Menu.Item key="14">校内巴士</Menu.Item>
-                                    <Menu.Item key="15">校区巴士</Menu.Item>
+                                <SubMenu key="sub4" title={<span><Icon type="schedule" />发车信息管理</span>}>
+                                    <Menu.Item key="12">添加发车</Menu.Item>
+                                    <Menu.Item key="13">删除发车</Menu.Item>
+                                    <Menu.Item key="14">修改发车</Menu.Item>
                                 </SubMenu>
                             </Menu>
                         </Sider>

@@ -8,7 +8,7 @@ import Register from './User/Register'
 import AddUser from './Management/AddUser';
 import DeleteUser from './Management/DeleteUser';
 import ModifyUser from './Management/ModifyUser';
-import AddBusNumber from './Management/AddBusNumber';
+import AddShift from './Management/AddShift';
 
 import './App.css';
 import { HashRouter as Router, Route } from "react-router-dom";
@@ -30,7 +30,7 @@ class App extends Component {
                     <Route exact path="/adduser" component={AddUser}/>
                     <Route exact path="/deleteuser" component={DeleteUser}/>
                     <Route exact path="/modifyuser" component={ModifyUser}/>
-                    <Route exact path="/addbusnumber" component={AddBusNumber}/>
+                    <Route exact path="/addshift" component={AddShift}/>
                 </Switch>
             </div>
         </Router>

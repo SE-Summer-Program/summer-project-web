@@ -100,20 +100,24 @@ class Login extends React.Component {
                     <Layout style={{padding: '24px 0', background: '#fff'}}>
 
                         <Content style={{padding: '0 24px', minHeight: 280}}>
-                            <h3>用户登录</h3>
+                            <br></br>
+                            <h2 style={{marginLeft:'600px'}}>管理员登录</h2>
+                            <br></br>
                             <h1></h1>
-                            <Input name="username" size="large" style={{width: '30%', marginLeft: '450px'}}
+                            <Input name="username" size="large" style={{width: '20%', marginLeft: '532px'}}
                                    placeholder="用户名" onChange={this.handleChange}/>
                             <h1></h1>
-                            <Input name="password" size="large" style={{width: '30%', marginLeft: '450px'}} placeholder="密码"
+                            <Input name="password" size="large" style={{width: '20%', marginLeft: '532px'}} placeholder="密码"
                                    onChange={this.handleChange} onKeyDown={this.handleKeyDown}/>
                             <h1></h1>
-
-                            <h2><Button size="large" type="primary" onClick={this.handleSubmit}>登录</Button>
+                            <br></br>
+                            <div>
+                            <h2><Button size="large" type="primary" onClick={this.handleSubmit} >登录</Button>
                                 &nbsp;
                                 <Button size="large" type="primary"><Link to="./register">注册</Link></Button>
                                 &nbsp;
                                 <Button size="large" type="dashed">忘记密码</Button></h2>
+                            </div>
                         </Content>
                     </Layout>
                 </Content>

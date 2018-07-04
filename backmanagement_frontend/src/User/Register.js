@@ -15,58 +15,85 @@ const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
 
 class RegistrationForm extends React.Component {
-    state = {
-        confirmDirty: false,
-        autoCompleteResult: [],
+    constructor(props){
+        super(props);
+        this.state={
+            id:'',
+            username:'',
+            password:'',
+            passwordConfirm:'',
+            phoneNumber:'',
+            checked: false,
+        }
+    }
+
+    handleChange = (e) => {
+        this.setState({[e.target.name]:e.target.value})
     };
 
-    handleSubmit = (e) => {
+    handleKeyDown = (e) => {
+        if (e.keyCode === 16){
+            this.handleSubmit(e)
+        }
+    };
+
+    toggleChecked = () => {
+        this.setState({
+            checked: !this.state.checked
+        })
+    }
+
+    handleRegister = (e) => {
         e.preventDefault();
-        this.props.form.validateFieldsAndScroll((err, values) => {
-            if (!err) {
-                console.log('Received values of form: ', values);
-            }
-        });
-    }
-
-    handleConfirmBlur = (e) => {
-        const value = e.target.value;
-        this.setState({ confirmDirty: this.state.confirmDirty || !!value });
-    }
-
-    compareToFirstPassword = (rule, value, callback) => {
-        const form = this.props.form;
-        if (value && value !== form.getFieldValue('password')) {
-            callback('Two passwords that you enter is inconsistent!');
-        } else {
-            callback();
+        let username = this.state.username;
+        let id = this.state.id;
+        let password = this.state.password;
+        let passwordConfirm = this.state.passwordConfirm;
+        let phoneNumber = this.state.phoneNumber;
+        if (username.length === 0) {
+            alert("用户名不能为空");
         }
-    }
-
-    validateToNextPassword = (rule, value, callback) => {
-        const form = this.props.form;
-        if (value && this.state.confirmDirty) {
-            form.validateFields(['confirm'], { force: true });
+        else if (id.length === 0) {
+            alert("用户ID不能为空");
         }
-        callback();
-    }
+        else if (password.length === 0) {
+            alert("密码不能为空");
+        }
+        else if (passwordConfirm.length === 0) {
+            alert("密码不能为空");
+        }
+        else if (phoneNumber.length === 0) {
+            alert("电话号码不能为空");
+        }
+        else if (password !== passwordConfirm) {
+            alert("两次输入密码错误");
+            window.location.reload();
+        }
+        else if (phoneNumber.length !== 11){
+            alert("您输入的号码长度不符常规");
+            window.location.reload();
+        }
+        else if (!this.state.checked)
+            alert("请先勾选同意协议");
 
+        console.log("username:",username);
+        console.log("password:",password);
+        console.log("id:",id);
+        console.log("phone:",phoneNumber);
+        this.setState({
+            id:'',
+            username:'',
+            password:'',
+            passwordConfirm:'',
+            phoneNumber:'',
+            checked: false,
+        })
+        window.location.reload();
+
+    };
 
     render()
     {
-        const { getFieldDecorator } = this.props.form;
-        const { autoCompleteResult } = this.state;
-
-        const formItemLayout = {
-            labelCol: {
-                xs: { span: 24 },
-                sm: { span: 8 },
-            },
-            wrapperCol: {
-                xs: { span: 24 },
-                sm: { span: 16 },
-            },
-        };
         const tailFormItemLayout = {
             wrapperCol: {
                 xs: {
@@ -79,17 +106,6 @@ class RegistrationForm extends React.Component {
                 },
             },
         };
-        const prefixSelector = getFieldDecorator('prefix', {
-            initialValue: '86',
-        })(
-            <Select style={{ width: 50 }}>
-                <Option value="86">+86</Option>
-                <Option value="87">+87</Option>
-            </Select>
-        );
-
-
-
         return (
             <Layout>
                 <Header className="header">
@@ -116,97 +132,43 @@ class RegistrationForm extends React.Component {
 
                         <Content style={{padding: '0 24px', minHeight: 280}}>
                             <Form onSubmit={this.handleSubmit}>
+                                <br></br>
+                                <h2 style={{marginLeft:'580px'}}>管理员注册</h2>
+                                <br></br>
+                                <span style={{marginLeft: '462px', fontSize:'18px'}}> 姓名： </span>
+                                <Input name="username" label="用户名" size="large" style={{width: '23%', }}
+                                       placeholder="请输入用户名" onChange={this.handleChange}/>
 
-                                <FormItem
-                                    {...formItemLayout}
-                                    label="教工ID"
-                                >
-                                    {getFieldDecorator('id', {
-                                        rules: [{ required: true, message: '请输入你的教工ID!' }],
-                                    })(
-                                        <Input  style={{ width: '50%' }} />
-                                    )}
-                                </FormItem>
-                                <FormItem
-                                    {...formItemLayout}
-                                    label="姓名"
-                                >
-                                    {getFieldDecorator('name', {
-                                        rules: [{
-                                            type: 'name', message: '请输入你的名字!',
-                                        }, {
-                                            required: true, message: '请输入你的名字!',
-                                        }],
-                                    })(
-                                        <Input style={{ width: '50%' }} />
-                                    )}
-                                </FormItem>
-                                <FormItem
-                                    {...formItemLayout}
-                                    label="密码"
-                                >
-                                    {getFieldDecorator('password', {
-                                        rules: [{
-                                            required: true, message: '请输入密码',
-                                            validator: this.validateToNextPassword,
-                                        }],
-                                    })(
-                                        <Input type="password" style={{ width: '50%' }} />
-                                    )}
-                                </FormItem>
-                                <FormItem
-                                    {...formItemLayout}
-                                    label="确认密码"
-                                >
-                                    {getFieldDecorator('confirm', {
-                                        rules: [{
-                                            required: true, message: '请确认你输入的密码!',
-                                        }, {
-                                            validator: this.compareToFirstPassword,
-                                        }],
-                                    })(
-                                        <Input type="password" onBlur={this.handleConfirmBlur} style={{ width: '50%' }} />
-                                    )}
-                                </FormItem>
+                                <h1></h1>
+                                <span style={{marginLeft: '447px', fontSize:'18px'}}> 用户ID： </span>
+                                <Input name="id" label="账号" size="large" style={{width: '23%',}}
+                                       placeholder="请输入用户账号" onChange={this.handleChange}/>
 
-
-                                <FormItem
-                                    {...formItemLayout}
-                                    label="手机号码"
-                                >
-                                    {getFieldDecorator('phone', {
-                                        rules: [{ required: true, message: '请输入你的手机号码!' }],
-                                    })(
-                                        <Input  style={{ width: '50%' }} />
-                                    )}
-                                </FormItem>
-
-                                <FormItem
-                                    {...formItemLayout}
-                                    label="验证码"
-                                >
-                                    <Row gutter={8}>
-                                        <Col span={12}>
-                                            {getFieldDecorator('captcha', {
-                                                rules: [{ required: true, message: '请输入你收到的验证码!' }],
-                                            })(
-                                                <Input />
-                                            )}
-                                        </Col>
-                                        <Col span={12}>
-                                            <Button>获取验证码</Button>
-                                        </Col>
-                                    </Row>
-                                </FormItem>
+                                <h1></h1>
+                                <span style={{marginLeft: '430px', fontSize:'18px'}}> 用户密码： </span>
+                                <Input name="password" label="密码" size="large" style={{width: '23%',}} placeholder="请输入密码"
+                                       onChange={this.handleChange} onKeyDown={this.handleKeyDown}/>
+                                <h1></h1>
+                                <span style={{marginLeft: '430px', fontSize:'18px'}}> 确认密码： </span>
+                                <Input name="passwordConfirm" size="large" style={{width: '23%', }} placeholder="请再次输入密码"
+                                       onChange={this.handleChange} onKeyDown={this.handleKeyDown}/>
+                                <h1></h1>
+                                <span style={{marginLeft: '430px', fontSize:'18px'}}> 电话号码： </span>
+                                <Input name="phoneNumber" lable="电话" size="large" style={{width: '23%',}} placeholder="请输入电话号码"
+                                       onChange={this.handleChange} />
+                                <h1></h1>
+                                <span style={{marginLeft: '445px', fontSize:'18px'}}> 验证码： </span>
+                                <Input name="phoneNumber" lable="电话" size="large" style={{width: '11%',}} placeholder="请输入验证码"
+                                       onChange={this.handleChange} />
+                                &nbsp;
+                                <Button size="large">点击获取验证码</Button>
+                                <br></br>
+                                <br></br>
+                                <Checkbox size="large" style={{marginLeft: '570px', fontSize:'16px'}} onChange={this.toggleChecked}>我同意<a href="">该协议</a></Checkbox>
+                                <br></br>
+                                <br></br>
                                 <FormItem {...tailFormItemLayout}>
-                                    {getFieldDecorator('agreement', {
-                                        valuePropName: 'checked',
-                                    })(
-                                        <Checkbox>我同意<a href="">该协议</a></Checkbox>
-                                    )}
-                                </FormItem>
-                                <FormItem {...tailFormItemLayout}>
-                                    <Button type="primary"  onClick={this.handleRegister}>注册</Button>
+                                    <Button type="primary"  size="large" style={{marginLeft: '190px'}} onClick={this.handleRegister}>注册</Button>
                                 </FormItem>
                             </Form>
                         </Content>
