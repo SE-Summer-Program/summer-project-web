@@ -109,6 +109,7 @@ class AddUser extends React.Component {
                     <Breadcrumb style={{ margin: '16px 0' }}>
                         <Breadcrumb.Item>主页</Breadcrumb.Item>
                         <Breadcrumb.Item>信息管理</Breadcrumb.Item>
+                        <Breadcrumb.Item>添加用户</Breadcrumb.Item>
                     </Breadcrumb>
                     <Layout style={{ padding: '24px 0', background: '#fff' }}>
                         <Sider width={200} style={{ background: '#fff' }}>
@@ -125,22 +126,21 @@ class AddUser extends React.Component {
                                 </SubMenu>
                                 <SubMenu key="sub2" title={<span><Icon type="car" />班次信息管理</span>}>
                                     <Menu.Item key="5"><Link to="addshift">添加班次</Link></Menu.Item>
-                                    <Menu.Item key="6">删除班次</Menu.Item>
-                                    <Menu.Item key="7">修改班次</Menu.Item>
+                                    <Menu.Item key="6"><Link to="deleteshift">删除班次</Link></Menu.Item>
+                                    <Menu.Item key="7"><Link to="modifyshift">修改班次</Link></Menu.Item>
                                 </SubMenu>
                                 <SubMenu key="sub3" title={<span><Icon type="idcard" />司机用户管理</span>}>
-                                    <Menu.Item key="9">添加司机</Menu.Item>
-                                    <Menu.Item key="10">删除司机</Menu.Item>
-                                    <Menu.Item key="11">修改司机</Menu.Item>
+                                    <Menu.Item key="9"><Link to="adddriver">添加司机</Link></Menu.Item>
+                                    <Menu.Item key="10"><Link to="deletedriver">删除司机</Link></Menu.Item>
+                                    <Menu.Item key="11"><Link to="modifydriver">修改司机</Link></Menu.Item>
                                 </SubMenu>
-                                <SubMenu key="sub4" title={<span><Icon type="schedule" />发车信息管理</span>}>
-                                    <Menu.Item key="12">添加发车</Menu.Item>
-                                    <Menu.Item key="13">删除发车</Menu.Item>
-                                    <Menu.Item key="14">修改发车</Menu.Item>
-                                </SubMenu>
+
                             </Menu>
                         </Sider>
                         <Content>
+                            <br></br>
+                            <h2 style={{marginLeft:'480px'}}>添加新用户</h2>
+                            <br></br>
                             <h1></h1>
                             <span style={{marginLeft: '332px', fontSize:'16px'}}> 姓名： </span>
                             <Input name="username" label="用户名" size="large" style={{width: '30%', }}
@@ -177,8 +177,8 @@ class AddUser extends React.Component {
                                 <Option value="校外人士">校外人士</Option>
                             </Select>
                             <h1></h1>
-
-                            <Button type="primary"  size="large" style={{width: '10%', marginLeft: '600px'}} onClick = {this.handleAdd}>添加用户</Button>
+                            <br></br>
+                            <Button type="primary"  size="large" style={{width: '10%', marginLeft: '475px'}} onClick = {this.handleAdd}>添加用户</Button>
 
                         </Content>
                     </Layout>

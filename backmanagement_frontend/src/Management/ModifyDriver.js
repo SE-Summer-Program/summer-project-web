@@ -1,4 +1,7 @@
 /**
+ * Created by 励颖 on 2018/7/4.
+ */
+/**
  * Created by 励颖 on 2018/7/3.
  */
 /**
@@ -74,7 +77,7 @@ class EditableCell extends React.Component {
 
 
 
-class ModifyUser extends React.Component {
+class ModifyDriver extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -91,33 +94,27 @@ class ModifyUser extends React.Component {
                 title: '姓名',
                 dataIndex: 'name',
                 key: 'name',
-                width: '15%',
+                width: '18%',
                 editable: true,
             },
             {
                 title: 'ID',
                 dataIndex: 'ID',
                 key: 'ID',
-                width: '20%',
+                width: '23%',
                 editable: true,
             },
             {
                 title: '电话号码',
                 dataIndex: 'phone',
                 key: 'phone',
-                width: '20%',
-                editable: true,
-            },{
-                title: '积分',
-                dataIndex: 'credit' ,
-                key: 'credit',
-                width: '15%',
+                width: '23%',
                 editable: true,
             },{
                 title: '身份',
                 dataIndex: 'identity' ,
                 key: 'identity',
-                width: '18%',
+                width: '23%',
                 editable: true,
             }, {
                 title: '操作',
@@ -236,7 +233,7 @@ class ModifyUser extends React.Component {
                     <Breadcrumb style={{ margin: '16px 0' }}>
                         <Breadcrumb.Item>主页</Breadcrumb.Item>
                         <Breadcrumb.Item>信息管理</Breadcrumb.Item>
-                        <Breadcrumb.Item>修改用户信息</Breadcrumb.Item>
+                        <Breadcrumb.Item>修改司机信息</Breadcrumb.Item>
                     </Breadcrumb>
                     <Layout style={{ padding: '24px 0', background: '#fff' }}>
                         <Sider width={200} style={{ background: '#fff' }}>
@@ -261,6 +258,7 @@ class ModifyUser extends React.Component {
                                     <Menu.Item key="10"><Link to="deletedriver">删除司机</Link></Menu.Item>
                                     <Menu.Item key="11"><Link to="modifydriver">修改司机</Link></Menu.Item>
                                 </SubMenu>
+
                             </Menu>
                         </Sider>
                         <Content>
@@ -289,6 +287,6 @@ class ModifyUser extends React.Component {
 
 }
 
-export default ModifyUser;/**
+export default ModifyDriver;/**
  * Created by 励颖 on 2018/7/2.
  */

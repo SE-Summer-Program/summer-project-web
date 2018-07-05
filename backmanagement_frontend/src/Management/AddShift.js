@@ -2,25 +2,25 @@
  * Created by 励颖 on 2018/7/3.
  */
 
-import { Layout, Menu, Breadcrumb, Icon, Input, Select, Button, Checkbox, InputNumber} from 'antd';
+import { Layout, Menu, Breadcrumb, Icon, Input, Select, Button, Checkbox, Radio, InputNumber} from 'antd';
 import React, { Component } from 'react';
 import './../App.css';
 import {Link} from "react-router-dom";
-
-
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 const Option = Select.Option;
 const CheckboxGroup = Checkbox.Group;
-const kindData=["校内巴士","校区巴士"]
+const RadioGroup = Radio.Group;
+const kindData=["校内巴士","校区巴士"];
+const viaStationData=["罗阳","上中","天钥","交大新村","古美"];
 const stationData={
     校内巴士:["菁菁堂","东川路地铁站"],
     校区巴士:["闵行校区","徐汇校区","七宝校区","田林","古美","交大新村","天钥路"]
-}
-const viaStationData=["罗阳","上中","天钥","交大新村","古美"]
-const hourData=["6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"]
-const minuteData=["00","05","10","15","20","25","30","35","40","45","50","55"]
+};
+const direction=["顺时针","逆时针"];
+const hourData=["6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"];
+const minuteData=["00","05","10","15","20","25","30","35","40","45","50","55"];
 
 class AddShift extends React.Component {
     constructor(props){
@@ -28,8 +28,11 @@ class AddShift extends React.Component {
         this.state={
             kind:'校内巴士',
             hour:'6',
-            minute:'05',
-            seat:'30',
+            minute:'00',
+            direction: '',
+            isHoliday: 'false',
+            isWorkday: 'false',
+            teacherSeat:'30',
             stations:stationData[kindData[0]],
             startStation:stationData[kindData[0]][0],
             endStation:stationData[kindData[0]][0],
@@ -55,44 +58,77 @@ class AddShift extends React.Component {
                 disabled: true
             })
         }
-    }
+    };
+
+    handleDirectionChange = (e)=> {
+        this.setState({
+            direction: e.target.value
+        })
+
+    };
 
     handleStartStationChange = (value) => {
         this.setState({
             startStation: value,
         });
-    }
+    };
 
     handleEndStationChange = (value) => {
         this.setState({
             endStation: value,
         });
-    }
+    };
 
     handleStartTimeHour = (value) => {
         this.setState({
             hour:value,
         })
-    }
+    };
 
     handleStartTimeMinute = (value) => {
         this.setState({
             minute:value,
         })
-    }
+    };
+
+    handleHolidayChange =(value) => {
+        if (value === "true"){
+            this.setState({
+                isHoliday: "true"
+            })
+        }
+        else{
+            this.setState({
+                isHoliday: "false"
+            })
+        }
+    };
+
+    handleWorkdayChange =(value) => {
+        if (value === "true"){
+            this.setState({
+                isWorkday: "true"
+            })
+        }
+        else{
+            this.setState({
+                isWorkday: "false"
+            })
+        }
+    };
 
     handleViaStation = (checkedValues) => {
         this.setState({
             viaStation:checkedValues
         })
 
-    }
+    };
 
     handleSeatNumber = (value) => {
         this.setState({
-            seat:value
+            teacherSeat:value
         })
-    }
+    };
 
     handleAdd = (e) => {
         e.preventDefault();
@@ -100,14 +136,22 @@ class AddShift extends React.Component {
             if (this.state.startStation === this.state.endStation)
                 alert("始发站和终点站不能相同")
         }
-        console.log("kind:",this.state.kind)
-        console.log("startstation:",this.state.startStation)
-        console.log("endstation:",this.state.endStation)
-        console.log("starthour:",this.state.hour)
-        console.log("startminute:",this.state.minute)
+        else{
+            this.setState({
+                teacherSeat: '0'
+            })
+        }
+        console.log("kind:",this.state.kind);
+        console.log("startstation:",this.state.startStation);
+        console.log("endstation:",this.state.endStation);
+        console.log("starthour:",this.state.hour);
+        console.log("startminute:",this.state.minute);
+        console.log("holiday:",this.state.isHoliday);
+        console.log("workday:",this.state.isWorkday);
         console.log("viaStation:",this.state.viaStation);
-        console.log("seat:",this.state.seat)
-        window.location.reload();
+        console.log("seat:",this.state.teacherSeat);
+        console.log("direction:",this.state.direction);
+        //window.location.reload();
     };
 
     render(){
@@ -136,6 +180,7 @@ class AddShift extends React.Component {
                     <Breadcrumb style={{ margin: '16px 0' }}>
                         <Breadcrumb.Item>主页</Breadcrumb.Item>
                         <Breadcrumb.Item>信息管理</Breadcrumb.Item>
+                        <Breadcrumb.Item>添加班次</Breadcrumb.Item>
                     </Breadcrumb>
                     <Layout style={{ padding: '24px 0', background: '#fff' }}>
                         <Sider width={200} style={{ background: '#fff' }}>
@@ -152,40 +197,38 @@ class AddShift extends React.Component {
                                 </SubMenu>
                                 <SubMenu key="sub2" title={<span><Icon type="car" />班次信息管理</span>}>
                                     <Menu.Item key="5"><Link to="addshift">添加班次</Link></Menu.Item>
-                                    <Menu.Item key="6">删除班次</Menu.Item>
-                                    <Menu.Item key="7">修改班次</Menu.Item>
+                                    <Menu.Item key="6"><Link to="deleteshift">删除班次</Link></Menu.Item>
+                                    <Menu.Item key="7"><Link to="modifyshift">修改班次</Link></Menu.Item>
                                 </SubMenu>
                                 <SubMenu key="sub3" title={<span><Icon type="idcard" />司机用户管理</span>}>
-                                    <Menu.Item key="9">添加司机</Menu.Item>
-                                    <Menu.Item key="10">删除司机</Menu.Item>
-                                    <Menu.Item key="11">修改司机</Menu.Item>
+                                    <Menu.Item key="9"><Link to="adddriver">添加司机</Link></Menu.Item>
+                                    <Menu.Item key="10"><Link to="deletedriver">删除司机</Link></Menu.Item>
+                                    <Menu.Item key="11"><Link to="modifydriver">修改司机</Link></Menu.Item>
                                 </SubMenu>
-                                <SubMenu key="sub4" title={<span><Icon type="schedule" />发车信息管理</span>}>
-                                    <Menu.Item key="12">添加发车</Menu.Item>
-                                    <Menu.Item key="13">删除发车</Menu.Item>
-                                    <Menu.Item key="14">修改发车</Menu.Item>
-                                </SubMenu>
+
 
                             </Menu>
                         </Sider>
                         <Content>
-                            <h1></h1>
+                            <h1/>
                             <span style={{marginLeft: '284px', fontSize:'16px'}}>巴士类型： </span>
                                 <Select defaultValue={kindData[0]} size="large" style={{width:'200px'}} onChange={this.handleKindChange}>
                                     {kindOptions}
                                 </Select>
-
-                            <h1></h1>
+                            <h1/>
+                            <span style={{marginLeft: '284px', fontSize:'16px'}}>选择方向： </span>
+                            <RadioGroup options={direction} disabled={!this.state.disabled} size="large" style={{width:'600px'}} onChange={this.handleDirectionChange}/>
+                            <h1/>
                             <span style={{marginLeft: '300px', fontSize:'16px'}}>始发站： </span>
                             <Select value={this.state.startStation} size="large" style={{width:'200px'}} onChange={this.handleStartStationChange}>
                                 {stationOptions}
                             </Select>
-                            <h1></h1>
+                            <h1/>
                             <span style={{marginLeft: '300px', fontSize:'16px'}}>终点站： </span>
                             <Select value={this.state.endStation} size="large" style={{width:'200px'}} onChange={this.handleEndStationChange}>
                                 {stationOptions}
                             </Select>
-                            <h1></h1>
+                            <h1/>
                             <span style={{marginLeft: '284px', fontSize:'16px'}}>出发时刻： </span>
                             <Select  defaultValue={'6'} size="large" style={{width:'65px'}} onChange={this.handleStartTimeHour}>
                                 {hourOptions}
@@ -195,15 +238,27 @@ class AddShift extends React.Component {
                                 {minuteOptions}
                             </Select>
                             <span style={{marginLeft: '8px', fontSize:'16px'}}>分</span>
-                            <h1></h1>
+                            <h1/>
+                            <span style={{marginLeft: '268px', fontSize:'16px'}}>是否节假日： </span>
+                            <Select defaultValue={"否"} size="large" style={{width:'120px'}} onChange={this.handleHolidayChange}>
+                                <Option value="true">是</Option>
+                                <Option value="false">否</Option>
+                            </Select>
+                            <h1/>
+                            <span style={{marginLeft: '268px', fontSize:'16px'}}>是否工作日： </span>
+                            <Select defaultValue={"否"} size="large" style={{width:'120px'}} onChange={this.handleWorkdayChange}>
+                                <Option value="true">是</Option>
+                                <Option value="false">否</Option>
+                            </Select>
+                            <h1/>
                             <span style={{marginLeft: '268px', fontSize:'16px'}}>预留座位数： </span>
-                            <InputNumber disabled={this.state.disabled} defaultValue={30} min={1} max={55} onChange={this.handleSeatNumber} />
-                            <h1></h1>
+                            <InputNumber disabled={this.state.disabled} defaultValue={30} min={1} max={55} size="large"  style={{width:'120px'}} onChange={this.handleSeatNumber}/>
+                            <h6/>
+                            <br/>
                             <span style={{marginLeft: '284px', fontSize:'16px'}}>途径站点： </span>
                             <CheckboxGroup options={viaStationData} disabled={this.state.disabled} onChange={this.handleViaStation} />
-
-                            <h1></h1>
-                            <br></br>
+                            <h1/>
+                            <br/>
                             <Button type="primary"  size="large" style={{width: '10%', marginLeft:'350px'}} onClick = {this.handleAdd}>添加班次</Button>
 
                         </Content>

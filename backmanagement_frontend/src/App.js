@@ -9,6 +9,11 @@ import AddUser from './Management/AddUser';
 import DeleteUser from './Management/DeleteUser';
 import ModifyUser from './Management/ModifyUser';
 import AddShift from './Management/AddShift';
+import DeleteShift from './Management/DeleteShift';
+import ModifyShift from './Management/ModifyShift';
+import AddDriver from './Management/AddDriver';
+import DeleteDriver from './Management/DeleteDriver';
+import ModifyDriver from './Management/ModifyDriver';
 
 import './App.css';
 import { HashRouter as Router, Route } from "react-router-dom";
@@ -31,6 +36,12 @@ class App extends Component {
                     <Route exact path="/deleteuser" component={DeleteUser}/>
                     <Route exact path="/modifyuser" component={ModifyUser}/>
                     <Route exact path="/addshift" component={AddShift}/>
+                    <Route exact path="/deleteshift" component={DeleteShift}/>
+                    <Route exact path="/adddriver" component={AddDriver}/>
+                    <Route exact path="/deletedriver" component={DeleteDriver}/>
+                    <Route exact path="/modifydriver" component={ModifyDriver}/>
+                    <Route exact path="/modifyshift" component={ModifyShift}/>
+
                 </Switch>
             </div>
         </Router>

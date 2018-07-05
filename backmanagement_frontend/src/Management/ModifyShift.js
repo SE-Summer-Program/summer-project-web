@@ -1,23 +1,76 @@
 /**
- * Created by 励颖 on 2018/7/4.
+ * Created by 励颖 on 2018/7/5.
  */
-/**
- * Created by 励颖 on 2018/7/3.
- */
-
-import { Layout, Menu, Breadcrumb, Icon, Input, Select, Button, Popconfirm, Table} from 'antd';
+import { Layout, Menu, Breadcrumb, Icon, Input, InputNumber, Button, Popconfirm, Form, Table} from 'antd';
 import React, { Component } from 'react';
 import './../App.css';
 import {Link} from "react-router-dom";
-
 
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 
 
+class EditableCell extends React.Component {
+    state = {
+        value: this.props.value,
+        editable: false,
+    }
 
-class DeleteShift extends React.Component {
+    handleChange = (e) => {
+        const value = e.target.value;
+        this.setState({ value });
+    }
+
+    check = () => {
+        this.setState({ editable: false });
+        console.log("check:",this.state.value);
+        if (this.props.onChange) {
+            if (parseInt(this.state.value)<50 && parseInt(this.state.value)>0)
+                {this.props.onChange(this.state.value);}
+        }
+    }
+
+    edit = () => {
+        this.setState({ editable: true });
+    }
+
+    render() {
+        const { value, editable } = this.state;
+        return (
+            <div className="editable-cell">
+                {
+                    editable ? (
+                        <Input
+                            value={value}
+                            onChange={this.handleChange}
+                            onPressEnter={this.check}
+                            suffix={(
+                                <Icon
+                                    type="check"
+                                    className="editable-cell-icon-check"
+                                    onClick={this.check}
+                                />
+                            )}
+                        />
+                    ) : (
+                        <div style={{ paddingRight: 24 }}>
+                            {value || ' '}
+                            <Icon
+                                type="edit"
+                                className="editable-cell-icon"
+                                onClick={this.edit}
+                            />
+                        </div>
+                    )
+                }
+            </div>
+        );
+    }
+}
+
+
+class ModifyShift extends React.Component {
     constructor(props){
         super(props);
         this.state={
@@ -70,36 +123,40 @@ class DeleteShift extends React.Component {
             title: '预留座位数',
             dataIndex: 'seat' ,
             key: 'seat',
-            width: '13%'
-        }, {
-            title: '删除',
-            dataIndex: 'operation',
-
-            render: (text, record) => {
-                return (
-                    <Popconfirm title="确定删除?" onConfirm={() => this.onDelete(record.key)}>
-                        <a href="javascript:"><Icon type="delete"/></a>
-                    </Popconfirm>)
-            }
+            width: '13%',
+            render: (text, record) => (
+                <EditableCell
+                    value={text}
+                    onChange={this.onCellChange(record.key, 'seat')}
+                />
+            ),
         }];
     }
 
-    onDelete = (key) => {
-        const data = [...this.state.data];
-        this.setState({data: data.filter(item => item.key !== key)});
-    };
-
-    onChangeContent = (value) => {
-        this.setState({
-            content:value
-        })
+    onCellChange = (key, dataIndex) => {
+        return (value) => {
+            const data = [...this.state.data];
+            const target = data.find(item => item.key === key);
+            if (target) {
+                let initSeat = target[dataIndex];
+                if ((parseInt(value) < 50) && (parseInt(value) > 0)) {
+                    target[dataIndex] = value;
+                    this.setState({data});
+                }
+                else{
+                    target[dataIndex] = initSeat;
+                    console.log(initSeat);
+                    this.setState({data});
+                    alert("座位数应该在0-50之间")
+                }
+            }
+        };
     }
 
-    handleSearch = (e) => {
-
-    };
 
     render(){
+        const columns = this.columns;
+
         return(
             <Layout>
                 <Header className="header">
@@ -121,14 +178,14 @@ class DeleteShift extends React.Component {
                     <Breadcrumb style={{ margin: '16px 0' }}>
                         <Breadcrumb.Item>主页</Breadcrumb.Item>
                         <Breadcrumb.Item>信息管理</Breadcrumb.Item>
-                        <Breadcrumb.Item>删除班次</Breadcrumb.Item>
+                        <Breadcrumb.Item>修改用户信息</Breadcrumb.Item>
                     </Breadcrumb>
                     <Layout style={{ padding: '24px 0', background: '#fff' }}>
                         <Sider width={200} style={{ background: '#fff' }}>
                             <Menu
                                 mode="inline"
                                 defaultOpenKeys={['sub2']}
-                                defaultSelectedKeys={['6']}
+                                defaultSelectedKeys={['7']}
                                 style={{ height: '100%' }}
                             >
                                 <SubMenu key="sub1" title={<span><Icon type="user" />普通用户管理</span>}>
@@ -146,17 +203,15 @@ class DeleteShift extends React.Component {
                                     <Menu.Item key="10"><Link to="deletedriver">删除司机</Link></Menu.Item>
                                     <Menu.Item key="11"><Link to="modifydriver">修改司机</Link></Menu.Item>
                                 </SubMenu>
-
-
                             </Menu>
                         </Sider>
                         <Content>
+
                             <Input name="content" label="搜索内容" size="large" style={{width: '30%', marginLeft:'100px' }}
                                    prefix={<Icon type="search"/>} placeholder="请输入用户相关信息" onChange={this.onChangeContent}/>
-                            <Button type="primary"  size="large" style={{width: '10%', marginLeft: '10px'}} onClick = {this.handleSearch}>搜索</Button>
+                            <Button type="primary"  size="large" style={{width: '10%', marginLeft: '10px'}} onClick = {this.handleAdd}>搜索</Button>
                             <h1></h1>
-                            <Table style={{width:'88%', marginLeft:'70px'}} columns={this.columns} dataSource={this.state.data} />
-
+                            <Table bordered dataSource={this.state.data} columns={columns} style={{width:'88%', marginLeft:'70px'}}/>
                         </Content>
                     </Layout>
                 </Content>
@@ -169,7 +224,6 @@ class DeleteShift extends React.Component {
 
 }
 
-export default DeleteShift;
-/**
+export default ModifyShift;/**
  * Created by 励颖 on 2018/7/2.
  */
