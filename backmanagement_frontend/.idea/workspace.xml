@@ -19,7 +19,7 @@
         <entry file="file://$PROJECT_DIR$/src/Management/AddUser.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="630">
-              <caret line="184" column="26" lean-forward="true" selection-start-line="184" selection-start-column="26" selection-end-line="184" selection-end-column="26" />
+              <caret line="184" column="26" lean-forward="false" selection-start-line="184" selection-start-column="26" selection-end-line="184" selection-end-column="26" />
               <folding>
                 <element signature="e#38#127#0" expanded="true" />
                 <element signature="e#8761#8798#0" expanded="false" />
@@ -32,7 +32,7 @@
         <entry file="file://$PROJECT_DIR$/src/Search/SearchUser.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="744">
-              <caret line="100" column="42" lean-forward="true" selection-start-line="100" selection-start-column="42" selection-end-line="100" selection-end-column="42" />
+              <caret line="100" column="42" lean-forward="false" selection-start-line="100" selection-start-column="42" selection-end-line="100" selection-end-column="42" />
               <folding>
                 <element signature="e#38#75#0" expanded="false" />
                 <element signature="e#76#152#0" expanded="true" />
@@ -58,7 +58,7 @@
         <entry file="file://$PROJECT_DIR$/src/Search/SearchOutShift.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="540">
-              <caret line="152" column="42" lean-forward="true" selection-start-line="152" selection-start-column="42" selection-end-line="152" selection-end-column="42" />
+              <caret line="152" column="42" lean-forward="false" selection-start-line="152" selection-start-column="42" selection-end-line="152" selection-end-column="42" />
               <folding>
                 <element signature="e#39#128#0" expanded="true" />
               </folding>
@@ -70,7 +70,7 @@
         <entry file="file://$PROJECT_DIR$/src/Search/SearchReserved.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="315">
-              <caret line="146" column="65" lean-forward="true" selection-start-line="146" selection-start-column="65" selection-end-line="146" selection-end-column="65" />
+              <caret line="146" column="65" lean-forward="false" selection-start-line="146" selection-start-column="65" selection-end-line="146" selection-end-column="65" />
               <folding>
                 <element signature="e#39#128#0" expanded="true" />
               </folding>
@@ -434,16 +434,15 @@
       <workItem from="1530664966489" duration="17492000" />
       <workItem from="1530691769795" duration="4438000" />
       <workItem from="1530751504032" duration="19342000" />
-      <workItem from="1530838201511" duration="10586000" />
+      <workItem from="1530838201511" duration="11177000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="88262000" />
+    <option name="totallyTimeSpent" value="88853000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-16" y="-16" width="3232" height="1732" extended-state="7" />
-    <editor active="true" />
+    <frame x="-16" y="-16" width="3232" height="1732" extended-state="6" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17922735" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -508,7 +507,7 @@
         <state relative-caret-position="1575">
           <caret line="35" column="45" lean-forward="true" selection-start-line="35" selection-start-column="45" selection-end-line="35" selection-end-column="45" />
           <folding>
-            <element signature="e#0#54#0" expanded="true" />
+            <element signature="e#0#54#0" expanded="false" />
             <element signature="e#3790#3827#0" expanded="false" />
           </folding>
         </state>
@@ -532,7 +531,7 @@
           <folding>
             <element signature="e#38#75#0" expanded="false" />
             <element signature="e#76#113#0" expanded="false" />
-            <element signature="e#114#220#0" expanded="true" />
+            <element signature="e#114#220#0" expanded="false" />
             <element signature="e#10545#10582#0" expanded="false" />
           </folding>
         </state>
@@ -556,7 +555,7 @@
           <caret line="143" column="101" lean-forward="false" selection-start-line="143" selection-start-column="101" selection-end-line="143" selection-end-column="101" />
           <folding>
             <element signature="e#38#75#0" expanded="false" />
-            <element signature="e#76#173#0" expanded="true" />
+            <element signature="e#76#173#0" expanded="false" />
             <element signature="e#6083#6120#0" expanded="false" />
           </folding>
         </state>
@@ -583,7 +582,7 @@
         <state relative-caret-position="945">
           <caret line="24" column="113" lean-forward="false" selection-start-line="24" selection-start-column="113" selection-end-line="24" selection-end-column="113" />
           <folding>
-            <element signature="e#0#54#0" expanded="true" />
+            <element signature="e#0#54#0" expanded="false" />
             <element signature="e#3790#3827#0" expanded="false" />
           </folding>
         </state>
@@ -770,7 +769,7 @@
           <caret line="117" column="101" lean-forward="false" selection-start-line="117" selection-start-column="101" selection-end-line="117" selection-end-column="101" />
           <folding>
             <element signature="e#38#75#0" expanded="false" />
-            <element signature="e#76#173#0" expanded="true" />
+            <element signature="e#76#173#0" expanded="false" />
             <element signature="e#6003#6040#0" expanded="false" />
             <element signature="e#6041#6078#0" expanded="false" />
           </folding>
@@ -782,7 +781,7 @@
         <state relative-caret-position="1980">
           <caret line="47" column="101" lean-forward="false" selection-start-line="47" selection-start-column="101" selection-end-line="47" selection-end-column="101" />
           <folding>
-            <element signature="e#0#54#0" expanded="true" />
+            <element signature="e#0#54#0" expanded="false" />
             <element signature="e#3790#3827#0" expanded="false" />
           </folding>
         </state>
@@ -796,7 +795,7 @@
             <element signature="e#38#75#0" expanded="false" />
             <element signature="e#76#113#0" expanded="false" />
             <element signature="e#114#151#0" expanded="false" />
-            <element signature="e#152#258#0" expanded="true" />
+            <element signature="e#152#258#0" expanded="false" />
             <element signature="e#10412#10449#0" expanded="false" />
           </folding>
         </state>
@@ -809,7 +808,7 @@
           <folding>
             <element signature="e#38#75#0" expanded="false" />
             <element signature="e#76#113#0" expanded="false" />
-            <element signature="e#114#220#0" expanded="true" />
+            <element signature="e#114#220#0" expanded="false" />
             <element signature="e#10545#10582#0" expanded="false" />
           </folding>
         </state>
@@ -828,7 +827,7 @@
         <state relative-caret-position="945">
           <caret line="161" column="37" lean-forward="false" selection-start-line="161" selection-start-column="37" selection-end-line="161" selection-end-column="37" />
           <folding>
-            <element signature="e#38#144#0" expanded="true" />
+            <element signature="e#38#144#0" expanded="false" />
             <element signature="e#8804#8841#0" expanded="false" />
           </folding>
         </state>
@@ -840,7 +839,7 @@
           <caret line="139" column="34" lean-forward="true" selection-start-line="139" selection-start-column="34" selection-end-line="139" selection-end-column="34" />
           <folding>
             <element signature="e#38#75#0" expanded="false" />
-            <element signature="e#76#173#0" expanded="true" />
+            <element signature="e#76#173#0" expanded="false" />
             <element signature="e#6083#6120#0" expanded="false" />
           </folding>
         </state>
@@ -860,7 +859,7 @@
     <entry file="file://$PROJECT_DIR$/src/Management/AddUser.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="630">
-          <caret line="184" column="26" lean-forward="true" selection-start-line="184" selection-start-column="26" selection-end-line="184" selection-end-column="26" />
+          <caret line="184" column="26" lean-forward="false" selection-start-line="184" selection-start-column="26" selection-end-line="184" selection-end-column="26" />
           <folding>
             <element signature="e#38#127#0" expanded="true" />
             <element signature="e#8761#8798#0" expanded="false" />
@@ -910,7 +909,7 @@
     <entry file="file://$PROJECT_DIR$/src/Search/SearchOutShift.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="540">
-          <caret line="152" column="42" lean-forward="true" selection-start-line="152" selection-start-column="42" selection-end-line="152" selection-end-column="42" />
+          <caret line="152" column="42" lean-forward="false" selection-start-line="152" selection-start-column="42" selection-end-line="152" selection-end-column="42" />
           <folding>
             <element signature="e#39#128#0" expanded="true" />
           </folding>
@@ -920,7 +919,7 @@
     <entry file="file://$PROJECT_DIR$/src/Search/SearchUser.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="744">
-          <caret line="100" column="42" lean-forward="true" selection-start-line="100" selection-start-column="42" selection-end-line="100" selection-end-column="42" />
+          <caret line="100" column="42" lean-forward="false" selection-start-line="100" selection-start-column="42" selection-end-line="100" selection-end-column="42" />
           <folding>
             <element signature="e#38#75#0" expanded="false" />
             <element signature="e#76#152#0" expanded="true" />
@@ -942,7 +941,7 @@
     <entry file="file://$PROJECT_DIR$/src/Search/SearchReserved.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
-          <caret line="146" column="65" lean-forward="true" selection-start-line="146" selection-start-column="65" selection-end-line="146" selection-end-column="65" />
+          <caret line="146" column="65" lean-forward="false" selection-start-line="146" selection-start-column="65" selection-end-line="146" selection-end-column="65" />
           <folding>
             <element signature="e#39#128#0" expanded="true" />
           </folding>
