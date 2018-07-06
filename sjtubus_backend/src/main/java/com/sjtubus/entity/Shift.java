@@ -18,4 +18,5 @@ public class Shift {
     String line_name;            //enum('LoopLineClockwise', 'LoopLineAntiClockwise',
                          // 'MinToXu', 'XuToMin', 'MinToQi', 'QiToMin'),
     String comment;
+    String type;
 }
