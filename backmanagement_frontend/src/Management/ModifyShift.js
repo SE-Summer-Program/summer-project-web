@@ -15,19 +15,23 @@ class EditableCell extends React.Component {
     state = {
         value: this.props.value,
         editable: false,
+        editvalue: ''
     }
+
 
     handleChange = (e) => {
         const value = e.target.value;
-        this.setState({ value });
+       // console.log("editvalue:",e.target.value);
+        this.setState({ value: value });
     }
 
     check = () => {
         this.setState({ editable: false });
-        console.log("check:",this.state.value);
+        //console.log("check:",this.state.value)
+        //if (parseInt(this.state.editvalue) >0 && parseInt(this.state.editvalue)<50)
+          //  this.setState({value:this.state.editvalue});
         if (this.props.onChange) {
-            if (parseInt(this.state.value)<50 && parseInt(this.state.value)>0)
-                {this.props.onChange(this.state.value);}
+            this.props.onChange(this.state.value);
         }
     }
 
@@ -139,7 +143,7 @@ class ModifyShift extends React.Component {
             const target = data.find(item => item.key === key);
             if (target) {
                 let initSeat = target[dataIndex];
-                if ((parseInt(value) < 50) && (parseInt(value) > 0)) {
+                if ((parseInt(value) <= 50) && (parseInt(value) >= 0)) {
                     target[dataIndex] = value;
                     this.setState({data});
                 }
@@ -156,7 +160,6 @@ class ModifyShift extends React.Component {
 
     render(){
         const columns = this.columns;
-
         return(
             <Layout>
                 <Header className="header">
@@ -178,7 +181,7 @@ class ModifyShift extends React.Component {
                     <Breadcrumb style={{ margin: '16px 0' }}>
                         <Breadcrumb.Item>主页</Breadcrumb.Item>
                         <Breadcrumb.Item>信息管理</Breadcrumb.Item>
-                        <Breadcrumb.Item>修改用户信息</Breadcrumb.Item>
+                        <Breadcrumb.Item>修改班次信息</Breadcrumb.Item>
                     </Breadcrumb>
                     <Layout style={{ padding: '24px 0', background: '#fff' }}>
                         <Sider width={200} style={{ background: '#fff' }}>

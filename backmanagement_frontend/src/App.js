@@ -14,6 +14,11 @@ import ModifyShift from './Management/ModifyShift';
 import AddDriver from './Management/AddDriver';
 import DeleteDriver from './Management/DeleteDriver';
 import ModifyDriver from './Management/ModifyDriver';
+import SearchUser from './Search/SearchUser';
+import SearchMap from './Search/SearchMap';
+import SearchInShift from './Search/SearchInShift';
+import SearchOutShift from './Search/SearchOutShift';
+import SearchReserved from './Search/SearchReserved';
 
 import './App.css';
 import { HashRouter as Router, Route } from "react-router-dom";
@@ -41,6 +46,11 @@ class App extends Component {
                     <Route exact path="/deletedriver" component={DeleteDriver}/>
                     <Route exact path="/modifydriver" component={ModifyDriver}/>
                     <Route exact path="/modifyshift" component={ModifyShift}/>
+                    <Route exact path="/searchuser" component={SearchUser}/>
+                    <Route exact path="/searchmap" component={SearchMap}/>
+                    <Route exact path="/searchinshift" component={SearchInShift}/>
+                    <Route exact path="/searchoutshift" component={SearchOutShift}/>
+                    <Route exact path="/searchreserved" component={SearchReserved}/>
 
                 </Switch>
             </div>

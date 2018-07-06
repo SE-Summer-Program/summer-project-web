@@ -15,24 +15,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
-      <file leaf-file-name="Management.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Management/Management.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="87">
-              <caret line="47" column="101" lean-forward="false" selection-start-line="47" selection-start-column="101" selection-end-line="47" selection-end-column="101" />
-              <folding>
-                <element signature="e#0#54#0" expanded="true" />
-                <element signature="e#3790#3827#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="AddUser.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Management/AddUser.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="402">
-              <caret line="129" column="101" lean-forward="false" selection-start-line="129" selection-start-column="101" selection-end-line="129" selection-end-column="101" />
+            <state relative-caret-position="630">
+              <caret line="184" column="26" lean-forward="true" selection-start-line="184" selection-start-column="26" selection-end-line="184" selection-end-column="26" />
               <folding>
                 <element signature="e#38#127#0" expanded="true" />
                 <element signature="e#8761#8798#0" expanded="false" />
@@ -41,47 +28,51 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ModifyUser.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Management/ModifyUser.js">
+      <file leaf-file-name="SearchUser.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Search/SearchUser.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1890">
-              <caret line="264" column="32" lean-forward="true" selection-start-line="264" selection-start-column="32" selection-end-line="264" selection-end-column="32" />
+            <state relative-caret-position="744">
+              <caret line="100" column="42" lean-forward="true" selection-start-line="100" selection-start-column="42" selection-end-line="100" selection-end-column="42" />
               <folding>
                 <element signature="e#38#75#0" expanded="false" />
-                <element signature="e#76#113#0" expanded="false" />
-                <element signature="e#114#220#0" expanded="true" />
-                <element signature="e#10545#10582#0" expanded="false" />
+                <element signature="e#76#152#0" expanded="true" />
+                <element signature="e#5208#5245#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DeleteDriver.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Management/DeleteDriver.js">
+      <file leaf-file-name="SearchInShift.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Search/SearchInShift.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="267">
-              <caret line="117" column="101" lean-forward="false" selection-start-line="117" selection-start-column="101" selection-end-line="117" selection-end-column="101" />
+            <state relative-caret-position="654">
+              <caret line="152" column="104" lean-forward="false" selection-start-line="152" selection-start-column="104" selection-end-line="152" selection-end-column="104" />
               <folding>
-                <element signature="e#38#75#0" expanded="false" />
-                <element signature="e#76#173#0" expanded="true" />
-                <element signature="e#6003#6040#0" expanded="false" />
-                <element signature="e#6041#6078#0" expanded="false" />
+                <element signature="e#38#127#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ModifyDriver.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Management/ModifyDriver.js">
+      <file leaf-file-name="SearchOutShift.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Search/SearchOutShift.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="253" column="101" lean-forward="false" selection-start-line="253" selection-start-column="101" selection-end-line="253" selection-end-column="101" />
+            <state relative-caret-position="540">
+              <caret line="152" column="42" lean-forward="true" selection-start-line="152" selection-start-column="42" selection-end-line="152" selection-end-column="42" />
               <folding>
-                <element signature="e#38#75#0" expanded="false" />
-                <element signature="e#76#113#0" expanded="false" />
-                <element signature="e#114#151#0" expanded="false" />
-                <element signature="e#152#258#0" expanded="true" />
-                <element signature="e#10412#10449#0" expanded="false" />
+                <element signature="e#39#128#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SearchReserved.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Search/SearchReserved.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="146" column="65" lean-forward="true" selection-start-line="146" selection-start-column="65" selection-end-line="146" selection-end-column="65" />
+              <folding>
+                <element signature="e#39#128#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -90,8 +81,8 @@
       <file leaf-file-name="DeleteShift.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Management/DeleteShift.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="645">
-              <caret line="85" column="0" lean-forward="true" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
+            <state relative-caret-position="1464">
+              <caret line="85" column="0" lean-forward="false" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
               <folding>
                 <element signature="e#38#75#0" expanded="false" />
                 <element signature="e#77#172#0" expanded="true" />
@@ -100,25 +91,37 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ModifyShift.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Management/ModifyShift.js">
+      <file leaf-file-name="SearchMap.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Search/SearchMap.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="609">
-              <caret line="29" column="16" lean-forward="false" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
+            <state relative-caret-position="855">
+              <caret line="60" column="104" lean-forward="false" selection-start-line="60" selection-start-column="104" selection-end-line="60" selection-end-column="104" />
               <folding>
-                <element signature="e#38#144#0" expanded="true" />
-                <element signature="e#8660#8697#0" expanded="false" />
+                <element signature="e#39#93#0" expanded="true" />
+                <element signature="e#3687#3724#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="App.css" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/App.css">
+      <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="717">
-              <caret line="22" column="10" lean-forward="false" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
+            <state relative-caret-position="-585">
+              <caret line="20" column="53" lean-forward="false" selection-start-line="20" selection-start-column="53" selection-end-line="20" selection-end-column="53" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Search.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Search/Search.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1035">
+              <caret line="52" column="104" lean-forward="false" selection-start-line="52" selection-start-column="104" selection-end-line="52" selection-end-column="104" />
+              <folding>
+                <element signature="e#3541#3578#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -126,24 +129,10 @@
       <file leaf-file-name="AddShift.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Management/AddShift.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="518">
-              <caret line="200" column="101" lean-forward="false" selection-start-line="200" selection-start-column="101" selection-end-line="200" selection-end-column="101" />
+            <state relative-caret-position="450">
+              <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="88" />
               <folding>
                 <element signature="e#39#145#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DeleteUser.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Management/DeleteUser.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="122" column="101" lean-forward="false" selection-start-line="122" selection-start-column="101" selection-end-line="122" selection-end-column="101" />
-              <folding>
-                <element signature="e#38#75#0" expanded="false" />
-                <element signature="e#76#173#0" expanded="true" />
-                <element signature="e#6083#6120#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -163,7 +152,6 @@
       <list>
         <option value="$PROJECT_DIR$/src/Search/search.js" />
         <option value="$PROJECT_DIR$/src/Statistics/Statistics.js" />
-        <option value="$PROJECT_DIR$/src/Search/Search.js" />
         <option value="$PROJECT_DIR$/src/HomePage/HomePage.js" />
         <option value="$PROJECT_DIR$/src/Management/EditableCell.js" />
         <option value="$PROJECT_DIR$/src/User/Register.js" />
@@ -172,7 +160,6 @@
         <option value="$PROJECT_DIR$/src/Management/Adddeparture.js" />
         <option value="$PROJECT_DIR$/src/Management/AddDeparture.js" />
         <option value="$PROJECT_DIR$/src/Management/DeleteDeparture.js" />
-        <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/src/Management/AddDriver.js" />
         <option value="$PROJECT_DIR$/src/Management/AddShift.js" />
         <option value="$PROJECT_DIR$/src/Management/AddUser.js" />
@@ -182,8 +169,15 @@
         <option value="$PROJECT_DIR$/src/Management/Management.js" />
         <option value="$PROJECT_DIR$/src/Management/ModifyDriver.js" />
         <option value="$PROJECT_DIR$/src/Management/ModifyUser.js" />
-        <option value="$PROJECT_DIR$/src/Management/ModifyShift.js" />
         <option value="$PROJECT_DIR$/src/App.css" />
+        <option value="$PROJECT_DIR$/src/Management/ModifyShift.js" />
+        <option value="$PROJECT_DIR$/src/App.js" />
+        <option value="$PROJECT_DIR$/src/Search/Search.js" />
+        <option value="$PROJECT_DIR$/src/Search/SearchInShift.js" />
+        <option value="$PROJECT_DIR$/src/Search/SearchMap.js" />
+        <option value="$PROJECT_DIR$/src/Search/SearchOutShift.js" />
+        <option value="$PROJECT_DIR$/src/Search/SearchUser.js" />
+        <option value="$PROJECT_DIR$/src/Search/SearchReserved.js" />
       </list>
     </option>
   </component>
@@ -219,8 +213,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -262,6 +256,42 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="User" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="backmanagement_frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="backmanagement_frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Statistics" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="backmanagement_frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="backmanagement_frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Search" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -404,21 +434,23 @@
       <workItem from="1530664966489" duration="17492000" />
       <workItem from="1530691769795" duration="4438000" />
       <workItem from="1530751504032" duration="19342000" />
+      <workItem from="1530838201511" duration="10586000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="77676000" />
+    <option name="totallyTimeSpent" value="88262000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-16" y="-16" width="3232" height="1732" extended-state="6" />
+    <frame x="-16" y="-16" width="3232" height="1732" extended-state="7" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17922735" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27572018" sideWeight="0.50379986" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27572018" sideWeight="0.4962001" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -445,65 +477,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Management/Management.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1980">
-          <caret line="47" column="71" lean-forward="true" selection-start-line="47" selection-start-column="71" selection-end-line="47" selection-end-column="71" />
-          <folding>
-            <element signature="e#0#54#0" expanded="true" />
-            <element signature="e#3790#3827#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Management/AddUser.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5670">
-          <caret line="131" column="72" lean-forward="true" selection-start-line="131" selection-start-column="72" selection-end-line="131" selection-end-column="72" />
-          <folding>
-            <element signature="e#38#127#0" expanded="true" />
-            <element signature="e#8761#8798#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Management/DeleteUser.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4725">
-          <caret line="110" column="100" lean-forward="true" selection-start-line="110" selection-start-column="100" selection-end-line="110" selection-end-column="100" />
-          <folding>
-            <element signature="e#38#75#0" expanded="false" />
-            <element signature="e#76#173#0" expanded="true" />
-            <element signature="e#6083#6120#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Management/ModifyUser.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="11070">
-          <caret line="252" column="102" lean-forward="true" selection-start-line="252" selection-start-column="102" selection-end-line="252" selection-end-column="102" />
-          <folding>
-            <element signature="e#38#75#0" expanded="false" />
-            <element signature="e#76#113#0" expanded="false" />
-            <element signature="e#114#220#0" expanded="true" />
-            <element signature="e#10545#10582#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/User/Register.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9225">
-          <caret line="209" column="43" lean-forward="false" selection-start-line="209" selection-start-column="43" selection-end-line="209" selection-end-column="43" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <element signature="e#38#75#0" expanded="false" />
-            <element signature="e#76#117#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Management/AddShift.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6165">
@@ -518,9 +491,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1305">
           <caret line="29" column="76" lean-forward="true" selection-start-line="29" selection-start-column="76" selection-end-line="29" selection-end-column="76" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -595,9 +566,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="6" column="37" lean-forward="false" selection-start-line="6" selection-start-column="37" selection-end-line="6" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -625,8 +594,7 @@
         <state relative-caret-position="990">
           <caret line="27" column="113" lean-forward="false" selection-start-line="27" selection-start-column="113" selection-end-line="27" selection-end-column="113" />
           <folding>
-            <element signature="e#38#92#0" expanded="false" />
-            <element signature="e#3531#3568#0" expanded="false" />
+            <element signature="e#3541#3578#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -715,17 +683,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Search/Search.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1083">
-          <caret line="27" column="113" lean-forward="false" selection-start-line="27" selection-start-column="113" selection-end-line="27" selection-end-column="113" />
-          <folding>
-            <element signature="e#38#92#0" expanded="false" />
-            <element signature="e#3531#3568#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/HomePage/HomePage.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="945">
@@ -794,30 +751,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Management/DeleteDeparture.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1080">
-          <caret line="93" column="55" lean-forward="false" selection-start-line="93" selection-start-column="55" selection-end-line="93" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Management/AddDeparture.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-7653">
-          <caret line="17" column="37" lean-forward="true" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="7" column="43" lean-forward="true" selection-start-line="7" selection-start-column="43" selection-end-line="7" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Management/DeleteDeparture.js" />
+    <entry file="file://$PROJECT_DIR$/src/Management/AddDeparture.js" />
     <entry file="file://$PROJECT_DIR$/src/Management/AddDriver.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="402">
@@ -829,30 +764,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Management/AddShift.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="518">
-          <caret line="200" column="101" lean-forward="false" selection-start-line="200" selection-start-column="101" selection-end-line="200" selection-end-column="101" />
-          <folding>
-            <element signature="e#39#145#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Management/AddUser.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="402">
-          <caret line="129" column="101" lean-forward="false" selection-start-line="129" selection-start-column="101" selection-end-line="129" selection-end-column="101" />
-          <folding>
-            <element signature="e#38#127#0" expanded="true" />
-            <element signature="e#8761#8798#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Management/DeleteDriver.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
+        <state relative-caret-position="5040">
           <caret line="117" column="101" lean-forward="false" selection-start-line="117" selection-start-column="101" selection-end-line="117" selection-end-column="101" />
           <folding>
             <element signature="e#38#75#0" expanded="false" />
@@ -863,21 +777,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Management/DeleteUser.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="122" column="101" lean-forward="false" selection-start-line="122" selection-start-column="101" selection-end-line="122" selection-end-column="101" />
-          <folding>
-            <element signature="e#38#75#0" expanded="false" />
-            <element signature="e#76#173#0" expanded="true" />
-            <element signature="e#6083#6120#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Management/Management.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
+        <state relative-caret-position="1980">
           <caret line="47" column="101" lean-forward="false" selection-start-line="47" selection-start-column="101" selection-end-line="47" selection-end-column="101" />
           <folding>
             <element signature="e#0#54#0" expanded="true" />
@@ -888,7 +790,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Management/ModifyDriver.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
+        <state relative-caret-position="11025">
           <caret line="253" column="101" lean-forward="false" selection-start-line="253" selection-start-column="101" selection-end-line="253" selection-end-column="101" />
           <folding>
             <element signature="e#38#75#0" expanded="false" />
@@ -902,8 +804,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Management/ModifyUser.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1890">
-          <caret line="264" column="32" lean-forward="true" selection-start-line="264" selection-start-column="32" selection-end-line="264" selection-end-column="32" />
+        <state relative-caret-position="4974">
+          <caret line="264" column="32" lean-forward="false" selection-start-line="264" selection-start-column="32" selection-end-line="264" selection-end-column="32" />
           <folding>
             <element signature="e#38#75#0" expanded="false" />
             <element signature="e#76#113#0" expanded="false" />
@@ -913,10 +815,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="236">
+          <caret line="22" column="6" lean-forward="false" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Management/ModifyShift.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="945">
+          <caret line="161" column="37" lean-forward="false" selection-start-line="161" selection-start-column="37" selection-end-line="161" selection-end-column="37" />
+          <folding>
+            <element signature="e#38#144#0" expanded="true" />
+            <element signature="e#8804#8841#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Management/DeleteUser.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="139" column="34" lean-forward="true" selection-start-line="139" selection-start-column="34" selection-end-line="139" selection-end-column="34" />
+          <folding>
+            <element signature="e#38#75#0" expanded="false" />
+            <element signature="e#76#173#0" expanded="true" />
+            <element signature="e#6083#6120#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Management/DeleteShift.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="645">
-          <caret line="85" column="0" lean-forward="true" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
+        <state relative-caret-position="1464">
+          <caret line="85" column="0" lean-forward="false" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
           <folding>
             <element signature="e#38#75#0" expanded="false" />
             <element signature="e#77#172#0" expanded="true" />
@@ -924,22 +857,95 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Management/ModifyShift.js">
+    <entry file="file://$PROJECT_DIR$/src/Management/AddUser.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="609">
-          <caret line="29" column="16" lean-forward="false" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
+        <state relative-caret-position="630">
+          <caret line="184" column="26" lean-forward="true" selection-start-line="184" selection-start-column="26" selection-end-line="184" selection-end-column="26" />
           <folding>
-            <element signature="e#38#144#0" expanded="true" />
-            <element signature="e#8660#8697#0" expanded="false" />
+            <element signature="e#38#127#0" expanded="true" />
+            <element signature="e#8761#8798#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.css">
+    <entry file="file://$PROJECT_DIR$/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="717">
-          <caret line="22" column="10" lean-forward="false" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
+        <state relative-caret-position="-585">
+          <caret line="20" column="53" lean-forward="false" selection-start-line="20" selection-start-column="53" selection-end-line="20" selection-end-column="53" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Search/Search.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1035">
+          <caret line="52" column="104" lean-forward="false" selection-start-line="52" selection-start-column="104" selection-end-line="52" selection-end-column="104" />
+          <folding>
+            <element signature="e#3541#3578#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Search/SearchInShift.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="654">
+          <caret line="152" column="104" lean-forward="false" selection-start-line="152" selection-start-column="104" selection-end-line="152" selection-end-column="104" />
+          <folding>
+            <element signature="e#38#127#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Search/SearchMap.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="855">
+          <caret line="60" column="104" lean-forward="false" selection-start-line="60" selection-start-column="104" selection-end-line="60" selection-end-column="104" />
+          <folding>
+            <element signature="e#39#93#0" expanded="true" />
+            <element signature="e#3687#3724#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Search/SearchOutShift.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="152" column="42" lean-forward="true" selection-start-line="152" selection-start-column="42" selection-end-line="152" selection-end-column="42" />
+          <folding>
+            <element signature="e#39#128#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Search/SearchUser.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="744">
+          <caret line="100" column="42" lean-forward="true" selection-start-line="100" selection-start-column="42" selection-end-line="100" selection-end-column="42" />
+          <folding>
+            <element signature="e#38#75#0" expanded="false" />
+            <element signature="e#76#152#0" expanded="true" />
+            <element signature="e#5208#5245#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Management/AddShift.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="88" />
+          <folding>
+            <element signature="e#39#145#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Search/SearchReserved.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="146" column="65" lean-forward="true" selection-start-line="146" selection-start-column="65" selection-end-line="146" selection-end-column="65" />
+          <folding>
+            <element signature="e#39#128#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
