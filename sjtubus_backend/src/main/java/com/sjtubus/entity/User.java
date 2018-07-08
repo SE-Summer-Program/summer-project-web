@@ -12,8 +12,8 @@ import javax.persistence.Table;
 public class User {
     @Id
     String user_id ;
-    String usrename ;
+    String username ;
     String password ;
     int credit ;
-    String isteacher;   //enum('true', 'false'),
+    boolean isTeacher;   //enum('true', 'false'),
 }
