@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Data
 public class Administrator {
     @Id
-    String id ;
-    String a_username;
-    String a_password;
+    int administratorId ;
+    String username;
+    String password;
 }
