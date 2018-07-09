@@ -1,6 +1,7 @@
 package com.sjtubus.dao;
 
 import com.sjtubus.entity.Shift;
+import com.sjtubus.model.Schedule;
 import com.sjtubus.model.ShiftInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,7 +20,9 @@ public interface ShiftDao extends JpaRepository<Shift,String> {
     @Query(value = "select  max(departure_time) from Shift where type=:type and line_name=:line_name")
     Shift getLastTimeByLineNameAndType(@Param("line_name")String line_name,@Param("type")String type);
 
-    @Query(value = "select departure_time,comment from Shift where type=:type and line_name=:line_name")
-    List<ShiftInfo> getShiftInfoByTypeAndLine_name(@Param("type")String type,@Param("line_name")String line_name);
+    @Query(value = "select shift from Shift shift where shift.line_type=:type and shift.line_name=:line_name")
+    List<Shift> queryByLine_typeAndLine_name(@Param("type")String type,@Param("line_name")String line_name);
+
+
 
 }

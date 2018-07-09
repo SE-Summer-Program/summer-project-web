@@ -11,8 +11,8 @@ import {Link} from "react-router-dom";
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 const Option = Select.Option;
-const stationData=["菁菁堂","东川路地铁站"];
-const directionData=["顺时针","逆时针"]
+const stationData=["徐汇校区","闵行校区","七宝校区"];
+
 
 class SearchOutShift extends React.Component {
     constructor(props){
@@ -24,6 +24,8 @@ class SearchOutShift extends React.Component {
             isWorkday:'',
             startStation:'',
             EndStation:'',
+            data:[],
+            count:0,
         }
         this.columns = [{
             title: '班次编号',
@@ -71,6 +73,7 @@ class SearchOutShift extends React.Component {
         this.setState({
             startStation: value,
         });
+        console.log(value)
     };
 
     handleEndStationChange = (value) => {
@@ -106,12 +109,80 @@ class SearchOutShift extends React.Component {
     };
 
     handleSearch=() =>{
-        //fetch
+        let start='';
+        let end='';
+        let type='';
+        if (this.state.startStation === '徐汇校区'){
+            start = 'XuHui';
+        }
+        else if(this.state.startStation === '闵行校区') {
+            start = 'MinHang';
+        }
+        else {
+            start = 'QiBao';
+        }
+
+        if (this.state.endStation === '徐汇校区') {
+            end = 'XuHui';
+        }
+        else if (this.state.endStation === '闵行校区') {
+            end = 'MinHang';
+        }
+        else {
+            end = 'QiBao';
+        }
+        if ((this.state.isWorkday === 'true') && (this.state.isHoliday==='true'))
+        {
+            type = 'HolidayWorkday';
+        }
+        else if ((this.state.isWorkday === 'true') && (this.state.isHoliday==='false'))
+        {
+            type = 'NormalWorkday';
+        }
+        else if ((this.state.isWorkday === 'false') && (this.state.isHoliday==='true'))
+        {
+            type = 'HolidayWeekend'
+        }
+        else if ((this.state.isWorkday === 'false') && (this.state.isHoliday === 'false'))
+        {
+            type = 'NormalWeekendAndLegalHoliday'
+        }
+        let temproute= 'line_name='+ start +'To'+ end + '&type=' + type;
+        console.log("route:", temproute);
+
+        fetch('http://localhost:8080/shift/schedule?'+temproute,
+            {
+                method: 'POST',
+                mode: 'cors',
+            })
+            .then(response => {
+                console.log('Request successful', response);
+                return response.json()
+                    .then(result => {
+                        let len = result.scheduleShift.length;
+                        console.log("response len:",len);
+                        for (var i=0; i < len; i++) {
+                            const {data,count}=this.state;
+                            const add = {
+                                "key": this.state.count+1,
+                                "shiftid": result.scheduleShift[i],
+                                "startTime": result.scheduleTime[i],
+                                "comment": result.scheduleComment[i],
+                                "startStation": this.state.startStation,
+                                "endStation": this.state.endStation,
+                            };
+
+                            this.setState({
+                                data: [...data, add],
+                                count: count+1,
+                            });
+                        }
+                    })
+            });
     }
 
     render(){
         const stationOptions = stationData.map(station => <Option key={station}>{station}</Option>);
-        const directionOptions = directionData.map(direction => <Option key={direction}>{direction}</Option>);
         return(
             <Layout>
                 <Header className="header">

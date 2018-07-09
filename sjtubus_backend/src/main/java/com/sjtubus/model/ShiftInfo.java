@@ -3,6 +3,8 @@ package com.sjtubus.model;
 import java.sql.Time;
 
 public class ShiftInfo {
+
+    private String shiftid;
     private Time startTime;
     private String comment;
 
@@ -21,4 +23,13 @@ public class ShiftInfo {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
+    public String getShiftid() {
+        return shiftid;
+    }
+
+    public void setShiftid(String shiftid) {
+        this.shiftid = shiftid;
+    }
+
 }

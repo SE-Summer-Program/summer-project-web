@@ -1,16 +1,17 @@
 package com.sjtubus.service;
 
-import com.sjtubus.dao.ShiftDao;
-import com.sjtubus.entity.Shift;
-import com.sjtubus.model.LineInfo;
-import com.sjtubus.model.ShiftInfo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+        import com.sjtubus.dao.ShiftDao;
+        import com.sjtubus.entity.Shift;
+        import com.sjtubus.model.LineInfo;
+        import com.sjtubus.model.Schedule;
+        import com.sjtubus.model.ShiftInfo;
+        import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.stereotype.Service;
 
-import javax.sound.sampled.Line;
-import java.sql.Time;
-import java.util.ArrayList;
-import java.util.List;
+        import javax.sound.sampled.Line;
+        import java.sql.Time;
+        import java.util.ArrayList;
+        import java.util.List;
 
 @Service
 public class ShiftService {
@@ -43,8 +44,32 @@ public class ShiftService {
         return result;
     }
 
-    public List<ShiftInfo> getSortedShiftInfo(String type, String line_name){
-        List<ShiftInfo> result = shiftDao.getShiftInfoByTypeAndLine_name(type,line_name);
+    public List<Shift> getSortedShiftInfo(String type, String line_name){
+        List<Shift> result = shiftDao.queryByLine_typeAndLine_name(type,line_name);
+        return result;
+    }
+
+    public Schedule getSchedule(String type, String line_name){
+        List<Shift> shiftInfo = shiftDao.queryByLine_typeAndLine_name(type, line_name);
+        System.out.println("shiftInfoSize:"+shiftInfo.size());
+        List<String> startTimeList = new ArrayList<>();
+        List<String> commentList = new ArrayList<>();
+        List<String> shiftidList = new ArrayList<>();
+        for (int i = 0; i < shiftInfo.size(); i++ ){
+            String startTime = shiftInfo.get(i).getDeparture_time().toString();
+            startTimeList.add(startTime);
+            String comment = shiftInfo.get(i).getComment();
+            commentList.add(comment);
+            String shiftid = shiftInfo.get(i).getShift_id();
+            shiftidList.add(shiftid);
+        }
+        System.out.println("startTimeListSize:"+startTimeList.size());
+        Schedule result = new Schedule(line_name, type);
+        result.setLineName(line_name);
+        result.setTypes(type);
+        result.setScheduleTime(startTimeList);
+        result.setScheduleComment(commentList);
+        result.setScheduleShift(shiftidList);
         return result;
     }
 }
