@@ -1,17 +1,51 @@
 package com.sjtubus.entity;
 
-import lombok.Data;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "Administrator")
-@Data
 public class Administrator {
+	
+	public Administrator() {}
+	public Administrator(String name, String password) {
+		this.name = name;
+		this.password = password;
+	}
+	public Administrator(Integer id, String name, String password) {
+		this.id = id;
+		this.name = name;
+		this.password = password;
+	}
+	
     @Id
-    String id ;
-    String a_username;
-    String a_password;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id ;
+    @Column(name = "a_username")
+    private String name;
+    @Column(name = "a_password")
+    private String password;
+    
+    public Integer getId() {
+    	return this.id;
+    }
+    public void setId(Integer id){
+    	this.id = id;
+    }
+    public String getName() {
+    	return this.name;
+    }
+    public void setName(String name) {
+    	this.name = name;
+    }
+    public String getPassword() {
+    	return this.password;
+    }
+    public void setPassword(String password) {
+    	this.password = password;
+    }
 }

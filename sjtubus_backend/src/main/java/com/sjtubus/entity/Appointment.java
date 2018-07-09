@@ -15,5 +15,5 @@ public class Appointment {
     String shift_id ;
     Date appoint_date ;
     String line_name ;
-    boolean isNormal ;
+    String isnormal ;
 }

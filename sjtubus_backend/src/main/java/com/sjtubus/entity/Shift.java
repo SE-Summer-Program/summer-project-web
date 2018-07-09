@@ -13,11 +13,9 @@ import java.sql.Time;
 public class Shift {
     @Id
     String shift_id ;
+    Time departure_time ;
+    int reseverd_seat;       //check (reserve_seat > 0),
     String line_name;            //enum('LoopLineClockwise', 'LoopLineAntiClockwise',
                          // 'MinToXu', 'XuToMin', 'MinToQi', 'QiToMin'),
-    String line_name_cn;
-    String line_type;
-    Time departure_time ;
-    int reserve_seat;       //check (reserve_seat > 0),
     String comment;
 }
