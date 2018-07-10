@@ -10,10 +10,10 @@ import java.sql.Date;
 @Data
 public class Appointment {
     @Id
-    int appoinment_id ;
-    String user_id ;
-    String shift_id ;
-    Date appoint_date ;
-    String line_name ;
+    int appoinmentId ;
+    int userId ;
+    int shiftId ;
+    Date appointDate ;
+    String lineName ;
     boolean isNormal ;
 }

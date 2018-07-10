@@ -4,13 +4,12 @@ import com.sjtubus.dao.DriverDao;
 import com.sjtubus.dao.UserDao;
 import com.sjtubus.entity.Shift;
 import com.sjtubus.entity.User;
-import com.sjtubus.model.LineInfo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Service
 public class UserService {
@@ -29,6 +28,33 @@ public class UserService {
             }
         }
         return  results;
+    }
+
+
+    public User addUser(String username, String password, boolean isTeacher, String phone){
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setCredit(100);
+        user.setIsteacher(isTeacher);
+        user.setPhone(phone);
+        return userDao.save(user);
+    }
+
+//    @org.springframework.transaction.annotation.Transactional
+//    public User findById(String user_id){
+//        Optional<User> optionalUser = userDao.findById(user_id);
+//        if(optionalUser.isPresent()){
+//            return optionalUser.get();
+//        }else return null;
+//    }
+
+
+    public User findByUserName(String username){ return userDao.findByUsername(username); }
+
+   // @Transactional
+    public List<User> listAllUsers(){
+        return userDao.findAll();
     }
 
 }

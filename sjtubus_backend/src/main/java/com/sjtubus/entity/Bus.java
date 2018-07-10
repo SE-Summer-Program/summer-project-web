@@ -2,18 +2,17 @@ package com.sjtubus.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "bus")
 @Data
 public class Bus {
     @Id
-    String bus_id ;
-    String driver_id ;
-    String shift_id ;
-    int seat_num ;
+    int busId ;
+    int driverId ;
+    int shiftId ;
+    int seatNum ;
     String plate_num ;
+
 }

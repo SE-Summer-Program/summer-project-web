@@ -6,12 +6,9 @@ import java.util.List;
 
 public class Schedule {
 
-    private String lineName;
-        //MinToXu, XuToMin, MinToQi, QiToMin, LoopLineClockwise, LoopLineAntiClockwise
+    private String lineName; //MinHangToXuHui, XuHuiToMinHang, MinHangToQiBao, QiBaoToMinHang
 
-    private String types;
-        //"NormalWorkday"，"NormalWeekendAndLegalHoilday"
-        //"HoildayWorkday"，"HoildayWeekend"
+    private String types; //"NormalWorkday"，"NormalWeekendAndLegalHoilday"，"HoildayWorkday"，"HoildayWeekend"
 
     private List<String> scheduleShift = new ArrayList<>();
     private List<String> scheduleTime = new ArrayList<>();
@@ -19,6 +16,9 @@ public class Schedule {
 
     public Schedule(String lineName,String types){
         initScheduleTime(types);
+
+        this.lineName = lineName;
+        this.types = types; //this.scheduleTime = ... 根据linename和types，只添加满足情况的schedule
         this.setLineName(lineName);
         this.setTypes(types);
         //this.scheduleTime = ... 根据linename和types，只添加满足情况的schedule
@@ -41,10 +41,14 @@ public class Schedule {
         return lineName;
     } //等同于getTitle
 
+    public void setLineName(String lineName) { this.lineName = lineName; }
+
     public String getTypes(){
         return types;
     }
 
+
+    public void  setTypes(String types) { this.types = types; }
 
 
     public List<String> getScheduleTime(){ return scheduleTime; }
@@ -61,13 +65,7 @@ public class Schedule {
         return detail;
     } //实际应该使用getSchedule的，但是adapter那里传不进去list
 
-    public void setLineName(String lineName) {
-        this.lineName = lineName;
-    }
 
-    public void setTypes(String types) {
-        this.types = types;
-    }
 
     public void setScheduleTime(List<String> scheduleTime) {
         this.scheduleTime = scheduleTime;

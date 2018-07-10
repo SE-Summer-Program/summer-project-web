@@ -1,35 +1,55 @@
 package com.sjtubus.entity;
 
 import lombok.Data;
+import lombok.Generated;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name="users")
+@Table(name="Users")
 @Data
 public class User {
     @Id
-    String user_id ;
+    int userId ;
     String username ;
     String password ;
     int credit ;
     boolean isTeacher;   //enum('true', 'false'),
+    String phone;
 
-    public String getUser_id() {
-        return user_id;
-    }
+    @Id
+    @Column(name = "user_id")
+    public int getUserId() { return userId; }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
-    }
+    public void setUserId() { this.userId = userId; }
 
-    public String getUsername() {
-        return username;
-    }
+    @Basic
+    @Column(name = "username")
+    public String getUsername() { return username; }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    public void setUsername(String username) { this.username = username; }
+
+    @Basic
+    @Column(name = "password")
+    public String getPassword() { return password; }
+
+    public void setPassword(String password) { this.password = password; }
+
+    @Basic
+    @Column(name = "credit")
+    public int getCredit() { return credit; }
+
+    public void setCredit(int credit) { this.credit = credit; }
+
+    @Basic
+    @Column(name = "isteacher")
+    public boolean getIsteacher() { return isTeacher; }
+
+    public void setIsteacher(boolean isTeacher) { this.isTeacher = isTeacher; }
+
+    @Basic
+    @Column(name = "phone")
+    public String getPhone() { return phone; }
+
+    public void setPhone(String phone) { this.phone = phone; }
 }
