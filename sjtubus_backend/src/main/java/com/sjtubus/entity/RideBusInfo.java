@@ -12,15 +12,15 @@ import java.sql.Date;
 @Data
 public class RideBusInfo {
     @Id
-    String ride_id ;
-    String shift_id ;
-    String bus_id;
+    int rideId ;
+    int shiftId ;
+    int busId;
+    Date rideDate;
     boolean isHoilday ;  //enum('true', 'false'),
     boolean isWeekday;   //enum('true', 'shiftfalse'),
-    int student_num ;  //check (student_num >= 0),
-    int teacher_num;     //check (teacher_num >= 0),
-    int appoint_num;     //check (appoint_num >= 0),
-    int appoint_break ;  //check (appoint_break >= 0),
-    int reserve_seat;
-    Date ride_date;
+    int studentNum ;  //check (student_num >= 0),
+    int teacherNum;     //check (teacher_num >= 0),
+    int appointNum;     //check (appoint_num >= 0),
+    int appointBreak ;  //check (appoint_break >= 0),
+    int reserveSeat;
 }

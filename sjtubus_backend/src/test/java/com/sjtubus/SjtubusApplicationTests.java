@@ -26,7 +26,9 @@ public class SjtubusApplicationTests {
 	//	UserService userService = new UserService();
 		//userService.addUser("user", "password", false);
 		List<User> users = userService.listAllUsers();
+		System.out.println(1234);
 		for (User user : users){
+			System.out.println(123);
 			System.out.println(user.getUsername());
 		}
 	}

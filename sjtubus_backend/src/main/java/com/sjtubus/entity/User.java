@@ -10,18 +10,18 @@ import javax.persistence.*;
 @Data
 public class User {
     @Id
-    String user_id ;
+    int userId ;
     String username ;
     String password ;
     int credit ;
     boolean isTeacher;   //enum('true', 'false'),
+    String phone;
 
     @Id
-    //@GeneratedValue(generator = "increment")
     @Column(name = "user_id")
-    public String getUser_id() { return user_id; }
+    public int getUserId() { return userId; }
 
-    public void setUser_id(String shift_id) { this.user_id = user_id; }
+    public void setUserId() { this.userId = userId; }
 
     @Basic
     @Column(name = "username")
@@ -46,4 +46,10 @@ public class User {
     public boolean getIsteacher() { return isTeacher; }
 
     public void setIsteacher(boolean isTeacher) { this.isTeacher = isTeacher; }
+
+    @Basic
+    @Column(name = "phone")
+    public String getPhone() { return phone; }
+
+    public void setPhone(String phone) { this.phone = phone; }
 }

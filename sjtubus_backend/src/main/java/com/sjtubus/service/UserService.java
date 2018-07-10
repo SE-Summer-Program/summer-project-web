@@ -19,23 +19,23 @@ public class UserService {
     private DriverDao driverDao;
 
     @Transactional
-    public User addUser(String username, String password, boolean isTeacher){
+    public User addUser(String username, String password, boolean isTeacher, String phone){
         User user = new User();
-        user.setUser_id("100008");
         user.setUsername(username);
         user.setPassword(password);
         user.setCredit(100);
         user.setIsteacher(isTeacher);
+        user.setPhone(phone);
         return userDao.save(user);
     }
 
-    @org.springframework.transaction.annotation.Transactional
-    public User findById(String user_id){
-        Optional<User> optionalUser = userDao.findById(user_id);
-        if(optionalUser.isPresent()){
-            return optionalUser.get();
-        }else return null;
-    }
+//    @org.springframework.transaction.annotation.Transactional
+//    public User findById(String user_id){
+//        Optional<User> optionalUser = userDao.findById(user_id);
+//        if(optionalUser.isPresent()){
+//            return optionalUser.get();
+//        }else return null;
+//    }
 
     @Transactional
     public User findByUserName(String username){ return userDao.findByUsername(username); }
