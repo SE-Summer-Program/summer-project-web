@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="driver")
-@Data
+
 public class Driver {
     @Id
     @Column(name = "driver_id")
@@ -18,27 +18,38 @@ public class Driver {
     @Column(name = "phone")
     String phone;
 
-//    @Id
-//    @Column(name = "id")
-//    public String getId() { return id; }
-//
-//    public void setId(String id) { this.id = id; }
-//
-//    @Basic
-//    @Column(name = "username")
-//    public String getUsername() { return username; }
-//
-//    public void setUsername(String username) { this.username = username; }
-//
-//    @Basic
-//    @Column(name = "password")
-//    public String getPassword() { return password; }
-//
-//    public void setPassword(String password) { this.password = password; }
-//
-//    @Basic
-//    @Column(name = "phone")
-//    public String getPhone() { return phone; }
-//
-//    public void setPhone(String phone) { this.phone = phone; }
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPassword() {
+
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUsername() {
+
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public int getDriverId() {
+
+        return driverId;
+    }
+
+    public void setDriverId(int driverId) {
+        this.driverId = driverId;
+    }
 }

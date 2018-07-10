@@ -6,8 +6,8 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "Appointment")
-@Data
+@Table(name = "appointment")
+
 public class Appointment {
     @Id
     @Column(name = "appoinment_id")
@@ -22,4 +22,57 @@ public class Appointment {
     String lineName ;
     @Column(name = "isnormal")
     boolean isNormal ;
+
+    public boolean isNormal() {
+        return isNormal;
+    }
+
+    public void setNormal(boolean normal) {
+        isNormal = normal;
+    }
+
+    public String getLineName() {
+
+        return lineName;
+    }
+
+    public void setLineName(String lineName) {
+        this.lineName = lineName;
+    }
+
+    public Date getAppointDate() {
+
+        return appointDate;
+    }
+
+    public void setAppointDate(Date appointDate) {
+        this.appointDate = appointDate;
+    }
+
+    public int getShiftId() {
+
+        return shiftId;
+    }
+
+    public void setShiftId(int shiftId) {
+        this.shiftId = shiftId;
+    }
+
+    public int getUserId() {
+
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getAppointmentId() {
+
+        return appointmentId;
+    }
+
+    public void setAppointmentId(int appointmentId) {
+        this.appointmentId = appointmentId;
+    }
 }
