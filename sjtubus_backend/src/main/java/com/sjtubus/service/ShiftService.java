@@ -4,12 +4,8 @@ import com.sjtubus.dao.ShiftDao;
 import com.sjtubus.entity.Shift;
 import com.sjtubus.model.LineInfo;
 import com.sjtubus.model.Schedule;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.sound.sampled.Line;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,12 +18,12 @@ public class ShiftService {
         List<LineInfo> results = new ArrayList<>();
         List<Shift> shifts = shiftDao.getLineNameByType(type);
         for(Shift shift:shifts){
-            String line_name = shift.getLine_name();
+            String line_name = shift.getLineName();
             Shift first_shift = shiftDao.getFirstTimeByLineNameAndType(line_name,type);
             Shift last_shift = shiftDao.getLastTimeByLineNameAndType(line_name,type);
             LineInfo info = new LineInfo();
-            info.setStart_time(first_shift.getDeparture_time());
-            info.setEnd_time(last_shift.getDeparture_time());
+            info.setStart_time(first_shift.getDepartureTime());
+            info.setEnd_time(last_shift.getDepartureTime());
             info.setLine_name(line_name);
             results.add(info);
         }
@@ -38,7 +34,7 @@ public class ShiftService {
         List<String> result = new ArrayList<>();
         List<Shift> shifts = shiftDao.getLineNameByType(type);
         for (Shift shift:shifts){
-            String line_name = shift.getLine_name();
+            String line_name = shift.getLineName();
             result.add(line_name);
         }
         return result;
@@ -56,11 +52,11 @@ public class ShiftService {
         List<String> commentList = new ArrayList<>();
         List<String> shiftidList = new ArrayList<>();
         for (int i = 0; i < shiftInfo.size(); i++ ){
-            String startTime = shiftInfo.get(i).getDeparture_time().toString();
+            String startTime = shiftInfo.get(i).getDepartureTime().toString();
             startTimeList.add(startTime);
             String comment = shiftInfo.get(i).getComment();
             commentList.add(comment);
-            String shiftid = shiftInfo.get(i).getShift_id();
+            String shiftid = shiftInfo.get(i).getShiftId();
             shiftidList.add(shiftid);
         }
         System.out.println("startTimeListSize:"+startTimeList.size());

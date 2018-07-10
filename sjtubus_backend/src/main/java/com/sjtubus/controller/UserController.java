@@ -1,9 +1,6 @@
 package com.sjtubus.controller;
-<<<<<<< HEAD
 import com.sjtubus.dao.UserDao;
-=======
 
->>>>>>> e65e6640762aeee1ba7fab2aaf88059f51200a98
 import com.sjtubus.entity.User;
 import com.sjtubus.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

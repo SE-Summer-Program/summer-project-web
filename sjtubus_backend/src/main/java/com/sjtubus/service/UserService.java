@@ -23,7 +23,7 @@ public class UserService {
         List<User> results = new ArrayList<>();
         List<User> userList = userDao.findAll();
         for(User user:userList){
-            if (user.getUsername().contains(content) || user.getUser_id().contains(content)){
+            if (user.getUsername().contains(content) || String.valueOf(user.getUserId()).contains(content)){
                 results.add(user);
             }
         }

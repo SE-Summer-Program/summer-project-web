@@ -1,7 +1,6 @@
 package com.sjtubus.dao;
 
 import com.sjtubus.entity.Shift;
-import com.sjtubus.model.ShiftInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
