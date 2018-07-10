@@ -7,57 +7,85 @@ import java.sql.Time;
 
 @Entity
 @Table(name="Shift")
-@Data
+
 public class Shift {
     @Id
+    @Column(name = "shift_id")
     String shiftId ;
-    String lineName;            //enum('LoopLineClockwise', 'LoopLineAntiClockwise',
-                         // 'MinToXu', 'XuToMin', 'MinToQi', 'QiToMin'),
+
+    @Column(name = "line_name")
+    String lineName;     //enum('LoopLineClockwise', 'LoopLineAntiClockwise',
+                            // 'MinToXu', 'XuToMin', 'MinToQi', 'QiToMin'),
+    @Column(name = "line_name_cn")
     String lineNameCn;
+
+    @Column(name = "line_type")
     String lineType;
+
+    @Column(name = "departure_time")
     Time departureTime ;
+
+    @Column(name = "reserve_seat")
     int reserveSeat;       //check (reserve_seat > 0),
+
+    @Column(name = "comment")
     String comment;
 
-    @Id
-    @Column(name = "shift_id")
-    public String getShiftId() { return shiftId; }
+    public String getShiftId() {
+        return shiftId;
+    }
 
-    public void setShiftId(String shiftId) { this.shiftId = shiftId; }
+    public void setShiftId(String shiftId) {
+        this.shiftId = shiftId;
+    }
 
-    @Basic
-    @Column(name = "line_name")
-    public String getLineName() { return lineName; }
+    public String getLineName() {
+        return lineName;
+    }
 
-    public void setLineName(String lineName) { this.lineName = lineName; }
+    public void setLineName(String lineName) {
+        this.lineName = lineName;
+    }
 
-    @Basic
-    @Column(name = "line_name_cn")
-    public String getLineNameCn() { return lineNameCn; }
+    public String getLineNameCn() {
+        return lineNameCn;
+    }
 
-    public void setLineNameCn(String lineNameCn) { this.lineNameCn = lineNameCn; }
+    public void setLineNameCn(String lineNameCn) {
+        this.lineNameCn = lineNameCn;
+    }
 
-    @Basic
-    @Column(name = "line_type")
-    public String getLineType() { return lineType; }
+    public String getLineType() {
+        return lineType;
+    }
 
-    public void setLineType(String lineType) { this.lineType = lineType; }
+    public void setLineType(String lineType) {
+        this.lineType = lineType;
+    }
 
-    @Basic
-    @Column(name = "departure_time")
-    public Time getDepartureTime() { return departureTime; }
+    public String getComment() {
+        return comment;
+    }
 
-    public void setDepartureTime(Time departureTime) { this.departureTime = departureTime ; }
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 
-    @Basic
-    @Column(name = "reserve_seat")
-    public int getReserveSeat() { return reserveSeat; }
+    public int getReserveSeat() {
 
-    public void setReserveSeat(int reserveSeat) { this.reserveSeat = reserveSeat; }
+        return reserveSeat;
+    }
 
-    @Basic
-    @Column(name = "commnet")
-    public String getComment() { return comment; }
+    public void setReserveSeat(int reserveSeat) {
+        this.reserveSeat = reserveSeat;
+    }
 
-    public void setComment(String comment) { this.comment = comment; }
+    public Time getDepartureTime() {
+
+        return departureTime;
+    }
+
+    public void setDepartureTime(Time departureTime) {
+        this.departureTime = departureTime;
+    }
 }

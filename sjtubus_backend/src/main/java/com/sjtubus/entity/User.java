@@ -7,49 +7,72 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="Users")
-@Data
 public class User {
     @Id
+    @Column(name = "user_id")
     int userId ;
+    @Column(name="username")
     String username ;
+    @Column(name="password")
     String password ;
+    @Column(name="credit")
     int credit ;
-    boolean isTeacher;   //enum('true', 'false'),
+    @Column(name="isteacher")
+    boolean isTeacher;   //enum('true', 'false')
+    @Column(name="phone")
     String phone;
 
-    @Id
-    @Column(name = "user_id")
-    public int getUserId() { return userId; }
+    public String getPhone() {
+        return phone;
+    }
 
-    public void setUserId() { this.userId = userId; }
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-    @Basic
-    @Column(name = "username")
-    public String getUsername() { return username; }
+    public boolean isTeacher() {
 
-    public void setUsername(String username) { this.username = username; }
+        return isTeacher;
+    }
 
-    @Basic
-    @Column(name = "password")
-    public String getPassword() { return password; }
+    public void setTeacher(boolean teacher) {
+        isTeacher = teacher;
+    }
 
-    public void setPassword(String password) { this.password = password; }
+    public int getCredit() {
 
-    @Basic
-    @Column(name = "credit")
-    public int getCredit() { return credit; }
+        return credit;
+    }
 
-    public void setCredit(int credit) { this.credit = credit; }
+    public void setCredit(int credit) {
+        this.credit = credit;
+    }
 
-    @Basic
-    @Column(name = "isteacher")
-    public boolean getIsteacher() { return isTeacher; }
+    public String getPassword() {
 
-    public void setIsteacher(boolean isTeacher) { this.isTeacher = isTeacher; }
+        return password;
+    }
 
-    @Basic
-    @Column(name = "phone")
-    public String getPhone() { return phone; }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-    public void setPhone(String phone) { this.phone = phone; }
+    public String getUsername() {
+
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public int getUserId() {
+
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
 }
