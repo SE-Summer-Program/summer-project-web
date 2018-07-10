@@ -21,4 +21,6 @@ public class ShiftInfo {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
+
 }

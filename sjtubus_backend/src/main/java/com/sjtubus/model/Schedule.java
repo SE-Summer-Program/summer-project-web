@@ -6,12 +6,9 @@ import java.util.List;
 
 public class Schedule {
 
-    private String lineName;
-        //MinToXu, XuToMin, MinToQi, QiToMin
+    private String lineName; //MinHangToXuHui, XuHuiToMinHang, MinHangToQiBao, QiBaoToMinHang
 
-    private String types;
-        //"NormalWorkday"，"NormalWeekendAndLegalHoilday"
-        //"HoildayWorkday"，"HoildayWeekend"
+    private String types; //"NormalWorkday"，"NormalWeekendAndLegalHoilday"，"HoildayWorkday"，"HoildayWeekend"
 
     private String subtitle;
 
@@ -22,8 +19,7 @@ public class Schedule {
         initScheduleTime(types);
 
         this.lineName = lineName;
-        this.types = types;
-        //this.scheduleTime = ... 根据linename和types，只添加满足情况的schedule
+        this.types = types; //this.scheduleTime = ... 根据linename和types，只添加满足情况的schedule
 
         this.subtitle = "首班车：8:00，末车班：20:00"; //获取schedule数组的头和尾
     }
@@ -43,11 +39,17 @@ public class Schedule {
         return lineName;
     } //等同于getTitle
 
+    public void setLineName(String lineName) { this.lineName = lineName; }
+
     public String getTypes(){
         return types;
     }
 
+    public void  setTypes(String types) { this.types = types; }
+
     public String getSubtitle() { return subtitle; }
+
+    public void setSubtitle(String subtitle) { this.subtitle = subtitle; }
 
     public List<String> getScheduleTime(){ return scheduleTime; }
 
