@@ -10,10 +10,16 @@ import java.sql.Date;
 @Data
 public class Appointment {
     @Id
-    int appoinmentId ;
+    @Column(name = "appoinment_id")
+    int appointmentId ;
+    @Column(name = "user_id")
     int userId ;
+    @Column(name = "shift_id")
     int shiftId ;
+    @Column(name = "appoint_date")
     Date appointDate ;
+    @Column(name = "line_name")
     String lineName ;
+    @Column(name = "isnormal")
     boolean isNormal ;
 }

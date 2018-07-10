@@ -9,9 +9,13 @@ import javax.persistence.*;
 @Data
 public class Driver {
     @Id
+    @Column(name = "driver_id")
     int driverId ;
+    @Column(name = "username")
     String username ;
+    @Column(name = "password")
     String password ;
+    @Column(name = "phone")
     String phone;
 
 //    @Id
