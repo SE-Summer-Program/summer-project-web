@@ -16,18 +16,13 @@ public class Administrator {
 		this.name = name;
 		this.password = password;
 	}
-	public Administrator(Integer id, String name, String password) {
-		this.id = id;
-		this.name = name;
-		this.password = password;
-	}
 	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id ;
-    @Column(name = "a_username")
+    @Column(name = "username")
     private String name;
-    @Column(name = "a_password")
+    @Column(name = "password")
     private String password;
     
     public Integer getId() {

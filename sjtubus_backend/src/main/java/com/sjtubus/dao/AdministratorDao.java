@@ -11,8 +11,8 @@ import org.springframework.data.repository.query.Param;
 public interface AdministratorDao extends JpaRepository<Administrator, Long> {
 
 	Administrator findById(Integer id);
-
-	//Administrator findByA_usernameAndPassword(String name, String password);
+	Administrator findByName(String name);
+	Administrator findByNameAndPassword(String name, String password);
 
     /**
      * Find user.

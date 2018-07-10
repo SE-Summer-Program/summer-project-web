@@ -11,18 +11,18 @@ public class AdministratorService{
     @Autowired
     private AdministratorDao administratorDao;
 
-    /**
-     * 
-     * @param UserName
-     * @return
-     */
-    public String getNameById(Integer id) {
-        return administratorDao.findById(id).getName();
+    public Administrator login(String name, String password) {
+    	return administratorDao.findByNameAndPassword(name, password);
     }
-    public void addAdministrator(String name, String password) {
+    public boolean addAdmin(String name, String password) {
+    	Administrator admin = administratorDao.findByName(name);
+    	if(admin != null) return false;
         administratorDao.save(new Administrator(name, password));
+        return true;
     }
-    public void updateAdministrator(Integer id, String name, String password) {
-        administratorDao.save(new Administrator(id, name, password));
+    public void resetPassword(Integer id, String password) {
+    	Administrator admin = administratorDao.findById(id);
+    	admin.setPassword(password);
+        administratorDao.save(admin);
     }
 }
