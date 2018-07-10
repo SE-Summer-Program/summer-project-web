@@ -15,4 +15,9 @@ public class Bus {
     int seatNum ;
     String plate_num ;
 
+    @Id
+    @Column(name = "bus_id")
+    public int getBusId() { return busId; }
+
+    public void setBusId(int busId) { this.busId = busId; }
 }

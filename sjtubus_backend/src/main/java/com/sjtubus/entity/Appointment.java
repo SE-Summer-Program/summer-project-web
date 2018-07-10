@@ -16,4 +16,10 @@ public class Appointment {
     Date appointDate ;
     String lineName ;
     boolean isNormal ;
+
+    @Id
+    @Column(name = "appointment_id")
+    public int getAppoinmentId() { return appoinmentId; }
+
+    public void setAppoinmentId(int appoinmentId) { this.appoinmentId = appoinmentId; }
 }

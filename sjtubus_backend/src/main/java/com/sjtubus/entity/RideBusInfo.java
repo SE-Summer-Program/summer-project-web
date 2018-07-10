@@ -2,6 +2,7 @@ package com.sjtubus.entity;
 
 import lombok.Data;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -23,4 +24,10 @@ public class RideBusInfo {
     int appointNum;     //check (appoint_num >= 0),
     int appointBreak ;  //check (appoint_break >= 0),
     int reserveSeat;
+
+    @Id
+    @Column(name = "ride_id")
+    public int getRideId() { return rideId; }
+
+    public void setRideId(int rideId) { this.rideId = rideId; }
 }
