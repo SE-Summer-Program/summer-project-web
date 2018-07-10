@@ -161,6 +161,7 @@ class SearchOutShift extends React.Component {
                     .then(result => {
                         let len = result.scheduleShift.length;
                         console.log("response len:",len);
+                        this.state.data=[];
                         for (var i=0; i < len; i++) {
                             const {data,count}=this.state;
                             const add = {
@@ -179,7 +180,7 @@ class SearchOutShift extends React.Component {
                         }
                     })
             });
-    }
+    };
 
     render(){
         const stationOptions = stationData.map(station => <Option key={station}>{station}</Option>);
@@ -237,12 +238,12 @@ class SearchOutShift extends React.Component {
                                 {stationOptions}
                             </Select>
                             <Select defaultValue="是否寒暑假" size="large" style={{marginLeft:'10px', width:'130px'}} onChange={this.handleHolidayChange}>
-                                <Option value="true">是</Option>
-                                <Option value="false">否</Option>
+                                <Option value="true">寒暑假</Option>
+                                <Option value="false">非寒暑假</Option>
                             </Select>
                             <Select defaultValue="是否工作日" size="large" style={{marginLeft:'10px', width:'130px'}} onChange={this.handleWorkdayChange}>
-                                <Option value="true">是</Option>
-                                <Option value="false">否</Option>
+                                <Option value="true">工作日</Option>
+                                <Option value="false">节假日</Option>
                             </Select>
                             <Button type="primary"  size="large" style={{width: '10%', marginLeft: '15px'}} icon="search" onClick = {this.handleSearch}>搜索</Button>
                             <h1 />

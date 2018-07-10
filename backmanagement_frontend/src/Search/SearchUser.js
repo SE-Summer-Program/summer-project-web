@@ -16,13 +16,7 @@ class SearchUser extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            data:[{
-                name: 'Jack',
-                ID: '516030910000',
-                phone:'12345678901',
-                credit: '95',
-                identity: '本科生',
-            }],
+            data:[],
             count:0,
             content:''
         }
@@ -54,8 +48,45 @@ class SearchUser extends React.Component {
         }];
     }
 
-    handleSearch = (e) => {
 
+    onChangeContent = (e) => {
+        this.setState({
+            content: e.target.value
+        })
+    };
+
+    handleSearch = () => {
+        console.log(this.state.content);
+        fetch('http://localhost:8080/user/search?content='+this.state.content,
+            {
+                method: 'POST',
+                mode: 'cors',
+            })
+            .then(response => {
+                console.log('Request successful', response);
+                return response.json()
+                    .then(result => {
+                        let len = result.length;
+                        console.log("response len:",len);
+                        this.state.data=[];
+                        for (var i=0; i < len; i++) {
+                            const {data,count}=this.state;
+                            const add = {
+                                "key": this.state.count+1,
+                                "ID": result[i].user_id,
+                                "name": result[i].username,
+                                "credit": result[i].credit,
+                                "identity": result[i].isteacher,
+
+                            };
+
+                            this.setState({
+                                data: [...data, add],
+                                count: count+1,
+                            });
+                        }
+                    })
+            });
     };
 
 

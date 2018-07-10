@@ -3,15 +3,13 @@ package com.sjtubus.controller;
 import com.sjtubus.entity.Shift;
 import com.sjtubus.model.LineInfo;
 import com.sjtubus.model.Schedule;
-import com.sjtubus.model.ShiftInfo;
 import com.sjtubus.service.ShiftService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.transaction.Transactional;
+
 import java.util.List;
 
 @RestController
@@ -38,10 +36,10 @@ public class ShiftController {
     }
 
     @RequestMapping(value ="/schedule")
-    public Schedule getSchedule(@RequestParam("type") String type,
+    public Schedule getOutSchedule(@RequestParam("type") String type,
                                 @RequestParam("line_name") String line_name){
-        System.out.println("hello");
         return shiftService.getSchedule(type, line_name);
     }
+
 
 }

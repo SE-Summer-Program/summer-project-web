@@ -7,7 +7,7 @@ import java.util.List;
 public class Schedule {
 
     private String lineName;
-        //MinToXu, XuToMin, MinToQi, QiToMin
+        //MinToXu, XuToMin, MinToQi, QiToMin, LoopLineClockwise, LoopLineAntiClockwise
 
     private String types;
         //"NormalWorkday"，"NormalWeekendAndLegalHoilday"

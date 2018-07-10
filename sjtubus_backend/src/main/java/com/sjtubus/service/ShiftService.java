@@ -1,17 +1,17 @@
 package com.sjtubus.service;
 
-        import com.sjtubus.dao.ShiftDao;
-        import com.sjtubus.entity.Shift;
-        import com.sjtubus.model.LineInfo;
-        import com.sjtubus.model.Schedule;
-        import com.sjtubus.model.ShiftInfo;
-        import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.stereotype.Service;
+import com.sjtubus.dao.ShiftDao;
+import com.sjtubus.entity.Shift;
+import com.sjtubus.model.LineInfo;
+import com.sjtubus.model.Schedule;
 
-        import javax.sound.sampled.Line;
-        import java.sql.Time;
-        import java.util.ArrayList;
-        import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.sound.sampled.Line;
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ShiftService {
