@@ -1,23 +1,28 @@
 package com.sjtubus.entity;
 
-import lombok.Data;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name="Driver")
 
 public class Driver {
-    @Id
-    @Column(name = "driver_id")
     private int driverId ;
-    @Column(name = "username")
     private String username ;
-    @Column(name = "password")
     private String password ;
-    @Column(name = "phone")
     private String phone;
 
+    @Id
+    @Column(name = "driver_id")
+    public int getDriverId() {
+        return driverId;
+    }
+
+    public void setDriverId(int driverId) {
+        this.driverId = driverId;
+    }
+
+    @Basic
+    @Column(name = "phone")
     public String getPhone() {
         return phone;
     }
@@ -26,6 +31,8 @@ public class Driver {
         this.phone = phone;
     }
 
+    @Basic
+    @Column(name = "password")
     public String getPassword() {
 
         return password;
@@ -35,6 +42,8 @@ public class Driver {
         this.password = password;
     }
 
+    @Basic
+    @Column(name = "username")
     public String getUsername() {
 
         return username;
@@ -44,12 +53,4 @@ public class Driver {
         this.username = username;
     }
 
-    public int getDriverId() {
-
-        return driverId;
-    }
-
-    public void setDriverId(int driverId) {
-        this.driverId = driverId;
-    }
 }

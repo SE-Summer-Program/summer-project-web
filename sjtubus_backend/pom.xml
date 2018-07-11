@@ -24,6 +24,36 @@
 		<java.version>1.8</java.version>
 	</properties>
 
+	<repositories>
+		<!-- 配置nexus远程仓库 -->
+		<repository>
+			<id>nexus</id>
+			<name>Nexus Snapshot Repository</name>
+			<url>http://maven.dev.sjtu.edu.cn/content/groups/public-snapshots/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<!-- 配置从哪个仓库中下载构件，即jar包 -->
+	<pluginRepositories>
+		<pluginRepository>
+			<id>nexus</id>
+			<name>Nexus Snapshot Repository</name>
+			<url>http://maven.dev.sjtu.edu.cn/content/groups/public-snapshots/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -53,10 +83,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.16.18</version>
-			<scope>provided</scope>
+			<groupId>sjtu</groupId>
+			<artifactId>sjtu-api</artifactId>
+			<version>1.0-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>

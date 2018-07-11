@@ -1,7 +1,5 @@
 package com.sjtubus.entity;
 
-import lombok.Data;
-
 import javax.persistence.*;
 import java.sql.Date;
 
@@ -9,7 +7,7 @@ import java.sql.Date;
 @Table(name = "Appointment")
 public class Appointment {
     @Id
-    @Column(name = "appoinment_id")
+    @Column(name = "appointment_id")
     private int appointmentId ;
     @Column(name = "user_id")
     private int userId ;
