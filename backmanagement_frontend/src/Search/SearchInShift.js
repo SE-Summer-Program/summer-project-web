@@ -192,7 +192,6 @@ class SearchInShift extends React.Component {
                                 <SubMenu key="sub2" title={<span><Icon type="car" />校内巴士</span>}>
                                     <Menu.Item key="2"><Link to="searchmap">路线图</Link></Menu.Item>
                                     <Menu.Item key="3"><Link to="searchinshift">始发时刻表</Link></Menu.Item>
-                                    <Menu.Item key="4">实时查询</Menu.Item>
                                 </SubMenu>
                                 <SubMenu key="sub3" title={<span><Icon type="car" />校区巴士</span>}>
                                     <Menu.Item key="5"><Link to="searchreserved">预约信息</Link></Menu.Item>

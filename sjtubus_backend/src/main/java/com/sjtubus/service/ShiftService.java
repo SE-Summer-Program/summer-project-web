@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -18,7 +19,7 @@ public class ShiftService {
     @Autowired
     private ShiftDao shiftDao;
 
-    @Transactional
+
     public List<String> getAllLineName(String type){
         List<String> result = new ArrayList<>();
         Collection<Linename> names = shiftDao.getLineNameByType(type);
@@ -29,15 +30,20 @@ public class ShiftService {
         return result;
     }
 
-    @Transactional
+
     public List<ShiftInfo> getSortedShiftInfo(String type, String line_name){
         List<ShiftInfo> result = shiftDao.getShiftInfoByTypeAndLinename(type,line_name);
         return result;
     }
 
-    @Transactional
-    public Schedule getSchedule(String type, String line_name){
-        List<Shift> shiftInfo = shiftDao.queryByLinetypeAndLinename(type, line_name);
+/**
+ * @description: 根据type和linename得到相应的时刻表，返回一个schedule对象
+ * @date: 2018/7/10 10:16
+ * @params:
+ * @return:
+*/
+    public Schedule getSchedule(String lineType, String lineName){
+        List<Shift> shiftInfo = shiftDao.queryByLinetypeAndLinename(lineType, lineName);
         System.out.println("shiftInfoSize:"+shiftInfo.size());
         List<String> startTimeList = new ArrayList<>();
         List<String> commentList = new ArrayList<>();
@@ -51,13 +57,26 @@ public class ShiftService {
             shiftidList.add(shiftid);
         }
         System.out.println("startTimeListSize:"+startTimeList.size());
-        Schedule result = new Schedule(line_name, type);
-        result.setLineName(line_name);
-        result.setTypes(type);
+        Schedule result = new Schedule(lineName, lineType);
+        result.setLineName(lineName);
+        result.setTypes(lineType);
         result.setScheduleTime(startTimeList);
         result.setScheduleComment(commentList);
         result.setScheduleShift(shiftidList);
         return result;
+    }
+
+
+    /**
+     * @description: 管理员通过该添加班次，先根据参数解析成id，然后存入数据库，返回一个字符串
+     * @date: 2018/7/11 23:28
+     * @params:
+     * @return:
+    */
+    public String addShift(String lineName, String lineNameCn, String lineType, Time departureTime, int reserveSeat, String comment){
+        //生成对应的id
+        System.out.println(departureTime.getHours());
+        return "success";
     }
 
     //    public List<ShiftInfo> getShiftInfo(String type){

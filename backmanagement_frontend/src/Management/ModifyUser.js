@@ -42,8 +42,8 @@ class EditableCell extends React.Component {
             dataIndex,
             title,
             inputType,
-            record,
             index,
+            record,
             ...restProps
         } = this.props;
         return (
@@ -78,14 +78,11 @@ class ModifyUser extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data:[{
-                name: 'Jack',
-                ID: '516030910000',
-                phone:'12345678901',
-                credit: '95',
-                identity: '校内巴士司机',
-            }],
-            editingKey: '' };
+            data: [],
+            editingKey: '',
+            content: '',
+            count:0
+        };
         this.columns = [
             {
                 title: '姓名',
@@ -162,7 +159,7 @@ class ModifyUser extends React.Component {
 
     edit(key) {
         this.setState({ editingKey: key });
-    }
+    };
 
     save(form, key) {
         form.validateFields((error, row) => {
@@ -171,6 +168,7 @@ class ModifyUser extends React.Component {
             }
             const newData = [...this.state.data];
             const index = newData.findIndex(item => key === item.key);
+            //console.log("index:",index);
             if (index > -1) {
                 const item = newData[index];
                 newData.splice(index, 1, {
@@ -191,6 +189,51 @@ class ModifyUser extends React.Component {
         this.setState({ editingKey: '' });
     };
 
+    onChangeContent = (e) => {
+        this.setState({
+            content: e.target.value,
+        })
+    };
+
+    handleSearch = () => {
+        this.state.data=[];
+        fetch('http://localhost:8080/user/search?content='+this.state.content,
+            {
+                method: 'POST',
+                mode: 'cors',
+            })
+            .then(response => {
+                //console.log('Request successful', response);
+                return response.json()
+                    .then(result => {
+                        let len = result.length;
+                        for (var i=0; i < len; i++) {
+                            const {data,count}=this.state;
+                            let identity = '';
+                            if (result[i].teacher.toString() === 'false') {
+                                identity = "学生";
+                            }
+                            else{
+                                identity = "教师"
+                            }
+                            const add = {
+                                "key": this.state.count+1,
+                                "ID": result[i].userId,
+                                "name": result[i].username,
+                                "credit": result[i].credit,
+                                "identity": identity,
+                                "phone":result[i].phone,
+                            };
+
+                            this.setState({
+                                data: [...data, add],
+                                count: count+1,
+                            });
+                        }
+                    })
+            });
+    };
+
     render(){
         const components = {
             body: {
@@ -205,9 +248,9 @@ class ModifyUser extends React.Component {
             }
             return {
                 ...col,
-                onCell: record => ({
+                oncell: record => ({
                     record,
-                    inputType: col.dataIndex === 'age' ? 'number' : 'text',
+                    inputtype: col.dataIndex === 'age' ? 'number' : 'text',
                     dataIndex: col.dataIndex,
                     title: col.title,
                     editing: this.isEditing(record),
@@ -267,7 +310,7 @@ class ModifyUser extends React.Component {
 
                             <Input name="content" label="搜索内容" size="large" style={{width: '30%', marginLeft:'100px' }}
                                    prefix={<Icon type="search"/>} placeholder="请输入用户相关信息" onChange={this.onChangeContent}/>
-                            <Button type="primary"  size="large" style={{width: '10%', marginLeft: '10px'}} onClick = {this.handleAdd}>搜索</Button>
+                            <Button type="primary"  size="large" style={{width: '10%', marginLeft: '10px'}} onClick = {this.handleSearch}>搜索</Button>
                             <h1></h1>
                             <Table
                                 components={components}

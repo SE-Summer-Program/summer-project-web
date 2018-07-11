@@ -239,8 +239,8 @@ class ModifyDriver extends React.Component {
                         <Sider width={200} style={{ background: '#fff' }}>
                             <Menu
                                 mode="inline"
-                                defaultOpenKeys={['sub1']}
-                                defaultSelectedKeys={['3']}
+                                defaultOpenKeys={['sub3']}
+                                defaultSelectedKeys={['11']}
                                 style={{ height: '100%' }}
                             >
                                 <SubMenu key="sub1" title={<span><Icon type="user" />普通用户管理</span>}>
