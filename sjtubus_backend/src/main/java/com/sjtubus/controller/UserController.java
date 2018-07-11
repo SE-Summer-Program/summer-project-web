@@ -1,4 +1,5 @@
 package com.sjtubus.controller;
+import com.sjtubus.dao.UserDao;
 
 import com.sjtubus.entity.User;
 import com.sjtubus.service.UserService;

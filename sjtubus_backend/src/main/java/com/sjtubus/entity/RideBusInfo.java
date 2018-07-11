@@ -9,8 +9,8 @@ import javax.persistence.Table;
 import java.sql.Date;
 
 @Entity
-@Table(name="RideBusInfoService")
-@Data
+@Table(name="ride_bus_info_service")
+
 public class RideBusInfo {
     @Id
     @Column(name = "ride_id")

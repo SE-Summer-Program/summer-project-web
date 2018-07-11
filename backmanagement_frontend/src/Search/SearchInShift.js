@@ -22,39 +22,41 @@ class SearchInShift extends React.Component {
             isWorkday:'',
             startStation:'',
             EndStation:'',
+            count:0,
+            data:[],
         }
         this.columns = [{
+            title: '',
+            dataIndex: '',
+            key: '',
+            width: '15%'
+        },{
             title: '班次编号',
             dataIndex: 'shiftid',
             key: 'shiftid',
-            width: '18%'
+            width: '20%'
         },{
             title: '方向',
             dataIndex: 'direction',
             key: 'direction',
             width: '18%'
-        }, {
-            title: '始发站',
-            dataIndex: 'startStation',
-            key: 'startStation',
-            width: '20%'
-        }, {
-            title: '终点站',
-            dataIndex: 'endStation',
-            key: 'endStation',
-            width: '20%'
-        }, {
+        },{
             title: '出发时刻',
             dataIndex: 'startTime' ,
             key: 'startTime',
             width: '20%',
+        },{
+            title: '备注',
+            dataIndex: 'comment' ,
+            key: 'comment',
+            width: '25%',
         }];
     }
 
     onDateChange = (date, dateString) => {
         this.setState({
             date: dateString
-        })
+        });
         console.log(dateString);
     };
 
@@ -65,17 +67,6 @@ class SearchInShift extends React.Component {
         console.log("direction:",value)
     };
 
-    handleStartStationChange = (value) => {
-        this.setState({
-            startStation: value,
-        });
-    };
-
-    handleEndStationChange = (value) => {
-        this.setState({
-            endStation: value,
-        });
-    };
 
     handleHolidayChange =(value) => {
         if (value === "true"){
@@ -104,8 +95,62 @@ class SearchInShift extends React.Component {
     };
 
     handleSearch=() =>{
-        //fetch
-    }
+        let type='';
+        let line_name='';
+        if (this.state.direction==='顺时针'){
+            line_name = 'LoopLineClockwise';
+        }
+        else{
+            line_name = 'LoopLineAntiClockwise';
+        }
+        if ((this.state.isWorkday === 'true') && (this.state.isHoliday==='true'))
+        {
+            type = 'HolidayWorkday';
+        }
+        else if ((this.state.isWorkday === 'true') && (this.state.isHoliday==='false'))
+        {
+            type = 'NormalWorkday';
+        }
+        else if ((this.state.isWorkday === 'false') && (this.state.isHoliday==='true'))
+        {
+            type = 'HolidayWeekend'
+        }
+        else if ((this.state.isWorkday === 'false') && (this.state.isHoliday === 'false'))
+        {
+            type = 'NormalWeekendAndLegalHoliday'
+        }
+        let temproute = 'line_name='+line_name+'&type='+type;
+        console.log("temproute:",temproute);
+        fetch('http://localhost:8080/shift/schedule?'+temproute,
+            {
+                method: 'POST',
+                mode: 'cors',
+            })
+            .then(response => {
+                console.log('Request successful', response);
+                return response.json()
+                    .then(result => {
+                        let len = result.scheduleShift.length;
+                        console.log("response len:",len);
+                        this.state.data=[];
+                        for (var i=0; i < len; i++) {
+                            const {data,count}=this.state;
+                            const add = {
+                                "key": this.state.count+1,
+                                "shiftid": result.scheduleShift[i],
+                                "startTime": result.scheduleTime[i],
+                                "comment":result.scheduleComment[i],
+                                "direction":this.state.direction,
+                            };
+
+                            this.setState({
+                                data: [...data, add],
+                                count: count+1,
+                            });
+                        }
+                    })
+            });
+    };
 
     render(){
         const stationOptions = stationData.map(station => <Option key={station}>{station}</Option>);
@@ -156,25 +201,20 @@ class SearchInShift extends React.Component {
                             </Menu>
                         </Sider>
                         <Content style={{ padding: '0 24px', minHeight: 280 }}>
-                            <DatePicker size="large" style={{marginLeft:'20px'}} onChange={this.onDateChange} />
-                            <Select defaultValue="方向" size="large" style={{marginLeft:'10px', width:'100px'}} onChange={this.handleDirectionChange}>
+                            <br />
+                            <DatePicker size="large" style={{marginLeft:'150px'}} onChange={this.onDateChange} />
+                            <Select defaultValue="方向" size="large" style={{marginLeft:'30px', width:'100px'}} onChange={this.handleDirectionChange}>
                                 {directionOptions}
                             </Select>
-                            <Select defaultValue="始发站" size="large" style={{marginLeft:'10px', width:'140px'}} onChange={this.handleStartStationChange}>
-                                {stationOptions}
+                            <Select defaultValue="是否寒暑假" size="large" style={{marginLeft:'30px', width:'130px'}} onChange={this.handleHolidayChange}>
+                                <Option value="true">寒暑假</Option>
+                                <Option value="false">非寒暑假</Option>
                             </Select>
-                            <Select defaultValue="终点站" size="large" style={{marginLeft:'10px', width:'140px'}} onChange={this.handleEndStationChange}>
-                                {stationOptions}
+                            <Select defaultValue="是否工作日" size="large" style={{marginLeft:'30px', width:'130px'}} onChange={this.handleWorkdayChange}>
+                                <Option value="true">工作日</Option>
+                                <Option value="false">双休日</Option>
                             </Select>
-                            <Select defaultValue="是否寒暑假" size="large" style={{marginLeft:'10px', width:'130px'}} onChange={this.handleHolidayChange}>
-                                <Option value="true">是</Option>
-                                <Option value="false">否</Option>
-                            </Select>
-                            <Select defaultValue="是否工作日" size="large" style={{marginLeft:'10px', width:'130px'}} onChange={this.handleWorkdayChange}>
-                                <Option value="true">是</Option>
-                                <Option value="false">否</Option>
-                            </Select>
-                            <Button type="primary"  size="large" style={{width: '10%', marginLeft: '15px'}} icon="search" onClick = {this.handleSearch}>搜索</Button>
+                            <Button type="primary"  size="large" style={{width: '10%', marginLeft: '35px'}} icon="search" onClick = {this.handleSearch}>搜索</Button>
                             <h1 />
                             <br />
                             <Table style={{width:'88%', marginLeft:'70px'}} columns={this.columns} dataSource={this.state.data} />

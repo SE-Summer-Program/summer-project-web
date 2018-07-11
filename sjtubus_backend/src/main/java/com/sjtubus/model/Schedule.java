@@ -10,8 +10,7 @@ public class Schedule {
 
     private String types; //"NormalWorkday"，"NormalWeekendAndLegalHoilday"，"HoildayWorkday"，"HoildayWeekend"
 
-    private String subtitle;
-
+    private List<String> scheduleShift = new ArrayList<>();
     private List<String> scheduleTime = new ArrayList<>();
     private List<String> scheduleComment = new ArrayList<>();
 
@@ -20,17 +19,20 @@ public class Schedule {
 
         this.lineName = lineName;
         this.types = types; //this.scheduleTime = ... 根据linename和types，只添加满足情况的schedule
+        this.setLineName(lineName);
+        this.setTypes(types);
+        //this.scheduleTime = ... 根据linename和types，只添加满足情况的schedule
 
-        this.subtitle = "首班车：8:00，末车班：20:00"; //获取schedule数组的头和尾
+
     }
 
     private void initScheduleTime(String types){
-        this.scheduleTime.add("8:00");
-        this.scheduleTime.add("9:00");
-        this.scheduleTime.add("20:00");
-        this.scheduleComment.add("none");
-        this.scheduleComment.add("none");
-        this.scheduleComment.add("none");
+        this.getScheduleTime().add("8:00");
+        this.getScheduleTime().add("9:00");
+        this.getScheduleTime().add("20:00");
+        this.getScheduleComment().add("none");
+        this.getScheduleComment().add("none");
+        this.getScheduleComment().add("none");
 
         //在这里get不同类型的数据，并且赋值给scheduleTime
     }
@@ -45,11 +47,9 @@ public class Schedule {
         return types;
     }
 
+
     public void  setTypes(String types) { this.types = types; }
 
-    public String getSubtitle() { return subtitle; }
-
-    public void setSubtitle(String subtitle) { this.subtitle = subtitle; }
 
     public List<String> getScheduleTime(){ return scheduleTime; }
 
@@ -57,12 +57,29 @@ public class Schedule {
 
     public String getDetail() {
         String detail = "123";
-        for (int i = 0; i < scheduleTime.size(); i++){
-            detail.concat(scheduleTime.get(i));
-            detail.concat(scheduleComment.get(i));
+        for (int i = 0; i < getScheduleTime().size(); i++){
+            detail.concat(getScheduleTime().get(i));
+            detail.concat(getScheduleComment().get(i));
             detail.concat("\n");
         }
         return detail;
     } //实际应该使用getSchedule的，但是adapter那里传不进去list
 
+
+
+    public void setScheduleTime(List<String> scheduleTime) {
+        this.scheduleTime = scheduleTime;
+    }
+
+    public void setScheduleComment(List<String> scheduleComment) {
+        this.scheduleComment = scheduleComment;
+    }
+
+    public List<String> getScheduleShift() {
+        return scheduleShift;
+    }
+
+    public void setScheduleShift(List<String> scheduleShift) {
+        this.scheduleShift = scheduleShift;
+    }
 }
