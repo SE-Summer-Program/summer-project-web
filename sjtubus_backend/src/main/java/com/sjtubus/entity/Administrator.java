@@ -8,16 +8,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "administrator")
-
+@Table(name = "Administrator")
 public class Administrator {
     @Id
     @Column(name = "id")
-    int administratorId ;
+    private int administratorId ;
     @Column(name="username")
-    String username;
+    private String username;
     @Column(name="password")
-    String password;
+    private String password;
 
     public String getPassword() {
         return password;

@@ -7,12 +7,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "line")
 public class Line {
-	
 	public Line() {}
 	
     @Id
     private String id ;
     private String name;
+    private String nameCN;
     private List<String> station;
     
     public String getId() {
@@ -32,5 +32,11 @@ public class Line {
     }
     public void setStation(List<String> station) {
     	this.station = station;
+    }
+    public String getNameCN() {
+        return nameCN;
+    }
+    public void setNameCN(String nameCN) {
+        this.nameCN = nameCN;
     }
 }

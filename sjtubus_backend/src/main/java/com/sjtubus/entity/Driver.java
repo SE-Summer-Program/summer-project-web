@@ -5,18 +5,18 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity
-@Table(name="driver")
+@Table(name="Driver")
 
 public class Driver {
     @Id
     @Column(name = "driver_id")
-    int driverId ;
+    private int driverId ;
     @Column(name = "username")
-    String username ;
+    private String username ;
     @Column(name = "password")
-    String password ;
+    private String password ;
     @Column(name = "phone")
-    String phone;
+    private String phone;
 
     public String getPhone() {
         return phone;

@@ -14,16 +14,12 @@ public class Schedule {
     private List<String> scheduleTime = new ArrayList<>();
     private List<String> scheduleComment = new ArrayList<>();
 
-    public Schedule(String lineName,String types){
-        initScheduleTime(types);
+    public Schedule(){}
 
+    public Schedule(String lineName,String types){
         this.lineName = lineName;
         this.types = types; //this.scheduleTime = ... 根据linename和types，只添加满足情况的schedule
-        this.setLineName(lineName);
-        this.setTypes(types);
         //this.scheduleTime = ... 根据linename和types，只添加满足情况的schedule
-
-
     }
 
     private void initScheduleTime(String types){

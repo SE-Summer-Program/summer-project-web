@@ -3,8 +3,8 @@ package com.sjtubus.model.response;
 import java.io.Serializable;
 
 public class HttpResponse implements Serializable{
-    private int error;
-    private String msg;
+    private int error = 0;
+    private String msg = "";
 
     public int getError() {
         return error;

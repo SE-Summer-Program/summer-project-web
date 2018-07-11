@@ -2,15 +2,11 @@ package com.sjtubus.service;
 
 import com.sjtubus.dao.ShiftDao;
 import com.sjtubus.entity.Shift;
-import com.sjtubus.entity.projection.Linename;
-import com.sjtubus.entity.projection.ShiftInfo;
 import com.sjtubus.model.Schedule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -18,26 +14,15 @@ public class ShiftService {
     @Autowired
     private ShiftDao shiftDao;
 
-    @Transactional
-    public List<String> getAllLineName(String type){
-        List<String> result = new ArrayList<>();
-        Collection<Linename> names = shiftDao.getLineNameByType(type);
-        for (Linename linename:names){
-            String line_name = linename.getLineNameCn();
-            result.add(line_name);
-        }
-        return result;
-    }
-
-    @Transactional
-    public List<ShiftInfo> getSortedShiftInfo(String type, String line_name){
-        List<ShiftInfo> result = shiftDao.getShiftInfoByTypeAndLinename(type,line_name);
-        return result;
-    }
-
+    /**
+     * @description: 将查询到的shift列表重新组织成schedule对象
+     * @date: 2018/7/10 19:33
+     * @params: type - 类别 line_name - 名称
+     * @return: Schedule - Schedule对象
+    */
     @Transactional
     public Schedule getSchedule(String type, String line_name){
-        List<Shift> shiftInfo = shiftDao.queryByLinetypeAndLinename(type, line_name);
+        List<Shift> shiftInfo = shiftDao.findByLineTypeAndLineNameOrderByDepartureTime(type, line_name);
         System.out.println("shiftInfoSize:"+shiftInfo.size());
         List<String> startTimeList = new ArrayList<>();
         List<String> commentList = new ArrayList<>();
@@ -59,20 +44,4 @@ public class ShiftService {
         result.setScheduleShift(shiftidList);
         return result;
     }
-
-    //    public List<ShiftInfo> getShiftInfo(String type){
-//        List<ShiftInfo> results = new ArrayList<>();
-//        List<Shift> shifts = shiftDao.getLineNameByType(type);
-//        for(Shift shift:shifts){
-//            String line_name = shift.getLineName();
-//            Shift first_shift = shiftDao.getFirstTimeByLineNameAndType(line_name,type);
-//            Shift last_shift = shiftDao.getLastTimeByLineNameAndType(line_name,type);
-//            ShiftInfo info = new ShiftInfo();
-//            info.setStart_time(first_shift.getDepartureTime());
-//            info.setEnd_time(last_shift.getDepartureTime());
-//            info.setLine_name(line_name);
-//            results.add(info);
-//        }
-//        return results;
-//    }
 }

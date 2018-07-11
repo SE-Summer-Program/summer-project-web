@@ -10,17 +10,17 @@ import javax.persistence.*;
 public class User {
     @Id
     @Column(name = "user_id")
-    int userId ;
+    private int userId ;
     @Column(name="username")
-    String username ;
+    private String username ;
     @Column(name="password")
-    String password ;
+    private String password ;
     @Column(name="credit")
-    int credit ;
+    private int credit ;
     @Column(name="isteacher")
-    boolean isTeacher;   //enum('true', 'false')
+    private boolean isTeacher;   //enum('true', 'false')
     @Column(name="phone")
-    String phone;
+    private String phone;
 
     public String getPhone() {
         return phone;

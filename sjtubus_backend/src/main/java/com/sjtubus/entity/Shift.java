@@ -3,34 +3,23 @@ package com.sjtubus.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Time;
 
 @Entity
 @Table(name="Shift")
-
 public class Shift {
+    private String shiftId ;
+    private String lineName;     //enum('LoopLineClockwise', 'LoopLineAntiClockwise',
+                                  // 'MinToXu', 'XuToMin', 'MinToQi', 'QiToMin'),
+    private String lineNameCn;
+    private String lineType;
+    private Time departureTime ;
+    private int reserveSeat;       //check (reserve_seat > 0),
+    private String comment;
+
     @Id
     @Column(name = "shift_id")
-    String shiftId ;
-
-    @Column(name = "line_name")
-    String lineName;     //enum('LoopLineClockwise', 'LoopLineAntiClockwise',
-                            // 'MinToXu', 'XuToMin', 'MinToQi', 'QiToMin'),
-    @Column(name = "line_name_cn")
-    String lineNameCn;
-
-    @Column(name = "line_type")
-    String lineType;
-
-    @Column(name = "departure_time")
-    Time departureTime ;
-
-    @Column(name = "reserve_seat")
-    int reserveSeat;       //check (reserve_seat > 0),
-
-    @Column(name = "comment")
-    String comment;
-
     public String getShiftId() {
         return shiftId;
     }
@@ -39,6 +28,8 @@ public class Shift {
         this.shiftId = shiftId;
     }
 
+    @Basic
+    @Column(name = "line_name")
     public String getLineName() {
         return lineName;
     }
@@ -47,6 +38,8 @@ public class Shift {
         this.lineName = lineName;
     }
 
+    @Basic
+    @Column(name = "line_name_cn")
     public String getLineNameCn() {
         return lineNameCn;
     }
@@ -55,6 +48,8 @@ public class Shift {
         this.lineNameCn = lineNameCn;
     }
 
+    @Basic
+    @Column(name = "line_type")
     public String getLineType() {
         return lineType;
     }
@@ -63,6 +58,8 @@ public class Shift {
         this.lineType = lineType;
     }
 
+    @Basic
+    @Column(name = "comment")
     public String getComment() {
         return comment;
     }
@@ -71,6 +68,8 @@ public class Shift {
         this.comment = comment;
     }
 
+    @Basic
+    @Column(name = "reserve_seat")
     public int getReserveSeat() {
 
         return reserveSeat;
@@ -80,6 +79,8 @@ public class Shift {
         this.reserveSeat = reserveSeat;
     }
 
+    @Basic
+    @Column(name = "departure_time")
     public Time getDepartureTime() {
 
         return departureTime;

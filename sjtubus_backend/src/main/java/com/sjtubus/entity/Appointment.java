@@ -6,22 +6,21 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "appointment")
-
+@Table(name = "Appointment")
 public class Appointment {
     @Id
     @Column(name = "appoinment_id")
-    int appointmentId ;
+    private int appointmentId ;
     @Column(name = "user_id")
-    int userId ;
+    private int userId ;
     @Column(name = "shift_id")
-    int shiftId ;
+    private int shiftId ;
     @Column(name = "appoint_date")
-    Date appointDate ;
+    private Date appointDate ;
     @Column(name = "line_name")
-    String lineName ;
+    private String lineName ;
     @Column(name = "isnormal")
-    boolean isNormal ;
+    private boolean isNormal ;
 
     public boolean isNormal() {
         return isNormal;

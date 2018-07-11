@@ -21,6 +21,12 @@ public class UserService {
     @Autowired
     private DriverDao driverDao;
 
+    /**
+     * @description: 根据关键字获取用户信息
+     * @date: 2018/7/10 19:48
+     * @params: content - 关键字
+     * @return: List<User> - 用户列表
+    */
     public List<User> getUserInfo(String content){
         List<User> results = new ArrayList<>();
         List<User> userList = userDao.findAll();
@@ -32,7 +38,12 @@ public class UserService {
         return  results;
     }
 
-
+    /**
+     * @description: 添加用户
+     * @date: 2018/7/10 19:49
+     * @params: 用户名、密码、是否教师、电话
+     * @return: 所添加用户
+    */
     public User addUser(String username, String password, boolean isTeacher, String phone){
         User user = new User();
         user.setUsername(username);

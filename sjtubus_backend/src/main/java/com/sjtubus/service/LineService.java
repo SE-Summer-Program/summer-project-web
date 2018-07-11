@@ -1,18 +1,70 @@
 package com.sjtubus.service;
 
 import com.sjtubus.dao.LineDao;
+import com.sjtubus.dao.ShiftDao;
 import com.sjtubus.entity.Line;
+
+import java.util.ArrayList;
 import java.util.List;
 
+import com.sjtubus.entity.Shift;
+import com.sjtubus.model.LineInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class LineService {
     @Autowired
     private LineDao lineDao;
 
+    @Autowired
+    private ShiftDao shiftDao;
+
+    /**
+     * @description: 根据线路名称获取站点列表
+     * @date: 2018/7/10 18:41
+     * @params: line_name - 线路名称
+     * @return: 站点列表（String）
+    */
     public List<String> getStationByLineName(String name) {
     	return lineDao.findByName(name).getStation();
+    }
+
+    /**
+     * @description: 根据type与name获取首班，末班，座位数
+     * @date: 2018/7/10 19:14
+     * @params: type - 类别 line_name - 名称
+     * @return: LineInfo - 线路信息
+    */
+    @Transactional
+    public LineInfo getLineInfo(String type,String line_name){
+        List<Shift> shifts = shiftDao.findByLineTypeAndLineNameOrderByDepartureTime(type,line_name);
+        LineInfo info = new LineInfo();
+        info.setLineName(line_name);
+        if(shifts == null || shifts.size()==0){
+            return null;
+        }
+        info.setFirstTime(shifts.get(0).getDepartureTime().toString());
+        info.setLastTime(shifts.get(shifts.size()-1).getDepartureTime().toString());
+        info.setLineNameCN(shifts.get(0).getLineNameCn());
+        return info;
+    }
+
+    /**
+     * @description: 获取所有线路名称
+     * @date: 2018/7/10 18:40
+     * @params: type - 线路类型
+     * @return: 线路名列表
+    */
+    @Transactional
+    public List<String> getAllLineName(String type){
+        List<String> result = new ArrayList<>();
+        List<Line> lines = lineDao.findAll();
+        for (Line line:lines){
+            String line_name = line.getName();
+            result.add(line_name);
+        }
+        return result;
     }
 }
