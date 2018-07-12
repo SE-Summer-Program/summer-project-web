@@ -159,16 +159,16 @@ class SearchOutShift extends React.Component {
                 console.log('Request successful', response);
                 return response.json()
                     .then(result => {
-                        let len = result.scheduleShift.length;
+                        let len = result.schedule.scheduleShift.length;
                         console.log("response len:",len);
                         this.state.data=[];
                         for (var i=0; i < len; i++) {
                             const {data,count}=this.state;
                             const add = {
                                 "key": this.state.count+1,
-                                "shiftid": result.scheduleShift[i],
-                                "startTime": result.scheduleTime[i],
-                                "comment": result.scheduleComment[i],
+                                "shiftid": result.schedule.scheduleShift[i],
+                                "startTime": result.schedule.scheduleTime[i],
+                                "comment": result.schedule.scheduleComment[i],
                                 "startStation": this.state.startStation,
                                 "endStation": this.state.endStation,
                             };

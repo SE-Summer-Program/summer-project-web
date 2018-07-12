@@ -17,10 +17,10 @@ const Option = Select.Option;
 class DeleteUser extends React.Component {
     constructor(props){
         super(props);
-        this.state={
-            data:[],
-            count:0,
-            content:''
+        this.state= {
+            data: [],
+            count: 0,
+            content: ''
         }
         this.columns = [{
             title: '姓名',
@@ -50,7 +50,6 @@ class DeleteUser extends React.Component {
         },{
             title: '删除',
             dataIndex: 'operation',
-
             render: (text, record) => {
                 return (
                     <Popconfirm title="确定删除?" onConfirm={() => this.onDelete(record.key)}>
@@ -86,7 +85,7 @@ class DeleteUser extends React.Component {
         this.setState({
             content:e.target.value,
         })
-    }
+    };
 
     handleSearch = () => {
         this.state.data=[];
@@ -100,7 +99,7 @@ class DeleteUser extends React.Component {
                 return response.json()
                     .then(result => {
                         let len = result.length;
-                        for (var i=0; i < len; i++) {
+                        for (let i=0; i < len; i++) {
                             const {data,count}=this.state;
                             let identity = '';
                             if (result[i].teacher.toString() === 'false') {

@@ -248,8 +248,13 @@ class AddShift extends React.Component {
                             alert("新班次添加成功");
                             window.location.reload();
                         }
-                        else {
+                        else if (result.msg === "existed")
+                        {
                             alert("该班次已经存在");
+                            window.location.reload();
+                        }
+                        else {
+                            alert("添加失败");
                             window.location.reload();
                         }
                     })

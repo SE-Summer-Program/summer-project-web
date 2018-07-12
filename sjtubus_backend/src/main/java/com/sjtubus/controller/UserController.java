@@ -29,6 +29,7 @@ public class UserController {
         return userService.getUserInfo(content);
     }
 
+
     @RequestMapping(path="/add" )
     public HttpResponse addUser(@RequestParam("username") String username,
                                 @RequestParam("password") String password,
@@ -50,9 +51,9 @@ public class UserController {
 
     @RequestMapping(path="/delete" )
     public HttpResponse deleteUser(@RequestParam("userId") int userId){
-        String result = userService.deleteUser(userId);
-        HttpResponse response = new HttpResponse();
-        response.setMsg(result);
-        return response;
+            HttpResponse response = new HttpResponse();
+            String result = userService.deleteUser(userId);
+            response.setMsg(result);
+            return response;
     }
 }
