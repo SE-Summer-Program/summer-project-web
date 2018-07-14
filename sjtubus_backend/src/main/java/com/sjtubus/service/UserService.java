@@ -54,6 +54,17 @@ public class UserService {
         return userDao.save(user);
     }
 
+    /**
+     * @description: 通过电话号码找到user
+     * @date: 2018/7/13 11:12
+     * @params: phone - 电话号码
+     * @return: User
+    */
+    @Transactional
+    public User findUserByPhone(String phone){
+        return userDao.findByPhone(phone);
+    }
+
     @Transactional
     public User findByUserName(String username){ return userDao.findByUsername(username); }
 

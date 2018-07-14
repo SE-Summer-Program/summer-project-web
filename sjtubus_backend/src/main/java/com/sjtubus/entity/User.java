@@ -1,8 +1,5 @@
 package com.sjtubus.entity;
 
-import lombok.Data;
-import lombok.Generated;
-
 import javax.persistence.*;
 
 @Entity
@@ -21,6 +18,10 @@ public class User {
     private boolean isTeacher;   //enum('true', 'false')
     @Column(name="phone")
     private String phone;
+    @Transient
+    private String realname;
+    @Transient
+    private String studentNumber;
 
     public String getPhone() {
         return phone;
@@ -75,4 +76,19 @@ public class User {
         this.userId = userId;
     }
 
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
+
+    public String getStudentNumber() {
+        return studentNumber;
+    }
+
+    public void setStudentNumber(String studentNumber) {
+        this.studentNumber = studentNumber;
+    }
 }
