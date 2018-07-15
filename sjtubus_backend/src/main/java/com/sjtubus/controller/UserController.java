@@ -21,4 +21,9 @@ public class UserController {
     public List<User> getAllUsers(){
         return userService.listAllUsers();
     }
+
+    @GetMapping(value = "/phone")
+    public User getUserByphone(String phone){
+        return userService.findUserByPhone(phone);
+    }
 }

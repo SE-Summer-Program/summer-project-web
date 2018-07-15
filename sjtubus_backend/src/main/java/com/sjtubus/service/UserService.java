@@ -73,4 +73,8 @@ public class UserService {
         return userDao.findAll();
     }
 
+    @Transactional
+    public void saveUser(User user){
+        userDao.save(user);
+    }
 }
