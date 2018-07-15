@@ -116,7 +116,7 @@ class Login extends React.Component {
                                 &nbsp;
                                 <Button size="large" type="primary"><Link to="./register">注册</Link></Button>
                                 &nbsp;
-                                <Button size="large" type="dashed">忘记密码</Button></h2>
+                                <Button size="large" type="dashed"><Link to="./regular">普通用户登录</Link></Button></h2>
                             </div>
                         </Content>
                     </Layout>

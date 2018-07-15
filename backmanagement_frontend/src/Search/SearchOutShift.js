@@ -150,7 +150,7 @@ class SearchOutShift extends React.Component {
         let temproute= 'line_name='+ start +'To'+ end + '&type=' + type;
         console.log("route:", temproute);
 
-        fetch('http://localhost:8080/shift/schedule?'+temproute,
+        fetch('http://localhost:8080/shift/search_schedule?'+temproute,
             {
                 method: 'POST',
                 mode: 'cors',

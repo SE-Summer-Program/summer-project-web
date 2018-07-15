@@ -67,15 +67,37 @@ public class ShiftService {
         return result;
     }
 
+    /**
+     * @description: 将线路类型转换成shiftid中的类型部分，仅限于校区间巴士
+     * @date: 2018/7/15 11:41
+     * @params: lineType
+     * @return: shiftidType 如WD、WE...
+    */
+    public String changeTypeToId(String lineType){
+        String shiftidType = "";
+        switch(lineType) {
+            case "NormalWorkday":
+                shiftidType = "WD";
+                break;
+            case "NormalWeekendAndLegalHoliday":
+                shiftidType = "WE";
+                break;
+            case "HolidayWorkday":
+                shiftidType = "HD";
+                break;
+            default:
+                shiftidType = "HE";
+        }
+        return shiftidType;
+    }
 
     /**
-     * @description: 管理员通过该添加班次，先根据参数解析成id，然后存入数据库，返回一个字符串
-     * @date: 2018/7/11 23:28
-     * @params:
-     * @return:
-    */
-    public String addShift(String lineName, String lineNameCn, String lineType, Time departureTime, int reserveSeat, String comment){
-        //生成对应的id
+     * @description: 将一个Time类型的出发时间转换成shiftid中的时间格式
+     * @date: 2018/7/15 11:57
+     * @params: departureTime，如08:00:00
+     * @return: 字符串型的时间，如0800
+     */
+    public String changeDepartureTimeToStringTime(Time departureTime){
         String tempHour = String.valueOf(departureTime.getHours());
         String tempMinute = String.valueOf(departureTime.getMinutes());
         int hourLen = tempHour.length();
@@ -90,8 +112,20 @@ public class ShiftService {
             tempZero += '0';
         }
         tempMinute = tempZero + tempMinute;
-        String time = tempHour + tempMinute;
-        System.out.println(time);
+        return tempHour + tempMinute;
+
+    }
+
+
+    /**
+     * @description: 管理员通过该添加班次，先根据参数解析成id，然后存入数据库，返回一个字符串
+     * @date: 2018/7/11 23:28
+     * @params: lineName, lineNameCn, lineType, departureTime, reserveSeat, comment
+     * @return:
+    */
+    public String addShift(String lineName, String lineNameCn, String lineType, Time departureTime, int reserveSeat, String comment){
+        //生成对应的id
+        String time = changeDepartureTimeToStringTime(departureTime);
         String shiftid;
         if (lineName.equals("LoopLineAntiClockwise")){
             if (lineType.equals("HolidayWorkday"))
@@ -114,14 +148,7 @@ public class ShiftService {
                 shiftid = "QM";
             else
                 shiftid = "XM";
-            if (lineType.equals("NormalWorkday"))
-                shiftid = shiftid + "WD";
-            else if (lineType.equals("NormalWeekendAndLegalHoliday"))
-                shiftid = shiftid + "WE";
-            else if (lineType.equals("HolidayWorkday"))
-                shiftid = shiftid + "HD";
-            else
-                shiftid = shiftid + "HE";
+            shiftid = shiftid + changeTypeToId(lineType);
             shiftid = shiftid +time;
         }
 
@@ -190,21 +217,21 @@ public class ShiftService {
         return "success";
     }
 
+    public List<Time> getTimeList(String lineNameCn, String lineType){
+        List<Time> timeList =  shiftDao.getTimeListByLineNameCnAndLineType(lineType, lineNameCn);
+        List<Time> result = new ArrayList<>();
+        int size = timeList.size();
+        for (int i = 0; i < size; i++){
+            Time time = timeList.get(i);
+            if (!result.contains(time)){
+                result.add(time);
+            }
+        }
+        System.out.println(result.size());
+        return result;
+    }
 
 
-    //    public List<ShiftInfo> getShiftInfo(String type){
-//        List<ShiftInfo> results = new ArrayList<>();
-//        List<Shift> shifts = shiftDao.getLineNameByType(type);
-//        for(Shift shift:shifts){
-//            String line_name = shift.getLineName();
-//            Shift first_shift = shiftDao.getFirstTimeByLineNameAndType(line_name,type);
-//            Shift last_shift = shiftDao.getLastTimeByLineNameAndType(line_name,type);
-//            ShiftInfo info = new ShiftInfo();
-//            info.setStart_time(first_shift.getDepartureTime());
-//            info.setEnd_time(last_shift.getDepartureTime());
-//            info.setLine_name(line_name);
-//            results.add(info);
-//        }
-//        return results;
-//    }
+
+
 }

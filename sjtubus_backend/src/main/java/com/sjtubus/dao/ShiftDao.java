@@ -28,6 +28,9 @@ public interface ShiftDao extends JpaRepository<Shift,String> {
     @Query(value = "select shift from Shift shift where shift.shiftId=:shiftId")
     Shift queryShiftByShiftId(@Param("shiftId") String shiftId);
 
+    @Query(value = "select departureTime from Shift where lineType=:lineType and lineNameCn=:lineNameCn")
+    List<Time> getTimeListByLineNameCnAndLineType(@Param("lineType") String lineType, @Param("lineNameCn") String lineNameCn);
+
 //    @Query(value = "select  min(departure_time) from Shift where type=:type and line_name=:line_name")
 //    Shift getFirstTimeByLineNameAndType(@Param("line_name")String line_name,@Param("type")String type);
 //

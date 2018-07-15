@@ -101,7 +101,7 @@ class DeleteShift extends React.Component {
     handleSearch = () => {
         console.log("content:",this.state.content);
         this.state.data=[];
-        fetch('http://localhost:8080/shift/search?content='+this.state.content,
+        fetch('http://localhost:8080/shift/search_shift?content='+this.state.content,
             {
                 method: 'GET',
                 mode: 'cors',

@@ -121,7 +121,7 @@ class SearchInShift extends React.Component {
         }
         let temproute = 'line_name='+line_name+'&type='+type;
         console.log("temproute:",temproute);
-        fetch('http://localhost:8080/shift/schedule?'+temproute,
+        fetch('http://localhost:8080/shift/search_schedule?'+temproute,
             {
                 method: 'POST',
                 mode: 'cors',

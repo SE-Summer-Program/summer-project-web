@@ -7,6 +7,7 @@ import com.sjtubus.model.Schedule;
 import com.sjtubus.model.response.HttpResponse;
 import com.sjtubus.model.response.ScheduleResponse;
 import com.sjtubus.model.response.ShiftListResponse;
+import com.sjtubus.model.response.TimeListResponse;
 import com.sjtubus.service.ShiftService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +42,7 @@ public class ShiftController {
     }
 
 
-    @RequestMapping(path="/schedule")
+    @RequestMapping(path="/search_schedule")
     public ScheduleResponse getSchedule(@RequestParam("type") String lineType,
                                    @RequestParam("line_name") String lineName){
         ScheduleResponse response = new ScheduleResponse();
@@ -77,7 +78,7 @@ public class ShiftController {
     }
 
 
-    @RequestMapping(path="/search")
+    @RequestMapping(path="/search_shift")
     public ShiftListResponse searchShift(@RequestParam("content") String content){
         ShiftListResponse response = new ShiftListResponse();
         try {
@@ -103,6 +104,22 @@ public class ShiftController {
         catch (Exception e){
             response.setError(1);
             response.setMsg("fail");
+        }
+        return response;
+    }
+
+
+    @RequestMapping(path="/search_time" )
+    public TimeListResponse searchTimeList(@RequestParam("lineNameCn") String lineNameCn,
+                                            @RequestParam("lineType") String lineType){
+        TimeListResponse response = new TimeListResponse();
+        try{
+            List<Time> timeList = shiftService.getTimeList(lineNameCn, lineType);
+            response.setTimeList(timeList);
+        }
+        catch (Exception e){
+            response.setError(1);
+            response.setTimeList(null);
         }
         return response;
     }
