@@ -32,4 +32,9 @@ public class SjtubusApplicationTests {
 			System.out.println(user.getUsername());
 		}
 	}
+
+	@Test
+	public void testAppointController(){
+
+	}
 }

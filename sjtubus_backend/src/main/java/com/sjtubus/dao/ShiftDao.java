@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ShiftDao extends JpaRepository<Shift,String> {
     List<Shift> findByLineTypeAndLineNameOrderByDepartureTime(String type,String line_name);
+
+    Shift findByShiftId(String shiftId);
 }

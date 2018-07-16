@@ -4,16 +4,16 @@ import com.sjtubus.model.AppointInfo;
 
 import java.util.List;
 
-public class AppointInfoResponse {
+public class AppointInfoResponse extends HttpResponse {
 
-    private List<AppointInfo> appointmentList;
+    private List<AppointInfo> appointInfos;
 
     public List<AppointInfo> getAppointInfos() {
-        return appointmentList;
+        return appointInfos;
     }
 
-    public void setAppointment(List<AppointInfo> appointmentList) {
-        this.appointmentList = appointmentList;
+    public void setAppointInfos(List<AppointInfo> appointInfos) {
+        this.appointInfos = appointInfos;
     }
 
 }

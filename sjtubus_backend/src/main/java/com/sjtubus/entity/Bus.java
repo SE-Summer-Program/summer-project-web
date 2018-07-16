@@ -7,7 +7,7 @@ public class Bus {
 
     private int busId ;
     private int driverId ;
-    private int shiftId ;
+    //private int shiftId ;
     private int seatNum ;
     private String plateNum ;
 
@@ -31,15 +31,15 @@ public class Bus {
         this.driverId = driverId;
     }
 
-    @Basic
-    @Column(name = "shift_id")
-    public int getShiftId() {
-        return shiftId;
-    }
-
-    public void setShiftId(int shiftId) {
-        this.shiftId = shiftId;
-    }
+//    @Basic
+//    @Column(name = "shift_id")
+//    public int getShiftId() {
+//        return shiftId;
+//    }
+//
+//    public void setShiftId(int shiftId) {
+//        this.shiftId = shiftId;
+//    }
 
     @Basic
     @Column(name = "seat_num")

@@ -13,6 +13,8 @@ public class Appointment {
     private int userId ;
     @Column(name = "shift_id")
     private int shiftId ;
+    @Column(name = "username")
+    private String userName;
     @Column(name = "appoint_date")
     private Date appointDate ;
     @Column(name = "line_name")
@@ -72,4 +74,14 @@ public class Appointment {
     public void setAppointmentId(int appointmentId) {
         this.appointmentId = appointmentId;
     }
+
+    public String getUserName() {
+
+        return userName;
+    }
+
+    public void setUserName(String username) {
+        this.userName = username;
+    }
+
 }
