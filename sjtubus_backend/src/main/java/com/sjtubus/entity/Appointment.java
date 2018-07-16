@@ -12,7 +12,7 @@ public class Appointment {
     @Column(name = "user_id")
     private int userId ;
     @Column(name = "shift_id")
-    private int shiftId ;
+    private String shiftId ;
     @Column(name = "username")
     private String userName;
     @Column(name = "appoint_date")
@@ -48,12 +48,12 @@ public class Appointment {
         this.appointDate = appointDate;
     }
 
-    public int getShiftId() {
+    public String getShiftId() {
 
         return shiftId;
     }
 
-    public void setShiftId(int shiftId) {
+    public void setShiftId(String shiftId) {
         this.shiftId = shiftId;
     }
 

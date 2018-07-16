@@ -26,9 +26,11 @@ public class AppointController {
      */
     @RequestMapping(value = "/infos")
     public AppointInfoResponse getAppointInfo(String line_name, String type, String appoint_date){
+        System.out.println("linename:"+line_name);
         AppointInfoResponse response = new AppointInfoResponse();
         List<AppointInfo> appoints = new ArrayList<>();
         appoints = appointService.getAppointInfo(line_name, type, appoint_date);
+        System.out.println("appoints:"+appoints.size());
         response.setAppointInfos(appoints);
         return response;
     }

@@ -14,7 +14,7 @@ public class RideBusInfo {
     @Column(name = "ride_id")
     private int rideId ;
     @Column(name = "shift_id")
-    private int shiftId ;
+    private String shiftId ;
     @Column(name = "bus_id")
     private int busId;
     @Column(name = "ride_date")
@@ -42,11 +42,11 @@ public class RideBusInfo {
         this.rideId = rideId;
     }
 
-    public int getShiftId() {
+    public String getShiftId() {
         return shiftId;
     }
 
-    public void setShiftId(int shiftId) {
+    public void setShiftId(String shiftId) {
         this.shiftId = shiftId;
     }
 

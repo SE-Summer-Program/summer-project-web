@@ -37,11 +37,17 @@ public class AppointService {
      * @return: List<AppointInfo>
      */
     public List<AppointInfo> getAppointInfo(String line_name, String type, String appoint_date){
-        List<Shift> shifts =  shiftDao.findByLineTypeAndLineNameOrderByDepartureTime(line_name, type);
+        System.out.println("linename:"+line_name);
+        System.out.println("type:"+type);
+        System.out.println("appoint_date:"+appoint_date);
+        List<Shift> shifts =  shiftDao.findByLineTypeAndLineNameOrderByDepartureTime(type, line_name);
         List<AppointInfo> appointInfos = new ArrayList<>();
+
+        System.out.println("shifts:"+shifts.size());
         if(shifts == null || shifts.size()==0) {
             return null;
         }
+        System.out.println("shifts:"+shifts.get(0).getShiftId());
         for (int i = 0; i < shifts.size(); i++){
             String departure_time = shifts.get(i).getDepartureTime().toString();
             //比较发车时间和当前时间的先后
@@ -56,8 +62,9 @@ public class AppointService {
             info.setRemainSeat(getRemainSeat(shifts.get(i).getShiftId(), StringToDate(appoint_date)));
 
             appointInfos.add(info);
+            System.out.println("shiftid:"+shifts.get(i).getShiftId());
         }
-
+        System.out.println("appoint:"+appointInfos.size());
         return appointInfos;
     }
 
@@ -105,6 +112,7 @@ public class AppointService {
     }
 
     private static Date StringToDate(String datestr){
+        System.out.println("date:"+datestr);
         Date date= new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
@@ -112,6 +120,7 @@ public class AppointService {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        System.out.println("date:"+date);
         return date;
     }
 
