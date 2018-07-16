@@ -2,8 +2,14 @@ package com.sjtubus.dao;
 
 import com.sjtubus.entity.Administrator;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 public interface AdministratorDao extends JpaRepository<Administrator,Integer> {
-    //public Administrator findByA_username(String username);
-    public Administrator findByAdministratorId(int id);
+     @Query(value = "select administrator from Administrator administrator where administrator.username=:username")
+     List<Administrator> searchByUsername(@Param("username") String username);
+
+
 }

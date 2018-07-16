@@ -7,6 +7,31 @@ const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 
 class Management extends React.Component {
+    constructor(props){
+        super(props);
+        fetch('http://localhost:8080/administrator/judgestate',
+            {
+                method: 'POST',
+                mode: 'cors',
+                credentials: 'include',
+            })
+            .then(response => {
+                console.log('Request successful', response);
+                return response.json()
+                    .then(result => {
+                        console.log("result:", result);
+                        if (result.msg === "not logged") {
+                            alert("请先登录");
+                            window.location.href = "http://localhost:3000/#/login"
+                        }
+                        else if (result.msg === "fail"){
+                            alert("您暂时不可使用该功能");
+                            this.props.history.push("/login");
+                        }
+                    })
+            });
+    }
+
     render(){
         return(
             <Layout>

@@ -24,23 +24,23 @@ const minuteData=["00","05","10","15","20","25","30","35","40","45","50","55"];
 
 class AddShift extends React.Component {
     constructor(props){
-        super(props);
-        this.state={
-            kind:'校内巴士',
-            hour:'6',
-            minute:'00',
-            direction: '',
-            isHoliday: 'false',
-            isWorkday: 'false',
-            teacherSeat:'30',
-            comment:'',
-            stations:stationData[kindData[0]],
-            startStation:stationData[kindData[0]][0],
-            endStation:stationData[kindData[0]][0],
-            disabled: true,
-            viaStation:[]
-        }
+    super(props);
+    this.state={
+        kind:'校内巴士',
+        hour:'6',
+        minute:'00',
+        direction: '',
+        isHoliday: 'false',
+        isWorkday: 'false',
+        teacherSeat:'30',
+        comment:'',
+        stations:stationData[kindData[0]],
+        startStation:stationData[kindData[0]][0],
+        endStation:stationData[kindData[0]][0],
+        disabled: true,
+        viaStation:[]
     }
+}
 
     handleKindChange = (value) => {
         this.setState({

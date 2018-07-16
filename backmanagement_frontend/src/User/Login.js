@@ -42,36 +42,63 @@ class Login extends React.Component {
         if (password === null) {
             alert("密码不能为空");
         }
-        console.log("username:",username)
-        console.log("password:",password)
+        console.log("username:",username);
+        console.log("password:",password);
 
-        /*fetch('http://localhost:8080/User/logon?name=' + username + '&pwd=' + password,
+        fetch('http://localhost:8080/administrator/login?username=' + username + '&password=' + password,
             {
                 method: 'POST',
                 mode: 'cors',
-                credentials: 'include'
+                credentials: 'include',
             })
             .then(response => {
                 console.log('Request successful', response);
-                return response.text()
+                return response.json()
                     .then(result => {
                         console.log("result:", result);
-                        if (result === "Password wrong") {
+                        if (result.msg === "wrong password") {
                             alert("密码错误");
-                            window.location.reload();
                         }
-                        else if (result === "Fail") {
+                        else if (result.msg === "not exist") {
                             alert("用户不存在");
-                            window.location.reload();
                         }
-                        else {
-                            //localStorage.setItem("user", username);
+                        else if (result.msg === "success"){
                             alert("登录成功");
-                            window.location.href = "/cart";
+                            window.location.href="http://localhost:3000/#/"
+                        }
+                        else{
+                            alert("登录失败");
                         }
                     })
-            });*/
-    }
+            });
+    };
+
+
+    handleExit = () => {
+        fetch('http://localhost:8080/administrator/logout',
+            {
+                method: 'POST',
+                mode: 'cors',
+                credentials: 'include',
+            })
+            .then(response => {
+                console.log('Request successful', response);
+                return response.json()
+                    .then(result => {
+                        console.log("result:", result);
+                        if (result.msg === "success") {
+                            alert("您已登出");
+                        }
+                        else if (result.msg === "not logged"){
+                            alert("还未登录");
+                        }
+                        else{
+                            alert("登出失败");
+                        }
+                    })
+            });
+
+    };
 
     render()
     {
@@ -100,23 +127,23 @@ class Login extends React.Component {
                     <Layout style={{padding: '24px 0', background: '#fff'}}>
 
                         <Content style={{padding: '0 24px', minHeight: 280}}>
-                            <br></br>
+                            <br/>
                             <h2 style={{marginLeft:'600px'}}>管理员登录</h2>
-                            <br></br>
-                            <h1></h1>
+                            <br/>
+                            <h1/>
                             <Input name="username" size="large" style={{width: '20%', marginLeft: '532px'}}
                                    placeholder="用户名" onChange={this.handleChange}/>
-                            <h1></h1>
+                            <h1/>
                             <Input name="password" size="large" style={{width: '20%', marginLeft: '532px'}} placeholder="密码"
                                    onChange={this.handleChange} onKeyDown={this.handleKeyDown}/>
-                            <h1></h1>
-                            <br></br>
+                            <h1/>
+                            <br/>
                             <div>
                             <h2><Button size="large" type="primary" onClick={this.handleSubmit} >登录</Button>
                                 &nbsp;
                                 <Button size="large" type="primary"><Link to="./register">注册</Link></Button>
                                 &nbsp;
-                                <Button size="large" type="dashed"><Link to="./regular">普通用户登录</Link></Button></h2>
+                                <Button size="large" type="dashed" onClick={this.handleExit}>退出登录</Button></h2>
                             </div>
                         </Content>
                     </Layout>

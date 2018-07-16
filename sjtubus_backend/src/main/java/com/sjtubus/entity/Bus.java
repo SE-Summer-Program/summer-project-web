@@ -13,8 +13,6 @@ public class Bus {
     int busId ;
     @Column(name = "driver_id")
     int driverId ;
-    @Column(name = "shift_id")
-    int shiftId ;
     @Column(name = "seat_num")
     int seatNum ;
     @Column(name = "plate_num")

@@ -13,6 +13,9 @@ public class Shift {
     @Column(name = "shift_id")
     String shiftId ;
 
+    @Column(name = "bus_id")
+    int bus_id;
+
     @Column(name = "line_name")
     String lineName;     //enum('LoopLineClockwise', 'LoopLineAntiClockwise',
                             // 'MinToXu', 'XuToMin', 'MinToQi', 'QiToMin'),
@@ -24,6 +27,9 @@ public class Shift {
 
     @Column(name = "departure_time")
     Time departureTime ;
+
+    @Column(name = "arrive_time")
+    Time arriveTime;
 
     @Column(name = "reserve_seat")
     int reserveSeat;       //check (reserve_seat > 0),
@@ -87,5 +93,23 @@ public class Shift {
 
     public void setDepartureTime(Time departureTime) {
         this.departureTime = departureTime;
+    }
+
+
+    public int getBus_id() {
+        return bus_id;
+    }
+
+    public void setBus_id(int bus_id) {
+        this.bus_id = bus_id;
+    }
+
+
+    public Time getArriveTime() {
+        return arriveTime;
+    }
+
+    public void setArriveTime(Time arriveTime) {
+        this.arriveTime = arriveTime;
     }
 }
