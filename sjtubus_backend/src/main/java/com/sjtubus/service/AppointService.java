@@ -45,7 +45,7 @@ public class AppointService {
 
         System.out.println("shifts:"+shifts.size());
         if(shifts == null || shifts.size()==0) {
-            return null;
+            return new ArrayList<>();
         }
         System.out.println("shifts:"+shifts.get(0).getShiftId());
         for (int i = 0; i < shifts.size(); i++){
