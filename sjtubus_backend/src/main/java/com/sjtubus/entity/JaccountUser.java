@@ -3,26 +3,34 @@ package com.sjtubus.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name="Users")
-public class User {
+@Table(name="JaccountUsers")
+
+public class JaccountUser {
     @Id
     @Column(name = "user_id")
     private int userId ;
+
     @Column(name="username")
     private String username ;
-    @Column(name="password")
-    private String password ;
+
     @Column(name="credit")
     private int credit ;
+
     @Column(name="isteacher")
-    private boolean isTeacher;   //enum('true', 'false')
+    private boolean isTeacher;
+
     @Column(name="phone")
     private String phone;
-    @Transient
+
+    @Column(name = "realname")
     private String realname;
-    @Transient
+
+    @Column(name = "student_number")
     private String studentNumber;
 
+    public String getStudentNumber() {
+        return studentNumber;
+    }
 
     public void setStudentNumber(String studentNumber) {
         this.studentNumber = studentNumber;
@@ -54,15 +62,6 @@ public class User {
         this.credit = credit;
     }
 
-    public String getPassword() {
-
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getUsername() {
 
         return username;
@@ -87,10 +86,6 @@ public class User {
 
     public void setRealname(String realname) {
         this.realname = realname;
-    }
-
-    public String getStudentNumber() {
-        return studentNumber;
     }
 
 }

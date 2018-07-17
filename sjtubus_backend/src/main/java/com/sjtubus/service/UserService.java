@@ -1,7 +1,9 @@
 package com.sjtubus.service;
 
 import com.sjtubus.dao.DriverDao;
+import com.sjtubus.dao.JaccountUserDao;
 import com.sjtubus.dao.UserDao;
+import com.sjtubus.entity.JaccountUser;
 import com.sjtubus.entity.Shift;
 import com.sjtubus.entity.User;
 
@@ -17,6 +19,9 @@ import java.util.List;
 public class UserService {
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private JaccountUserDao jaccountUserDao;
 
     @Autowired
     private DriverDao driverDao;
@@ -55,6 +60,21 @@ public class UserService {
     }
 
     /**
+     * @description: 添加jaccount用户
+     * @date: 2018/7/16 12:54
+     * @params: 用户名、是否教师、电话
+     * @return: 所添加用户
+     */
+    public JaccountUser addJaccountUser(String username, boolean isTeacher, String phone){
+        JaccountUser user = new JaccountUser();
+        user.setUsername(username);
+        user.setCredit(100);
+        user.setTeacher(isTeacher);
+        user.setPhone(phone);
+        return jaccountUserDao.save(user);
+    }
+
+    /**
      * @description: 通过电话号码找到user
      * @date: 2018/7/13 11:12
      * @params: phone - 电话号码
@@ -77,4 +97,20 @@ public class UserService {
     public void saveUser(User user){
         userDao.save(user);
     }
+
+    @Transactional
+    public JaccountUser findJaccountUserByPhone(String phone){
+        return jaccountUserDao.findByPhone(phone);
+    }
+
+    @Transactional
+    public JaccountUser findByJaccountUserName(String username){ return jaccountUserDao.findByUsername(username); }
+
+    @Transactional
+    public List<JaccountUser> listAllJaccountUsers(){
+        return jaccountUserDao.findAll();
+    }
+
+    @Transactional
+    public void saveJaccountUser(JaccountUser user){ jaccountUserDao.save(user); }
 }

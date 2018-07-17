@@ -8,6 +8,7 @@ import java.sql.Time;
 @Table(name="Shift")
 public class Shift {
     private String shiftId ;
+    private int busId;
     private String lineName;     //enum('LoopLineClockwise', 'LoopLineAntiClockwise',
                                   // 'MinToXu', 'XuToMin', 'MinToQi', 'QiToMin'),
     private String lineNameCn;
@@ -15,6 +16,7 @@ public class Shift {
     private Time departureTime ;
     private int reserveSeat;       //check (reserve_seat > 0),
     private String comment;
+    private Time arriveTime;
 
     @Id
     @Column(name = "shift_id")
@@ -25,6 +27,12 @@ public class Shift {
     public void setShiftId(String shiftId) {
         this.shiftId = shiftId;
     }
+
+    @Basic
+    @Column(name = "bus_id")
+    public int getBusId() { return busId; }
+
+    public void setBusId(int busId) { this.busId = busId; }
 
     @Basic
     @Column(name = "line_name")
@@ -87,4 +95,16 @@ public class Shift {
     public void setDepartureTime(Time departureTime) {
         this.departureTime = departureTime;
     }
+
+    @Basic
+    @Column(name = "arrive_time")
+    public Time getArriveTime() {
+
+        return arriveTime;
+    }
+
+    public void setArriveTime(Time arriveTime) {
+        this.arriveTime = arriveTime;
+    }
+
 }
