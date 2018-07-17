@@ -193,7 +193,12 @@ public class ShiftService {
         return "success";
     }
 
-
+/**
+ * @description: 根据content去数据库进行比对，凡是班次信息中含有content的内容的则将它返回给用户
+ * @date: 2018/7/17 17:10
+ * @params: content
+ * @return: 含有关键字的班次列表
+*/
     public List<Shift> searchShift(String content){
         List<Shift> shiftInfo = shiftDao.findAll();
         List<Shift> resultList = new ArrayList<>();
@@ -229,6 +234,17 @@ public class ShiftService {
         }
         System.out.println(result.size());
         return result;
+    }
+
+
+/**
+ * @description: 根据shiftid寻找班次，修改其预约座位数为reserveSeat
+ * @date: 2018/7/17 21:07
+ * @params: 班次号shiftid，预约座位数reserveSeat
+ * @return: 修改条目数
+*/
+    public int modifySeat(String shiftId, int reserveSeat){
+        return shiftDao.updateReserveSeat(reserveSeat, shiftId);
     }
 
 

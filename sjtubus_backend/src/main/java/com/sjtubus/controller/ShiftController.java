@@ -123,4 +123,19 @@ public class ShiftController {
         }
         return response;
     }
+
+    @RequestMapping(path="/modify_seat")
+    public HttpResponse modifySeat(@RequestParam("shiftId") String shiftId,
+                                   @RequestParam("reserveSeat") int reserveSeat){
+        HttpResponse response = new HttpResponse();
+        try{
+            shiftService.modifySeat(shiftId, reserveSeat);
+            response.setMsg("success");
+        }
+        catch (Exception e){
+            response.setMsg("fail");
+            response.setError(1);
+        }
+        return response;
+    }
 }

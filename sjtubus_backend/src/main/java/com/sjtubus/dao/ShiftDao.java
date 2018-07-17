@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import javax.transaction.Transactional;
 import java.sql.Time;
 import java.util.Collection;
 import java.util.List;
@@ -31,10 +32,8 @@ public interface ShiftDao extends JpaRepository<Shift,String> {
     @Query(value = "select departureTime from Shift where lineType=:lineType and lineNameCn=:lineNameCn")
     List<Time> getTimeListByLineNameCnAndLineType(@Param("lineType") String lineType, @Param("lineNameCn") String lineNameCn);
 
-//    @Query(value = "select  min(departure_time) from Shift where type=:type and line_name=:line_name")
-//    Shift getFirstTimeByLineNameAndType(@Param("line_name")String line_name,@Param("type")String type);
-//
-//    @Query(value = "select  max(departure_time) from Shift where type=:type and line_name=:line_name")
-//    Shift getLastTimeByLineNameAndType(@Param("line_name")String line_name,@Param("type")String type);
-
+    @Transactional
+    @Modifying
+    @Query("update Shift shift set shift.reserveSeat = :reserveSeat where shift.shiftId =:shiftId")
+    int updateReserveSeat(@Param("reserveSeat") int reserveSeat,@Param("shiftId") String shiftId);
 }

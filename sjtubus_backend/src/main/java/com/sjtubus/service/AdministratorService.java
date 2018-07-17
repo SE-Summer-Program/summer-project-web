@@ -16,4 +16,11 @@ public class AdministratorService {
         return administratorDao.searchByUsername(username);
     }
 
+    public Administrator saveAdministrator(String username, String password){
+        Administrator administrator = new Administrator();
+        administrator.setPassword(password);
+        administrator.setUsername(username);
+        return administratorDao.save(administrator);
+    }
+
 }

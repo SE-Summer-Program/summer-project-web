@@ -21,9 +21,9 @@ class EditableCell extends React.Component {
 
     handleChange = (e) => {
         const value = e.target.value;
-       // console.log("editvalue:",e.target.value);
+
         this.setState({ value: value });
-    }
+    };
 
     check = () => {
         this.setState({ editable: false });
@@ -78,84 +78,152 @@ class ModifyShift extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            data:[{
-                shiftid:'LLAW0920',
-                startStation:'东川路地铁站',
-                endStation:'东川路地铁站',
-                direction:'逆时针',
-                startTime: '9:20',
-                seat: '0',
-                viaStation:[],
-            },{
-                shiftid:'XMWD1700A',
-                startStation:'徐汇校区',
-                endStation:'闵行校区',
-                direction:'/ ',
-                startTime: '17:00',
-                seat: '40',
-                viaStation:["罗阳、","上中"]
-            }],
-            count:2,
+            data:[],
+            count:0,
             content:'',
         }
         this.columns = [{
             title: '班次编号',
             dataIndex: 'shiftid',
             key: 'shiftid',
+            width: '15%'
+        }, {
+            title: '线路方向',
+            dataIndex: 'lineNameCn',
+            key: 'lineNameCn',
             width: '18%'
         }, {
-            title: '始发站',
-            dataIndex: 'startStation',
-            key: 'startStation',
-            width: '18%'
-        }, {
-            title: '终点站',
-            dataIndex: 'endStation',
-            key: 'endStation',
-            width: '18%'
-        },{
-            title: '方向',
-            dataIndex: 'direction' ,
-            key: 'direction',
-            width: '12%'
-        }, {
+            title: '时段类型',
+            dataIndex: 'lineType',
+            key: 'lineType',
+            width: '15%'
+        },   {
             title: '出发时刻',
-            dataIndex: 'startTime',
-            key: 'startTime',
+            dataIndex: 'departureTime',
+            key: 'departureTime',
             width: '13%'
         }, {
             title: '预留座位数',
             dataIndex: 'seat' ,
             key: 'seat',
-            width: '13%',
+            width: '10%',
             render: (text, record) => (
+
                 <EditableCell
                     value={text}
-                    onChange={this.onCellChange(record.key, 'seat')}
+                    onChange={this.onCellChangeSeat(record.key)}
                 />
             ),
-        }];
+        },{
+            title: '备注',
+            dataIndex: 'comment',
+            key: 'comment',
+            width: '18%'
+        },];
     }
 
-    onCellChange = (key, dataIndex) => {
+    onCellChangeSeat = (key) => {
         return (value) => {
+            console.log("Value:", value);
             const data = [...this.state.data];
             const target = data.find(item => item.key === key);
             if (target) {
-                let initSeat = target[dataIndex];
+                let initSeat = target['seat'];
                 if ((parseInt(value) <= 50) && (parseInt(value) >= 0)) {
-                    target[dataIndex] = value;
-                    this.setState({data});
+                    target['seat'] = value;
+                    this.setState({data},()=>{
+                        console.log("new seat:", target['seat']);
+                    });
+                    fetch('http://localhost:8080/shift/modify_seat?shiftId='+ target['shiftid'] + '&reserveSeat=' + target['seat'],
+                        {
+                            method: 'POST',
+                            mode: 'cors',
+                        })
+                        .then(response => {
+                            console.log('Request successful', response);
+                            return response.json()
+                                .then(result => {
+                                    console.log("result:",result);
+                                    console.log("result:",result.msg);
+                                    if (result.msg === "success") {
+                                        alert("修改成功");
+                                    }
+                                    else {
+                                        alert("修改失败");
+                                    }
+                                })
+                        });
                 }
                 else{
-                    target[dataIndex] = initSeat;
+                    target['seat'] = initSeat;
+                    value = initSeat;
                     console.log(initSeat);
-                    this.setState({data});
+                    this.setState({data},()=>{
+                        console.log("old seat:",target['seat']);
+                    });
                     alert("座位数应该在0-50之间")
                 }
             }
         };
-    }
+    };
+
+    handleSearch = () => {
+        console.log("content:",this.state.content);
+        this.state.data=[];
+        fetch('http://localhost:8080/shift/search_shift?content='+this.state.content,
+            {
+                method: 'GET',
+                mode: 'cors',
+            })
+            .then(response => {
+                console.log('Request successful', response);
+                return response.json()
+                    .then(result => {
+                        let len = result.shiftList.length;
+                        console.log("response len:",len);
+                        this.state.data=[];
+                        for (let i=0; i < len; i++) {
+                            const {data,count}=this.state;
+                            let shift = result.shiftList[i];
+                            let type = shift.lineType;
+                            let typeName = "";
+                            if (type === "HolidayWorkday") {
+                                typeName = "寒暑假工作日";
+                            }
+                            else if (type === "NormalWorkday") {
+                                typeName = "普通工作日";
+                            }
+                            else if (type === "HolidayWeekend") {
+                                typeName = "寒暑假双休日";
+                            }
+                            else{
+                                typeName = "普通节假双休日";
+                            }
+                            const add = {
+                                "key": this.state.count,
+                                "shiftid": shift.shiftId,
+                                "departureTime": shift.departureTime,
+                                "comment": shift.comment,
+                                "lineNameCn": shift.lineNameCn,
+                                "seat": shift.reserveSeat,
+                                "lineType": typeName,
+                            };
+
+                            this.setState({
+                                data: [...data, add],
+                                count: count+1,
+                            });
+                        }
+                    })
+            });
+    };
+
+
+    onChangeContent = (e) => {
+        this.setState({
+            content: e.target.value,
+        })
+    };
 
 
     render(){
@@ -212,8 +280,8 @@ class ModifyShift extends React.Component {
 
                             <Input name="content" label="搜索内容" size="large" style={{width: '30%', marginLeft:'100px' }}
                                    prefix={<Icon type="search"/>} placeholder="请输入用户相关信息" onChange={this.onChangeContent}/>
-                            <Button type="primary"  size="large" style={{width: '10%', marginLeft: '10px'}} onClick = {this.handleAdd}>搜索</Button>
-                            <h1></h1>
+                            <Button type="primary"  size="large" style={{width: '10%', marginLeft: '10px'}} onClick = {this.handleSearch}>搜索</Button>
+                            <h1/>
                             <Table bordered dataSource={this.state.data} columns={columns} style={{width:'88%', marginLeft:'70px'}}/>
                         </Content>
                     </Layout>

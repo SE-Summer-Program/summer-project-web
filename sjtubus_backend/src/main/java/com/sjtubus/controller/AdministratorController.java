@@ -84,4 +84,26 @@ public class AdministratorController {
     }
 
 
+    @RequestMapping(path = "/register")
+    public HttpResponse processRegister(@RequestParam("username")String username,
+                                        @RequestParam("password") String password,
+                                        HttpSession session){
+        HttpResponse response = new HttpResponse();
+        try{
+            List<Administrator> administratorList = administratorService.searchAdministrator(username);
+            if (administratorList.size() > 0)
+                response.setMsg("existed");
+            else{
+                Administrator administrator = administratorService.saveAdministrator(username, password);
+                session.setAttribute("administrator", administrator);
+                response.setMsg("success");
+            }
+        }
+        catch (Exception e){
+            response.setMsg("fail");
+            response.setError(1);
+        }
+        return response;
+    }
+
 }

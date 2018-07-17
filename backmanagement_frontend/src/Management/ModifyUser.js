@@ -1,13 +1,7 @@
 /**
  * Created by 励颖 on 2018/7/3.
  */
-/**
- * Created by 励颖 on 2018/7/3.
- */
-/**
- * Created by 励颖 on 2018/7/3.
- */
-import { Layout, Menu, Breadcrumb, Icon, Input, InputNumber, Button, Popconfirm, Form, Table} from 'antd';
+import { Layout, Menu, Breadcrumb, Icon, Input, InputNumber, Button, Popconfirm, Form, Table, Select} from 'antd';
 import React, { Component } from 'react';
 import './../App.css';
 import {Link} from "react-router-dom";
@@ -16,9 +10,9 @@ import {Link} from "react-router-dom";
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 
-
 const FormItem = Form.Item;
 const EditableContext = React.createContext();
+const Option = Select.Option;
 
 const EditableRow = ({ form, index, ...props }) => (
     <EditableContext.Provider value={form}>
@@ -116,6 +110,7 @@ class ModifyUser extends React.Component {
                 key: 'identity',
                 width: '18%',
                 editable: true,
+
             }, {
                 title: '操作',
                 dataIndex: 'operation',
@@ -248,9 +243,9 @@ class ModifyUser extends React.Component {
             }
             return {
                 ...col,
-                oncell: record => ({
+                onCell: record => ({
                     record,
-                    inputtype: col.dataIndex === 'age' ? 'number' : 'text',
+                    inputType: col.dataIndex === 'age' ? 'number' : 'text',
                     dataIndex: col.dataIndex,
                     title: col.title,
                     editing: this.isEditing(record),
