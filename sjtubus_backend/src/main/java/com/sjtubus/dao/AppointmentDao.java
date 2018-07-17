@@ -11,4 +11,6 @@ public interface AppointmentDao extends JpaRepository<Appointment,Integer> {
 
     List<Appointment> findByShiftIdAndAppointDate(String shiftId, Date appointDate);
 
+    List<Appointment> findByUserName(String username);
+
 }

@@ -7,6 +7,7 @@ import com.sjtubus.entity.Appointment;
 import com.sjtubus.entity.Bus;
 import com.sjtubus.entity.Shift;
 import com.sjtubus.model.AppointInfo;
+import com.sjtubus.utils.StringCalendarUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,7 +52,8 @@ public class AppointService {
         for (int i = 0; i < shifts.size(); i++){
             String departure_time = shifts.get(i).getDepartureTime().toString();
             //比较发车时间和当前时间的先后
-            if (isTodayDeparturedShift(appoint_date, departure_time))
+            String departure = appoint_date + " " + departure_time;
+            if (StringCalendarUtils.isBeforeCurrentTime(departure))
                 continue;
 
             AppointInfo info = new AppointInfo();
@@ -59,7 +61,7 @@ public class AppointService {
             info.setDepartureTime(departure_time);
             info.setArriveTime(shifts.get(i).getArriveTime().toString());
             //获取当前班次剩余可预约座位数（减去预留座位和已经被预约的座位）
-            info.setRemainSeat(getRemainSeat(shifts.get(i).getShiftId(), StringToDate(appoint_date)));
+            info.setRemainSeat(getRemainSeat(shifts.get(i).getShiftId(), StringCalendarUtils.StringToDate(appoint_date)));
 
             appointInfos.add(info);
             System.out.println("shiftid:"+shifts.get(i).getShiftId());
@@ -90,38 +92,24 @@ public class AppointService {
      * @params:
      * @return:
      */
-    private boolean isTodayDeparturedShift(String appoint_date, String departure_time) {
-
-        SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date departure = new Date();
-        Date current = new Date();
-        String time = appoint_date + " " + departure_time;
-
-        try {
-            departure = timeFormat.parse(time);//发车时间 考虑了日期和时间
-            current = timeFormat.parse(timeFormat.format(new Date()));//当前时间
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-
-        if (departure.before(current))
-            return true;
-        else
-            return false;
-
-    }
-
-    private static Date StringToDate(String datestr){
-        System.out.println("date:"+datestr);
-        Date date= new Date();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            date = dateFormat.parse(datestr);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        System.out.println("date:"+date);
-        return date;
-    }
-
+//    private boolean isTodayDeparturedShift(String appoint_date, String departure_time) {
+//
+//        SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        Date departure = new Date();
+//        Date current = new Date();
+//        String time = appoint_date + " " + departure_time;
+//
+//        try {
+//            departure = timeFormat.parse(time);//发车时间 考虑了日期和时间
+//            current = timeFormat.parse(timeFormat.format(new Date()));//当前时间
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        }
+//
+//        if (departure.before(current))
+//            return true;
+//        else
+//            return false;
+//
+//    }
 }
