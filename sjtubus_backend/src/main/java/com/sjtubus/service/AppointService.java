@@ -70,22 +70,22 @@ public class AppointService {
             return new ArrayList<>();
         }
         System.out.println("shifts:"+shifts.get(0).getShiftId());
-        for (int i = 0; i < shifts.size(); i++){
-            String departure_time = shifts.get(i).getDepartureTime().toString();
+        for (Shift shift : shifts) {
+            String departure_time = shift.getDepartureTime().toString();
             //比较发车时间和当前时间的先后
             String departure = appoint_date + " " + departure_time;
             if (StringCalendarUtils.isBeforeCurrentTime(departure))
                 continue;
 
             AppointInfo info = new AppointInfo();
-            info.setShiftId(shifts.get(i).getShiftId());
+            info.setShiftId(shift.getShiftId());
             info.setDepartureTime(departure_time);
-            info.setArriveTime(shifts.get(i).getArriveTime().toString());
+            info.setArriveTime(shift.getArriveTime().toString());
             //获取当前班次剩余可预约座位数（减去预留座位和已经被预约的座位）
-            info.setRemainSeat(getRemainSeat(shifts.get(i).getShiftId(),Date.valueOf(appoint_date)));
+            info.setRemainSeat(getRemainSeat(shift.getShiftId(), Date.valueOf(appoint_date)));
 
             appointInfos.add(info);
-            System.out.println("shiftid:"+shifts.get(i).getShiftId());
+            System.out.println("shiftid:" + shift.getShiftId());
         }
         System.out.println("appoint:"+appointInfos.size());
         return appointInfos;
