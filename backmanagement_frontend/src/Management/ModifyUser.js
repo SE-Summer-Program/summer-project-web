@@ -1,13 +1,7 @@
 /**
  * Created by 励颖 on 2018/7/3.
  */
-/**
- * Created by 励颖 on 2018/7/3.
- */
-/**
- * Created by 励颖 on 2018/7/3.
- */
-import { Layout, Menu, Breadcrumb, Icon, Input, InputNumber, Button, Popconfirm, Form, Table} from 'antd';
+import { Layout, Menu, Breadcrumb, Icon, Input, InputNumber, Button, Popconfirm, Form, Table, Select} from 'antd';
 import React, { Component } from 'react';
 import './../App.css';
 import {Link} from "react-router-dom";
@@ -15,7 +9,6 @@ import {Link} from "react-router-dom";
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
-
 
 const FormItem = Form.Item;
 const EditableContext = React.createContext();
@@ -31,7 +24,7 @@ const EditableFormRow = Form.create()(EditableRow);
 class EditableCell extends React.Component {
     getInput = () => {
         if (this.props.inputType === 'number') {
-            return <InputNumber />;
+            return <InputNumber min={0} max={100}/>;
         }
         return <Input />;
     };
@@ -55,10 +48,6 @@ class EditableCell extends React.Component {
                             {editing ? (
                                 <FormItem style={{ margin: 0 }}>
                                     {getFieldDecorator(dataIndex, {
-                                        rules: [{
-                                            required: true,
-                                            message: `Please Input ${title}!`,
-                                        }],
                                         initialValue: record[dataIndex],
                                     })(this.getInput())}
                                 </FormItem>
@@ -73,61 +62,52 @@ class EditableCell extends React.Component {
 
 
 
-
 class ModifyUser extends React.Component {
-    constructor(props) {
+    constructor(props){
         super(props);
-        this.state = {
-            data:[{
-                name: 'Jack',
-                ID: '516030910000',
-                phone:'12345678901',
-                credit: '95',
-                identity: '校内巴士司机',
-            }],
-            editingKey: '' };
-        this.columns = [
-            {
-                title: '姓名',
-                dataIndex: 'name',
-                key: 'name',
-                width: '15%',
-                editable: true,
-            },
-            {
-                title: 'ID',
-                dataIndex: 'ID',
-                key: 'ID',
-                width: '20%',
-                editable: true,
-            },
-            {
-                title: '电话号码',
-                dataIndex: 'phone',
-                key: 'phone',
-                width: '20%',
-                editable: true,
-            },{
-                title: '积分',
-                dataIndex: 'credit' ,
-                key: 'credit',
-                width: '15%',
-                editable: true,
-            },{
-                title: '身份',
-                dataIndex: 'identity' ,
-                key: 'identity',
-                width: '18%',
-                editable: true,
-            }, {
-                title: '操作',
-                dataIndex: 'operation',
-                render: (text, record) => {
-                    const editable = this.isEditing(record);
-                    return (
-                        <div>
-                            {editable ? (
-                                <span>
+        this.state={
+            data:[],
+            editingKey: '',
+            count:0,
+            content:'',
+        };
+        this.columns = [{
+            title: '用户编号',
+            dataIndex: 'userid',
+            key: 'userid',
+            width: '15%',
+        }, {
+            title: '用户姓名',
+            dataIndex: 'username',
+            key: 'username',
+            width: '18%',
+            editable: true,
+        }, {
+            title: '联系方式',
+            dataIndex: 'phone',
+            key: 'phone',
+            width: '18%',
+            editable: true,
+        }, {
+            title: '用户身份',
+            dataIndex: 'identity',
+            key: 'identity',
+            width: '17%',
+        }, {
+            title: '用户积分',
+            dataIndex: 'credit' ,
+            key: 'credit',
+            width: '15%',
+            editable: true,
+        },{
+            title: '操作',
+            dataIndex: 'operation',
+            render: (text, record) => {
+                const editable = this.isEditing(record);
+                return (
+                    <div>
+                        {editable ? (
+                            <span>
                   <EditableContext.Consumer>
                     {form => (
                         <a
@@ -146,14 +126,13 @@ class ModifyUser extends React.Component {
                     <a>取消</a>
                   </Popconfirm>
                 </span>
-                            ) : (
-                                <a onClick={() => this.edit(record.key)}>编辑</a>
-                            )}
-                        </div>
-                    );
-                },
+                        ) : (
+                            <a onClick={() => this.edit(record.key)}>编辑</a>
+                        )}
+                    </div>
+                );
             },
-        ];
+        },];
     }
 
     isEditing = (record) => {
@@ -172,16 +151,55 @@ class ModifyUser extends React.Component {
             const newData = [...this.state.data];
             const index = newData.findIndex(item => key === item.key);
             if (index > -1) {
-                const item = newData[index];
+                const old_item = newData[index];
+                //console.log("item1:",newData[index]['ID']);
                 newData.splice(index, 1, {
-                    ...item,
+                    ...old_item,
                     ...row,
                 });
+                const new_item = newData[index];
+                //console.log("item2:",newData[index]['ID']);
+                //console.log("data:",JSON.stringify(newData));
 
+                /*if (new_item['ID'] !== old_item['ID']){
+                    new_item['ID'] = old_item['ID'];
+                    alert("不能修改司机的ID");
+                    return;
+                }*/
+                if (new_item['username'] === ''){
+                    alert("司机用户名不能为空");
+                    return;
+                }
+                if (new_item['phone'] === ''){
+                    alert("联系电话不能为空");
+                    return;
+                }
+                console.log("username:", new_item['username']);
+                console.log("phone:", new_item['phone']);
+                console.log("credit:", new_item['credit']);
                 this.setState({ data: newData, editingKey: '' });
+                fetch('http://localhost:8080/user/modify?userId='+ new_item['userid']+ '&username=' + new_item['username'] + '&phone=' + new_item['phone'] + '&credit=' + new_item['credit'],
+                    {
+                        method: 'POST',
+                        mode: 'cors',
+                    })
+                    .then(response => {
+                        console.log('Request successful', response);
+                        return response.json()
+                            .then(result => {
+                                console.log("result:",result);
+                                console.log("result:",result.msg);
+                                if (result.msg === "success") {
+                                    alert("修改成功");
+                                }
+                                else {
+                                    alert("修改失败");
+                                }
+                            })
+                    });
+
             } else {
                 newData.push(this.state.data);
-
                 this.setState({ data: newData, editingKey: '' });
             }
         });
@@ -189,6 +207,67 @@ class ModifyUser extends React.Component {
 
     cancel = () => {
         this.setState({ editingKey: '' });
+    };
+
+    onChangeContent = (e) => {
+        this.setState({
+            content: e.target.value,
+        })
+    };
+
+    handleSearch = () => {
+        console.log("content:",this.state.content);
+        fetch('http://localhost:8080/user/search?content='+this.state.content,
+            {
+                method: 'GET',
+                mode: 'cors',
+            })
+            .then(response => {
+                console.log('Request successful', response);
+                return response.json()
+                    .then(result => {
+                        if (result.msg === "success"){
+                            let len = result.userList.length;
+                            console.log("result:", result);
+                            console.log("response len:",len);
+                            this.setState({
+                                data:[],
+                                count:0,
+                            });
+                            for (let i=0; i < len; i++) {
+                                const {data,count}=this.state;
+                                let user = result.userList[i];
+                                let identity = '';
+                                if (user.teacher.toString() === 'false') {
+                                    identity = "学生";
+                                }
+                                else{
+                                    identity = "教师"
+                                }
+                                const add = {
+                                    "key": this.state.count+1,
+                                    "userid": user.userId,
+                                    "username": user.username,
+                                    "credit": user.credit,
+                                    "identity": identity,
+                                    "phone": user.phone,
+                                };
+                                this.setState({
+                                    data: [...data, add],
+                                    count: count+1,
+                                });
+                            }
+                            this.setState({
+                                content:'',
+                            })
+                        }
+                        else
+                        {
+                            alert("查询失败，请重新搜索");
+                            window.location.reload();
+                        }
+                    })
+            });
     };
 
     render(){
@@ -207,7 +286,7 @@ class ModifyUser extends React.Component {
                 ...col,
                 onCell: record => ({
                     record,
-                    inputType: col.dataIndex === 'age' ? 'number' : 'text',
+                    inputType: col.dataIndex === 'credit' ? 'number' : 'text',
                     dataIndex: col.dataIndex,
                     title: col.title,
                     editing: this.isEditing(record),
@@ -267,7 +346,7 @@ class ModifyUser extends React.Component {
 
                             <Input name="content" label="搜索内容" size="large" style={{width: '30%', marginLeft:'100px' }}
                                    prefix={<Icon type="search"/>} placeholder="请输入用户相关信息" onChange={this.onChangeContent}/>
-                            <Button type="primary"  size="large" style={{width: '10%', marginLeft: '10px'}} onClick = {this.handleAdd}>搜索</Button>
+                            <Button type="primary"  size="large" style={{width: '10%', marginLeft: '10px'}} onClick = {this.handleSearch}>搜索</Button>
                             <h1></h1>
                             <Table
                                 components={components}
@@ -275,8 +354,9 @@ class ModifyUser extends React.Component {
                                 dataSource={this.state.data}
                                 columns={columns}
                                 rowClassName="editable-row"
-                                style={{width:'88%', marginLeft:'70px'}}
+                                style={{width:'80%', marginLeft:'100px'}}
                             />
+
                         </Content>
                     </Layout>
                 </Content>

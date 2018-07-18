@@ -18,11 +18,9 @@ class RegistrationForm extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            id:'',
             username:'',
             password:'',
             passwordConfirm:'',
-            phoneNumber:'',
             checked: false,
         }
     }
@@ -46,15 +44,10 @@ class RegistrationForm extends React.Component {
     handleRegister = (e) => {
         e.preventDefault();
         let username = this.state.username;
-        let id = this.state.id;
         let password = this.state.password;
         let passwordConfirm = this.state.passwordConfirm;
-        let phoneNumber = this.state.phoneNumber;
         if (username.length === 0) {
             alert("用户名不能为空");
-        }
-        else if (id.length === 0) {
-            alert("用户ID不能为空");
         }
         else if (password.length === 0) {
             alert("密码不能为空");
@@ -62,33 +55,37 @@ class RegistrationForm extends React.Component {
         else if (passwordConfirm.length === 0) {
             alert("密码不能为空");
         }
-        else if (phoneNumber.length === 0) {
-            alert("电话号码不能为空");
-        }
         else if (password !== passwordConfirm) {
             alert("两次输入密码错误");
             window.location.reload();
         }
-        else if (phoneNumber.length !== 11){
-            alert("您输入的号码长度不符常规");
-            window.location.reload();
-        }
         else if (!this.state.checked)
             alert("请先勾选同意协议");
-
         console.log("username:",username);
         console.log("password:",password);
-        console.log("id:",id);
-        console.log("phone:",phoneNumber);
-        this.setState({
-            id:'',
-            username:'',
-            password:'',
-            passwordConfirm:'',
-            phoneNumber:'',
-            checked: false,
-        })
-        window.location.reload();
+        fetch('http://localhost:8080/administrator/register?username=' + username + '&password=' + password,
+            {
+                method: 'POST',
+                mode: 'cors',
+                credentials: 'include',
+            })
+            .then(response => {
+                console.log('Request successful', response);
+                return response.json()
+                    .then(result => {
+                        console.log("result:", result);
+                        if (result.msg === "success") {
+                            alert("注册并登录成功");
+                            window.location.href="http://localhost:3000/#/"
+                        }
+                        else if (result.msg === "fail") {
+                            alert("注册失败");
+                        }
+                        else if (result.msg === "existed"){
+                            alert("用户名已存在");
+                        }
+                    })
+            });
 
     };
 
@@ -140,11 +137,6 @@ class RegistrationForm extends React.Component {
                                        placeholder="请输入用户名" onChange={this.handleChange}/>
 
                                 <h1></h1>
-                                <span style={{marginLeft: '447px', fontSize:'18px'}}> 用户ID： </span>
-                                <Input name="id" label="账号" size="large" style={{width: '23%',}}
-                                       placeholder="请输入用户账号" onChange={this.handleChange}/>
-
-                                <h1></h1>
                                 <span style={{marginLeft: '430px', fontSize:'18px'}}> 用户密码： </span>
                                 <Input name="password" label="密码" size="large" style={{width: '23%',}} placeholder="请输入密码"
                                        onChange={this.handleChange} onKeyDown={this.handleKeyDown}/>
@@ -152,10 +144,6 @@ class RegistrationForm extends React.Component {
                                 <span style={{marginLeft: '430px', fontSize:'18px'}}> 确认密码： </span>
                                 <Input name="passwordConfirm" size="large" style={{width: '23%', }} placeholder="请再次输入密码"
                                        onChange={this.handleChange} onKeyDown={this.handleKeyDown}/>
-                                <h1></h1>
-                                <span style={{marginLeft: '430px', fontSize:'18px'}}> 电话号码： </span>
-                                <Input name="phoneNumber" lable="电话" size="large" style={{width: '23%',}} placeholder="请输入电话号码"
-                                       onChange={this.handleChange} />
                                 <h1></h1>
                                 <span style={{marginLeft: '445px', fontSize:'18px'}}> 验证码： </span>
                                 <Input name="phoneNumber" lable="电话" size="large" style={{width: '11%',}} placeholder="请输入验证码"

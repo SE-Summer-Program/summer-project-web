@@ -16,30 +16,31 @@ const kindData=["校内巴士","校区巴士"];
 const viaStationData=["罗阳","上中","天钥","交大新村","古美"];
 const stationData={
     校内巴士:["菁菁堂","东川路地铁站"],
-    校区巴士:["闵行校区","徐汇校区","七宝校区","田林","古美","交大新村","天钥路"]
+    校区巴士:["闵行校区","徐汇校区","七宝校区"]
 };
 const direction=["顺时针","逆时针"];
-const hourData=["6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"];
+const hourData=["06","07","08","09","10","11","12","13","14","15","16","17","18","19","20"];
 const minuteData=["00","05","10","15","20","25","30","35","40","45","50","55"];
 
 class AddShift extends React.Component {
     constructor(props){
-        super(props);
-        this.state={
-            kind:'校内巴士',
-            hour:'6',
-            minute:'00',
-            direction: '',
-            isHoliday: 'false',
-            isWorkday: 'false',
-            teacherSeat:'30',
-            stations:stationData[kindData[0]],
-            startStation:stationData[kindData[0]][0],
-            endStation:stationData[kindData[0]][0],
-            disabled: true,
-            viaStation:[]
-        }
+    super(props);
+    this.state={
+        kind:'校内巴士',
+        hour:'6',
+        minute:'00',
+        direction: '',
+        isHoliday: 'false',
+        isWorkday: 'false',
+        teacherSeat:'30',
+        comment:'',
+        stations:stationData[kindData[0]],
+        startStation:stationData[kindData[0]][0],
+        endStation:stationData[kindData[0]][0],
+        disabled: true,
+        viaStation:[]
     }
+}
 
     handleKindChange = (value) => {
         this.setState({
@@ -117,9 +118,9 @@ class AddShift extends React.Component {
         }
     };
 
-    handleViaStation = (checkedValues) => {
+    handleCommentChange = (e) => {
         this.setState({
-            viaStation:checkedValues
+            comment: e.target.value,
         })
 
     };
@@ -141,16 +142,126 @@ class AddShift extends React.Component {
                 teacherSeat: '0'
             })
         }
-        console.log("kind:",this.state.kind);
-        console.log("startstation:",this.state.startStation);
-        console.log("endstation:",this.state.endStation);
-        console.log("starthour:",this.state.hour);
-        console.log("startminute:",this.state.minute);
-        console.log("holiday:",this.state.isHoliday);
-        console.log("workday:",this.state.isWorkday);
-        console.log("viaStation:",this.state.viaStation);
-        console.log("seat:",this.state.teacherSeat);
-        console.log("direction:",this.state.direction);
+        let kind = this.state.kind;
+        let startStation = this.state.startStation;
+        let endStation = this.state.endStation;
+        let hour = this.state.hour;
+        let minute = this.state.minute;
+        let isHoliday = this.state.isHoliday;
+        let isWorkday = this.state.isWorkday;
+        let comment = this.state.comment;
+        let teacherSeat = this.state.teacherSeat;
+        let direction = this.state.direction;
+
+        let linename = '';
+        let linename_cn = '';
+        let start = '';
+        let start_cn = '';
+        let end = '';
+        let end_cn = '';
+        let type = '';
+        let time = hour + ":" + minute + ":00";
+
+        if (kind === "校内巴士") {
+            teacherSeat = '0';
+            if (isHoliday === 'true'){
+                type = "HolidayWorkday";
+            }
+            else{
+                type = "NormalWorkday";
+            }
+            if (direction === "顺时针") {
+                linename = "LoopLineClockwise";
+                linename_cn = "校园巴士顺时针";
+            }
+            else {
+                linename = "LoopLineAntiClockwise";
+                linename_cn = "校园巴士逆时针";
+            }
+            if (startStation === '东川路地铁站'){
+                comment = "从东川路地铁站出发";
+            }
+            if (endStation === '东川路地铁站'){
+                comment = "绕校园后开到东川路地铁站";
+            }
+
+        }
+        else {
+            if ((isHoliday === 'true') && (isWorkday === 'true')){
+                type = 'HolidayWorkday';
+            }
+            else if ((isHoliday === 'false') && (isWorkday === 'true')){
+                type = 'NormalWorkday';
+            }
+            else if ((isHoliday === 'true') && (isWorkday === 'false')){
+                type = 'HolidayWeekend';
+            }
+            else{
+                type = 'NormalWeekendAndLegalHoliday';
+            }
+            if (startStation === '徐汇校区'){
+                start = 'XuHui';
+                start_cn = "徐汇";
+            }
+            else if(startStation === '闵行校区') {
+                start = 'MinHang';
+                start_cn = "闵行";
+            }
+            else {
+                start = 'QiBao';
+                start_cn = "七宝";
+            }
+
+            if (endStation === '徐汇校区') {
+                end = 'XuHui';
+                end_cn = "徐汇"
+            }
+            else if (endStation === '闵行校区') {
+                end = 'MinHang';
+                end_cn = "闵行"
+            }
+            else {
+                end = 'QiBao';
+                end_cn = "七宝";
+            }
+            linename = start + "To" + end;
+            linename_cn = start_cn + "到" + end_cn;
+        }
+            console.log("route:" ,'http://localhost:8080/shift/add?lineName='+ linename + '&lineNameCn='+ linename_cn +
+                '&lineType='+ type + '&departureTime='+ time +
+                '&reserveSeat=' + teacherSeat + '&comment=' + comment );
+
+       fetch('http://localhost:8080/shift/add?lineName='+ linename + '&lineNameCn='+ linename_cn +
+                                            '&lineType='+ type + '&departureTime='+ time +
+                                            '&reserveSeat=' + teacherSeat + '&comment=' + comment,
+            {
+                method: 'POST',
+                mode: 'cors',
+            })
+            .then(response => {
+                console.log('Request successful', response);
+                return response.json()
+                    .then(result => {
+                        console.log("result:",result);
+                        console.log("result:",result.msg);
+                        if (result.msg === "success") {
+                            alert("新班次添加成功");
+                            window.location.reload();
+                        }
+                        else if (result.msg === "existed")
+                        {
+                            alert("该班次已经存在");
+                            window.location.reload();
+                        }
+                        else {
+                            alert("添加失败");
+                            window.location.reload();
+                        }
+                    })
+            });
+
+
+
         //window.location.reload();
     };
 
@@ -246,17 +357,16 @@ class AddShift extends React.Component {
                             </Select>
                             <h1/>
                             <span style={{marginLeft: '268px', fontSize:'16px'}}>是否工作日： </span>
-                            <Select defaultValue={"否"} size="large" style={{width:'120px'}} onChange={this.handleWorkdayChange}>
+                            <Select defaultValue={"否"} size="large" style={{width:'120px'}} disabled={this.state.disabled} onChange={this.handleWorkdayChange}>
                                 <Option value="true">是</Option>
                                 <Option value="false">否</Option>
                             </Select>
                             <h1/>
                             <span style={{marginLeft: '268px', fontSize:'16px'}}>预留座位数： </span>
                             <InputNumber disabled={this.state.disabled} defaultValue={30} min={1} max={55} size="large"  style={{width:'120px'}} onChange={this.handleSeatNumber}/>
-                            <h6/>
-                            <br/>
-                            <span style={{marginLeft: '284px', fontSize:'16px'}}>途径站点： </span>
-                            <CheckboxGroup options={viaStationData} disabled={this.state.disabled} onChange={this.handleViaStation} />
+                            <h1/>
+                            <span style={{marginLeft: '315px', fontSize:'16px'}}>备注： </span>
+                            <Input size="large" style={{width:'300px'}} onChange={this.handleCommentChange}/>
                             <h1/>
                             <br/>
                             <Button type="primary"  size="large" style={{width: '10%', marginLeft:'350px'}} onClick = {this.handleAdd}>添加班次</Button>

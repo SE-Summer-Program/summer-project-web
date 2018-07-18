@@ -31,8 +31,8 @@ class AddUser extends React.Component {
     };
 
     handleKeyDown = (e) => {
-        if (e.keyCode === 16){
-            this.handleSubmit(e)
+        if (e.keyCode === 32){
+            alert("密码不能包含空格");
         }
     };
 
@@ -60,31 +60,74 @@ class AddUser extends React.Component {
         let phoneNumber = this.state.phoneNumber;
         if (username.length === 0) {
             alert("用户名不能为空");
+            return;
         }
         else if (id.length === 0) {
             alert("用户ID不能为空");
+            return;
         }
         else if (password.length === 0) {
             alert("密码不能为空");
+            return;
         }
         else if (passwordConfirm.length === 0) {
             alert("密码不能为空");
+            return;
         }
         else if (phoneNumber.length === 0) {
             alert("电话号码不能为空");
+            return;
         }
         else if (identity.length === 0) {
             alert("还未选择用户身份");
+            return;
         }
-        else if (password != passwordConfirm)
+        else if (password !== passwordConfirm){
             alert("两次输入密码错误");
-
+            return;
+        }
         console.log("username:",username);
         console.log("password:",password);
         console.log("id:",id);
         console.log("phone:",phoneNumber);
         console.log("credit:",credit);
         console.log("identity:",identity);
+
+        let isTeacher = '';
+        if (this.state.identity === '博士生' || this.state.identity === '教工'){
+            isTeacher = 'true'
+        }
+        else{
+            isTeacher = 'false'
+        }
+
+
+        fetch('http://localhost:8080/user/add?username='+ username +
+                                             '&password='+ password +
+                                             '&userId='+ id +
+                                             '&phone='+ phoneNumber +
+                                             '&credit=' + credit +
+                                             '&isTeacher=' + isTeacher,
+            {
+                method: 'POST',
+                mode: 'cors',
+            })
+            .then(response => {
+                console.log('Request successful', response);
+                return response.json()
+                    .then(result => {
+                        console.log("result:",result);
+                        console.log("result:",result.msg);
+                        if (result.msg === "success") {
+                            alert("新用户添加成功");
+                            window.location.reload();
+                        }
+                        else {
+                            alert("用户已经存在");
+                            window.location.reload();
+                        }
+                    })
+            });
     };
 
     render(){
@@ -95,7 +138,8 @@ class AddUser extends React.Component {
                     <Menu
                         theme="dark"
                         mode="horizontal"
-                        defaultSelectedKeys={['2']}
+                        defaultSelectedKeys={['1']}
+                        defaultOpenKeys={['sub1']}
                         style={{ lineHeight: '64px' }}
                     >
                         <Menu.Item key="1"><Link to="./"><span><Icon type="home"/></span>主页</Link></Menu.Item>

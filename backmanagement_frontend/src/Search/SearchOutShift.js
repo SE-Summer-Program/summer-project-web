@@ -150,7 +150,7 @@ class SearchOutShift extends React.Component {
         let temproute= 'line_name='+ start +'To'+ end + '&type=' + type;
         console.log("route:", temproute);
 
-        fetch('http://localhost:8080/shift/schedule?'+temproute,
+        fetch('http://localhost:8080/shift/search_schedule?'+temproute,
             {
                 method: 'POST',
                 mode: 'cors',
@@ -159,16 +159,16 @@ class SearchOutShift extends React.Component {
                 console.log('Request successful', response);
                 return response.json()
                     .then(result => {
-                        let len = result.scheduleShift.length;
+                        let len = result.schedule.scheduleShift.length;
                         console.log("response len:",len);
                         this.state.data=[];
                         for (var i=0; i < len; i++) {
                             const {data,count}=this.state;
                             const add = {
                                 "key": this.state.count+1,
-                                "shiftid": result.scheduleShift[i],
-                                "startTime": result.scheduleTime[i],
-                                "comment": result.scheduleComment[i],
+                                "shiftid": result.schedule.scheduleShift[i],
+                                "startTime": result.schedule.scheduleTime[i],
+                                "comment": result.schedule.scheduleComment[i],
                                 "startStation": this.state.startStation,
                                 "endStation": this.state.endStation,
                             };
@@ -221,7 +221,6 @@ class SearchOutShift extends React.Component {
                                 <SubMenu key="sub2" title={<span><Icon type="car" />校内巴士</span>}>
                                     <Menu.Item key="2"><Link to="searchmap">路线图</Link></Menu.Item>
                                     <Menu.Item key="3"><Link to="searchinshift">始发时刻表</Link></Menu.Item>
-                                    <Menu.Item key="4">实时查询</Menu.Item>
                                 </SubMenu>
                                 <SubMenu key="sub3" title={<span><Icon type="car" />校区巴士</span>}>
                                     <Menu.Item key="5"><Link to="searchreserved">预约信息</Link></Menu.Item>
