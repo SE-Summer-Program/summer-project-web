@@ -60,4 +60,12 @@ public class StringCalendarUtils {
             return false;
     }
 
+    public static String getCurrrentDate(){
+        String current_date="";
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        current_date=simpleDateFormat.format(date);
+        return current_date;
+    }
+
 }

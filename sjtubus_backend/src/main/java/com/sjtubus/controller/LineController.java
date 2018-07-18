@@ -26,9 +26,12 @@ public class LineController {
     @RequestMapping(value = "/infos")
     public LineInfoResponse getLineInfo(String type){
         LineInfoResponse response = new LineInfoResponse();
+        System.out.println("type:" + type);
         List<String> names = lineService.getAllLineName(type);
+        System.out.println("name:" + names.size());
         List<LineInfo> lines = new ArrayList<>();
         for(String name:names){
+            System.out.println("name:" + name);
             LineInfo info = lineService.getLineInfo(type,name);
             if(info!=null) lines.add(info);
         }

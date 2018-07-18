@@ -7,6 +7,7 @@ public class RecordInfo {
     private String departureTime; //预约的日期和时间
     private String shiftid;
     private String status;
+    private String submitTime;
 
     public String getLineName() {
         return lineName;
@@ -41,4 +42,8 @@ public class RecordInfo {
     public String getStatus() { return status; }
 
     public void setStatus(String status) { this.status = status; }
+    
+    public String getSubmitTime() { return submitTime; }
+
+    public void setSubmitTime(String submitTime) { this.submitTime = submitTime; }
 }

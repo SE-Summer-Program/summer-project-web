@@ -68,9 +68,10 @@ public class AppointController {
     public HttpResponse appoint(String username,
                                 String appoint_date,
                                 String shift_id,
-                                String line_name){
+                                String line_name,
+                                String submit_time){
         HttpResponse response  = new HttpResponse();
-        boolean result = appointService.addAppointment(username,appoint_date,shift_id,line_name);
+        boolean result = appointService.addAppointment(username,appoint_date,shift_id,line_name, submit_time);
         if(result){
             response.setMsg("预约成功!");
             response.setError(0);

@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.sjtubus.entity.Shift;
 import com.sjtubus.model.LineInfo;
+import com.sjtubus.utils.StringCalendarUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,6 +49,15 @@ public class LineService {
         info.setFirstTime(shifts.get(0).getDepartureTime().toString());
         info.setLastTime(shifts.get(shifts.size()-1).getDepartureTime().toString());
         info.setLineNameCN(shifts.get(0).getLineNameCn());
+        info.setRemainShift(0);
+
+        String currentdate = StringCalendarUtils.getCurrrentDate();
+        for (Shift shift : shifts){
+            String departuretime = shift.getDepartureTime().toString();
+            if (StringCalendarUtils.isBeforeCurrentTime(currentdate + " " + departuretime))
+                continue;
+            info.addRemainShift();
+        }
         return info;
     }
 
@@ -61,6 +71,7 @@ public class LineService {
     public List<String> getAllLineName(String type){
         List<String> result = new ArrayList<>();
         List<Line> lines = lineDao.findAll();
+        System.out.println("lines:" + lines.size());
         for (Line line:lines){
             String line_name = line.getName();
             result.add(line_name);

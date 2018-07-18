@@ -47,6 +47,7 @@ public class RecordService {
             info.setDepartureDate(departuredate);
             info.setDepartureTime(departuretime);
             info.setShiftid(shift.getShiftId());
+            info.setSubmitTime(appointment.getSubmitTime());
 
             // 预约成功 时间未到，normal
             // 预约失败 时间未到，unnormal
