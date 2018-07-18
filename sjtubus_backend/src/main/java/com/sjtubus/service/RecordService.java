@@ -40,7 +40,7 @@ public class RecordService {
             RecordInfo info = new RecordInfo();
             String departuredate = StringCalendarUtils.DateToString(appointment.getAppointDate());
             String departuretime = StringCalendarUtils.TimeToString(shift.getDepartureTime());
-            info.setLineName(shift.getLineName());
+            info.setLineName(shift.getLineNameCn()); //这里这里
             info.setDepartureDate(departuredate);
             info.setDepartureTime(departuretime);
             info.setShiftid(shift.getShiftId());

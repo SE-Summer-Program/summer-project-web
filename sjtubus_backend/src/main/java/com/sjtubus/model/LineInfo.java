@@ -9,6 +9,7 @@ public class LineInfo {
     private String firstTime;
     private String lastTime;
     private String lineNameCN;
+    private int remainShift;
 
     public String getLineNameCN() {
         return lineNameCN;
@@ -40,6 +41,18 @@ public class LineInfo {
 
     public void setLastTime(String lastTime) {
         this.lastTime = lastTime;
+    }
+
+    public int getRemainShift() {
+        return remainShift;
+    }
+
+    public void setRemainShift(int remainShift) {
+        this.remainShift = remainShift;
+    }
+
+    public void addRemainShift(){
+        this.remainShift += 1;
     }
 
 }
