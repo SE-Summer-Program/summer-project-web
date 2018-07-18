@@ -12,6 +12,7 @@ public class AppointInfo {
     private String departureTime;
     private String arriveTime;
     private int remainSeat;
+    private String submitTime;
 
     public String getShiftId() {
         return shiftId;
@@ -44,4 +45,8 @@ public class AppointInfo {
     public void setRemainSeat(int remainSeat) {
         this.remainSeat = remainSeat;
     }
+
+    public String getSubmitTime() { return submitTime; }
+
+    public void setSubmitTime(String submitTime) { this.submitTime = submitTime; }
 }

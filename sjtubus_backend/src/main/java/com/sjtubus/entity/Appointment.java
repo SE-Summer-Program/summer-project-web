@@ -2,6 +2,7 @@ package com.sjtubus.entity;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 @Entity
 @Table(name = "Appointment")
@@ -16,10 +17,14 @@ public class Appointment {
     private String shiftId ;
     @Column(name = "username")
     private String userName;
+    @Column(name = "user_code")
+    private String userCode;
     @Column(name = "appoint_date")
     private Date appointDate ;
     @Column(name = "line_name")
     private String lineName ;
+    @Column(name = "submit_time")
+    private Date submitTime;
     @Column(name = "isnormal")
     private boolean isNormal ;
 
@@ -64,7 +69,17 @@ public class Appointment {
     }
 
     public void setUserId(int userId) {
+
         this.userId = userId;
+    }
+
+    public String getUserCode() {
+        return userCode;
+    }
+
+    public void setUserCode(String userCode) {
+
+        this.userCode = userCode;
     }
 
     public int getAppointmentId() {
@@ -73,6 +88,7 @@ public class Appointment {
     }
 
     public void setAppointmentId(int appointmentId) {
+
         this.appointmentId = appointmentId;
     }
 
@@ -82,7 +98,20 @@ public class Appointment {
     }
 
     public void setUserName(String username) {
+
         this.userName = username;
     }
 
+    public String getSubmitTime() {
+
+        String submitTime_str;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        submitTime_str = sdf.format(submitTime);
+        return submitTime_str;
+    }
+
+    public void setSubmitTime(Date submitTime) {
+
+        this.submitTime = submitTime;
+    }
 }

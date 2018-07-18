@@ -35,15 +35,18 @@ public class AppointService {
     public boolean addAppointment(String username,
                                   String appoint_date,
                                   String shift_id,
-                                  String line_name){
+                                  String line_name,
+                                  String submit_time){
         Appointment appointment = new Appointment();
         Date date = Date.valueOf(appoint_date);
+        Date datetime = Date.valueOf(submit_time);
         appointment.setAppointDate(date);
         appointment.setLineName(line_name);
         appointment.setNormal(true);
         appointment.setShiftId(shift_id);
         appointment.setUserName(username);
-        if(getRemainSeat(shift_id,date)>0){
+        appointment.setSubmitTime(datetime);
+        if(getRemainSeat(shift_id,date) > 0){
             appointmentDao.save(appointment);
             return true;
         }else return false;
