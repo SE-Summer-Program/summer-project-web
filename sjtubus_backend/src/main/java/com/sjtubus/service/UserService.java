@@ -1,14 +1,11 @@
 package com.sjtubus.service;
 
-import com.sjtubus.dao.DriverDao;
+
 import com.sjtubus.dao.UserDao;
 import com.sjtubus.entity.User;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -17,19 +14,14 @@ public class UserService {
     @Autowired
     private UserDao userDao;
 
-    @Autowired
-    private DriverDao driverDao;
-
+    /**
+     * @description: 根据content比对数据库中的user，找出username或者phone包含content字段的user
+     * @date: 2018/7/18 20:14
+     * @params: 字段content
+     * @return: 包含字段content的用户列表
+    */
     public List<User> getUserInfo(String content){
-        List<User> results = new ArrayList<>();
-        List<User> userList = userDao.findAll();
-        for(User user:userList){
-            if (user.getUsername().contains(content) || String.valueOf(user.getUserId()).contains(content) || user.getPhone().contains(content)){
-                results.add(user);
-            }
-        }
-        System.out.println("userlist size:"+results.size());
-        return  results;
+        return  userDao.queryByRelatedContent(content);
     }
 
 
@@ -57,6 +49,10 @@ public class UserService {
         else {
             return "fail";
         }
+    }
+
+    public int modifyUser(int userId, String username, String phone, int credit){
+        return userDao.modifyUser(userId, username, phone, credit);
     }
 
 

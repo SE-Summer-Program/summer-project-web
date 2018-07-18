@@ -85,6 +85,7 @@ public class ShiftController {
             List<Shift> result = shiftService.searchShift(content);
             response.setError(0);
             response.setShiftList(result);
+            response.setMsg("success");
         }
         catch (Exception e){
             response.setError(1);
@@ -124,7 +125,7 @@ public class ShiftController {
         return response;
     }
 
-    @RequestMapping(path="/modify_seat")
+    @RequestMapping(path="/modify")
     public HttpResponse modifySeat(@RequestParam("shiftId") String shiftId,
                                    @RequestParam("reserveSeat") int reserveSeat){
         HttpResponse response = new HttpResponse();

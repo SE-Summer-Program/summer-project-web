@@ -36,4 +36,8 @@ public interface ShiftDao extends JpaRepository<Shift,String> {
     @Modifying
     @Query("update Shift shift set shift.reserveSeat = :reserveSeat where shift.shiftId =:shiftId")
     int updateReserveSeat(@Param("reserveSeat") int reserveSeat,@Param("shiftId") String shiftId);
+
+    @Query(value = "select shift from Shift shift where shift.lineName like %:content% or shift.lineNameCn like %:content%" +
+            " or shift.lineType like %:content% or shift.comment like %:content%")
+    List<Shift> queryByRelatedContent(@Param("content") String content);
 }

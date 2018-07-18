@@ -21,7 +21,7 @@ class DeleteUser extends React.Component {
             data: [],
             count: 0,
             content: ''
-        }
+        };
         this.columns = [{
             title: '姓名',
             dataIndex: 'name',
@@ -98,29 +98,39 @@ class DeleteUser extends React.Component {
                 //console.log('Request successful', response);
                 return response.json()
                     .then(result => {
-                        let len = result.length;
-                        for (let i=0; i < len; i++) {
-                            const {data,count}=this.state;
-                            let identity = '';
-                            if (result[i].teacher.toString() === 'false') {
-                                identity = "学生";
-                            }
-                            else{
-                                identity = "教师"
-                            }
-                            const add = {
-                                "key": this.state.count+1,
-                                "ID": result[i].userId,
-                                "name": result[i].username,
-                                "credit": result[i].credit,
-                                "identity": identity,
-                                "phone":result[i].phone,
-                            };
-
+                        if (result.msg === 'success'){
+                            let len = result.userList.length;
                             this.setState({
-                                data: [...data, add],
-                                count: count+1,
+                                data:[],
+                                count:0,
                             });
+                            for (let i=0; i < len; i++) {
+                                const {data,count}=this.state;
+                                let user = result.userList[i];
+                                let identity = '';
+                                if (user.teacher.toString() === 'false') {
+                                    identity = "学生";
+                                }
+                                else{
+                                    identity = "教师"
+                                }
+                                const add = {
+                                    "key": this.state.count+1,
+                                    "ID": user.userId,
+                                    "name": user.username,
+                                    "credit": user.credit,
+                                    "identity": identity,
+                                    "phone": user.phone,
+                                };
+                                this.setState({
+                                    data: [...data, add],
+                                    count: count+1,
+                                });
+                            }
+                        }
+                        else{
+                            alert("查询失败，请重新搜索");
+                            window.location.reload();
                         }
                     })
             });

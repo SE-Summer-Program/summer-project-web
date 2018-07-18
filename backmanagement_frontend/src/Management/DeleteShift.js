@@ -112,8 +112,11 @@ class DeleteShift extends React.Component {
                     .then(result => {
                         let len = result.shiftList.length;
                         console.log("response len:",len);
-                        this.state.data=[];
-                        for (var i=0; i < len; i++) {
+                        this.setState({
+                            data:[],
+                            count:0,
+                        });
+                        for (let i=0; i < len; i++) {
                             const {data,count}=this.state;
                             let shift = result.shiftList[i];
                             let type = shift.lineType;

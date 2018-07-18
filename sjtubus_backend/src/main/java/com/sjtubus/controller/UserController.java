@@ -3,6 +3,7 @@ import com.sjtubus.dao.UserDao;
 
 import com.sjtubus.entity.User;
 import com.sjtubus.model.response.HttpResponse;
+import com.sjtubus.model.response.UserListResponse;
 import com.sjtubus.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +26,18 @@ public class UserController {
     }
 
     @RequestMapping(path="/search")
-    public List<User> getRelatedUsers(@RequestParam("content") String content){
-        return userService.getUserInfo(content);
+    public UserListResponse getRelatedUsers(@RequestParam("content") String content){
+        UserListResponse response = new UserListResponse();
+        try{
+            response.setUserList(userService.getUserInfo(content));
+            response.setMsg("success");
+        }
+        catch (Exception e){
+            response.setUserList(null);
+            response.setMsg("fail");
+            response.setError(1);
+        }
+        return response;
     }
 
 
@@ -51,9 +62,32 @@ public class UserController {
 
     @RequestMapping(path="/delete" )
     public HttpResponse deleteUser(@RequestParam("userId") int userId){
-            HttpResponse response = new HttpResponse();
-            String result = userService.deleteUser(userId);
-            response.setMsg(result);
-            return response;
+        HttpResponse response = new HttpResponse();
+        try{
+            response.setMsg(userService.deleteUser(userId));
+        }
+        catch (Exception e){
+            response.setMsg("fail");
+            response.setError(1);
+        }
+        return response;
+    }
+
+    @RequestMapping(path="/modify")
+    public HttpResponse modifyPhone(@RequestParam("userId") int userId,
+                                    @RequestParam("username") String username,
+                                    @RequestParam("phone") String phone,
+                                    @RequestParam("credit") int credit){
+        HttpResponse response = new HttpResponse();
+        try{
+            System.out.println("userId:"+userId+" phone:"+phone);
+            userService.modifyUser(userId, username, phone, credit);
+            response.setMsg("success");
+        }
+        catch (Exception e){
+            response.setMsg("fail");
+            response.setError(1);
+        }
+        return response;
     }
 }

@@ -200,19 +200,7 @@ public class ShiftService {
  * @return: 含有关键字的班次列表
 */
     public List<Shift> searchShift(String content){
-        List<Shift> shiftInfo = shiftDao.findAll();
-        List<Shift> resultList = new ArrayList<>();
-        int size = shiftInfo.size();
-        for (int i = 0; i < size; i++ ){
-            Shift shift = shiftInfo.get(i);
-            if (shift.getShiftId().contains(content) || shift.getLineNameCn().contains(content) ||String.valueOf(shift.getDepartureTime()).contains(content)
-                    ||shift.getComment().contains(content) || shift.getLineType().contains(content)){
-                resultList.add(shift);
-               // System.out.println(shift.getShiftId());
-            }
-        }
-        System.out.println("resultListSize:"+ resultList.size());
-        return resultList;
+        return shiftDao.queryByRelatedContent(content);
     }
 
 
