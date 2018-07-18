@@ -7,6 +7,7 @@ import java.sql.Date;
 @Table(name = "Appointment")
 public class Appointment {
     @Id
+    @GeneratedValue
     @Column(name = "appointment_id")
     private int appointmentId ;
     @Column(name = "user_id")

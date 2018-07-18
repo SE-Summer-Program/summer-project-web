@@ -35,7 +35,7 @@ import java.io.IOException;
 @RequestMapping(value = "/auth")
 public class OAuthController {
     private String BASE_URL = "https://jaccount.sjtu.edu.cn/oauth2/";
-    private String REDIRECT_URL = "http://localhost:8080/auth/redirect";
+    private String REDIRECT_URL = "http://106.14.181.49:8080/auth/redirect";
     private String CLIENT_ID = "3FWoFzRrMlxeU750XO5W";
 
     @Autowired
@@ -106,7 +106,6 @@ public class OAuthController {
             httpResponse.setError(0);
             httpResponse.setMsg("认证出错！");
         }
-
         return httpResponse;
     }
 }
