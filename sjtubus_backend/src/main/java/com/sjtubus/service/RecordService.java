@@ -5,9 +5,12 @@ import com.sjtubus.dao.ShiftDao;
 import com.sjtubus.entity.Appointment;
 import com.sjtubus.entity.Shift;
 import com.sjtubus.model.RecordInfo;
+import com.sjtubus.model.response.HttpResponse;
 import com.sjtubus.utils.StringCalendarUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +43,7 @@ public class RecordService {
             RecordInfo info = new RecordInfo();
             String departuredate = StringCalendarUtils.DateToString(appointment.getAppointDate());
             String departuretime = StringCalendarUtils.TimeToString(shift.getDepartureTime());
-            info.setLineName(shift.getLineName());
+            info.setLineName(shift.getLineNameCn());
             info.setDepartureDate(departuredate);
             info.setDepartureTime(departuretime);
             info.setShiftid(shift.getShiftId());
@@ -60,11 +63,8 @@ public class RecordService {
             else{
                 info.setStatus("系统错误");
             }
-
             recordInfos.add(info);
         }
-
         return recordInfos;
     }
-
 }

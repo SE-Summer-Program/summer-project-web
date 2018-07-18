@@ -11,13 +11,8 @@ import com.sjtubus.utils.StringCalendarUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Time;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -30,6 +25,29 @@ public class AppointService {
 
     @Autowired
     private BusDao busDao;
+    
+    /**
+     * @description: 添加预约信息
+     * @date: 2018/7/18 8:17
+     * @params:  预约所需的用户名，预约日期，班次id，线路名
+     * @return: 添加结果
+    */
+    public boolean addAppointment(String username,
+                                  String appoint_date,
+                                  String shift_id,
+                                  String line_name){
+        Appointment appointment = new Appointment();
+        Date date = Date.valueOf(appoint_date);
+        appointment.setAppointDate(date);
+        appointment.setLineName(line_name);
+        appointment.setNormal(true);
+        appointment.setShiftId(shift_id);
+        appointment.setUserName(username);
+        if(getRemainSeat(shift_id,date)>0){
+            appointmentDao.save(appointment);
+            return true;
+        }else return false;
+    }
 
     /**
      * @description: 符合当前线路和时间段类型的所有shift班次
@@ -61,7 +79,7 @@ public class AppointService {
             info.setDepartureTime(departure_time);
             info.setArriveTime(shifts.get(i).getArriveTime().toString());
             //获取当前班次剩余可预约座位数（减去预留座位和已经被预约的座位）
-            info.setRemainSeat(getRemainSeat(shifts.get(i).getShiftId(), StringCalendarUtils.StringToDate(appoint_date)));
+            info.setRemainSeat(getRemainSeat(shifts.get(i).getShiftId(),Date.valueOf(appoint_date)));
 
             appointInfos.add(info);
             System.out.println("shiftid:"+shifts.get(i).getShiftId());
@@ -76,7 +94,7 @@ public class AppointService {
      * @params:
      * @return:
      */
-    public int getRemainSeat(String shiftId, Date appoint_date){
+    private int getRemainSeat(String shiftId, Date appoint_date){
        List<Appointment> appointments = appointmentDao.findByShiftIdAndAppointDate(shiftId, appoint_date);
        Shift shift = shiftDao.findByShiftId(shiftId);
        Bus bus = busDao.findByBusId(shift.getBusId());
