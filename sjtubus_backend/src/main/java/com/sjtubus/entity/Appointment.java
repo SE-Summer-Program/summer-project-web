@@ -1,5 +1,7 @@
 package com.sjtubus.entity;
 
+import com.sjtubus.utils.StringCalendarUtils;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -17,12 +19,16 @@ public class Appointment {
     private String shiftId ;
     @Column(name = "username")
     private String userName;
+    @Column(name = "realname")
+    private String realName;
     @Column(name = "user_code")
     private String userCode;
     @Column(name = "appoint_date")
     private Date appointDate ;
     @Column(name = "line_name")
     private String lineName ;
+    @Column(name = "line_name_cn")
+    private String lineNameCn;
     @Column(name = "submit_time")
     private Date submitTime;
     @Column(name = "isnormal")
@@ -44,6 +50,16 @@ public class Appointment {
     public void setLineName(String lineName) {
         this.lineName = lineName;
     }
+
+    public String getLineNameCn() {
+
+        return lineNameCn;
+    }
+
+    public void setLineNameCn(String lineNameCn) {
+        this.lineNameCn = lineNameCn;
+    }
+
 
     public Date getAppointDate() {
 
@@ -102,16 +118,33 @@ public class Appointment {
         this.userName = username;
     }
 
-    public String getSubmitTime() {
+    public String getRealName() {
+        return realName;
+    }
 
-        String submitTime_str;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        submitTime_str = sdf.format(submitTime);
-        return submitTime_str;
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+
+    public Date getSubmitTime(){
+        return submitTime;
+    }
+
+    public String getSubmitTimeString() {
+
+        String submitTimeString = StringCalendarUtils.DateToString(submitTime);
+        return submitTimeString;
     }
 
     public void setSubmitTime(Date submitTime) {
 
         this.submitTime = submitTime;
     }
+
+    public void setSubmitTimeString(String submitTimeString){
+
+        Date submitdate = StringCalendarUtils.UtilDateToSqlDate(StringCalendarUtils.StringToTime(submitTimeString));
+        this.submitTime = submitdate;
+    }
+
 }
