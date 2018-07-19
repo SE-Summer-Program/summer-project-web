@@ -54,7 +54,7 @@ public class UserController {
                                 @RequestParam("phone") String phone,
                                 @RequestParam("isTeacher") boolean isTeacher){
         HttpResponse response = new HttpResponse();
-        User olduser = userService.addUser(username, password, isTeacher, phone, userId, credit);
+        User olduser = userService.addUser(username, password, isTeacher, phone,credit);
         if (olduser == null){
             response.setMsg("success");
         }

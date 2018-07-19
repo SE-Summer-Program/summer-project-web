@@ -35,8 +35,8 @@ public class UserService {
     }
 
 
-    public User addUser(String username, String password, boolean isTeacher, String phone, int userId, int credit){
-        User olduser = userDao.findByUserId(userId);
+    public User addUser(String username, String password, boolean isTeacher, String phone, int credit){
+        User olduser = userDao.findByUsername(username);
         if( olduser == null ){
             User user = new User();
             user.setUsername(username);
@@ -44,7 +44,7 @@ public class UserService {
             user.setCredit(credit);
             user.setTeacher(isTeacher);
             user.setPhone(phone);
-            user.setUserId(userId);
+            //user.setUserId(userId);
             userDao.save(user);
         }
         return olduser;
