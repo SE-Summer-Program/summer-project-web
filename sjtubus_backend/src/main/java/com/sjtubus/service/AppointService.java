@@ -61,7 +61,7 @@ public class AppointService {
         appointment.setUserCode("");
 
         System.out.println("remain: " + getRemainSeat(shift_id,date));
-        System.out.println("shiftif: " + shift_id);
+        System.out.println("shiftid: " + shift_id);
         if(getRemainSeat(shift_id,date) > 0){
             appointmentDao.save(appointment);
             return true;
@@ -123,7 +123,7 @@ public class AppointService {
        return totalSeat - reserveSeat - appointedSeat;
     }
 
-    /**
+    /*
      * @description: 比较发车时间和当前时间的先后
      * @date: 2018/07/16 13:57
      * @params:

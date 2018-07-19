@@ -37,8 +37,9 @@ public class UserService {
 
     public User addUser(String username, String password, boolean isTeacher, String phone, int credit){
         User olduser = userDao.findByUsername(username);
+        User user = null;
         if( olduser == null ){
-            User user = new User();
+            user = new User();
             user.setUsername(username);
             user.setPassword(password);
             user.setCredit(credit);
@@ -46,7 +47,7 @@ public class UserService {
             user.setPhone(phone);
             userDao.save(user);
         }
-        return olduser;
+        return user;
     }
 
     public String deleteUser(int userId){

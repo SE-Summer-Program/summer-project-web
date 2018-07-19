@@ -78,7 +78,7 @@ public class AccountController {
         user = userService.addUser(username,password,false,phone,100);
         if(user==null){
             response.setError(1);
-            response.setMsg("服务器错误!注册失败!");
+            response.setMsg("该用户名已被注册!");
             return response;
         }
         response.setError(0);
