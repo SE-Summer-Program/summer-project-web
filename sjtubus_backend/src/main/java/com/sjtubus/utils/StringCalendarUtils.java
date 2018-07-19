@@ -77,6 +77,16 @@ public class StringCalendarUtils {
         return current_date;
     }
 
+    /* 获取当天的时间 格式 2018-07-18 19:35:00 */
+    public static String getCurrentTime(){
+        String current_time;
+        Date date = new Date();
+        //最后的aa表示“上午”或“下午” HH表示24小时制  如果换成hh表示12小时制
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        current_time=simpleDateFormat.format(date);
+        return current_time;
+    }
+
     /* java.util.date转化成java.sql.date */
     public static java.sql.Date UtilDateToSqlDate(java.util.Date util_date){
         return new java.sql.Date(util_date.getTime());

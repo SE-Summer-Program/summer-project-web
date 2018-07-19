@@ -8,6 +8,7 @@ import com.sjtubus.model.response.LineInfoResponse;
 import com.sjtubus.model.response.RecordInfoResponse;
 import com.sjtubus.service.AppointService;
 import com.sjtubus.service.RecordService;
+import com.sjtubus.utils.StringCalendarUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -50,10 +51,11 @@ public class AppointController {
      * @return:
      */
     @RequestMapping(value = "/record",method = RequestMethod.GET)
-    public RecordInfoResponse getRecordInfos(String username, String current_time){
+    public RecordInfoResponse getRecordInfos(String username){
+        String current_time = StringCalendarUtils.getCurrentTime();
         RecordInfoResponse response = new RecordInfoResponse();
         List<RecordInfo> recordInfos;
-        recordInfos = recordService.getRecordInfo(username, current_time);
+        recordInfos = recordService.getRecordInfo(username);
         response.setRecordInfos(recordInfos);
         return response;
     }

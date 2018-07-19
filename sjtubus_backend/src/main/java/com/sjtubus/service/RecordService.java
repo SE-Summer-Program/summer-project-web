@@ -30,14 +30,15 @@ public class RecordService {
      * @params:
      * @return:
      */
-    public List<RecordInfo> getRecordInfo(String username, String current_time){
+    public List<RecordInfo> getRecordInfo(String username){
         List<Appointment> appointments = appointmentDao.findByUserName(username);
         List<RecordInfo> recordInfos = new ArrayList<>();
 
+        System.out.println("appoint : " + appointments.size());
         if (appointments == null || appointments.size()==0){
             return null;
         }
-        for (Appointment appointment : appointments){
+        for (Appointment appointment : appointments) {
             Shift shift = shiftDao.findByShiftId(appointment.getShiftId());
 
             RecordInfo info = new RecordInfo();
@@ -48,23 +49,31 @@ public class RecordService {
             info.setDepartureTime(departuretime);
             info.setShiftid(shift.getShiftId());
 
-           // info.setSubmitTime(appointment.getSubmitTime());
+            // info.setSubmitTime(appointment.getSubmitTime());
             info.setSubmitTime(appointment.getSubmitTimeString());
+            info.setStatus("预约成功");
+
+            System.out.println("status : 0");
 
             // 预约成功 时间未到，normal
             // 预约失败 时间未到，unnormal
             // 已出行  时间已到
             String departure = departuredate + " " + departuretime;
-            if (! StringCalendarUtils.isBeforeCurrentTime(departure))
+            if (!StringCalendarUtils.isBeforeCurrentTime(departure)) {
                 info.setStatus("已出行");
+                System.out.println("status : 1");
+            }
             else if (! appointment.isNormal()){
                 info.setStatus("预约失败");
+                System.out.println("status : 2");
             }
             else if (appointment.isNormal()){
                 info.setStatus("预约成功");
+                System.out.println("status : 3");
             }
             else{
                 info.setStatus("系统错误");
+                System.out.println("status : 4");
             }
             recordInfos.add(info);
         }
