@@ -83,7 +83,9 @@ public class SjtubusApplicationTests {
 
 	@Test
 	public void testPostAppoint(){
-		appointController.appoint("wxw","2018-07-19","MXHD1215",
-			"MinHangToXuHui","2018-07-19 08:50:00");
+	   // for (int i = 0; i < 10 ; i++) {
+            appointController.appoint("wxw", "2018-07-19", "MXHD1215",
+                    "MinHangToXuHui", "2018-07-19 08:50:00");
+       // }
 	}
 }

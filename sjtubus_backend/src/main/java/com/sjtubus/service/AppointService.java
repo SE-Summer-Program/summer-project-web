@@ -9,6 +9,7 @@ import com.sjtubus.entity.Bus;
 import com.sjtubus.entity.Shift;
 import com.sjtubus.entity.User;
 import com.sjtubus.model.AppointInfo;
+import com.sjtubus.utils.ShiftUtils;
 import com.sjtubus.utils.StringCalendarUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,16 +45,23 @@ public class AppointService {
                                   String submit_time){
         Appointment appointment = new Appointment();
         User user = userDao.findByUsername(username);
-        Date date = Date.valueOf(appoint_date);
+       // Date date = Date.valueOf(appoint_date);
+
+        java.sql.Date date = StringCalendarUtils.UtilDateToSqlDate(StringCalendarUtils.StringToDate(appoint_date));
 
         appointment.setAppointDate(date);
         appointment.setLineName(line_name);
+        appointment.setLineNameCn(ShiftUtils.getChiLineName(line_name));
         appointment.setNormal(true);
         appointment.setShiftId(shift_id);
         appointment.setUserName(username);
         appointment.setSubmitTimeString(submit_time);
         appointment.setUserId(user.getUserId());
+        appointment.setRealName("");
+        appointment.setUserCode("");
 
+        System.out.println("remain: " + getRemainSeat(shift_id,date));
+        System.out.println("shiftif: " + shift_id);
         if(getRemainSeat(shift_id,date) > 0){
             appointmentDao.save(appointment);
             return true;
