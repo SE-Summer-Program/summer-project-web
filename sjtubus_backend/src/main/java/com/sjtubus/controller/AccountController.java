@@ -75,14 +75,14 @@ public class AccountController {
             response.setMsg("该手机号已注册!");
             return response;
         }
-        user = userService.addUser(username,password,false,phone);
-        if(user==null){
-            response.setError(1);
-            response.setMsg("服务器错误!注册失败!");
+        String result = userService.addUser(username,password,false,phone, 100);
+        if(result.equals("success") ){
+            response.setError(0);
+            response.setMsg("注册成功!");
             return response;
         }
-        response.setError(0);
-        response.setMsg("注册成功!");
+        response.setError(1);
+        response.setMsg("服务器错误!注册失败!");
         return response;
     }
 

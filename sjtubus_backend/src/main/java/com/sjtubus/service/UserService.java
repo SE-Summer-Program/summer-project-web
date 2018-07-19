@@ -35,19 +35,20 @@ public class UserService {
     }
 
 
-    public User addUser(String username, String password, boolean isTeacher, String phone, int userId, int credit){
-        User olduser = userDao.findByUserId(userId);
-        if( olduser == null ){
+    public String addUser(String username, String password, boolean isTeacher, String phone, int credit) {
+        User olduser = userDao.findByUsername(username);
+        if (olduser == null) {
             User user = new User();
             user.setUsername(username);
             user.setPassword(password);
             user.setCredit(credit);
             user.setTeacher(isTeacher);
             user.setPhone(phone);
-            user.setUserId(userId);
             userDao.save(user);
+            return "success";
+        } else {
+            return "existed";
         }
-        return olduser;
     }
 
     public String deleteUser(int userId){

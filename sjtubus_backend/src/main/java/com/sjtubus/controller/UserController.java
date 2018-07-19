@@ -49,17 +49,16 @@ public class UserController {
     @RequestMapping(path="/add" )
     public HttpResponse addUser(@RequestParam("username") String username,
                                 @RequestParam("password") String password,
-                                @RequestParam("userId") int userId,
                                 @RequestParam("credit") int credit,
                                 @RequestParam("phone") String phone,
                                 @RequestParam("isTeacher") boolean isTeacher){
         HttpResponse response = new HttpResponse();
-        User olduser = userService.addUser(username, password, isTeacher, phone, userId, credit);
-        if (olduser == null){
-            response.setMsg("success");
+        try{
+            response.setMsg(userService.addUser(username, password, isTeacher, phone, credit));
         }
-        else{
+        catch (Exception e){
             response.setMsg("fail");
+            response.setError(1);
         }
         return response;
     }

@@ -78,7 +78,7 @@ public class ShiftService {
      * @params: departureTime，如08:00:00
      * @return: 字符串型的时间，如0800
      */
-    public String changeDepartureTimeToStringTime(Time departureTime){
+    public String changeTimeToStringTime(Time departureTime){
         String tempHour = String.valueOf(departureTime.getHours());
         String tempMinute = String.valueOf(departureTime.getMinutes());
         int hourLen = tempHour.length();
@@ -104,21 +104,23 @@ public class ShiftService {
      * @params: lineName, lineNameCn, lineType, departureTime, reserveSeat, comment
      * @return:
     */
-    public String addShift(String lineName, String lineNameCn, String lineType, Time departureTime, int reserveSeat, String comment){
+    public String addShift(String lineName, String lineNameCn, String lineType, Time departureTime, int reserveSeat, String comment, int busId, Time arriveTime){
         //生成对应的id
-        String time = changeDepartureTimeToStringTime(departureTime);
+        System.out.println("hello");
+        System.out.println("departure:"+departureTime);
+        String departure = changeTimeToStringTime(departureTime);
         String shiftid;
         if (lineName.equals("LoopLineAntiClockwise")){
             if (lineType.equals("HolidayWorkday"))
-                shiftid = "LLAH" + time;
+                shiftid = "LLAH" + departure;
             else
-                shiftid = "LLAW" + time;
+                shiftid = "LLAW" + departure;
         }
         else if (lineName.equals("LoopLineClockwise")){
             if (lineType.equals("HolidayWorkday"))
-                shiftid = "LLCH" + time;
+                shiftid = "LLCH" + departure;
             else
-                shiftid = "LLCW" + time;
+                shiftid = "LLCW" + departure;
         }
         else{
             if (lineName.equals("MinHangToQiBao"))
@@ -127,10 +129,14 @@ public class ShiftService {
                 shiftid = "MX";
             else if (lineName.equals("QiBaoToMinHang"))
                 shiftid = "QM";
-            else
+            else if (lineName.equals("XuHuiToMinHang"))
                 shiftid = "XM";
+            else if (lineName.equals("XuHuiToQiBao"))
+                shiftid = "XQ";
+            else
+                shiftid = "QX";
             shiftid = shiftid + changeTypeToId(lineType);
-            shiftid = shiftid +time;
+            shiftid = shiftid + departure;
         }
 
         List<Shift> sameShifts = shiftDao.queryByLinetypeAndLinenameAndDepartureTime(lineType, lineName, departureTime);
@@ -153,6 +159,8 @@ public class ShiftService {
             newShift.setReserveSeat(oldSeat);
             newShift.setDepartureTime(departureTime);
             newShift.setComment(oldComment);
+            newShift.setBusId(busId);
+            newShift.setArriveTime(arriveTime);
             shiftDao.save(newShift);
             shiftid = shiftid + "B";
         }
@@ -170,6 +178,8 @@ public class ShiftService {
         shift.setLineType(lineType);
         shift.setReserveSeat(reserveSeat);
         shift.setComment(comment);
+        shift.setBusId(busId);
+        shift.setArriveTime(arriveTime);
         shiftDao.save(shift);
         return "success";
     }
@@ -186,6 +196,7 @@ public class ShiftService {
 
 
     public String deleteShift(String shiftId){
+        System.out.println("delete:"+ shiftId);
         Shift oldShift = shiftDao.queryShiftByShiftId(shiftId);
         shiftDao.delete(oldShift);
         return "success";

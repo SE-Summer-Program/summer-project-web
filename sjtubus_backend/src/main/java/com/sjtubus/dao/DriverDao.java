@@ -16,6 +16,10 @@ public interface DriverDao extends JpaRepository<Driver,Integer> {
     @Query(value = "select driver from Driver driver where driver.username like %:content% or driver.phone like %:content%")
     List<Driver> queryByRelatedContent(@Param("content") String content);
 
+    Driver queryDriverByUsername(String username);
+
+    Driver queryDriverByDriverId(int userId);
+
     @Transactional
     @Modifying
     @Query("update Driver driver set driver.phone=:phone, driver.username=:username where driver.driverId =:driverId")

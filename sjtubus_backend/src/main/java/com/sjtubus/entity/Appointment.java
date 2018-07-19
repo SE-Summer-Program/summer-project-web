@@ -2,6 +2,7 @@ package com.sjtubus.entity;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 
 @Entity
