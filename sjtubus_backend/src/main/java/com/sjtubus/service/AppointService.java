@@ -3,9 +3,11 @@ package com.sjtubus.service;
 import com.sjtubus.dao.AppointmentDao;
 import com.sjtubus.dao.BusDao;
 import com.sjtubus.dao.ShiftDao;
+import com.sjtubus.dao.UserDao;
 import com.sjtubus.entity.Appointment;
 import com.sjtubus.entity.Bus;
 import com.sjtubus.entity.Shift;
+import com.sjtubus.entity.User;
 import com.sjtubus.model.AppointInfo;
 import com.sjtubus.utils.StringCalendarUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class AppointService {
 
     @Autowired
     private BusDao busDao;
+
+    @Autowired
+    private UserDao userDao;
     
     /**
      * @description: 添加预约信息
@@ -38,14 +43,17 @@ public class AppointService {
                                   String line_name,
                                   String submit_time){
         Appointment appointment = new Appointment();
+        User user = userDao.findByUsername(username);
         Date date = Date.valueOf(appoint_date);
-        Date datetime = Date.valueOf(submit_time);
+
         appointment.setAppointDate(date);
         appointment.setLineName(line_name);
         appointment.setNormal(true);
         appointment.setShiftId(shift_id);
         appointment.setUserName(username);
-        appointment.setSubmitTime(datetime);
+        appointment.setSubmitTimeString(submit_time);
+        appointment.setUserId(user.getUserId());
+
         if(getRemainSeat(shift_id,date) > 0){
             appointmentDao.save(appointment);
             return true;

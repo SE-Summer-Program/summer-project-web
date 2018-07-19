@@ -80,4 +80,10 @@ public class SjtubusApplicationTests {
 		else
 			System.out.println("Different");
 	}
+
+	@Test
+	public void testPostAppoint(){
+		appointController.appoint("wxw","2018-07-19","MXHD1215",
+			"MinHangToXuHui","2018-07-19 08:50:00");
+	}
 }
