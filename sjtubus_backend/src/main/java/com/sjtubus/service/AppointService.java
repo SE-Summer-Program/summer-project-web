@@ -123,6 +123,23 @@ public class AppointService {
        return totalSeat - reserveSeat - appointedSeat;
     }
 
+    /**
+    * @description: 验证用户已上车
+    * @date: 2018/07/16 13:00
+    * @params:
+    * @return:
+    */
+    public String verifyAppointment(String username,String departure_date,String shift_id){
+        Appointment appointment = appointmentDao.findDistinctByShiftIdAndAppointDateAndUserName(shift_id,Date.valueOf(departure_date),username);
+        if(appointment == null){
+            return "您没有预约该班次~";
+        }else{
+            appointment.setNormal(true);
+            appointmentDao.save(appointment);
+            return "验证成功~";
+        }
+    }
+
     /*
      * @description: 比较发车时间和当前时间的先后
      * @date: 2018/07/16 13:57

@@ -82,4 +82,14 @@ public class AppointController {
             return response;
         }
     }
+
+    @RequestMapping(value = "/verify",method = RequestMethod.POST)
+    public HttpResponse verifyUser(String username,
+                                   String departure_date,
+                                   String shift_id){
+        HttpResponse response = new HttpResponse();
+        String result = appointService.verifyAppointment(username,departure_date,shift_id);
+        response.setMsg(result);
+        return response;
+    }
 }
