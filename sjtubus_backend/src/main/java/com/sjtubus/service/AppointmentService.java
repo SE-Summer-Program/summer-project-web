@@ -3,6 +3,7 @@ package com.sjtubus.service;
 import com.sjtubus.dao.AppointmentDao;
 import com.sjtubus.entity.Appointment;
 import com.sjtubus.entity.Shift;
+import com.sjtubus.utils.StringCalendarUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +32,7 @@ public class AppointmentService {
         shiftid = shiftid + shiftService.changeTypeToId(lineType);
         shiftid = shiftid + time;
         System.out.println("shiftid:"+shiftid);
-        List<Appointment> appointmentList = appointmentDao.queryAppointmentByShiftIdAndAppointDate(shiftid, appointDate);
+        List<Appointment> appointmentList = appointmentDao.queryAppointmentByShiftIdAndAppointDate(shiftid, StringCalendarUtils.UtilDateToSqlDate(appointDate));
         return appointmentList;
     }
 }
