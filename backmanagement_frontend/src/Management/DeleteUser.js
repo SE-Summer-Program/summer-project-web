@@ -17,17 +17,11 @@ const Option = Select.Option;
 class DeleteUser extends React.Component {
     constructor(props){
         super(props);
-        this.state={
-            data:[{
-                name: 'Jack',
-                ID: '516030910000',
-                phone:'12345678901',
-                credit: '95',
-                identity: '本科生',
-            }],
-            count:0,
-            content:''
-        }
+        this.state= {
+            data: [],
+            count: 0,
+            content: ''
+        };
         this.columns = [{
             title: '姓名',
             dataIndex: 'name',
@@ -56,7 +50,6 @@ class DeleteUser extends React.Component {
         },{
             title: '删除',
             dataIndex: 'operation',
-
             render: (text, record) => {
                 return (
                     <Popconfirm title="确定删除?" onConfirm={() => this.onDelete(record.key)}>
@@ -68,17 +61,79 @@ class DeleteUser extends React.Component {
 
     onDelete = (key) => {
         const data = [...this.state.data];
-        this.setState({data: data.filter(item => item.key !== key)});
+        fetch('http://localhost:8080/user/delete?userId='+ data[key-1].ID,
+            {
+                method: 'POST',
+                mode: 'cors',
+            })
+            .then(response => {
+                console.log('Request successful', response);
+                return response.json()
+                    .then(result => {
+                        if (result.msg === "success") {
+                            this.setState({data: data.filter(item => item.key !== key)});
+                            alert("删除成功");
+                        }
+                        else {
+                            alert("删除失败");
+                        }
+                    })
+            });
     };
 
-    onChangeContent = (value) => {
+    onChangeContent = (e) => {
         this.setState({
-            content:value
+            content:e.target.value,
         })
-    }
+    };
 
-    handleSearch = (e) => {
-
+    handleSearch = () => {
+        this.state.data=[];
+        fetch('http://localhost:8080/user/search?content='+this.state.content,
+            {
+                method: 'POST',
+                mode: 'cors',
+            })
+            .then(response => {
+                //console.log('Request successful', response);
+                return response.json()
+                    .then(result => {
+                        if (result.msg === 'success'){
+                            let len = result.userList.length;
+                            this.setState({
+                                data:[],
+                                count:0,
+                            });
+                            for (let i=0; i < len; i++) {
+                                const {data,count}=this.state;
+                                let user = result.userList[i];
+                                let identity = '';
+                                if (user.teacher.toString() === 'false') {
+                                    identity = "学生";
+                                }
+                                else{
+                                    identity = "教师"
+                                }
+                                const add = {
+                                    "key": this.state.count+1,
+                                    "ID": user.userId,
+                                    "name": user.username,
+                                    "credit": user.credit,
+                                    "identity": identity,
+                                    "phone": user.phone,
+                                };
+                                this.setState({
+                                    data: [...data, add],
+                                    count: count+1,
+                                });
+                            }
+                        }
+                        else{
+                            alert("查询失败，请重新搜索");
+                            window.location.reload();
+                        }
+                    })
+            });
     };
 
     render(){

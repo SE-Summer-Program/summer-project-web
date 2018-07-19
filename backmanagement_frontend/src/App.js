@@ -52,6 +52,7 @@ class App extends Component {
                     <Route exact path="/searchoutshift" component={SearchOutShift}/>
                     <Route exact path="/searchreserved" component={SearchReserved}/>
 
+
                 </Switch>
             </div>
         </Router>

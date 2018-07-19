@@ -5,11 +5,38 @@ import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import React, { Component } from 'react';
 import './../App.css';
 import {Link} from "react-router-dom";
+import { withRouter } from "react-router";
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 
 class Search extends React.Component {
+    constructor(props){
+        super(props);
+        fetch('http://localhost:8080/administrator/judgestate',
+            {
+                method: 'POST',
+                mode: 'cors',
+                credentials: 'include',
+            })
+            .then(response => {
+                console.log('Request successful', response);
+                return response.json()
+                    .then(result => {
+                        console.log("result:", result);
+                        if (result.msg === "not logged") {
+                            alert("请先登录");
+                            window.location.href = "http://localhost:3000/#/login"
+                        }
+                        else if (result.msg === "fail"){
+                            alert("您暂时不可使用该功能");
+                            this.props.history.push("/login");
+                        }
+                    })
+            });
+    }
+
+
     render(){
         return(
             <Layout>
@@ -47,7 +74,6 @@ class Search extends React.Component {
                                 <SubMenu key="sub2" title={<span><Icon type="car" />校内巴士</span>}>
                                     <Menu.Item key="2"><Link to="searchmap">路线图</Link></Menu.Item>
                                     <Menu.Item key="3"><Link to="searchinshift">始发时刻表</Link></Menu.Item>
-                                    <Menu.Item key="4">实时查询</Menu.Item>
                                 </SubMenu>
                                 <SubMenu key="sub3" title={<span><Icon type="car" />校区巴士</span>}>
                                     <Menu.Item key="5"><Link to="searchreserved">预约信息</Link></Menu.Item>

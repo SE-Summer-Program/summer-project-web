@@ -11,25 +11,31 @@ import {Link} from "react-router-dom";
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 const Option = Select.Option;
-const stationData=["菁菁堂","东川路地铁站"];
-const directionData=["顺时针","逆时针"]
-const hourData=["6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"];
+const stationData=["徐汇","闵行","七宝"];
 
 class SearchReserved extends React.Component {
     constructor(props){
         super(props);
         this.state={
             date:'',
-            day:'',
-            hour:'',
+            time:'',
+            type:'',
             startStation:'',
-            EndStation:'',
-        }
+            endStation:'',
+            timeData:[],
+            data:[],
+            count:0,
+        };
         this.columns = [{
+            title: '班次编号',
+            dataIndex: 'shiftid',
+            key: 'shiftid',
+            width: '20%'
+        },{
             title: '预约编号',
             dataIndex: 'reservedid',
             key: 'reservedid',
-            width: '18%'
+            width: '20%'
         },{
             title: '学生id',
             dataIndex: 'studentid',
@@ -39,35 +45,60 @@ class SearchReserved extends React.Component {
             title: '学生姓名',
             dataIndex: 'studentname',
             key: 'studentname',
-            width: '20%'
+            width: '15%'
         }, {
-            title: '座位号',
-            dataIndex: 'seatnumber' ,
-            key: 'seatnumber',
-            width: '20%',
+            title: '是否正常',
+            dataIndex: 'isNormal' ,
+            key: 'isNormal',
+            width: '10%',
         }];
     }
 
     onDateChange = (date, dateString) => {
         this.setState({
             date: dateString
-        })
+        });
         console.log(dateString);
     };
 
-    handleHourChange = (value) => {
+    handleTypeChange = (value) => {
         this.setState({
-            hour: value,
+            type: value,
+            timeData: [],
+        }, function () {
+            let lineName = this.state.startStation + "到" + this.state.endStation;
+            console.log("route:", 'http://localhost:8080/shift/search_time?lineNameCn=' + lineName + "&lineType=" + this.state.type);
+            fetch('http://localhost:8080/shift/search_time?lineNameCn=' + lineName + "&lineType=" + this.state.type,
+                {
+                    method: 'POST',
+                    mode: 'cors',
+                })
+                .then(response => {
+                    console.log('Request successful', response);
+                    return response.json()
+                        .then(result => {
+                            let len = result.timeList.length;
+                            console.log("response len:", len);
+                            this.state.timeData = [];
+                            for (let i = 0; i < len; i++) {
+                                const {timeData} = this.state;
+                                console.log(result.timeList[i]);
+                                const add = result.timeList[i];
+                                this.setState({
+                                    timeData: [...timeData, add],
+                                });
+                            }
+                        })
+                });
         });
-        console.log("direction:",value)
     };
 
-    handleDayChange = (value) => {
+    handleTimeChange = (value) => {
         this.setState({
-            day: value,
+            time: value,
         });
-        console.log("direction:",value)
     };
+
 
     handleStartStationChange = (value) => {
         this.setState({
@@ -81,15 +112,56 @@ class SearchReserved extends React.Component {
         });
     };
 
-
-
     handleSearch=() =>{
-        //fetch
-    }
+        let lineNameCn = this.state.startStation + "到" + this.state.endStation;
+        fetch('http://localhost:8080/appointment/search?lineNameCn='+ lineNameCn + "&lineType=" + this.state.type +
+                                         "&departureTime=" + this.state.time + "&appointDate=" + this.state.date,
+            {
+                method: 'GET',
+                mode: 'cors',
+            })
+            .then(response => {
+                console.log('Request successful', response);
+                return response.json()
+                    .then(result => {
+                        if (result.error === 1){
+                            alert("查询失败");
+                        }
+                        else{
+                            let len = result.appointmentList.length;
+                            console.log("response len:",len);
+                            this.state.data=[];
+                            for (var i=0; i < len; i++) {
+                                const {data,count}=this.state;
+                                let normal = '';
+                                if (result.appointmentList[i].normal === true) {
+                                    normal = "正常";
+                                }
+                                else{
+                                    normal = "非正常"
+                                }
+                                const add = {
+                                    "key": this.state.count+1,
+                                    "shiftid": result.appointmentList[i].shiftId,
+                                    "reservedid": result.appointmentList[i].appointmentId,
+                                    "studentid":result.appointmentList[i].userId,
+                                    "isNormal": normal,
+                                };
+
+                                this.setState({
+                                    data: [...data, add],
+                                    count: count+1,
+                                });
+                            }
+                        }
+                    })
+            });
+    };
 
     render(){
+        const timeData = this.state.timeData;
         const stationOptions = stationData.map(station => <Option key={station}>{station}</Option>);
-        const hourOptions = hourData.map(hour => <Option key={hour}>{hour}</Option>);
+        let timeOptions = timeData.map(time => <Option key={time}>{time}</Option>);
         return(
             <Layout>
                 <Header className="header">
@@ -117,7 +189,7 @@ class SearchReserved extends React.Component {
                         <Sider width={200} style={{ background: '#fff' }}>
                             <Menu
                                 mode="inline"
-                                defaultSelectedKeys={['6']}
+                                defaultSelectedKeys={['5']}
                                 defaultOpenKeys={['sub3']}
                                 style={{ height: '100%' }}
                             >
@@ -127,7 +199,6 @@ class SearchReserved extends React.Component {
                                 <SubMenu key="sub2" title={<span><Icon type="car" />校内巴士</span>}>
                                     <Menu.Item key="2"><Link to="searchmap">路线图</Link></Menu.Item>
                                     <Menu.Item key="3"><Link to="searchinshift">始发时刻表</Link></Menu.Item>
-                                    <Menu.Item key="4">实时查询</Menu.Item>
                                 </SubMenu>
                                 <SubMenu key="sub3" title={<span><Icon type="car" />校区巴士</span>}>
                                     <Menu.Item key="5"><Link to="searchreserved">预约信息</Link></Menu.Item>
@@ -143,12 +214,14 @@ class SearchReserved extends React.Component {
                             <Select defaultValue="终点站" size="large" style={{marginLeft:'10px', width:'140px'}} onChange={this.handleEndStationChange}>
                                 {stationOptions}
                             </Select>
-                            <Select defaultValue="选择天数" size="large" style={{marginLeft:'10px', width:'130px'}} onChange={this.handleDayChange}>
-                                <Option value="today">今天</Option>
-                                <Option value="tomorrow">明天</Option>
+                            <Select defaultValue="线路类型" size="large" style={{marginLeft:'10px', width:'150px'}} onSelect={this.handleTypeChange}>
+                                <Option value="NormalWorkday">普通工作日</Option>
+                                <Option value="HolidayWorkday">寒暑假工作日</Option>
+                                <Option value="HolidayWeekend">寒暑假双休日</Option>
+                                <Option value="NormalWeekendAndLegalHoliday">普通节假双休日</Option>
                             </Select>
-                            <Select defaultValue="出发时刻" size="large" style={{marginLeft:'10px', width:'140px'}} onChange={this.handleHourChange}>
-                                {hourOptions}
+                            <Select defaultValue="出发时刻" size="large" style={{marginLeft:'10px', width:'140px'}} onChange={this.handleTimeChange}>
+                                {timeOptions}
                             </Select>
                             <Button type="primary"  size="large" style={{width: '10%', marginLeft: '35px'}} icon="search" onClick = {this.handleSearch}>搜索</Button>
                             <h1 />

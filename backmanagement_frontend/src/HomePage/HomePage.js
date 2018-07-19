@@ -2,6 +2,7 @@ import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import React, { Component } from 'react';
 import './../App.css';
 import {Link} from "react-router-dom";
+import pic from "./../bus_background.jpg";
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
@@ -27,14 +28,11 @@ class HomePage extends React.Component {
                 </Header>
                 <Content style={{ padding: '0 50px' }}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
-                        <Breadcrumb.Item>Home</Breadcrumb.Item>
+                        <Breadcrumb.Item>主页</Breadcrumb.Item>
                     </Breadcrumb>
                     <Layout style={{ padding: '24px 0', background: '#fff' }}>
-                        <Sider width={200} style={{ background: '#fff' }}>
-
-                        </Sider>
-                        <Content style={{ padding: '0 24px', minHeight: 280 }}>
-                            Content
+                        <Content style={{ padding: '0 80px', minHeight: 280 }}>
+                            <img src={pic} width = "1200px"/>
                         </Content>
                     </Layout>
                 </Content>

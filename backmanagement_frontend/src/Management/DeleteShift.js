@@ -21,47 +21,26 @@ class DeleteShift extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            data:[{
-                shiftid:'LLAW0920',
-                startStation:'东川路地铁站',
-                endStation:'东川路地铁站',
-                direction:'逆时针',
-                startTime: '9:20',
-                seat: '0',
-                viaStation:[],
-            },{
-                shiftid:'XMWD1700A',
-                startStation:'徐汇校区',
-                endStation:'闵行校区',
-                direction:'/ ',
-                startTime: '17:00',
-                seat: '40',
-                viaStation:["罗阳、","上中"]
-            }],
-            count:2,
+            data:[],
+            count:0,
             content:'',
         }
         this.columns = [{
             title: '班次编号',
             dataIndex: 'shiftid',
             key: 'shiftid',
-            width: '18%'
+            width: '16%'
         }, {
-            title: '始发站',
-            dataIndex: 'startStation',
-            key: 'startStation',
-            width: '18%'
-        }, {
-            title: '终点站',
-            dataIndex: 'endStation',
-            key: 'endStation',
-            width: '18%'
+            title: '线路名',
+            dataIndex: 'lineName',
+            key: 'lineName',
+            width: '19%'
         },{
-            title: '方向',
-            dataIndex: 'direction' ,
-            key: 'direction',
-            width: '12%'
-        }, {
+            title: '运行时间',
+            dataIndex: 'type',
+            key: 'type',
+            width: '15%'
+        },  {
             title: '出发时刻',
             dataIndex: 'startTime',
             key: 'startTime',
@@ -70,7 +49,12 @@ class DeleteShift extends React.Component {
             title: '预留座位数',
             dataIndex: 'seat' ,
             key: 'seat',
-            width: '13%'
+            width: '10%'
+        }, {
+            title: '备注',
+            dataIndex: 'comment' ,
+            key: 'comment',
+            width: '20%'
         }, {
             title: '删除',
             dataIndex: 'operation',
@@ -86,17 +70,85 @@ class DeleteShift extends React.Component {
 
     onDelete = (key) => {
         const data = [...this.state.data];
-        this.setState({data: data.filter(item => item.key !== key)});
+        console.log(data[key-1].shiftid);
+        fetch('http://localhost:8080/shift/delete?shiftId='+ data[key].shiftid,
+            {
+                method: 'POST',
+                mode: 'cors',
+            })
+            .then(response => {
+                console.log('Request successful', response);
+                return response.json()
+                    .then(result => {
+                        if (result.msg === "success") {
+                            this.setState({data: data.filter(item => item.key !== key)});
+                            alert("删除成功");
+                        }
+                        else {
+                            alert("删除失败");
+                        }
+                    })
+            });
+
     };
 
-    onChangeContent = (value) => {
+    onChangeContent = (e) => {
         this.setState({
-            content:value
+            content: e.target.value,
         })
-    }
+    };
 
-    handleSearch = (e) => {
+    handleSearch = () => {
+        console.log("content:",this.state.content);
+        this.state.data=[];
+        fetch('http://localhost:8080/shift/search_shift?content='+this.state.content,
+            {
+                method: 'GET',
+                mode: 'cors',
+            })
+            .then(response => {
+                console.log('Request successful', response);
+                return response.json()
+                    .then(result => {
+                        let len = result.shiftList.length;
+                        console.log("response len:",len);
+                        this.setState({
+                            data:[],
+                            count:0,
+                        });
+                        for (let i=0; i < len; i++) {
+                            const {data,count}=this.state;
+                            let shift = result.shiftList[i];
+                            let type = shift.lineType;
+                            let typeName = "";
+                            if (type === "HolidayWorkday") {
+                                typeName = "寒暑假工作日";
+                            }
+                            else if (type === "NormalWorkday") {
+                                typeName = "普通工作日";
+                            }
+                            else if (type === "HolidayWeekend")
+                                typeName = "寒暑假双休日";
+                            else{
+                                typeName = "普通节假双休日"
+                            }
+                            const add = {
+                                "key": this.state.count+1,
+                                "shiftid": shift.shiftId,
+                                "startTime": shift.departureTime,
+                                "comment": shift.comment,
+                                "lineName": shift.lineNameCn,
+                                "seat": shift.reserveSeat,
+                                "type": typeName,
+                            };
 
+                            this.setState({
+                                data: [...data, add],
+                                count: count+1,
+                            });
+                        }
+                    })
+            });
     };
 
     render(){
@@ -152,7 +204,7 @@ class DeleteShift extends React.Component {
                         </Sider>
                         <Content>
                             <Input name="content" label="搜索内容" size="large" style={{width: '30%', marginLeft:'100px' }}
-                                   prefix={<Icon type="search"/>} placeholder="请输入用户相关信息" onChange={this.onChangeContent}/>
+                                   prefix={<Icon type="search"/>} placeholder="请输入车次相关信息" onChange={this.onChangeContent}/>
                             <Button type="primary"  size="large" style={{width: '10%', marginLeft: '10px'}} onClick = {this.handleSearch}>搜索</Button>
                             <h1></h1>
                             <Table style={{width:'88%', marginLeft:'70px'}} columns={this.columns} dataSource={this.state.data} />

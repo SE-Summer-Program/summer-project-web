@@ -1,15 +1,6 @@
 /**
  * Created by 励颖 on 2018/7/4.
  */
-/**
- * Created by 励颖 on 2018/7/3.
- */
-/**
- * Created by 励颖 on 2018/7/3.
- */
-/**
- * Created by 励颖 on 2018/7/3.
- */
 import { Layout, Menu, Breadcrumb, Icon, Input, InputNumber, Button, Popconfirm, Form, Table} from 'antd';
 import React, { Component } from 'react';
 import './../App.css';
@@ -18,7 +9,6 @@ import {Link} from "react-router-dom";
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
-
 
 const FormItem = Form.Item;
 const EditableContext = React.createContext();
@@ -58,10 +48,6 @@ class EditableCell extends React.Component {
                             {editing ? (
                                 <FormItem style={{ margin: 0 }}>
                                     {getFieldDecorator(dataIndex, {
-                                        rules: [{
-                                            required: true,
-                                            message: `Please Input ${title}!`,
-                                        }],
                                         initialValue: record[dataIndex],
                                     })(this.getInput())}
                                 </FormItem>
@@ -81,40 +67,27 @@ class ModifyDriver extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data:[{
-                name: 'Jack',
-                ID: '516030910000',
-                phone:'12345678901',
-                credit: '95',
-                identity: '校内巴士司机',
-            }],
-            editingKey: '' };
-        this.columns = [
-            {
+            data:[],
+            editingKey: '',
+            content:'',
+            count:0,
+        };
+        this.columns = [{
+                title: '司机ID',
+                dataIndex: 'ID',
+                key: 'ID',
+                width: '20%',
+            }, {
                 title: '姓名',
                 dataIndex: 'name',
                 key: 'name',
-                width: '18%',
+                width: '28%',
                 editable: true,
-            },
-            {
-                title: 'ID',
-                dataIndex: 'ID',
-                key: 'ID',
-                width: '23%',
-                editable: true,
-            },
-            {
+            }, {
                 title: '电话号码',
                 dataIndex: 'phone',
                 key: 'phone',
-                width: '23%',
-                editable: true,
-            },{
-                title: '身份',
-                dataIndex: 'identity' ,
-                key: 'identity',
-                width: '23%',
+                width: '28%',
                 editable: true,
             }, {
                 title: '操作',
@@ -169,16 +142,54 @@ class ModifyDriver extends React.Component {
             const newData = [...this.state.data];
             const index = newData.findIndex(item => key === item.key);
             if (index > -1) {
-                const item = newData[index];
+                const old_item = newData[index];
+                //console.log("item1:",newData[index]['ID']);
                 newData.splice(index, 1, {
-                    ...item,
+                    ...old_item,
                     ...row,
                 });
+                const new_item = newData[index];
+                //console.log("item2:",newData[index]['ID']);
+                //console.log("data:",JSON.stringify(newData));
 
+                /*if (new_item['ID'] !== old_item['ID']){
+                    new_item['ID'] = old_item['ID'];
+                    alert("不能修改司机的ID");
+                    return;
+                }*/
+                if (new_item['name'] === ''){
+                    alert("司机用户名不能为空");
+                    return;
+                }
+                if (new_item['phone'] === ''){
+                    alert("联系电话不能为空");
+                    return;
+                }
+                console.log("username:", new_item['name']);
+                console.log("phone:", new_item['phone']);
                 this.setState({ data: newData, editingKey: '' });
+                fetch('http://localhost:8080/driver/modify?driverId='+ new_item['ID']+ '&username=' + new_item['name'] + '&phone=' + new_item['phone'] ,
+                    {
+                        method: 'POST',
+                        mode: 'cors',
+                    })
+                    .then(response => {
+                        console.log('Request successful', response);
+                        return response.json()
+                            .then(result => {
+                                console.log("result:",result);
+                                console.log("result:",result.msg);
+                                if (result.msg === "success") {
+                                    alert("修改成功");
+                                }
+                                else {
+                                    alert("修改失败");
+                                }
+                            })
+                    });
+
             } else {
                 newData.push(this.state.data);
-
                 this.setState({ data: newData, editingKey: '' });
             }
         });
@@ -186,6 +197,58 @@ class ModifyDriver extends React.Component {
 
     cancel = () => {
         this.setState({ editingKey: '' });
+    };
+
+    onChangeContent = (e) => {
+        this.setState({
+            content: e.target.value,
+        })
+    };
+
+    handleSearch = () => {
+        console.log("content:",this.state.content);
+        fetch('http://localhost:8080/driver/search?content='+this.state.content,
+            {
+                method: 'GET',
+                mode: 'cors',
+            })
+            .then(response => {
+                console.log('Request successful', response);
+                return response.json()
+                    .then(result => {
+                        if (result.msg === "success"){
+                            let len = result.driverList.length;
+                            console.log("result:", result);
+                            console.log("response len:",len);
+                            this.setState({
+                                data:[],
+                                count:0,
+                            });
+                            for (let i=0; i < len; i++) {
+                                const {data,count}=this.state;
+                                let driver = result.driverList[i];
+                                const add = {
+                                    "key": this.state.count,
+                                    "ID": driver.driverId,
+                                    "name": driver.username,
+                                    "phone": driver.phone,
+                                };
+                                this.setState({
+                                    data: [...data, add],
+                                    count: count+1,
+                                });
+                            }
+                            this.setState({
+                                content:'',
+                            })
+                        }
+                        else
+                        {
+                            alert("查询失败，请重新搜索");
+                            window.location.reload();
+                        }
+                    })
+            });
     };
 
     render(){
@@ -239,8 +302,8 @@ class ModifyDriver extends React.Component {
                         <Sider width={200} style={{ background: '#fff' }}>
                             <Menu
                                 mode="inline"
-                                defaultOpenKeys={['sub1']}
-                                defaultSelectedKeys={['3']}
+                                defaultOpenKeys={['sub3']}
+                                defaultSelectedKeys={['11']}
                                 style={{ height: '100%' }}
                             >
                                 <SubMenu key="sub1" title={<span><Icon type="user" />普通用户管理</span>}>
@@ -262,18 +325,18 @@ class ModifyDriver extends React.Component {
                             </Menu>
                         </Sider>
                         <Content>
-
-                            <Input name="content" label="搜索内容" size="large" style={{width: '30%', marginLeft:'100px' }}
+                            <br/>
+                            <Input name="content" label="搜索内容" size="large" style={{width: '30%', marginLeft:'320px' }}
                                    prefix={<Icon type="search"/>} placeholder="请输入用户相关信息" onChange={this.onChangeContent}/>
-                            <Button type="primary"  size="large" style={{width: '10%', marginLeft: '10px'}} onClick = {this.handleAdd}>搜索</Button>
-                            <h1></h1>
+                            <Button type="primary"  size="large" style={{width: '10%', marginLeft: '10px'}} onClick = {this.handleSearch}>搜索</Button>
+                            <h1/>
                             <Table
                                 components={components}
                                 bordered
                                 dataSource={this.state.data}
                                 columns={columns}
                                 rowClassName="editable-row"
-                                style={{width:'88%', marginLeft:'70px'}}
+                                style={{width:'60%', marginLeft:'215px'}}
                             />
                         </Content>
                     </Layout>
@@ -287,6 +350,7 @@ class ModifyDriver extends React.Component {
 
 }
 
-export default ModifyDriver;/**
+export default ModifyDriver;
+/**
  * Created by 励颖 on 2018/7/2.
  */

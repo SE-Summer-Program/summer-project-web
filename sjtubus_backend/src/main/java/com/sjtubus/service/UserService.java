@@ -2,16 +2,14 @@ package com.sjtubus.service;
 
 import com.sjtubus.dao.DriverDao;
 import com.sjtubus.dao.JaccountUserDao;
+
 import com.sjtubus.dao.UserDao;
 import com.sjtubus.entity.JaccountUser;
 import com.sjtubus.entity.Shift;
 import com.sjtubus.entity.User;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -27,37 +25,46 @@ public class UserService {
     private DriverDao driverDao;
 
     /**
-     * @description: 根据关键字获取用户信息
-     * @date: 2018/7/10 19:48
-     * @params: content - 关键字
-     * @return: List<User> - 用户列表
-    */
+     * @description: 根据content比对数据库中的user，找出username或者phone包含content字段的user
+     * @date: 2018/7/18 20:14
+     * @params: 字段content
+     * @return: 包含字段content的用户列表
+     */
     public List<User> getUserInfo(String content){
-        List<User> results = new ArrayList<>();
-        List<User> userList = userDao.findAll();
-        for(User user:userList){
-            if (user.getUsername().contains(content) || String.valueOf(user.getUserId()).contains(content)){
-                results.add(user);
-            }
-        }
-        return  results;
+        return  userDao.queryByRelatedContent(content);
     }
 
-    /**
-     * @description: 添加用户
-     * @date: 2018/7/10 19:49
-     * @params: 用户名、密码、是否教师、电话
-     * @return: 所添加用户
-    */
-    public User addUser(String username, String password, boolean isTeacher, String phone){
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setCredit(100);
-        user.setTeacher(isTeacher);
-        user.setPhone(phone);
-        return userDao.save(user);
+
+    public User addUser(String username, String password, boolean isTeacher, String phone, int userId, int credit){
+        User olduser = userDao.findByUserId(userId);
+        if( olduser == null ){
+            User user = new User();
+            user.setUsername(username);
+            user.setPassword(password);
+            user.setCredit(credit);
+            user.setTeacher(isTeacher);
+            user.setPhone(phone);
+            user.setUserId(userId);
+            userDao.save(user);
+        }
+        return olduser;
     }
+
+    public String deleteUser(int userId){
+        User olduser = userDao.findByUserId(userId);
+        if( olduser != null ){
+            userDao.delete(olduser);
+            return "success";
+        }
+        else {
+            return "fail";
+        }
+    }
+
+    public int modifyUser(int userId, String username, String phone, int credit){
+        return userDao.modifyUser(userId, username, phone, credit);
+    }
+
 
     /**
      * @description: 添加jaccount用户
