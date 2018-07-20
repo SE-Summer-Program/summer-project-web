@@ -13,7 +13,6 @@ const Option = Select.Option;
 const CheckboxGroup = Checkbox.Group;
 const RadioGroup = Radio.Group;
 const kindData=["校内巴士","校区巴士"];
-const viaStationData=["罗阳","上中","天钥","交大新村","古美"];
 const stationData={
     校内巴士:["菁菁堂","东川路地铁站"],
     校区巴士:["闵行校区","徐汇校区","七宝校区"]
@@ -38,7 +37,8 @@ class AddShift extends React.Component {
         startStation:stationData[kindData[0]][0],
         endStation:stationData[kindData[0]][0],
         disabled: true,
-        viaStation:[]
+        viaStation:[],
+        bus:'',
     }
 }
 
@@ -131,17 +131,16 @@ class AddShift extends React.Component {
         })
     };
 
+    handleChangeBus = (e) => {
+        this.setState({
+            bus: e.target.value,
+        });
+        //console.log("bus:",e.target.value);
+    };
+
     handleAdd = (e) => {
         e.preventDefault();
-        if (this.state.kind === "校区巴士"){
-            if (this.state.startStation === this.state.endStation)
-                alert("始发站和终点站不能相同")
-        }
-        else{
-            this.setState({
-                teacherSeat: '0'
-            })
-        }
+
         let kind = this.state.kind;
         let startStation = this.state.startStation;
         let endStation = this.state.endStation;
@@ -152,7 +151,24 @@ class AddShift extends React.Component {
         let comment = this.state.comment;
         let teacherSeat = this.state.teacherSeat;
         let direction = this.state.direction;
+        let bus = this.state.bus;
 
+        if (kind === "校区巴士"){
+            if (this.state.startStation === this.state.endStation){
+                alert("始发站和终点站不能相同");
+                return;
+            }
+        }
+        else{
+            this.setState({
+                teacherSeat: '0'
+            })
+        }
+
+        if (bus === ''){
+            alert("请选择巴士");
+            return;
+        }
         let linename = '';
         let linename_cn = '';
         let start = '';
@@ -160,10 +176,24 @@ class AddShift extends React.Component {
         let end = '';
         let end_cn = '';
         let type = '';
-        let time = hour + ":" + minute + ":00";
+        let departureTime = hour + ":" + minute + ":00";
+        let arriveTime = '';
 
         if (kind === "校内巴士") {
             teacherSeat = '0';
+            if (direction === ''){
+                alert("请选择方向");
+                return;
+            }
+            if (parseInt(minute)<40){
+                minute = parseInt(minute) + 20;
+                arriveTime = hour + ":" + minute.toString() + ":00";
+            }
+            else{
+                hour = parseInt(hour) + 1;
+                minute = parseInt(minute) -40;
+                arriveTime = hour.toString() + ":" + minute.toString() + ":00";
+            }
             if (isHoliday === 'true'){
                 type = "HolidayWorkday";
             }
@@ -187,6 +217,8 @@ class AddShift extends React.Component {
 
         }
         else {
+            hour = parseInt(hour) + 1;
+            arriveTime = hour.toString() + ":" + minute + ":00";
             if ((isHoliday === 'true') && (isWorkday === 'true')){
                 type = 'HolidayWorkday';
             }
@@ -228,12 +260,13 @@ class AddShift extends React.Component {
             linename_cn = start_cn + "到" + end_cn;
         }
             console.log("route:" ,'http://localhost:8080/shift/add?lineName='+ linename + '&lineNameCn='+ linename_cn +
-                '&lineType='+ type + '&departureTime='+ time +
-                '&reserveSeat=' + teacherSeat + '&comment=' + comment );
+                '&lineType='+ type + '&departureTime='+ departureTime + '&reserveSeat=' + teacherSeat + '&comment=' + comment
+                + '&busId=' + bus + '&arriveTime=' + arriveTime);
 
        fetch('http://localhost:8080/shift/add?lineName='+ linename + '&lineNameCn='+ linename_cn +
-                                            '&lineType='+ type + '&departureTime='+ time +
-                                            '&reserveSeat=' + teacherSeat + '&comment=' + comment,
+                                            '&lineType='+ type +  '&departureTime=' + departureTime +
+                                            '&reserveSeat=' + teacherSeat + '&comment=' + comment +
+                                            '&busId=' + bus + '&arriveTime=' + arriveTime ,
             {
                 method: 'POST',
                 mode: 'cors',
@@ -255,13 +288,10 @@ class AddShift extends React.Component {
                         }
                         else {
                             alert("添加失败");
-                            window.location.reload();
+                            //window.location.reload();
                         }
                     })
             });
-
-
-
         //window.location.reload();
     };
 
@@ -364,6 +394,14 @@ class AddShift extends React.Component {
                             <h1/>
                             <span style={{marginLeft: '268px', fontSize:'16px'}}>预留座位数： </span>
                             <InputNumber disabled={this.state.disabled} defaultValue={30} min={1} max={55} size="large"  style={{width:'120px'}} onChange={this.handleSeatNumber}/>
+                            <h1/>
+                            <span style={{marginLeft: '300px', fontSize:'16px'}}>巴士ID： </span>
+                            <RadioGroup onChange={this.handleChangeBus} >
+                                <Radio value={1}>巴士1</Radio>
+                                <Radio value={2}>巴士2</Radio>
+                                <Radio value={3}>巴士3</Radio>
+                            </RadioGroup>
+
                             <h1/>
                             <span style={{marginLeft: '315px', fontSize:'16px'}}>备注： </span>
                             <Input size="large" style={{width:'300px'}} onChange={this.handleCommentChange}/>

@@ -30,23 +30,28 @@ class SearchReserved extends React.Component {
             title: '班次编号',
             dataIndex: 'shiftid',
             key: 'shiftid',
-            width: '20%'
+            width: '15%'
         },{
             title: '预约编号',
             dataIndex: 'reservedid',
             key: 'reservedid',
-            width: '20%'
+            width: '15%'
         },{
             title: '学生id',
             dataIndex: 'studentid',
             key: 'studentid',
-            width: '20%'
+            width: '15%'
         }, {
             title: '学生姓名',
             dataIndex: 'studentname',
             key: 'studentname',
             width: '15%'
         }, {
+            title: '提交时间',
+            dataIndex: 'submittime',
+            key: 'submittime',
+            width: '20%'
+        },{
             title: '是否正常',
             dataIndex: 'isNormal' ,
             key: 'isNormal',
@@ -113,6 +118,36 @@ class SearchReserved extends React.Component {
     };
 
     handleSearch=() =>{
+        if(this.state.date === ''){
+            alert("请选择预约的日期");
+            return;
+        }
+        if(this.state.startStation === ''){
+            alert("请选择始发站");
+            return;
+        }
+        if(this.state.endStation === ''){
+            alert("请选择终点站");
+            return;
+        }
+        if (this.state.startStation === this.state.endStation){
+            alert("始发站和终点站不能相同");
+            return;
+        }
+        if(this.state.type === ''){
+            alert("请选择线路类型");
+            return;
+        }
+        if (this.state.time === ''){
+            alert("请选择发车时间");
+            return;
+        }
+
+
+        this.setState({
+            data:[],
+            count:0,
+        });
         let lineNameCn = this.state.startStation + "到" + this.state.endStation;
         fetch('http://localhost:8080/appointment/search?lineNameCn='+ lineNameCn + "&lineType=" + this.state.type +
                                          "&departureTime=" + this.state.time + "&appointDate=" + this.state.date,
@@ -144,10 +179,11 @@ class SearchReserved extends React.Component {
                                     "key": this.state.count+1,
                                     "shiftid": result.appointmentList[i].shiftId,
                                     "reservedid": result.appointmentList[i].appointmentId,
-                                    "studentid":result.appointmentList[i].userId,
+                                    "studentid": result.appointmentList[i].userId,
+                                    "studentname": result.appointmentList[i].userName,
+                                    "submittime": result.appointmentList[i].submitTime,
                                     "isNormal": normal,
                                 };
-
                                 this.setState({
                                     data: [...data, add],
                                     count: count+1,
@@ -197,7 +233,7 @@ class SearchReserved extends React.Component {
                                     <Menu.Item key="1"><Link to="searchuser">普通用户</Link></Menu.Item>
                                 </SubMenu>
                                 <SubMenu key="sub2" title={<span><Icon type="car" />校内巴士</span>}>
-                                    <Menu.Item key="2"><Link to="searchmap">路线图</Link></Menu.Item>
+
                                     <Menu.Item key="3"><Link to="searchinshift">始发时刻表</Link></Menu.Item>
                                 </SubMenu>
                                 <SubMenu key="sub3" title={<span><Icon type="car" />校区巴士</span>}>
@@ -207,6 +243,8 @@ class SearchReserved extends React.Component {
                             </Menu>
                         </Sider>
                         <Content style={{ padding: '0 24px', minHeight: 280 }}>
+                            <h1/>
+                            <br/>
                             <DatePicker size="large" style={{marginLeft:'20px'}} onChange={this.onDateChange} />
                             <Select defaultValue="始发站" size="large" style={{marginLeft:'10px', width:'140px'}} onChange={this.handleStartStationChange}>
                                 {stationOptions}
@@ -226,7 +264,7 @@ class SearchReserved extends React.Component {
                             <Button type="primary"  size="large" style={{width: '10%', marginLeft: '35px'}} icon="search" onClick = {this.handleSearch}>搜索</Button>
                             <h1 />
                             <br />
-                            <Table style={{width:'70%', marginLeft:'100px'}} columns={this.columns} dataSource={this.state.data} />
+                            <Table style={{width:'75%', marginLeft:'80px'}} columns={this.columns} dataSource={this.state.data} />
                         </Content>
                     </Layout>
                 </Content>

@@ -189,7 +189,7 @@ class DeleteUser extends React.Component {
                             <Input name="content" label="搜索内容" size="large" style={{width: '30%', marginLeft:'100px' }}
                                    prefix={<Icon type="search"/>} placeholder="请输入用户相关信息" onChange={this.onChangeContent}/>
                             <Button type="primary"  size="large" style={{width: '10%', marginLeft: '10px'}} onClick = {this.handleSearch}>搜索</Button>
-                            <h1></h1>
+                            <h1/>
                             <Table style={{width:'88%', marginLeft:'70px'}}columns={this.columns} dataSource={this.state.data} />
 
                         </Content>

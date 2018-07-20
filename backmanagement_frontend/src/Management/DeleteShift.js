@@ -5,11 +5,10 @@
  * Created by 励颖 on 2018/7/3.
  */
 
-import { Layout, Menu, Breadcrumb, Icon, Input, Select, Button, Popconfirm, Table} from 'antd';
+import { Layout, Menu, Breadcrumb, Icon, Input, Button, Popconfirm, Table} from 'antd';
 import React, { Component } from 'react';
 import './../App.css';
 import {Link} from "react-router-dom";
-
 
 
 const { SubMenu } = Menu;
@@ -70,8 +69,8 @@ class DeleteShift extends React.Component {
 
     onDelete = (key) => {
         const data = [...this.state.data];
-        console.log(data[key-1].shiftid);
-        fetch('http://localhost:8080/shift/delete?shiftId='+ data[key].shiftid,
+        console.log("delete:",data[key-1].shiftid);
+        fetch('http://localhost:8080/shift/delete?shiftId='+ data[key-1].shiftid,
             {
                 method: 'POST',
                 mode: 'cors',
@@ -206,7 +205,7 @@ class DeleteShift extends React.Component {
                             <Input name="content" label="搜索内容" size="large" style={{width: '30%', marginLeft:'100px' }}
                                    prefix={<Icon type="search"/>} placeholder="请输入车次相关信息" onChange={this.onChangeContent}/>
                             <Button type="primary"  size="large" style={{width: '10%', marginLeft: '10px'}} onClick = {this.handleSearch}>搜索</Button>
-                            <h1></h1>
+                            <h1/>
                             <Table style={{width:'88%', marginLeft:'70px'}} columns={this.columns} dataSource={this.state.data} />
 
                         </Content>

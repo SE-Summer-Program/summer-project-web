@@ -18,36 +18,26 @@ class DeleteDriver extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            data:[{
-                name: 'Jack',
-                ID:'512030000000',
-                phone:'12345678901',
-                identity: '校区巴士司机',
-            }],
+            data:[],
             count:1,
             content:''
-        }
+        };
         this.columns = [{
+            title: '司机ID',
+            dataIndex: 'ID',
+            key: 'ID',
+            width: '20%',
+        }, {
             title: '姓名',
             dataIndex: 'name',
             key: 'name',
-            width: '18%'
-        }, {
-            title: 'ID',
-            dataIndex: 'ID',
-            key: 'ID',
-            width: '23%'
+            width: '28%',
         }, {
             title: '电话号码',
             dataIndex: 'phone',
             key: 'phone',
-            width: '23%'
+            width: '28%',
         },  {
-            title: '身份',
-            dataIndex: 'identity' ,
-            key: 'identity',
-            width: '23%'
-        },{
             title: '删除',
             dataIndex: 'operation',
 
@@ -62,17 +52,77 @@ class DeleteDriver extends React.Component {
 
     onDelete = (key) => {
         const data = [...this.state.data];
-        this.setState({data: data.filter(item => item.key !== key)});
+        console.log("delete:",data[key].ID);
+        fetch('http://localhost:8080/driver/delete?driverId='+ data[key].ID,
+            {
+                method: 'POST',
+                mode: 'cors',
+            })
+            .then(response => {
+                console.log('Request successful', response);
+                return response.json()
+                    .then(result => {
+                        if (result.msg === "success") {
+                            this.setState({data: data.filter(item => item.key !== key)});
+                            alert("删除成功");
+                        }
+                        else {
+                            alert("删除失败");
+                        }
+                    })
+            });
     };
 
-    onChangeContent = (value) => {
+    onChangeContent = (e) => {
         this.setState({
-            content:value
+            content:e.target.value,
         })
-    }
+    };
 
     handleSearch = (e) => {
-
+        console.log("content:",this.state.content);
+        fetch('http://localhost:8080/driver/search?content='+this.state.content,
+            {
+                method: 'GET',
+                mode: 'cors',
+            })
+            .then(response => {
+                console.log('Request successful', response);
+                return response.json()
+                    .then(result => {
+                        if (result.msg === "success"){
+                            let len = result.driverList.length;
+                            console.log("result:", result);
+                            console.log("response len:",len);
+                            this.setState({
+                                data:[],
+                                count:0,
+                            });
+                            for (let i=0; i < len; i++) {
+                                const {data,count}=this.state;
+                                let driver = result.driverList[i];
+                                const add = {
+                                    "key": this.state.count,
+                                    "ID": driver.driverId,
+                                    "name": driver.username,
+                                    "phone": driver.phone,
+                                };
+                                this.setState({
+                                    data: [...data, add],
+                                    count: count+1,
+                                });
+                            }
+                            this.setState({
+                                content:'',
+                            })
+                        }
+                        else
+                        {
+                            alert("查询失败，请重新搜索");
+                            window.location.reload();
+                        }
+                    })
+            });
     };
 
     render(){
@@ -126,11 +176,11 @@ class DeleteDriver extends React.Component {
                             </Menu>
                         </Sider>
                         <Content>
-                            <Input name="content" label="搜索内容" size="large" style={{width: '30%', marginLeft:'100px' }}
+                            <Input name="content" label="搜索内容" size="large" style={{width: '30%', marginLeft:'320px' }}
                                    prefix={<Icon type="search"/>} placeholder="请输入司机相关信息" onChange={this.onChangeContent}/>
                             <Button type="primary"  size="large" style={{width: '10%', marginLeft: '10px'}} onClick = {this.handleSearch}>搜索</Button>
                             <h1></h1>
-                            <Table style={{width:'88%', marginLeft:'70px'}} columns={this.columns} dataSource={this.state.data} />
+                            <Table style={{width:'60%', marginLeft:'215px'}} columns={this.columns} dataSource={this.state.data} />
 
                         </Content>
                     </Layout>

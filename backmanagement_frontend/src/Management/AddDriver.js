@@ -4,12 +4,10 @@
 /**
  * Created by 励颖 on 2018/7/3.
  */
-import { Layout, Menu, Breadcrumb, Icon, Input, Select, Button, InputNumber} from 'antd';
+import { Layout, Menu, Breadcrumb, Icon, Input, Select, Button} from 'antd';
 import React, { Component } from 'react';
 import './../App.css';
 import {Link} from "react-router-dom";
-
-
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
@@ -43,45 +41,74 @@ class AddDriver extends React.Component {
             identity:e
         })
 
-    }
-
+    };
 
     handleAdd = (e) => {
         e.preventDefault();
         let username = this.state.username;
-        let id = this.state.id;
         let password = this.state.password;
         let passwordConfirm = this.state.passwordConfirm;
         let identity = this.state.identity;
         let phoneNumber = this.state.phoneNumber;
         if (username.length === 0) {
             alert("用户名不能为空");
-        }
-        else if (id.length === 0) {
-            alert("用户ID不能为空");
+            return;
         }
         else if (password.length === 0) {
             alert("密码不能为空");
+            return;
         }
         else if (passwordConfirm.length === 0) {
             alert("密码不能为空");
+            return;
         }
         else if (phoneNumber.length === 0) {
             alert("电话号码不能为空");
+            return;
         }
         else if (identity.length === 0) {
             alert("还未选择用户身份");
+            return;
         }
-        else if (password !== passwordConfirm)
+        else if (password !== passwordConfirm) {
             alert("两次输入密码错误");
+            return;
+        }
+        else if (phoneNumber.length !== 11){
+            alert("联系电话长度应为11位");
+            return;
+        }
 
         console.log("username:",username);
         console.log("password:",password);
-        console.log("id:",id);
         console.log("phone:",phoneNumber);
         console.log("identity:",identity);
-        window.location.reload();
+        fetch('http://localhost:8080/driver/add?username='+ username + '&password='+ password + '&phone='+ phoneNumber,
+            {
+                method: 'POST',
+                mode: 'cors',
+            })
+            .then(response => {
+                console.log('Request successful', response);
+                return response.json()
+                    .then(result => {
+                        console.log("result:",result);
+                        console.log("result:",result.msg);
+                        if (result.msg === "success") {
+                            alert("新司机添加成功");
+                            window.location.reload();
+                        }
+                        else if(result.msg === "existed"){
+                            alert("该司机已经存在");
+                            window.location.reload();
+                        }
+                        else{
+                            alert("司机添加失败");
+                        }
+                    })
+            });
     };
+
 
     render(){
         return(
@@ -134,39 +161,33 @@ class AddDriver extends React.Component {
                             </Menu>
                         </Sider>
                         <Content>
-                            <br></br>
+                            <br/>
                             <h2 style={{marginLeft:'480px'}}>添加新司机</h2>
-                            <br></br>
-                            <h1></h1>
+                            <br/>
+                            <h1/>
                             <span style={{marginLeft: '332px', fontSize:'16px'}}> 姓名： </span>
                             <Input name="username" label="用户名" size="large" style={{width: '30%', }}
                                    placeholder="请输入用户名" onChange={this.handleChange}/>
-
-                            <h1></h1>
-                            <span style={{marginLeft: '317px', fontSize:'16px'}}> 用户ID： </span>
-                            <Input name="id" label="账号" size="large" style={{width: '30%',}}
-                                   placeholder="请输入用户账号" onChange={this.handleChange}/>
-
-                            <h1></h1>
+                            <h1/>
                             <span style={{marginLeft: '300px', fontSize:'16px'}}> 用户密码： </span>
                             <Input name="password" label="密码" size="large" style={{width: '30%',}} placeholder="请输入密码"
                                    onChange={this.handleChange} onKeyDown={this.handleKeyDown}/>
-                            <h1></h1>
+                            <h1/>
                             <span style={{marginLeft: '300px', fontSize:'16px'}}> 确认密码： </span>
                             <Input name="passwordConfirm" size="large" style={{width: '30%', }} placeholder="请再次输入密码"
                                    onChange={this.handleChange} onKeyDown={this.handleKeyDown}/>
-                            <h1></h1>
+                            <h1/>
                             <span style={{marginLeft: '300px', fontSize:'16px'}}> 电话号码： </span>
                             <Input name="phoneNumber" lable="电话" size="large" style={{width: '30%',}} placeholder="请输入电话号码"
                                    onChange={this.handleChange} />
-                            <h1></h1>
+                            <h1/>
                             <span style={{marginLeft: '300px', fontSize:'16px'}}> 用户身份： </span>
                             <Select  name="identity" defaultValue="选择身份" size="large" style={{width: '20%'}}onSelect={this.handleSelect}>
                                 <Option value="校内巴士司机">校内巴士司机</Option>
                                 <Option value="校区巴士司机">校区巴士司机</Option>
                             </Select>
-                            <h1></h1>
-                            <br></br>
+                            <h1/>
+                            <br/>
                             <Button type="primary"  size="large" style={{width: '10%', marginLeft: '475px'}} onClick = {this.handleAdd}>添加司机</Button>
 
                         </Content>

@@ -25,10 +25,12 @@ public class UserController {
         return userService.listAllUsers();
     }
 
+
     @GetMapping(value = "/phone")
     public User getUserByphone(String phone){
         return userService.findUserByPhone(phone);
     }
+
 
     @RequestMapping(path="/search")
     public UserListResponse getRelatedUsers(@RequestParam("content") String content){

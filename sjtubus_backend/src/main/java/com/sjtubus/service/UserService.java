@@ -93,8 +93,10 @@ public class UserService {
         return userDao.findByPhone(phone);
     }
 
+
     @Transactional
     public User findByUserName(String username){ return userDao.findByUsername(username); }
+
 
     @Transactional
     public List<User> listAllUsers(){
@@ -106,18 +108,22 @@ public class UserService {
         userDao.save(user);
     }
 
+
     @Transactional
     public JaccountUser findJaccountUserByPhone(String phone){
         return jaccountUserDao.findByPhone(phone);
     }
 
+
     @Transactional
     public JaccountUser findByJaccountUserName(String username){ return jaccountUserDao.findByUsername(username); }
+
 
     @Transactional
     public List<JaccountUser> listAllJaccountUsers(){
         return jaccountUserDao.findAll();
     }
+
 
     @Transactional
     public void saveJaccountUser(JaccountUser user){ jaccountUserDao.save(user); }

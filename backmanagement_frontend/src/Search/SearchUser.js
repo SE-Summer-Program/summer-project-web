@@ -57,6 +57,11 @@ class SearchUser extends React.Component {
 
     handleSearch = () => {
         console.log(this.state.content);
+        this.setState({
+            data:[],
+            count:0,
+        });
+
         fetch('http://localhost:8080/user/search?content='+this.state.content,
             {
                 method: 'POST',
@@ -66,13 +71,13 @@ class SearchUser extends React.Component {
                 console.log('Request successful', response);
                 return response.json()
                     .then(result => {
-                        let len = result.length;
+                        let len = result.userList.length;
                         console.log("response len:",len);
-                        this.state.data=[];
                         for (var i=0; i < len; i++) {
+                            let user = result.userList[i];
                             const {data,count}=this.state;
                             let identity = '';
-                            if (result[i].teacher.toString() === 'false') {
+                            if (user.teacher.toString() === 'false') {
                                 identity = "学生";
                             }
                             else{
@@ -80,11 +85,11 @@ class SearchUser extends React.Component {
                             }
                             const add = {
                                 "key": this.state.count+1,
-                                "ID": result[i].userId,
-                                "name": result[i].username,
-                                "credit": result[i].credit,
+                                "ID": user.userId,
+                                "name": user.username,
+                                "credit": user.credit,
                                 "identity": identity,
-                                "phone":result[i].phone,
+                                "phone": user.phone,
 
                             };
 
@@ -134,7 +139,7 @@ class SearchUser extends React.Component {
                                     <Menu.Item key="1"><Link to="searchuser">用户/司机/管理员</Link></Menu.Item>
                                 </SubMenu>
                                 <SubMenu key="sub2" title={<span><Icon type="car" />校内巴士</span>}>
-                                    <Menu.Item key="5"><Link to="searchmap">路线图</Link></Menu.Item>
+
                                     <Menu.Item key="3"><Link to="searchinshift">始发时刻表</Link></Menu.Item>
                                 </SubMenu>
                                 <SubMenu key="sub3" title={<span><Icon type="car" />校区巴士</span>}>
