@@ -5,6 +5,7 @@ public class RecordInfo {
     private String lineName;
     private String departureDate;
     private String departureTime; //预约的日期和时间
+    private String arriveTime;
     private String shiftid;
     private String status;
     private String submitTime;
@@ -32,6 +33,10 @@ public class RecordInfo {
     public void setDepartureTime(String departureTime) {
         this.departureTime = departureTime;
     }
+
+    public String getArriveTime() { return arriveTime; }
+
+    public void setArriveTime(String arriveTime) { this.arriveTime = arriveTime; }
 
     public String getShiftid() {
         return shiftid;
