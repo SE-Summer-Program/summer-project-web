@@ -13,10 +13,18 @@ public class TimeTable {
     @Id
     private String id ;
     private String station;
+    private Double latitude;
+    private Double longitude;
     private String type;
-    private List<String> loopline;
-    private List<String> nonloopline;
-    
+    private List<String> AntiClockLoop;
+    private List<String> AntiClockNonLoop;
+    private List<String> ClockLoop;
+    private List<String> ClockNonLoop;
+    private List<String> VacAntiClockLoop ;
+    private List<String> VacAntiClockNonLoop;
+    private List<String> VacClockLoop;
+    private List<String> VacClockNonLoop;
+
     public String getId() {
     	return this.id;
     }
@@ -35,16 +43,84 @@ public class TimeTable {
     public void setType(String type) {
     	this.type = type;
     }
-    public List<String> getLoopline() {
-    	return this.loopline;
+
+    public Double getLatitude() {
+        return latitude;
     }
-    public void setLoopline(List<String> loopline) {
-    	this.loopline = loopline;
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
     }
-    public List<String> getNonloopline() {
-    	return this.nonloopline;
+
+    public Double getLongitude() {
+        return longitude;
     }
-    public void setNonloopline(List<String> nonloopline) {
-    	this.nonloopline = nonloopline;
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public List<String> getAntiClockLoop() {
+        return AntiClockLoop;
+    }
+
+    public void setAntiClockLoop(List<String> antiClockLoop) {
+        AntiClockLoop = antiClockLoop;
+    }
+
+    public List<String> getAntiClockNonLoop() {
+        return AntiClockNonLoop;
+    }
+
+    public void setAntiClockNonLoop(List<String> antiClockNonLoop) {
+        AntiClockNonLoop = antiClockNonLoop;
+    }
+
+    public List<String> getClockLoop() {
+        return ClockLoop;
+    }
+
+    public void setClockLoop(List<String> clockLoop) {
+        ClockLoop = clockLoop;
+    }
+
+    public List<String> getClockNonLoop() {
+        return ClockNonLoop;
+    }
+
+    public void setClockNonLoop(List<String> clockNonLoop) {
+        ClockNonLoop = clockNonLoop;
+    }
+
+    public List<String> getVacAntiClockLoop() {
+        return VacAntiClockLoop;
+    }
+
+    public void setVacAntiClockLoop(List<String> vacAntiClockLoop) {
+        VacAntiClockLoop = vacAntiClockLoop;
+    }
+
+    public List<String> getVacAntiClockNonLoop() {
+        return VacAntiClockNonLoop;
+    }
+
+    public void setVacAntiClockNonLoop(List<String> vacAntiClockNonLoop) {
+        VacAntiClockNonLoop = vacAntiClockNonLoop;
+    }
+
+    public List<String> getVacClockLoop() {
+        return VacClockLoop;
+    }
+
+    public void setVacClockLoop(List<String> vacClockLoop) {
+        VacClockLoop = vacClockLoop;
+    }
+
+    public List<String> getVacClockNonLoop() {
+        return VacClockNonLoop;
+    }
+
+    public void setVacClockNonLoop(List<String> vacClockNonLoop) {
+        VacClockNonLoop = vacClockNonLoop;
     }
 }

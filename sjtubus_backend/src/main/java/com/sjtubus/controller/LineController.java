@@ -1,11 +1,13 @@
 package com.sjtubus.controller;
 
+import com.sjtubus.entity.TimeTable;
 import com.sjtubus.model.LineInfo;
 import com.sjtubus.model.response.LineInfoResponse;
 import com.sjtubus.model.response.StationResponse;
 import com.sjtubus.service.LineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ public class LineController {
      * @params: type - 线路类别
      * @return: LineInfoResponse
     */
-    @RequestMapping(value = "/infos")
+    @RequestMapping(value = "/infos",method = RequestMethod.GET)
     public LineInfoResponse getLineInfo(String type){
         LineInfoResponse response = new LineInfoResponse();
         System.out.println("type:" + type);
@@ -45,10 +47,11 @@ public class LineController {
      * @params: line_name - 线路名称
      * @return: StationResponse
     */
-    @RequestMapping(value = "/stations")
+    @RequestMapping(value = "/stations",method = RequestMethod.GET)
     public StationResponse getStations(String line_name){
+        System.out.println("hhhhhhhhh");
         StationResponse response = new StationResponse();
-        List<String> stations = lineService.getStationByLineName(line_name);
+        List<TimeTable> stations = lineService.getStationByLineName(line_name);
         if(stations == null || stations.size()==0){
             response.setError(1);
             response.setMsg("站点信息获取失败");
