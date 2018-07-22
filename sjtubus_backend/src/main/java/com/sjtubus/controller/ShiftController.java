@@ -3,10 +3,8 @@ package com.sjtubus.controller;
 import com.sjtubus.dao.ShiftDao;
 import com.sjtubus.entity.Shift;
 import com.sjtubus.model.Schedule;
-import com.sjtubus.model.response.HttpResponse;
-import com.sjtubus.model.response.ScheduleResponse;
-import com.sjtubus.model.response.ShiftListResponse;
-import com.sjtubus.model.response.TimeListResponse;
+import com.sjtubus.model.ShiftInfo;
+import com.sjtubus.model.response.*;
 import com.sjtubus.service.ShiftService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -131,6 +129,19 @@ public class ShiftController {
             response.setMsg("fail");
             response.setError(1);
         }
+        return response;
+    }
+
+    @RequestMapping(path = "infos")
+    public ShiftInfoResponse getShiftInfos(String shiftid){
+        ShiftInfoResponse response = new ShiftInfoResponse();
+        ShiftInfo shiftInfo;
+        shiftInfo = shiftService.getShiftInfo(shiftid);
+        if(shiftInfo == null){
+            response.setError(1);
+            response.setMsg("班次详细信息获取失败");
+        }
+        response.setShiftInfo(shiftInfo);
         return response;
     }
 }

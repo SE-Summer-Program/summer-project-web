@@ -1,8 +1,14 @@
 package com.sjtubus.service;
 
+import com.sjtubus.dao.BusDao;
+import com.sjtubus.dao.DriverDao;
 import com.sjtubus.dao.ShiftDao;
+import com.sjtubus.entity.Bus;
+import com.sjtubus.entity.Driver;
 import com.sjtubus.entity.Shift;
 import com.sjtubus.model.Schedule;
+import com.sjtubus.model.ShiftInfo;
+import com.sjtubus.utils.StringCalendarUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +21,12 @@ import java.util.List;
 public class ShiftService {
     @Autowired
     private ShiftDao shiftDao;
+
+    @Autowired
+    private BusDao busDao;
+
+    @Autowired
+    private DriverDao driverDao;
 
     /**
      * @description: 将查询到的shift列表重新组织成schedule对象
@@ -47,6 +59,30 @@ public class ShiftService {
         result.setScheduleShift(shiftidList);
         return result;
     }
+
+    /**
+     * @description: 通过shiftid获取某一班次的详细信息
+     * @date: 2018/7/22 11：07
+     * @params: shiftid
+     * @return: ShiftInfo对象
+     */
+    public ShiftInfo getShiftInfo(String shiftid){
+        ShiftInfo shiftInfo = new ShiftInfo();
+        Shift shift = shiftDao.findByShiftId(shiftid);
+        Bus bus = busDao.findByBusId(shift.getBusId());
+        Driver driver = driverDao.findByDriverId(bus.getDriverId());
+        shiftInfo.setShiftid(shiftid);
+        shiftInfo.setLineName(shift.getLineName());
+        shiftInfo.setLineNameCn(shift.getLineNameCn());
+        shiftInfo.setDepartureTime(StringCalendarUtils.TimeToString(shift.getDepartureTime()));
+        shiftInfo.setBusPlateNum(bus.getPlateNum());
+        shiftInfo.setBusSeatNum(bus.getSeatNum());
+        shiftInfo.setDriverName(driver.getUsername());
+        shiftInfo.setDriverPhone(driver.getPhone());
+        shiftInfo.setComment(shift.getComment());
+        return shiftInfo;
+    }
+
 
     /**
      * @description: 将线路类型转换成shiftid中的类型部分，仅限于校区间巴士

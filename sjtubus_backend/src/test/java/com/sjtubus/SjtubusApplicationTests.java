@@ -86,4 +86,9 @@ public class SjtubusApplicationTests {
 		appointController.appoint("wxw","2018-07-19","MXHD1215",
 				"MinHangToXuHui","2018-07-19 08:50:00");
 	}
+
+	@Test
+	public void testRecordSerivce(){
+		appointController.getRecordInfos("王鑫伟");
+	}
 }
