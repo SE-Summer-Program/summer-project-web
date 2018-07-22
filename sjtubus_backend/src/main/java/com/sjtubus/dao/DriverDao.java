@@ -13,6 +13,8 @@ import java.util.List;
 
 public interface DriverDao extends JpaRepository<Driver,Integer> {
 
+    Driver findByDriverId(int driverId);
+
     @Query(value = "select driver from Driver driver where driver.username like %:content% or driver.phone like %:content%")
     List<Driver> queryByRelatedContent(@Param("content") String content);
 
@@ -20,4 +22,5 @@ public interface DriverDao extends JpaRepository<Driver,Integer> {
     @Modifying
     @Query("update Driver driver set driver.phone=:phone, driver.username=:username where driver.driverId =:driverId")
     int modifyDriver(@Param("driverId") int driverId, @Param("username") String username, @Param("phone") String phone);
+
 }

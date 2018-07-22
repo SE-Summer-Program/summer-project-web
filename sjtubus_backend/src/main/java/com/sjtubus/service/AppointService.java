@@ -75,17 +75,14 @@ public class AppointService {
      * @return: List<AppointInfo>
      */
     public List<AppointInfo> getAppointInfo(String line_name, String type, String appoint_date){
-        System.out.println("linename:"+line_name);
-        System.out.println("type:"+type);
-        System.out.println("appoint_date:"+appoint_date);
+
         List<Shift> shifts =  shiftDao.findByLineTypeAndLineNameOrderByDepartureTime(type, line_name);
         List<AppointInfo> appointInfos = new ArrayList<>();
 
-        System.out.println("shifts:"+shifts.size());
         if(shifts == null || shifts.size()==0) {
             return new ArrayList<>();
         }
-        System.out.println("shifts:"+shifts.get(0).getShiftId());
+
         for (Shift shift : shifts) {
             String departure_time = shift.getDepartureTime().toString();
             //比较发车时间和当前时间的先后
@@ -101,9 +98,8 @@ public class AppointService {
             info.setRemainSeat(getRemainSeat(shift.getShiftId(), Date.valueOf(appoint_date)));
 
             appointInfos.add(info);
-            System.out.println("shiftid:" + shift.getShiftId());
         }
-        System.out.println("appoint:"+appointInfos.size());
+
         return appointInfos;
     }
 
