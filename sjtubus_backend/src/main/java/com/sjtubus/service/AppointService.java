@@ -52,7 +52,7 @@ public class AppointService {
         appointment.setAppointDate(date);
         appointment.setLineName(line_name);
         appointment.setLineNameCn(ShiftUtils.getChiLineName(line_name));
-        appointment.setNormal(true);
+        appointment.setNormal(false);
         appointment.setShiftId(shift_id);
         appointment.setUserName(username);
         appointment.setSubmitTimeString(submit_time);

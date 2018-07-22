@@ -49,7 +49,6 @@ public class LineController {
     */
     @RequestMapping(value = "/stations",method = RequestMethod.GET)
     public StationResponse getStations(String line_name){
-        System.out.println("hhhhhhhhh");
         StationResponse response = new StationResponse();
         List<TimeTable> stations = lineService.getStationByLineName(line_name);
         if(stations == null || stations.size()==0){
