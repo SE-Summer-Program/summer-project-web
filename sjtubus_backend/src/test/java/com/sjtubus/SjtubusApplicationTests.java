@@ -1,8 +1,8 @@
 package com.sjtubus;
-
-import com.sjtubus.controller.AppointController;
+import com.sjtubus.controller.AppointmentController;
 import com.sjtubus.controller.LineController;
 import com.sjtubus.entity.User;
+import com.sjtubus.service.AppointmentService;
 import com.sjtubus.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,7 +28,7 @@ public class SjtubusApplicationTests {
 	private UserService userService;
 
 	@Autowired
-	private AppointController appointController;
+	private AppointmentController appointmentController;
 
 	@Autowired
 	private LineController lineController;
@@ -47,7 +47,7 @@ public class SjtubusApplicationTests {
 
 	@Test
 	public void testAppointController(){
-		appointController.getAppointInfo("MinHangToXuHui" ,"HolidayWorkday","2018-07-16");
+		appointmentController.getAppointInfo("MinHangToXuHui" ,"HolidayWorkday","2018-07-16");
 	}
 
 	@Test
@@ -83,12 +83,12 @@ public class SjtubusApplicationTests {
 
 	@Test
 	public void testPostAppoint(){
-		appointController.appoint("wxw","2018-07-19","MXHD1215",
+		appointmentController.appoint("wxw","2018-07-19","MXHD1215",
 				"MinHangToXuHui","2018-07-19 08:50:00");
 	}
 
 	@Test
 	public void testRecordSerivce(){
-		appointController.getRecordInfos("王鑫伟");
+		appointmentController.getRecordInfos("王鑫伟");
 	}
 }

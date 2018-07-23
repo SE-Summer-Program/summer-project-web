@@ -34,4 +34,8 @@ public class DriverService {
     public int modifyDriver(int driverId, String username, String phone){
         return driverDao.modifyDriver(driverId, username, phone);
     }
+
+    public Driver findDriverByUsername(String username){
+        return driverDao.findByUsername(username);
+    }
 }

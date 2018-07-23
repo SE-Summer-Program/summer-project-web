@@ -1,6 +1,6 @@
-package com.esdeath.bookstore.Configuration;
+package com.sjtubus.config;
 
-import com.esdeath.bookstore.Entity.User;
+import com.sjtubus.entity.User;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,7 +25,7 @@ public class ManageInterceptor implements HandlerInterceptor
                 return false;
             }else{
                 User user = (User)obj;
-                return user.getRole().equals("manager");
+                return true;
             }
         }
         return true;

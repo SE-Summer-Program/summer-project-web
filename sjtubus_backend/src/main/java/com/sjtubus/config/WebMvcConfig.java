@@ -1,4 +1,4 @@
-package com.esdeath.bookstore.Configuration;
+package com.sjtubus.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -18,7 +18,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     /** 添加拦截器 **/
     @Override
     public void addInterceptors(InterceptorRegistry registry){
-        registry.addInterceptor(new ManageInterceptor()).addPathPatterns("/**").order(1);
+        //registry.addInterceptor(new ManageInterceptor()).addPathPatterns("/**").order(1);
     }
 
     /* 添加跨域请求访问*/

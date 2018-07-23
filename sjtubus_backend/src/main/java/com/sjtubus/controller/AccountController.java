@@ -1,8 +1,10 @@
 package com.sjtubus.controller;
 
+import com.sjtubus.entity.Administrator;
 import com.sjtubus.entity.User;
 import com.sjtubus.model.response.HttpResponse;
 import com.sjtubus.model.response.ProfileResponse;
+import com.sjtubus.service.AdministratorService;
 import com.sjtubus.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,11 +30,13 @@ public class AccountController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AdministratorService administratorService;
+
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public HttpResponse login(HttpServletRequest request,
                               @RequestParam("phone")String phone,
                               @RequestParam("password")String password){
-        System.out.println("收到登陆请求！");
         HttpResponse response = new HttpResponse();
         if(phone == null || password == null){
             response.setError(1);
@@ -40,7 +44,6 @@ public class AccountController {
             return response;
         }
         User user = userService.findUserByPhone(phone);
-        System.out.println("查找用户结束！");
         if(user == null || !user.getPassword().equals(password)){
             response.setError(1);
             response.setMsg("电话号码或密码不正确！");
@@ -49,8 +52,34 @@ public class AccountController {
             HttpSession session = request.getSession(true);
             //session过期时间为3天
             session.setMaxInactiveInterval(60*60*24*3);
-            System.out.println("创建session！");
             session.setAttribute("user",user);
+            response.setError(0);
+            response.setMsg("登录成功！");
+            return response;
+        }
+    }
+
+    @RequestMapping(value = "/admin",method = RequestMethod.POST)
+    public HttpResponse adminlogin(HttpServletRequest request,
+                              @RequestParam("username")String username,
+                              @RequestParam("password")String password){
+        HttpResponse response = new HttpResponse();
+        if(username == null || password == null){
+            response.setError(1);
+            response.setMsg("登陆信息不全！");
+            return response;
+        }
+        Administrator admin = administratorService.findAdminByUsername(username);
+        if(admin == null || !admin.getPassword().equals(password)){
+            response.setError(1);
+            response.setMsg("用户名或密码不正确！");
+            return response;
+        }else {
+            HttpSession session = request.getSession(true);
+            //session过期时间为3天
+            session.setMaxInactiveInterval(60*60*24*3);
+            System.out.println("管理员登陆客户端！");
+            session.setAttribute("user",admin);
             response.setError(0);
             response.setMsg("登录成功！");
             return response;

@@ -23,4 +23,8 @@ public class AdministratorService {
         return administratorDao.save(administrator);
     }
 
+    public Administrator findAdminByUsername(String username){
+        return administratorDao.findByUsername(username);
+    }
+
 }

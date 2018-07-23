@@ -23,4 +23,5 @@ public interface DriverDao extends JpaRepository<Driver,Integer> {
     @Query("update Driver driver set driver.phone=:phone, driver.username=:username where driver.driverId =:driverId")
     int modifyDriver(@Param("driverId") int driverId, @Param("username") String username, @Param("phone") String phone);
 
+    Driver findByUsername(String username);
 }
