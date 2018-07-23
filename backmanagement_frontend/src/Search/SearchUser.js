@@ -19,32 +19,37 @@ class SearchUser extends React.Component {
             data:[],
             count:0,
             content:''
-        }
+        };
         this.columns = [{
             title: '姓名',
             dataIndex: 'name',
             key: 'name',
-            width: '18%'
+            width: '18%',
+            align: 'center',
         }, {
             title: 'ID',
             dataIndex: 'ID',
             key: 'ID',
-            width: '20%'
+            width: '15%',
+            align: 'center',
         }, {
             title: '电话号码',
             dataIndex: 'phone',
             key: 'phone',
-            width: '20%'
+            width: '20%',
+            align: 'center',
         }, {
             title: '积分',
             dataIndex: 'credit' ,
             key: 'credit',
-            width: '15%'
+            width: '15%',
+            align: 'center',
         }, {
             title: '身份',
             dataIndex: 'identity' ,
             key: 'identity',
-            width: '18%'
+            width: '18%',
+            align: 'center',
         }];
     }
 
@@ -57,6 +62,11 @@ class SearchUser extends React.Component {
 
     handleSearch = () => {
         console.log(this.state.content);
+        this.setState({
+            data:[],
+            count:0,
+        });
+
         fetch('http://localhost:8080/user/search?content='+this.state.content,
             {
                 method: 'POST',
@@ -66,13 +76,13 @@ class SearchUser extends React.Component {
                 console.log('Request successful', response);
                 return response.json()
                     .then(result => {
-                        let len = result.length;
+                        let len = result.userList.length;
                         console.log("response len:",len);
-                        this.state.data=[];
                         for (var i=0; i < len; i++) {
+                            let user = result.userList[i];
                             const {data,count}=this.state;
                             let identity = '';
-                            if (result[i].teacher.toString() === 'false') {
+                            if (user.teacher.toString() === 'false') {
                                 identity = "学生";
                             }
                             else{
@@ -80,11 +90,11 @@ class SearchUser extends React.Component {
                             }
                             const add = {
                                 "key": this.state.count+1,
-                                "ID": result[i].userId,
-                                "name": result[i].username,
-                                "credit": result[i].credit,
+                                "ID": user.userId,
+                                "name": user.username,
+                                "credit": user.credit,
                                 "identity": identity,
-                                "phone":result[i].phone,
+                                "phone": user.phone,
 
                             };
 
@@ -134,7 +144,7 @@ class SearchUser extends React.Component {
                                     <Menu.Item key="1"><Link to="searchuser">用户/司机/管理员</Link></Menu.Item>
                                 </SubMenu>
                                 <SubMenu key="sub2" title={<span><Icon type="car" />校内巴士</span>}>
-                                    <Menu.Item key="5"><Link to="searchmap">路线图</Link></Menu.Item>
+
                                     <Menu.Item key="3"><Link to="searchinshift">始发时刻表</Link></Menu.Item>
                                 </SubMenu>
                                 <SubMenu key="sub3" title={<span><Icon type="car" />校区巴士</span>}>
@@ -148,7 +158,7 @@ class SearchUser extends React.Component {
                                    prefix={<Icon type="search"/>} placeholder="请输入用户相关信息" onChange={this.onChangeContent}/>
                             <Button type="primary"  size="large" style={{width: '10%', marginLeft: '10px'}} onClick = {this.handleSearch}>搜索</Button>
                             <h1/>
-                            <Table style={{width:'88%', marginLeft:'70px'}} columns={this.columns} dataSource={this.state.data} />
+                            <Table style={{width:'78%', marginLeft:'100px'}} columns={this.columns} dataSource={this.state.data} />
                         </Content>
                     </Layout>
                 </Content>

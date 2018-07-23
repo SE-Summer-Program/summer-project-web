@@ -38,6 +38,37 @@ public class DriverController {
         return response;
     }
 
+    @RequestMapping(path="/add")
+    public HttpResponse addDriver(@RequestParam("username") String username,
+                                     @RequestParam("password") String password,
+                                     @RequestParam("phone") String phone){
+        HttpResponse response = new HttpResponse();
+        try{
+            response.setMsg( driverService.addDriver(username, password, phone));
+        }
+        catch (Exception e)
+        {
+            response.setMsg("fail");
+            response.setError(1);
+        }
+        return response;
+    }
+
+
+    @RequestMapping(path="/delete" )
+    public HttpResponse deleteDriver(@RequestParam("driverId") int driverId){
+        System.out.println("driverId:"+driverId);
+        HttpResponse response = new HttpResponse();
+        try{
+            response.setMsg(driverService.deleteDriver(driverId));
+        }
+        catch (Exception e){
+            response.setMsg("fail");
+            response.setError(1);
+        }
+        return response;
+    }
+
     @RequestMapping(path="/modify")
     public HttpResponse modifyDriver(@RequestParam("driverId") int driverId,
                                      @RequestParam("username") String username,

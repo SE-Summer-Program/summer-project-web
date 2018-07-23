@@ -23,6 +23,7 @@ public interface UserDao extends JpaRepository<User,Integer> {
 
     User findByUserId(int userId);
 
+
     @Transactional
     @Modifying
     @Query("update User user set user.username=:username, user.phone=:phone, user.credit=:credit where user.userId =:userId")

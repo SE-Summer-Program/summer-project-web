@@ -19,6 +19,7 @@ import SearchMap from './Search/SearchMap';
 import SearchInShift from './Search/SearchInShift';
 import SearchOutShift from './Search/SearchOutShift';
 import SearchReserved from './Search/SearchReserved';
+import AddMessage from './Management/AddMessage';
 
 import './App.css';
 import { HashRouter as Router, Route } from "react-router-dom";
@@ -51,7 +52,7 @@ class App extends Component {
                     <Route exact path="/searchinshift" component={SearchInShift}/>
                     <Route exact path="/searchoutshift" component={SearchOutShift}/>
                     <Route exact path="/searchreserved" component={SearchReserved}/>
-
+                    <Route exact path="/addmessage" component={AddMessage}/>
 
                 </Switch>
             </div>

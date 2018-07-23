@@ -50,16 +50,20 @@ public class ShiftController {
     }
 
 
-    @RequestMapping(path="/add")
+    @RequestMapping(value="/add")
     public HttpResponse addShift(@RequestParam("lineName") String lineName,
                                  @RequestParam("lineNameCn") String lineNameCn,
                                  @RequestParam("lineType") String lineType,
-                                 @RequestParam("departureTime") Time departureTime,
+                                 @RequestParam("departureTime")Time departureTime,
                                  @RequestParam("reserveSeat") int reserveSeat,
-                                 @RequestParam("comment") String comment){
+                                 @RequestParam("comment") String comment,
+                                 @RequestParam("busId") int busId,
+                                 @RequestParam("arriveTime") Time arriveTime){
         HttpResponse response = new HttpResponse();
         try {
-            String result = shiftService.addShift(lineName, lineNameCn, lineType, departureTime, reserveSeat, comment);
+            //System.out.println("lineName:"+lineName);
+            //System.out.println("departureTime:"+ String.valueOf(departureTime));
+            String result = shiftService.addShift(lineName, lineNameCn, lineType, departureTime, reserveSeat, comment, busId, arriveTime);
             response.setMsg(result);
         }
         catch (Exception e){

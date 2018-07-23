@@ -77,21 +77,25 @@ class ModifyDriver extends React.Component {
                 dataIndex: 'ID',
                 key: 'ID',
                 width: '20%',
+                align: 'center',
             }, {
                 title: '姓名',
                 dataIndex: 'name',
                 key: 'name',
                 width: '28%',
                 editable: true,
+                align: 'center',
             }, {
                 title: '电话号码',
                 dataIndex: 'phone',
                 key: 'phone',
                 width: '28%',
                 editable: true,
+                align: 'center',
             }, {
                 title: '操作',
                 dataIndex: 'operation',
+                align: 'center',
                 render: (text, record) => {
                     const editable = this.isEditing(record);
                     return (
@@ -321,6 +325,11 @@ class ModifyDriver extends React.Component {
                                     <Menu.Item key="10"><Link to="deletedriver">删除司机</Link></Menu.Item>
                                     <Menu.Item key="11"><Link to="modifydriver">修改司机</Link></Menu.Item>
                                 </SubMenu>
+                                <SubMenu key="sub4" title={<span><Icon type="form" />公告管理</span>}>
+                                    <Menu.Item key="12"><Link to="addmessage">发布新公告</Link></Menu.Item>
+
+                                </SubMenu>
+
 
                             </Menu>
                         </Sider>

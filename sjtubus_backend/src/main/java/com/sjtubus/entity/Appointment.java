@@ -4,6 +4,7 @@ import com.sjtubus.utils.StringCalendarUtils;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 
 @Entity

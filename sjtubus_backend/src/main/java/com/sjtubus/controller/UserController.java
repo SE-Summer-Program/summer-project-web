@@ -30,6 +30,7 @@ public class UserController {
         return userService.findUserByPhone(phone);
     }
 
+
     @RequestMapping(path="/search")
     public UserListResponse getRelatedUsers(@RequestParam("content") String content){
         UserListResponse response = new UserListResponse();
@@ -59,6 +60,7 @@ public class UserController {
         }
         else{
             response.setMsg("fail");
+            response.setError(1);
         }
         return response;
     }

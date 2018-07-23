@@ -36,7 +36,7 @@ public class AppointmentService {
     private UserDao userDao;
 
     public List<Appointment> searchAppointment(String lineNameCn, String lineType, Time departureTime, Date appointDate){
-        String time = shiftService.changeDepartureTimeToStringTime(departureTime);
+        String time = shiftService.changeTimeToStringTime(departureTime);
         String shiftid;
         if (lineNameCn.equals("闵行到七宝"))
             shiftid = "MQ";

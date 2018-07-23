@@ -23,51 +23,43 @@ class SearchOutShift extends React.Component {
             isHoliday:'',
             isWorkday:'',
             startStation:'',
-            EndStation:'',
+            endStation:'',
             data:[],
             count:0,
-        }
+        };
         this.columns = [{
             title: '班次编号',
             dataIndex: 'shiftid',
             key: 'shiftid',
-            width: '18%'
+            width: '18%',
+            align: 'center',
         },{
             title: '始发站',
             dataIndex: 'startStation',
             key: 'startStation',
-            width: '20%'
+            width: '20%',
+            align: 'center',
         }, {
             title: '终点站',
             dataIndex: 'endStation',
             key: 'endStation',
-            width: '20%'
+            width: '20%',
+            align: 'center',
         }, {
             title: '出发时刻',
             dataIndex: 'startTime' ,
             key: 'startTime',
             width: '20%',
+            align: 'center',
         }, {
             title: '备注',
             dataIndex: 'comment' ,
             key: 'comment',
             width: '20%',
+            align: 'center',
         }];
     }
 
-    onDateChange = (date, dateString) => {
-        this.setState({
-            date: dateString
-        })
-        console.log(dateString);
-    };
-
-    handleDirectionChange = (value) => {
-        this.setState({
-            direction: value,
-        });
-        console.log("direction:",value)
-    };
 
     handleStartStationChange = (value) => {
         this.setState({
@@ -109,44 +101,62 @@ class SearchOutShift extends React.Component {
     };
 
     handleSearch=() =>{
+        let startStation = this.state.startStation;
+        let endStation = this.state.endStation;
+        let isHoliday = this.state.isHoliday;
+        let isWorkday = this.state.isWorkday;
+
+        if(startStation === ''){
+            alert("请选择始发站");
+            return;
+        }
+        if(endStation === ''){
+            alert("请选择终点站");
+            return;
+        }
+        if (startStation === endStation){
+            alert("始发站和终点站不能相同");
+            return;
+        }
+        if(isHoliday === ''){
+            alert("请选择是否是寒暑假");
+            return;
+        }
+        if(isWorkday === ''){
+            alert("请选择是否是工作日");
+            return;
+        }
+
+        this.setState({
+            data:[],
+            count:0,
+        });
         let start='';
         let end='';
         let type='';
-        if (this.state.startStation === '徐汇校区'){
+        if (startStation === '徐汇校区')
             start = 'XuHui';
-        }
-        else if(this.state.startStation === '闵行校区') {
+        else if(startStation === '闵行校区')
             start = 'MinHang';
-        }
-        else {
+        else
             start = 'QiBao';
-        }
 
-        if (this.state.endStation === '徐汇校区') {
+        if (endStation === '徐汇校区')
             end = 'XuHui';
-        }
-        else if (this.state.endStation === '闵行校区') {
+        else if (endStation === '闵行校区')
             end = 'MinHang';
-        }
-        else {
+        else
             end = 'QiBao';
-        }
-        if ((this.state.isWorkday === 'true') && (this.state.isHoliday==='true'))
-        {
+
+        if ((isWorkday === 'true') && (isHoliday==='true'))
             type = 'HolidayWorkday';
-        }
-        else if ((this.state.isWorkday === 'true') && (this.state.isHoliday==='false'))
-        {
+        else if ((isWorkday === 'true') && (isHoliday==='false'))
             type = 'NormalWorkday';
-        }
-        else if ((this.state.isWorkday === 'false') && (this.state.isHoliday==='true'))
-        {
-            type = 'HolidayWeekend'
-        }
-        else if ((this.state.isWorkday === 'false') && (this.state.isHoliday === 'false'))
-        {
-            type = 'NormalWeekendAndLegalHoliday'
-        }
+        else if ((isWorkday === 'false') && (isHoliday==='true'))
+            type = 'HolidayWeekend';
+        else if ((isWorkday === 'false') && (isHoliday === 'false'))
+            type = 'NormalWeekendAndLegalHoliday';
+
         let temproute= 'line_name='+ start +'To'+ end + '&type=' + type;
         console.log("route:", temproute);
 
@@ -162,7 +172,7 @@ class SearchOutShift extends React.Component {
                         let len = result.schedule.scheduleShift.length;
                         console.log("response len:",len);
                         this.state.data=[];
-                        for (var i=0; i < len; i++) {
+                        for (let i=0; i < len; i++) {
                             const {data,count}=this.state;
                             const add = {
                                 "key": this.state.count+1,
@@ -219,7 +229,7 @@ class SearchOutShift extends React.Component {
                                     <Menu.Item key="1"><Link to="searchuser">普通用户</Link></Menu.Item>
                                 </SubMenu>
                                 <SubMenu key="sub2" title={<span><Icon type="car" />校内巴士</span>}>
-                                    <Menu.Item key="2"><Link to="searchmap">路线图</Link></Menu.Item>
+
                                     <Menu.Item key="3"><Link to="searchinshift">始发时刻表</Link></Menu.Item>
                                 </SubMenu>
                                 <SubMenu key="sub3" title={<span><Icon type="car" />校区巴士</span>}>
@@ -229,8 +239,9 @@ class SearchOutShift extends React.Component {
                             </Menu>
                         </Sider>
                         <Content style={{ padding: '0 24px', minHeight: 280 }}>
-                            <DatePicker size="large" style={{marginLeft:'20px'}} onChange={this.onDateChange} />
-                            <Select defaultValue="始发站" size="large" style={{marginLeft:'10px', width:'140px'}} onChange={this.handleStartStationChange}>
+                            <h1/>
+                            <br/>
+                            <Select defaultValue="始发站" size="large" style={{marginLeft:'180px', width:'140px'}} onChange={this.handleStartStationChange}>
                                 {stationOptions}
                             </Select>
                             <Select defaultValue="终点站" size="large" style={{marginLeft:'10px', width:'140px'}} onChange={this.handleEndStationChange}>
