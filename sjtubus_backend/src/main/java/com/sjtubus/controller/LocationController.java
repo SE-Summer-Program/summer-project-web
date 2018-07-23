@@ -1,6 +1,7 @@
 package com.sjtubus.controller;
 
 import com.sjtubus.entity.Driver;
+import com.sjtubus.model.response.LocationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.ValueOperations;
@@ -35,7 +36,9 @@ public class LocationController {
     }
 
     @RequestMapping(value = "/location",method = RequestMethod.GET)
-    public Map<String, String> location(){
-        return hashOperations.entries("location");
+    public LocationResponse location(){
+        LocationResponse response = new LocationResponse();
+        response.setLocations(hashOperations.entries("location"));
+        return response;
     }
 }
