@@ -2,8 +2,10 @@ package com.sjtubus.controller;
 
 import com.sjtubus.dao.ShiftDao;
 import com.sjtubus.entity.Shift;
+import com.sjtubus.entity.TimeTable;
 import com.sjtubus.model.Schedule;
 import com.sjtubus.model.ShiftInfo;
+import com.sjtubus.model.Station;
 import com.sjtubus.model.response.*;
 import com.sjtubus.service.ShiftService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +51,17 @@ public class ShiftController {
         return response;
     }
 
+    @RequestMapping(path="/search_schedule_loopline")
+    public StationSingleResponse getScheduleOfLoopLine(@RequestParam("station") String station){
+        StationSingleResponse response = new StationSingleResponse();
+        TimeTable timeTable = shiftService.getScheduleOfLoopLine(station);
+        if (timeTable == null){
+            response.setError(1);
+            response.setMsg("站点信息获取失败");
+        }
+        response.setStation(timeTable);
+        return response;
+    }
 
     @RequestMapping(value="/add")
     public HttpResponse addShift(@RequestParam("lineName") String lineName,
