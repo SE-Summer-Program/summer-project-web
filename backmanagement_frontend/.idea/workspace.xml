@@ -97,8 +97,8 @@
       <file leaf-file-name="AddMessage.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Management/AddMessage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="307">
-              <caret line="60" column="8" lean-forward="false" selection-start-line="60" selection-start-column="8" selection-end-line="60" selection-end-column="8" />
+            <state relative-caret-position="2835">
+              <caret line="100" column="30" lean-forward="false" selection-start-line="100" selection-start-column="30" selection-end-line="100" selection-end-column="30" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#39#134#0" expanded="true" />
@@ -433,15 +433,15 @@
       <workItem from="1532048517285" duration="17783000" />
       <workItem from="1532314666657" duration="14830000" />
       <workItem from="1532360165437" duration="1679000" />
-      <workItem from="1532393266752" duration="2441000" />
+      <workItem from="1532393266752" duration="4931000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="249921000" />
+    <option name="totallyTimeSpent" value="252411000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-16" y="-16" width="3232" height="1732" extended-state="6" />
+    <frame x="-16" y="-16" width="3232" height="1732" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17922735" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -831,8 +831,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Management/AddMessage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="60" column="8" lean-forward="false" selection-start-line="60" selection-start-column="8" selection-end-line="60" selection-end-column="8" />
+        <state relative-caret-position="2835">
+          <caret line="100" column="30" lean-forward="false" selection-start-line="100" selection-start-column="30" selection-end-line="100" selection-end-column="30" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#39#134#0" expanded="true" />
