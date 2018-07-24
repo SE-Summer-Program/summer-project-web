@@ -1,6 +1,7 @@
 package com.sjtubus.controller;
 
 import com.sjtubus.entity.Administrator;
+import com.sjtubus.entity.Driver;
 import com.sjtubus.entity.User;
 import com.sjtubus.model.response.HttpResponse;
 import com.sjtubus.model.response.ProfileResponse;
@@ -53,6 +54,7 @@ public class AccountController {
             //session过期时间为3天
             session.setMaxInactiveInterval(60*60*24*3);
             session.setAttribute("user",user);
+            session.setAttribute("role","user");
             response.setError(0);
             response.setMsg("登录成功！");
             return response;
@@ -80,6 +82,7 @@ public class AccountController {
             session.setMaxInactiveInterval(60*60*24*3);
             System.out.println("管理员登陆客户端！");
             session.setAttribute("user",admin);
+            session.setAttribute("role","admin");
             response.setError(0);
             response.setMsg("登录成功！");
             return response;
@@ -104,8 +107,8 @@ public class AccountController {
             response.setMsg("该手机号已注册!");
             return response;
         }
-        user = userService.addUser(username,password,false,phone,100);
-        if(user==null){
+        String result = userService.addUser(username,password,false,phone,100);
+        if(result.equals("existed")){
             response.setError(1);
             response.setMsg("该用户名已被注册!");
             return response;
@@ -141,10 +144,23 @@ public class AccountController {
             response.setError(1);
             return response;
         }
-        User user = (User)session.getAttribute("user");
-        response.setUser(user);
+        if(session.getAttribute("role").equals("user")) {
+            User user = (User) session.getAttribute("user");
+            response.setUser(user);
+            response.setRole("user");
+            response.setMsg("已登陆~"+user.getUsername());
+        }else if(session.getAttribute("role").equals("admin")){
+            Administrator admin = (Administrator) session.getAttribute("user");
+            response.setAdmin(admin);
+            response.setRole("admin");
+            response.setMsg("已登陆~"+admin.getUsername());
+        }else if(session.getAttribute("role").equals("driver")){
+            Driver driver = (Driver) session.getAttribute("user");
+            response.setDriver(driver);
+            response.setRole("driver");
+            response.setMsg("已登陆~"+driver.getUsername());
+        }
         response.setError(0);
-        response.setMsg("已登陆~"+user.getUsername());
         return response;
     }
 }

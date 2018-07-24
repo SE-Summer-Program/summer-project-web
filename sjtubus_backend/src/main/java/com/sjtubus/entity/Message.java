@@ -6,8 +6,6 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "Message")
-
-
 public class Message {
     private int messageId;
     private String messageType;

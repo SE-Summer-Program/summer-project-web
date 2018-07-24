@@ -1,10 +1,13 @@
 package com.sjtubus.controller;
 
 
+import com.sjtubus.entity.Message;
 import com.sjtubus.model.response.HttpResponse;
+import com.sjtubus.model.response.MessageResponse;
 import com.sjtubus.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,6 +34,13 @@ public class MessageController {
             response.setError(1);
             response.setMsg("fail");
         }
+        return response;
+    }
+
+    @RequestMapping(value = "/all",method = RequestMethod.GET)
+    public MessageResponse getAllMessage(){
+        MessageResponse response = new MessageResponse();
+        response.setMessages(messageService.findAll());
         return response;
     }
 }

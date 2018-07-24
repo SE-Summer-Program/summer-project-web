@@ -1,6 +1,7 @@
 package com.sjtubus.controller;
 
 import com.sjtubus.entity.Driver;
+import com.sjtubus.entity.User;
 import com.sjtubus.model.response.LocationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
@@ -28,11 +29,9 @@ public class LocationController {
 
     @RequestMapping(value = "/locate",method = RequestMethod.POST)
     public void locate(String latitude, String longitude, HttpSession session){
-        Driver driver = (Driver) session.getAttribute("driver");
-        driver = new Driver();
-        driver.setUsername("allen");
-        if(driver == null) return;
-        hashOperations.put("location",driver.getUsername(),latitude+" "+longitude);
+        User user = (User) session.getAttribute("user");
+        if(user == null) return;
+        hashOperations.put("location",user.getUsername(),latitude+" "+longitude);
     }
 
     @RequestMapping(value = "/location",method = RequestMethod.GET)
