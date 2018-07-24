@@ -29,9 +29,9 @@ public class LocationController {
 
     @RequestMapping(value = "/locate",method = RequestMethod.POST)
     public void locate(String latitude, String longitude, HttpSession session){
-        User user = (User) session.getAttribute("user");
-        if(user == null) return;
-        hashOperations.put("location",user.getUsername(),latitude+" "+longitude);
+        Driver driver = (Driver) session.getAttribute("user");
+        if(driver == null) return;
+        hashOperations.put("location",driver.getUsername(),latitude+" "+longitude);
     }
 
     @RequestMapping(value = "/location",method = RequestMethod.GET)

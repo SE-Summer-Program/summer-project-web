@@ -130,7 +130,7 @@ public class AppointmentService {
      * @params:
      * @return:
      */
-    private int getRemainSeat(String shiftId, java.sql.Date appoint_date){
+    public int getRemainSeat(String shiftId, java.sql.Date appoint_date){
         List<Appointment> appointments = appointmentDao.findByShiftIdAndAppointDate(shiftId, appoint_date);
         Shift shift = shiftDao.findByShiftId(shiftId);
         Bus bus = busDao.findByBusId(shift.getBusId());
