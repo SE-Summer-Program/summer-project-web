@@ -3,9 +3,11 @@ package com.sjtubus.service;
 import com.sjtubus.dao.BusDao;
 import com.sjtubus.dao.DriverDao;
 import com.sjtubus.dao.ShiftDao;
+import com.sjtubus.dao.TimeTableDao;
 import com.sjtubus.entity.Bus;
 import com.sjtubus.entity.Driver;
 import com.sjtubus.entity.Shift;
+import com.sjtubus.entity.TimeTable;
 import com.sjtubus.model.Schedule;
 import com.sjtubus.model.ShiftInfo;
 import com.sjtubus.utils.StringCalendarUtils;
@@ -28,6 +30,9 @@ public class ShiftService {
     @Autowired
     private DriverDao driverDao;
 
+    @Autowired
+    private TimeTableDao timeTableDao;
+
     /**
      * @description: 将查询到的shift列表重新组织成schedule对象
      * @date: 2018/7/10 19:33
@@ -44,8 +49,15 @@ public class ShiftService {
         int size = shiftInfo.size();
         for (int i = 0; i < size; i++ ){
             String startTime = shiftInfo.get(i).getDepartureTime().toString();
-            startTimeList.add(startTime);
             String comment = shiftInfo.get(i).getComment();
+
+            /* 防止重复处理 */
+            String lastStartTime = startTimeList.get(startTimeList.size() - 1);
+            String lastComment = commentList.get(commentList.size() - 1);
+            if (startTime.equals(lastStartTime) && comment.equals(lastComment))
+                continue;
+
+            startTimeList.add(startTime);
             commentList.add(comment);
             String shiftid = shiftInfo.get(i).getShiftId();
             shiftidList.add(shiftid);
@@ -58,6 +70,18 @@ public class ShiftService {
         result.setScheduleComment(commentList);
         result.setScheduleShift(shiftidList);
         return result;
+    }
+
+    /**
+     * @description: 获取校园巴士环线上某一具体站点的时刻表信息
+     * @date: 2018/7/24 16：29
+     * @params:
+     * @return:
+     */
+    public TimeTable getScheduleOfLoopLine(String station){
+        TimeTable timeTable = new TimeTable();
+        timeTable = timeTableDao.findByStation(station);
+        return timeTable;
     }
 
     /**
@@ -82,7 +106,6 @@ public class ShiftService {
         shiftInfo.setComment(shift.getComment());
         return shiftInfo;
     }
-
 
     /**
      * @description: 将线路类型转换成shiftid中的类型部分，仅限于校区间巴士
