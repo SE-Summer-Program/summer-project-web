@@ -1,6 +1,5 @@
 package com.sjtubus.model.response;
 
-import com.sjtubus.model.BusMessage;
 import com.sjtubus.model.Schedule;
 
 import java.util.List;

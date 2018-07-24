@@ -51,7 +51,7 @@ public class ShiftController {
         return response;
     }
 
-    @RequestMapping(path="/search_schedule_loopline")
+    @RequestMapping(path="/search_schedule_loopline",method = RequestMethod.GET)
     public StationSingleResponse getScheduleOfLoopLine(@RequestParam("station") String station){
         StationSingleResponse response = new StationSingleResponse();
         TimeTable timeTable = shiftService.getScheduleOfLoopLine(station);

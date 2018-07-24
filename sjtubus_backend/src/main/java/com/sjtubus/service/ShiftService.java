@@ -52,10 +52,12 @@ public class ShiftService {
             String comment = shiftInfo.get(i).getComment();
 
             /* 防止重复处理 */
-            String lastStartTime = startTimeList.get(startTimeList.size() - 1);
-            String lastComment = commentList.get(commentList.size() - 1);
-            if (startTime.equals(lastStartTime) && comment.equals(lastComment))
-                continue;
+            if (startTimeList.size() >= 1) {
+                String lastStartTime = startTimeList.get(startTimeList.size() - 1);
+                String lastComment = commentList.get(commentList.size() - 1);
+                if (startTime.equals(lastStartTime) && comment.equals(lastComment))
+                    continue;
+            }
 
             startTimeList.add(startTime);
             commentList.add(comment);
@@ -79,9 +81,7 @@ public class ShiftService {
      * @return:
      */
     public TimeTable getScheduleOfLoopLine(String station){
-        TimeTable timeTable = new TimeTable();
-        timeTable = timeTableDao.findByStation(station);
-        return timeTable;
+        return timeTableDao.findByStation(station);
     }
 
     /**
