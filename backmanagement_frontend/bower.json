@@ -1,0 +1,24 @@
+{
+  "name": "push_message",
+  "description": "nothing",
+  "main": "push_message",
+  "authors": [
+    "studentliying <540906886@qq.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "push_message"
+  ],
+  "homepage": "https://github.com/SE-Summer-Program/summer-project-web",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "leancloud-push.js": "leancloud-push#^2.0.4"
+  }
+}
