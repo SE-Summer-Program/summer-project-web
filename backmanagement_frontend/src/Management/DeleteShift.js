@@ -23,41 +23,47 @@ class DeleteShift extends React.Component {
             data:[],
             count:0,
             content:'',
-        }
+        };
         this.columns = [{
             title: '班次编号',
             dataIndex: 'shiftid',
             key: 'shiftid',
-            width: '16%'
+            width: '16%',
+            align: 'center',
         }, {
             title: '线路名',
             dataIndex: 'lineName',
             key: 'lineName',
-            width: '19%'
+            width: '19%',
+            align: 'center',
         },{
             title: '运行时间',
             dataIndex: 'type',
             key: 'type',
-            width: '15%'
+            width: '15%',
+            align: 'center',
         },  {
             title: '出发时刻',
             dataIndex: 'startTime',
             key: 'startTime',
-            width: '13%'
+            width: '13%',
+            align: 'center',
         }, {
             title: '预留座位数',
             dataIndex: 'seat' ,
             key: 'seat',
-            width: '10%'
+            width: '10%',
+            align: 'center',
         }, {
             title: '备注',
             dataIndex: 'comment' ,
             key: 'comment',
-            width: '20%'
+            width: '20%',
+            align: 'center',
         }, {
             title: '删除',
             dataIndex: 'operation',
-
+            align: 'center',
             render: (text, record) => {
                 return (
                     <Popconfirm title="确定删除?" onConfirm={() => this.onDelete(record.key)}>
@@ -197,6 +203,11 @@ class DeleteShift extends React.Component {
                                     <Menu.Item key="10"><Link to="deletedriver">删除司机</Link></Menu.Item>
                                     <Menu.Item key="11"><Link to="modifydriver">修改司机</Link></Menu.Item>
                                 </SubMenu>
+                                <SubMenu key="sub4" title={<span><Icon type="form" />公告管理</span>}>
+                                    <Menu.Item key="12"><Link to="addmessage">发布新公告</Link></Menu.Item>
+
+                                </SubMenu>
+
 
 
                             </Menu>

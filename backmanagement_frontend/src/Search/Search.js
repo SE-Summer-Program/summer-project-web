@@ -72,7 +72,7 @@ class Search extends React.Component {
                                     <Menu.Item key="1"><Link to="searchuser">普通用户</Link></Menu.Item>
                                 </SubMenu>
                                 <SubMenu key="sub2" title={<span><Icon type="car" />校内巴士</span>}>
-                                    <Menu.Item key="2"><Link to="searchmap">路线图</Link></Menu.Item>
+
                                     <Menu.Item key="3"><Link to="searchinshift">始发时刻表</Link></Menu.Item>
                                 </SubMenu>
                                 <SubMenu key="sub3" title={<span><Icon type="car" />校区巴士</span>}>
@@ -82,7 +82,7 @@ class Search extends React.Component {
                         </Menu>
                         </Sider>
                         <Content style={{ padding: '0 24px', minHeight: 280 }}>
-                            Content
+
                         </Content>
                     </Layout>
                 </Content>

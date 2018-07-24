@@ -30,32 +30,38 @@ class SearchReserved extends React.Component {
             title: '班次编号',
             dataIndex: 'shiftid',
             key: 'shiftid',
-            width: '15%'
+            width: '15%',
+            align: 'center',
         },{
             title: '预约编号',
             dataIndex: 'reservedid',
             key: 'reservedid',
-            width: '15%'
+            width: '15%',
+            align: 'center',
         },{
             title: '学生id',
             dataIndex: 'studentid',
             key: 'studentid',
-            width: '15%'
+            width: '15%',
+            align: 'center',
         }, {
             title: '学生姓名',
             dataIndex: 'studentname',
             key: 'studentname',
-            width: '15%'
+            width: '15%',
+            align: 'center',
         }, {
             title: '提交时间',
             dataIndex: 'submittime',
             key: 'submittime',
-            width: '20%'
+            width: '20%',
+            align: 'center',
         },{
             title: '是否正常',
             dataIndex: 'isNormal' ,
             key: 'isNormal',
             width: '10%',
+            align: 'center',
         }];
     }
 

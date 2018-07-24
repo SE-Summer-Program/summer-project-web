@@ -76,32 +76,38 @@ class ModifyUser extends React.Component {
             dataIndex: 'userid',
             key: 'userid',
             width: '15%',
+            align: 'center',
         }, {
             title: '用户姓名',
             dataIndex: 'username',
             key: 'username',
             width: '18%',
             editable: true,
+            align: 'center',
         }, {
             title: '联系方式',
             dataIndex: 'phone',
             key: 'phone',
             width: '18%',
             editable: true,
+            align: 'center',
         }, {
             title: '用户身份',
             dataIndex: 'identity',
             key: 'identity',
             width: '17%',
+            align: 'center',
         }, {
             title: '用户积分',
             dataIndex: 'credit' ,
             key: 'credit',
             width: '15%',
             editable: true,
+            align: 'center',
         },{
             title: '操作',
             dataIndex: 'operation',
+            align: 'center',
             render: (text, record) => {
                 const editable = this.isEditing(record);
                 return (
@@ -340,6 +346,11 @@ class ModifyUser extends React.Component {
                                     <Menu.Item key="10"><Link to="deletedriver">删除司机</Link></Menu.Item>
                                     <Menu.Item key="11"><Link to="modifydriver">修改司机</Link></Menu.Item>
                                 </SubMenu>
+                                <SubMenu key="sub4" title={<span><Icon type="form" />公告管理</span>}>
+                                    <Menu.Item key="12"><Link to="addmessage">发布新公告</Link></Menu.Item>
+
+                                </SubMenu>
+
                             </Menu>
                         </Sider>
                         <Content>

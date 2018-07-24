@@ -1,7 +1,7 @@
 /**
  * Created by 励颖 on 2018/7/6.
  */
-import { Layout, Menu, Breadcrumb, Icon, Select, Table, DatePicker, Button } from 'antd';
+import { Layout, Menu, Breadcrumb, Icon, Select, Table, Button } from 'antd';
 import React, { Component } from 'react';
 import './../App.css';
 import {Link} from "react-router-dom";
@@ -24,41 +24,39 @@ class SearchInShift extends React.Component {
             EndStation:'',
             count:0,
             data:[],
-        }
+        };
         this.columns = [{
             title: '',
             dataIndex: '',
             key: '',
-            width: '15%'
+            width: '15%',
+            align: 'center',
         },{
             title: '班次编号',
             dataIndex: 'shiftid',
             key: 'shiftid',
-            width: '20%'
+            width: '20%',
+            align: 'center',
         },{
             title: '方向',
             dataIndex: 'direction',
             key: 'direction',
-            width: '18%'
+            width: '18%',
+            align: 'center',
         },{
             title: '出发时刻',
             dataIndex: 'startTime' ,
             key: 'startTime',
             width: '20%',
+            align: 'center',
         },{
             title: '备注',
             dataIndex: 'comment' ,
             key: 'comment',
             width: '25%',
+            align: 'center',
         }];
     }
-
-    onDateChange = (date, dateString) => {
-        this.setState({
-            date: dateString
-        });
-        console.log(dateString);
-    };
 
     handleDirectionChange = (value) => {
         this.setState({
@@ -95,30 +93,39 @@ class SearchInShift extends React.Component {
     };
 
     handleSearch=() =>{
+        this.setState({
+            data:[],
+            count:0,
+        });
         let type='';
         let line_name='';
-        if (this.state.direction==='顺时针'){
+        let isWorkday = this.state.isWorkday;
+        let isHoliday = this.state.isHoliday;
+        if (this.state.direction === ''){
+            alert("请选择线路方向");
+            return;
+        }
+        if (isHoliday === ''){
+            alert("请选择是否是寒暑假");
+            return;
+        }
+        if (isWorkday === ''){
+            alert("请选择是否是工作日");
+            return;
+        }
+
+        else if (this.state.direction==='顺时针')
             line_name = 'LoopLineClockwise';
-        }
-        else{
+        else
             line_name = 'LoopLineAntiClockwise';
-        }
-        if ((this.state.isWorkday === 'true') && (this.state.isHoliday==='true'))
-        {
+        if ((isWorkday === 'true') && (isHoliday ==='true'))
             type = 'HolidayWorkday';
-        }
-        else if ((this.state.isWorkday === 'true') && (this.state.isHoliday==='false'))
-        {
+        else if ((isWorkday === 'true') && (isHoliday ==='false'))
             type = 'NormalWorkday';
-        }
-        else if ((this.state.isWorkday === 'false') && (this.state.isHoliday==='true'))
-        {
-            type = 'HolidayWeekend'
-        }
-        else if ((this.state.isWorkday === 'false') && (this.state.isHoliday === 'false'))
-        {
-            type = 'NormalWeekendAndLegalHoliday'
-        }
+        else if ((isWorkday === 'false') && (isHoliday==='true'))
+            type = 'HolidayWeekend';
+        else if ((isWorkday === 'false') && (isHoliday === 'false'))
+            type = 'NormalWeekendAndLegalHoliday';
         let temproute = 'line_name='+line_name+'&type='+type;
         console.log("temproute:",temproute);
         fetch('http://localhost:8080/shift/search_schedule?'+temproute,
@@ -153,7 +160,6 @@ class SearchInShift extends React.Component {
     };
 
     render(){
-        const stationOptions = stationData.map(station => <Option key={station}>{station}</Option>);
         const directionOptions = directionData.map(direction => <Option key={direction}>{direction}</Option>);
         return(
             <Layout>
@@ -190,7 +196,7 @@ class SearchInShift extends React.Component {
                                     <Menu.Item key="1"><Link to="searchuser">普通用户</Link></Menu.Item>
                                 </SubMenu>
                                 <SubMenu key="sub2" title={<span><Icon type="car" />校内巴士</span>}>
-                                    <Menu.Item key="2"><Link to="searchmap">路线图</Link></Menu.Item>
+
                                     <Menu.Item key="3"><Link to="searchinshift">始发时刻表</Link></Menu.Item>
                                 </SubMenu>
                                 <SubMenu key="sub3" title={<span><Icon type="car" />校区巴士</span>}>
@@ -201,8 +207,7 @@ class SearchInShift extends React.Component {
                         </Sider>
                         <Content style={{ padding: '0 24px', minHeight: 280 }}>
                             <br />
-                            <DatePicker size="large" style={{marginLeft:'150px'}} onChange={this.onDateChange} />
-                            <Select defaultValue="方向" size="large" style={{marginLeft:'30px', width:'100px'}} onChange={this.handleDirectionChange}>
+                            <Select defaultValue="请选择方向" size="large" style={{marginLeft:'250px', width:'130px'}} onChange={this.handleDirectionChange}>
                                 {directionOptions}
                             </Select>
                             <Select defaultValue="是否寒暑假" size="large" style={{marginLeft:'30px', width:'130px'}} onChange={this.handleHolidayChange}>

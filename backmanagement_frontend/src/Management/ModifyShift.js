@@ -76,31 +76,37 @@ class ModifyShift extends React.Component {
             title: '班次编号',
             dataIndex: 'shiftid',
             key: 'shiftid',
-            width: '15%'
+            width: '15%',
+            align: 'center',
         }, {
             title: '线路方向',
             dataIndex: 'lineNameCn',
             key: 'lineNameCn',
-            width: '18%'
+            width: '18%',
+            align: 'center',
         }, {
             title: '时段类型',
             dataIndex: 'lineType',
             key: 'lineType',
-            width: '18%'
+            width: '18%',
+            align: 'center',
         },   {
             title: '出发时刻',
             dataIndex: 'departureTime',
             key: 'departureTime',
             width: '18%',
+            align: 'center',
         }, {
             title: '预留座位数',
             dataIndex: 'seat' ,
             key: 'seat',
             width: '15%',
             editable: true,
+            align: 'center',
         }, {
             title: '操作',
             dataIndex: 'operation',
+            align: 'center',
             render: (text, record) => {
                 const editable = this.isEditing(record);
                 return (
@@ -341,6 +347,11 @@ class ModifyShift extends React.Component {
                                     <Menu.Item key="10"><Link to="deletedriver">删除司机</Link></Menu.Item>
                                     <Menu.Item key="11"><Link to="modifydriver">修改司机</Link></Menu.Item>
                                 </SubMenu>
+                                <SubMenu key="sub4" title={<span><Icon type="form" />公告管理</span>}>
+                                    <Menu.Item key="12"><Link to="addmessage">发布新公告</Link></Menu.Item>
+
+                                </SubMenu>
+
                             </Menu>
                         </Sider>
                         <Content>

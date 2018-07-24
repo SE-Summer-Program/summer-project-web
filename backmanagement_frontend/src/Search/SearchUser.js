@@ -19,32 +19,37 @@ class SearchUser extends React.Component {
             data:[],
             count:0,
             content:''
-        }
+        };
         this.columns = [{
             title: '姓名',
             dataIndex: 'name',
             key: 'name',
-            width: '18%'
+            width: '18%',
+            align: 'center',
         }, {
             title: 'ID',
             dataIndex: 'ID',
             key: 'ID',
-            width: '20%'
+            width: '15%',
+            align: 'center',
         }, {
             title: '电话号码',
             dataIndex: 'phone',
             key: 'phone',
-            width: '20%'
+            width: '20%',
+            align: 'center',
         }, {
             title: '积分',
             dataIndex: 'credit' ,
             key: 'credit',
-            width: '15%'
+            width: '15%',
+            align: 'center',
         }, {
             title: '身份',
             dataIndex: 'identity' ,
             key: 'identity',
-            width: '18%'
+            width: '18%',
+            align: 'center',
         }];
     }
 
@@ -153,7 +158,7 @@ class SearchUser extends React.Component {
                                    prefix={<Icon type="search"/>} placeholder="请输入用户相关信息" onChange={this.onChangeContent}/>
                             <Button type="primary"  size="large" style={{width: '10%', marginLeft: '10px'}} onClick = {this.handleSearch}>搜索</Button>
                             <h1/>
-                            <Table style={{width:'88%', marginLeft:'70px'}} columns={this.columns} dataSource={this.state.data} />
+                            <Table style={{width:'78%', marginLeft:'100px'}} columns={this.columns} dataSource={this.state.data} />
                         </Content>
                     </Layout>
                 </Content>

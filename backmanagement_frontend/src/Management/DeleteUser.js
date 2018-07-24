@@ -26,30 +26,36 @@ class DeleteUser extends React.Component {
             title: '姓名',
             dataIndex: 'name',
             key: 'name',
-            width: '15%'
+            width: '15%',
+            align: 'center',
         }, {
             title: 'ID',
             dataIndex: 'ID',
             key: 'ID',
-            width: '20%'
+            width: '20%',
+            align: 'center',
         }, {
             title: '电话号码',
             dataIndex: 'phone',
             key: 'phone',
-            width: '20%'
+            width: '20%',
+            align: 'center',
         }, {
             title: '积分',
             dataIndex: 'credit' ,
             key: 'credit',
-            width: '15%'
+            width: '15%',
+            align: 'center',
         }, {
             title: '身份',
             dataIndex: 'identity' ,
             key: 'identity',
-            width: '18%'
+            width: '18%',
+            align: 'center',
         },{
             title: '删除',
             dataIndex: 'operation',
+            align: 'center',
             render: (text, record) => {
                 return (
                     <Popconfirm title="确定删除?" onConfirm={() => this.onDelete(record.key)}>
@@ -182,6 +188,11 @@ class DeleteUser extends React.Component {
                                     <Menu.Item key="10"><Link to="deletedriver">删除司机</Link></Menu.Item>
                                     <Menu.Item key="11"><Link to="modifydriver">修改司机</Link></Menu.Item>
                                 </SubMenu>
+                                <SubMenu key="sub4" title={<span><Icon type="form" />公告管理</span>}>
+                                    <Menu.Item key="12"><Link to="addmessage">发布新公告</Link></Menu.Item>
+
+                                </SubMenu>
+
 
                             </Menu>
                         </Sider>
