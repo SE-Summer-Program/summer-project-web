@@ -139,11 +139,9 @@ class Login extends React.Component {
                             <h1/>
                             <br/>
                             <div>
-                            <h2><Button size="large" type="primary" onClick={this.handleSubmit} >登录</Button>
-                                &nbsp;
-                                <Button size="large" type="primary"><Link to="./register">注册</Link></Button>
-                                &nbsp;
-                                <Button size="large" type="dashed" onClick={this.handleExit}>退出登录</Button></h2>
+                            <h2><Button size="large" type="primary" onClick={this.handleSubmit} style={{marginLeft:'25px'}} >登录</Button>
+                                &nbsp;&nbsp;
+                                <Button size="large" type="dashed" onClick={this.handleExit}>退出当前账户</Button></h2>
                             </div>
                         </Content>
                     </Layout>

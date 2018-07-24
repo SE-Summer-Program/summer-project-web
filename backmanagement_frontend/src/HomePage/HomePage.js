@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import pic from "./../bus_background.jpg";
 
 const { SubMenu } = Menu;
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Footer,} = Layout;
 
 class HomePage extends React.Component {
     render(){

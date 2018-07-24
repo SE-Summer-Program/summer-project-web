@@ -3,7 +3,7 @@ package com.sjtubus.controller;
 import com.sjtubus.entity.Administrator;
 import com.sjtubus.model.response.HttpResponse;
 import com.sjtubus.service.AdministratorService;
-import com.sjtubus.service.AppointmentService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +25,7 @@ public class AdministratorController {
     public HttpResponse processLogin(@RequestParam("username")String username,
                                      @RequestParam("password") String password,
                                       HttpSession session){
+        System.out.println("hello");
         HttpResponse response = new HttpResponse();
         try{
             List<Administrator> administratorList = administratorService.searchAdministrator(username);
