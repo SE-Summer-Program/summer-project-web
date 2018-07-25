@@ -94,14 +94,18 @@ public class DriverController {
         HttpResponse response = new HttpResponse();
         if(username == null || password == null){
             response.setError(1);
-            response.setMsg("登陆信息不全！");
+            response.setMsg("登陆信息不全~");
             return response;
         }
         Driver driver = driverService.findDriverByUsername(username);
         System.out.println("查找用户结束！");
-        if(driver == null || !driver.getPassword().equals(password)){
+        if(driver == null){
             response.setError(1);
-            response.setMsg("用户名或密码不正确！");
+            response.setMsg("该司机不存在~");
+            return response;
+        }else if (!driver.getPassword().equals(password)){
+            response.setError(1);
+            response.setMsg("用户名或密码不正确~");
             return response;
         }else {
             HttpSession session = request.getSession(true);

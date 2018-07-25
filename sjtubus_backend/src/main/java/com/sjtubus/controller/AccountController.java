@@ -41,15 +41,19 @@ public class AccountController {
         HttpResponse response = new HttpResponse();
         if(phone == null || password == null){
             response.setError(1);
-            response.setMsg("登陆信息不全！");
+            response.setMsg("登陆信息填写不全~");
             return response;
         }
         User user = userService.findUserByPhone(phone);
-        if(user == null || !user.getPassword().equals(password)){
+        if(user == null) {
             response.setError(1);
-            response.setMsg("电话号码或密码不正确！");
+            response.setMsg("该用户不存在~");
             return response;
-        }else {
+        } else if (!user.getPassword().equals(password)){
+            response.setError(1);
+            response.setMsg("手机号码或密码不正确哦~");
+            return response;
+        } else {
             HttpSession session = request.getSession(true);
             //session过期时间为3天
             session.setMaxInactiveInterval(60*60*24*3);
@@ -68,13 +72,17 @@ public class AccountController {
         HttpResponse response = new HttpResponse();
         if(username == null || password == null){
             response.setError(1);
-            response.setMsg("登陆信息不全！");
+            response.setMsg("登陆信息填写不全~");
             return response;
         }
         Administrator admin = administratorService.findAdminByUsername(username);
-        if(admin == null || !admin.getPassword().equals(password)){
+        if(admin == null ){
             response.setError(1);
-            response.setMsg("用户名或密码不正确！");
+            response.setMsg("该管理员不存在~");
+            return response;
+        }else if (!admin.getPassword().equals(password)){
+            response.setError(1);
+            response.setMsg("用户名或密码不正确~");
             return response;
         }else {
             HttpSession session = request.getSession(true);
@@ -104,13 +112,13 @@ public class AccountController {
         User user = userService.findUserByPhone(phone);
         if(user!=null){
             response.setError(1);
-            response.setMsg("该手机号已注册!");
+            response.setMsg("该手机号已被注册~");
             return response;
         }
         String result = userService.addUser(username,password,false,phone,100);
         if(result.equals("existed")){
             response.setError(1);
-            response.setMsg("该用户名已被注册!");
+            response.setMsg("该用户名已被注册~");
             return response;
         }
         response.setError(0);
@@ -162,5 +170,24 @@ public class AccountController {
         }
         response.setError(0);
         return response;
+    }
+
+    @RequestMapping(value = "/update_infos", method = RequestMethod.POST)
+    public HttpResponse updatePersonInfos(HttpServletRequest request,
+                                          @RequestParam("userId") int userId,
+                                          @RequestParam("phone") String phone,
+                                          @RequestParam("studentnum") String studentnum,
+                                          @RequestParam("realname") String realname){
+        HttpResponse response = new HttpResponse();
+        boolean result = userService.updatePersonInfos(userId, phone, studentnum, realname);
+        if(result){
+            response.setMsg("完善个人信息成功!");
+            response.setError(0);
+            return response;
+        }else{
+            response.setMsg("完善个人信息失败!");
+            response.setError(1);
+            return response;
+        }
     }
 }

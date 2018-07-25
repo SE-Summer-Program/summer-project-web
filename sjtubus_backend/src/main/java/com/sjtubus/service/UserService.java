@@ -66,6 +66,17 @@ public class UserService {
         return userDao.modifyUser(userId, username, phone, credit);
     }
 
+    public boolean updatePersonInfos(int userId, String phone, String studentnum, String realname){
+        User user = userDao.findByUserId(userId);
+        if (phone != null && !phone.isEmpty())
+            user.setPhone(phone);
+        if (studentnum != null && !studentnum.isEmpty())
+            user.setStudentNumber(studentnum);
+        if (realname != null && !realname.isEmpty())
+            user.setRealname(realname);
+        userDao.save(user);
+        return true;
+    }
 
     /**
      * @description: 添加jaccount用户

@@ -19,9 +19,11 @@ public class User {
     private boolean isTeacher;   //enum('true', 'false')
     @Column(name="phone")
     private String phone;
-    @Transient
+//    @Transient
+    @Column(name="realname")
     private String realname;
-    @Transient
+//    @Transient
+    @Column(name="student_number")
     private String studentNumber;
 
 
