@@ -82,7 +82,7 @@ public class LineService {
     public List<String> getAllLineName(String type){
         List<String> result = new ArrayList<>();
         List<Line> lines = lineDao.findAll();
-        System.out.println("lines:" + lines.size());
+        //System.out.println("lines:" + lines.size());
         for (Line line:lines){
             String line_name = line.getName();
             result.add(line_name);

@@ -6,7 +6,9 @@ import com.sjtubus.model.AppointInfo;
 import com.sjtubus.model.LineInfo;
 import com.sjtubus.service.LineService;
 import org.junit.Assert;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -16,6 +18,7 @@ import java.util.List;
  * @date 2018/7/25 1:51
  */
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class LineServiceTest extends SjtubusApplicationTests{
     @Autowired
     private LineService lineService;

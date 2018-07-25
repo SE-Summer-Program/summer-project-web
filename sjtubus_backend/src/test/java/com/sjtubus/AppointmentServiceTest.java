@@ -9,7 +9,9 @@ import com.sjtubus.service.AppointmentService;
 import com.sjtubus.utils.StringCalendarUtils;
 import edu.sjtu.api.applicationToolkit.model.App;
 import org.junit.Assert;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
@@ -22,6 +24,8 @@ import static com.sjtubus.utils.StringCalendarUtils.*;
  * @author allen
  * @date 2018/7/24 14:47
  */
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AppointmentServiceTest extends SjtubusApplicationTests {
 
     @Autowired

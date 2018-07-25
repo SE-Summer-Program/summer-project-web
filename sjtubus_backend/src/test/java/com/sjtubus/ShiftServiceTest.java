@@ -6,7 +6,9 @@ import com.sjtubus.model.Schedule;
 import com.sjtubus.model.ShiftInfo;
 import com.sjtubus.service.ShiftService;
 import org.junit.Assert;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Time;
@@ -18,6 +20,8 @@ import static com.sjtubus.utils.StringCalendarUtils.*;
  * @author allen
  * @date 2018/7/25 2:04
  */
+
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ShiftServiceTest extends SjtubusApplicationTests {
     @Autowired
     private ShiftService shiftService;
