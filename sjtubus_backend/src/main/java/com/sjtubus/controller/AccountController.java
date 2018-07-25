@@ -1,5 +1,6 @@
 package com.sjtubus.controller;
 
+import com.sjtubus.dao.UserDao;
 import com.sjtubus.entity.Administrator;
 import com.sjtubus.entity.Driver;
 import com.sjtubus.entity.User;
@@ -30,6 +31,9 @@ public class AccountController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserDao userDao;
 
     @Autowired
     private AdministratorService administratorService;
@@ -177,15 +181,29 @@ public class AccountController {
                                           @RequestParam("userId") int userId,
                                           @RequestParam("phone") String phone,
                                           @RequestParam("studentnum") String studentnum,
-                                          @RequestParam("realname") String realname){
+                                          @RequestParam("realname") String realname,
+                                          HttpSession session){
         HttpResponse response = new HttpResponse();
-        boolean result = userService.updatePersonInfos(userId, phone, studentnum, realname);
-        if(result){
-            response.setMsg("完善个人信息成功!");
-            response.setError(0);
-            return response;
-        }else{
-            response.setMsg("完善个人信息失败!");
+        String role = (String)session.getAttribute("role");
+        if (role.equals("user")) {
+            User user = (User)session.getAttribute("user");
+            if (user==null || user.getUserId()!=userId) {
+                response.setMsg("完善个人信息失败!");
+                response.setError(1);
+                return response;
+            }
+            boolean result = userService.updatePersonInfos(userId, phone, studentnum, realname);
+            if (result) {
+                response.setMsg("完善个人信息成功!");
+                response.setError(0);
+                return response;
+            } else {
+                response.setMsg("完善个人信息失败!");
+                response.setError(1);
+                return response;
+            }
+        } else {
+            response.setMsg("身份不是用户!");
             response.setError(1);
             return response;
         }

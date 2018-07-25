@@ -41,7 +41,7 @@ public class ShiftServiceTest extends SjtubusApplicationTests {
     public void b_testGetShiftInfo() {
         String shift_id = "MQHD1700";
         ShiftInfo info = shiftService.getShiftInfo(shift_id);
-        Assert.assertEquals("fail",45,info.getBusSeatNum());
+        Assert.assertEquals("fail",50,info.getBusSeatNum());
         Assert.assertEquals("fail","17:00:00",info.getDepartureTime());
     }
 

@@ -57,7 +57,7 @@ public class AppointmentServiceTest extends SjtubusApplicationTests {
         String line_name = "MinHangToQiBao";
         String submit_time = "2018-07-27 09:00:00";
         boolean result = appointmentService.addAppointment(username,appoint_date,shift_id,line_name,submit_time);
-        Assert.assertEquals("fail",true,result);
+        Assert.assertTrue("fail", result);
         seat_num = appointmentService.getRemainSeat(shift_id,date);
         Assert.assertEquals("fail",44,seat_num);
         Assert.assertNull(null);
@@ -82,13 +82,13 @@ public class AppointmentServiceTest extends SjtubusApplicationTests {
 
         Appointment appointment = appointmentDao.findDistinctByShiftIdAndAppointDateAndUserName(
                 shift_id,UtilDateToSqlDate(StringToDate(departure_date)),username);
-        Assert.assertEquals("fail",false,appointment.isNormal());
+        Assert.assertFalse("fail", appointment.isNormal());
 
         String result = appointmentService.verifyAppointment(username,departure_date,shift_id);
         Assert.assertEquals("fail","验证成功~",result);
 
         appointment = appointmentDao.findDistinctByShiftIdAndAppointDateAndUserName(
                 shift_id,UtilDateToSqlDate(StringToDate(departure_date)),username);
-        Assert.assertEquals("fail",true,appointment.isNormal());
+        Assert.assertTrue("fail", appointment.isNormal());
     }
 }

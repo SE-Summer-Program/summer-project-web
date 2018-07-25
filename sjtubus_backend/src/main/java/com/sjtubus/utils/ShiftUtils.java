@@ -12,11 +12,11 @@ public class ShiftUtils {
 
     static {
         type_engTochi.put("NormalWorkday","在校期-工作日");
-        type_engTochi.put("NormalWeekendAndLegalHoliday","在校期-双休日、节假日");
+        type_engTochi.put("NormalWeekend","在校期-双休日");
         type_engTochi.put("HolidayWorkday","寒暑假-工作日");
         type_engTochi.put("HolidayWeekend","寒暑假-双休日");
         type_chiToeng.put("在校期-工作日","NormalWorkday");
-        type_chiToeng.put("在校期-双休日、节假日","NormalWeekendAndLegalHoliday");
+        type_chiToeng.put("在校期-双休日","NormalWeekend");
         type_chiToeng.put("寒暑假-工作日","HolidayWorkday");
         type_chiToeng.put("寒暑假-双休日","HolidayWeekend");
     }

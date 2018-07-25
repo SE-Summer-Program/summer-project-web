@@ -90,6 +90,25 @@ public class AppointmentService {
     }
 
     /**
+     * @description: 删除预约信息
+     * @date: 2018/7/25 21:35
+     * @params:
+     * @return:
+     */
+    public String deleteAppointment(String username, String shiftid, String appoint_date){
+        java.sql.Date date = StringCalendarUtils.UtilDateToSqlDate(StringCalendarUtils.StringToDate(appoint_date));
+
+        Appointment oldappointment = appointmentDao.findByUserNameAndShiftIdAndAppointDate(username, shiftid, date);
+        if(oldappointment != null ){
+            appointmentDao.delete(oldappointment);
+            return "success";
+        }
+        else {
+            return "fail";
+        }
+    }
+
+    /**
      * @description: 符合当前线路和时间段类型的所有shift班次
      * @date: 2018/7/16 13:00
      * @params:
@@ -156,31 +175,4 @@ public class AppointmentService {
             return "验证成功~";
         }
     }
-
-    /*
-     * @description: 比较发车时间和当前时间的先后
-     * @date: 2018/07/16 13:57
-     * @params:
-     * @return:
-     */
-//    private boolean isTodayDeparturedShift(String appoint_date, String departure_time) {
-//
-//        SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        Date departure = new Date();
-//        Date current = new Date();
-//        String time = appoint_date + " " + departure_time;
-//
-//        try {
-//            departure = timeFormat.parse(time);//发车时间 考虑了日期和时间
-//            current = timeFormat.parse(timeFormat.format(new Date()));//当前时间
-//        } catch (Exception e){
-//            e.printStackTrace();
-//        }
-//
-//        if (departure.before(current))
-//            return true;
-//        else
-//            return false;
-//
-//    }
 }

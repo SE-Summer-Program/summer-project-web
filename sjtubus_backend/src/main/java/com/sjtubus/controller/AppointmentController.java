@@ -125,4 +125,20 @@ public class AppointmentController {
         response.setMsg(result);
         return response;
     }
+
+    /**
+     * @description: 取消预约
+     * @date: 2018/7/25 21:32
+     * @params:
+     * @return:
+     */
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public HttpResponse deleteAppoint(String username,
+                                      String shiftid,
+                                      String appoint_date){
+        HttpResponse response = new HttpResponse();
+        String result = appointmentService.deleteAppointment(username, shiftid, appoint_date);
+        response.setMsg(result);
+        return response;
+    }
 }
