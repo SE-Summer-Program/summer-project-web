@@ -155,6 +155,8 @@ class SearchReserved extends React.Component {
             count:0,
         });
         let lineNameCn = this.state.startStation + "到" + this.state.endStation;
+        console.log("route:",'http://localhost:8080/appointment/search?lineNameCn='+ lineNameCn + "&lineType=" + this.state.type +
+        "&departureTime=" + this.state.time + "&appointDate=" + this.state.date);
         fetch('http://localhost:8080/appointment/search?lineNameCn='+ lineNameCn + "&lineType=" + this.state.type +
                                          "&departureTime=" + this.state.time + "&appointDate=" + this.state.date,
             {

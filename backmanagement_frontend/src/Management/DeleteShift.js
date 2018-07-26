@@ -71,12 +71,14 @@ class DeleteShift extends React.Component {
                     </Popconfirm>)
             }
         }];
+
     }
 
-    onDelete = (key) => {
+    /*onDelete = (key) => {
         const data = [...this.state.data];
-        console.log("delete:",data[key-1].shiftid);
-        fetch('http://localhost:8080/shift/delete?shiftId='+ data[key-1].shiftid,
+        console.log("deleteKey:",key);
+        console.log("delete:",data[key].shiftid);
+        fetch('http://localhost:8080/shift/delete?shiftId='+ data[key].shiftid,
             {
                 method: 'POST',
                 mode: 'cors',
@@ -92,9 +94,82 @@ class DeleteShift extends React.Component {
                         else {
                             alert("删除失败");
                         }
+                        for(let i = 0; i<this.state.data.length; i++){
+                            console.log("key:", this.state.data[i].key);
+                        }
                     })
             });
 
+
+    };*/
+
+    onDelete = (key) => {
+        console.log("delete:",key,this.state.data[key].shiftid);
+        fetch('http://localhost:8080/shift/delete?shiftId='+ this.state.data[key].shiftid,
+            {
+                method: 'POST',
+                mode: 'cors',
+            })
+            .then(response => {
+                console.log('Request successful', response);
+                return response.json()
+                    .then(result => {
+                        if (result.msg === "success") {
+                            alert("删除成功");
+                            fetch('http://localhost:8080/shift/search_shift?content='+this.state.content,
+                                {
+                                    method: 'GET',
+                                    mode: 'cors',
+                                })
+                                .then(response => {
+                                    console.log('Request successful', response);
+                                    return response.json()
+                                        .then(result => {
+                                            let len = result.shiftList.length;
+                                            console.log("response len:",len);
+                                            this.setState({
+                                                data:[],
+                                                count:0,
+                                            });
+                                            for (let i=0; i < len; i++) {
+                                                const {data,count}=this.state;
+                                                let shift = result.shiftList[i];
+                                                let type = shift.lineType;
+                                                let typeName = "";
+                                                if (type === "HolidayWorkday") {
+                                                    typeName = "寒暑假工作日";
+                                                }
+                                                else if (type === "NormalWorkday") {
+                                                    typeName = "普通工作日";
+                                                }
+                                                else if (type === "HolidayWeekend")
+                                                    typeName = "寒暑假双休日";
+                                                else{
+                                                    typeName = "普通节假双休日"
+                                                }
+                                                const add = {
+                                                    "key": count,
+                                                    "shiftid": shift.shiftId,
+                                                    "startTime": shift.departureTime,
+                                                    "comment": shift.comment,
+                                                    "lineName": shift.lineNameCn,
+                                                    "seat": shift.reserveSeat,
+                                                    "type": typeName,
+                                                };
+
+                                                this.setState({
+                                                    data: [...data, add],
+                                                    count: count+1,
+                                                });
+                                            }
+                                        })
+                                });
+                        }
+                        else {
+                            alert("删除失败");
+                        }
+                    })
+            });
     };
 
     onChangeContent = (e) => {
@@ -138,7 +213,7 @@ class DeleteShift extends React.Component {
                                 typeName = "普通节假双休日"
                             }
                             const add = {
-                                "key": this.state.count+1,
+                                "key": count,
                                 "shiftid": shift.shiftId,
                                 "startTime": shift.departureTime,
                                 "comment": shift.comment,
@@ -154,6 +229,7 @@ class DeleteShift extends React.Component {
                         }
                     })
             });
+
     };
 
     render(){
