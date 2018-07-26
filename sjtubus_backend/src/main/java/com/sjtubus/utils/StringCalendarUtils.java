@@ -69,7 +69,7 @@ public class StringCalendarUtils {
         return date.before(current);
     }
 
-    public static String getCurrrentDate(){
+    public static String getCurrentDate(){
         String current_date="";
         java.util.Date date = new java.util.Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");

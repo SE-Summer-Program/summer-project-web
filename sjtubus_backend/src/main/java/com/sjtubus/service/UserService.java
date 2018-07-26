@@ -68,6 +68,8 @@ public class UserService {
 
     public boolean updatePersonInfos(int userId, String phone, String studentnum, String realname){
         User user = userDao.findByUserId(userId);
+        if (user == null)
+            return false;
         if (phone != null && !phone.isEmpty())
             user.setPhone(phone);
         if (studentnum != null && !studentnum.isEmpty())

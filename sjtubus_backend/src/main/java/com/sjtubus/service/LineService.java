@@ -62,7 +62,7 @@ public class LineService {
         info.setLineNameCN(shifts.get(0).getLineNameCn());
         info.setRemainShift(0);
 
-        String currentdate = StringCalendarUtils.getCurrrentDate();
+        String currentdate = StringCalendarUtils.getCurrentDate();
         for (Shift shift : shifts){
             String departuretime = shift.getDepartureTime().toString();
             if (StringCalendarUtils.isBeforeCurrentTime(currentdate + " " + departuretime))
