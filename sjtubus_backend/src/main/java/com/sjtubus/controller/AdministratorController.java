@@ -25,7 +25,6 @@ public class AdministratorController {
     public HttpResponse processLogin(@RequestParam("username")String username,
                                      @RequestParam("password") String password,
                                       HttpSession session){
-        System.out.println("hello");
         HttpResponse response = new HttpResponse();
         try{
             List<Administrator> administratorList = administratorService.searchAdministrator(username);

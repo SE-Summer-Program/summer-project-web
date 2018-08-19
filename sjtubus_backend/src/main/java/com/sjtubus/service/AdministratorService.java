@@ -3,12 +3,15 @@ package com.sjtubus.service;
 import com.sjtubus.dao.AdministratorDao;
 import com.sjtubus.entity.Administrator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class AdministratorService {
+public class AdministratorService implements UserDetailsService {
     @Autowired
     private AdministratorDao administratorDao;
 
@@ -27,4 +30,13 @@ public class AdministratorService {
         return administratorDao.findByUsername(username);
     }
 
+    @Override
+    public Administrator loadUserByUsername(String username) throws UsernameNotFoundException {
+        Administrator admin = administratorDao.findByUsername(username);
+        if(admin == null)
+        {
+            throw new UsernameNotFoundException("Admin："+username+" Not Found！");
+        }
+        return admin;
+    }
 }
