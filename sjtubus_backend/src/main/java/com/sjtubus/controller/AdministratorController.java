@@ -5,25 +5,29 @@ import com.sjtubus.model.response.HttpResponse;
 import com.sjtubus.service.AdministratorService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
 
 @RestController
-@RequestMapping(path = "/administrator")
+@RequestMapping(value = "/administrator")
 public class AdministratorController {
 
     @Autowired
     AdministratorService administratorService;
 
-    @RequestMapping(path = "/login")
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
     public HttpResponse processLogin(@RequestParam("username")String username,
                                      @RequestParam("password") String password,
+                                      HttpServletResponse http_response,
                                       HttpSession session){
         HttpResponse response = new HttpResponse();
         try{
@@ -34,7 +38,7 @@ public class AdministratorController {
                 response.setMsg("wrong password");
             else{
                 Administrator administrator = administratorList.get(0);
-                System.out.println("sessionid1:"+session.getId());
+                System.out.println("sessionid:"+session.getId());
                 session.setAttribute("administrator", administrator);
                 System.out.println("reserved:"+((Administrator)session.getAttribute("administrator")).getUsername());
                 response.setMsg("success");
@@ -47,7 +51,7 @@ public class AdministratorController {
         return response;
     }
 
-    @RequestMapping(path = "/logout")
+    @RequestMapping(value = "/logout",method = RequestMethod.POST)
     public HttpResponse processLogout(HttpSession session){
         HttpResponse response = new HttpResponse();
         try {
@@ -84,7 +88,7 @@ public class AdministratorController {
     }
 
 
-    @RequestMapping(path = "/register")
+    @RequestMapping(value = "/register" , method = RequestMethod.POST)
     public HttpResponse processRegister(@RequestParam("username")String username,
                                         @RequestParam("password") String password,
                                         HttpSession session){

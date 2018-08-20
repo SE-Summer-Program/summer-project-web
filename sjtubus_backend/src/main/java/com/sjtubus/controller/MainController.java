@@ -19,4 +19,9 @@ public class MainController {
     public String adminLogin(){
         return "login";
     }
+
+    @GetMapping(value = "/error")
+    public String error(){
+        return "error";
+    }
 }

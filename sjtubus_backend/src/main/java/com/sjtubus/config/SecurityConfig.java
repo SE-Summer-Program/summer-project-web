@@ -46,7 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/**/delete").authenticated()
 				.antMatchers("/","/index").authenticated()
 				.and()
-				.formLogin().loginPage("/adminlogin").failureUrl("/adminloginerr");
+				.formLogin().loginPage("/adminlogin").failureUrl("/error")
+                .and().csrf().disable();
 	}
 
 	@Bean
