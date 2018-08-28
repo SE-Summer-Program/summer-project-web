@@ -5,6 +5,7 @@ import { Layout, Menu, Breadcrumb, Icon, Input, Select, Button, InputNumber} fro
 import React, { Component } from 'react';
 import './../App.css';
 import {Link} from "react-router-dom";
+import context from "../context";
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
@@ -95,7 +96,7 @@ class AddUser extends React.Component {
             isTeacher = 'false'
         }
 
-        fetch('http://localhost:8080/user/add?username='+ username + '&password='+ password +
+        fetch(context.api+'/user/add?username='+ username + '&password='+ password +
                                              '&phone='+ phoneNumber + '&credit=' + credit + '&isTeacher=' + isTeacher,
             {
                 method: 'POST',
@@ -227,6 +228,4 @@ class AddUser extends React.Component {
 
 }
 
-export default AddUser;/**
- * Created by 励颖 on 2018/7/2.
- */
+export default AddUser;

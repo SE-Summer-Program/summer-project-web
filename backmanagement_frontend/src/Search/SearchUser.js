@@ -1,13 +1,11 @@
 /**
  * Created by 励颖 on 2018/7/6.
  */
-/**
- * Created by 励颖 on 2018/7/2.
- */
 import { Layout, Menu, Breadcrumb, Icon, Input, Button, Table } from 'antd';
 import React, { Component } from 'react';
 import './../App.css';
 import {Link} from "react-router-dom";
+import context from "../context";
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
@@ -67,7 +65,7 @@ class SearchUser extends React.Component {
             count:0,
         });
 
-        fetch('http://localhost:8080/user/search?content='+this.state.content,
+        fetch(context.api+'/user/search?content='+this.state.content,
             {
                 method: 'POST',
                 mode: 'cors',
@@ -172,6 +170,3 @@ class SearchUser extends React.Component {
 }
 
 export default SearchUser;
-/**
- * Created by 励颖 on 2018/7/2.
- */

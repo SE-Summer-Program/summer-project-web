@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import './../App.css';
 import {Link} from "react-router-dom";
 import pic from "./../bus_background.jpg";
+import context from "../context"
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer,} = Layout;
@@ -23,7 +24,7 @@ class HomePage extends React.Component {
                         <Menu.Item key="2"><Link to="management"><span><Icon type="setting"/></span>管理信息</Link></Menu.Item>
                         <Menu.Item key="3"><Link to="search"><span><Icon type="search"/></span>查询信息</Link></Menu.Item>
                         <Menu.Item key="4"><Link to="statistics"><span><Icon type="form"/></span>统计信息</Link></Menu.Item>
-                        <Menu.Item key="5"><Link to="login"><span><Icon type="user"/></span>登录</Link></Menu.Item>
+                        {/*<Menu.Item key="5"><Link to="login"><span><Icon type="user"/></span>登录</Link></Menu.Item>*/}
                     </Menu>
                 </Header>
                 <Content style={{ padding: '0 50px' }}>
@@ -31,14 +32,15 @@ class HomePage extends React.Component {
                         <Breadcrumb.Item>主页</Breadcrumb.Item>
                     </Breadcrumb>
                     <Layout style={{ padding: '24px 0', background: '#fff' }}>
-                        <Content style={{ padding: '0 80px', minHeight: 280 }}>
-                            <img src={pic} width = "1200px"/>
+                        <Content style={{ padding: '0 20px', minHeight: 280 }}>
+                            <img src={pic} width = "100%" height= "auto"/>
                         </Content>
                     </Layout>
                 </Content>
-                <Footer style={{ textAlign: 'center' }}>
-                    SJTU BUS BACK STAGE MANAGEMENT SYSTEM
-                </Footer>
+                {context.footer}
+                {/*<Footer style={{ textAlign: 'center' }}>*/}
+                    {/*SJTU BUS BACK STAGE MANAGEMENT SYSTEM*/}
+                {/*</Footer>*/}
             </Layout>
         );
     }

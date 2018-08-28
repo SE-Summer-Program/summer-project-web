@@ -6,6 +6,7 @@ import { Layout, Menu, Breadcrumb, Icon, Select, Table, DatePicker, Button } fro
 import React, { Component } from 'react';
 import './../App.css';
 import {Link} from "react-router-dom";
+import context from "../context";
 
 
 const { SubMenu } = Menu;
@@ -78,8 +79,8 @@ class SearchReserved extends React.Component {
             timeData: [],
         }, function () {
             let lineName = this.state.startStation + "到" + this.state.endStation;
-            console.log("route:", 'http://localhost:8080/shift/search_time?lineNameCn=' + lineName + "&lineType=" + this.state.type);
-            fetch('http://localhost:8080/shift/search_time?lineNameCn=' + lineName + "&lineType=" + this.state.type,
+            console.log("route:", context.api+'/shift/search_time?lineNameCn=' + lineName + "&lineType=" + this.state.type);
+            fetch(context.api+'/shift/search_time?lineNameCn=' + lineName + "&lineType=" + this.state.type,
                 {
                     method: 'POST',
                     mode: 'cors',
@@ -155,7 +156,7 @@ class SearchReserved extends React.Component {
             count:0,
         });
         let lineNameCn = this.state.startStation + "到" + this.state.endStation;
-        fetch('http://localhost:8080/appointment/search?lineNameCn='+ lineNameCn + "&lineType=" + this.state.type +
+        fetch(context.api+'/appointment/search?lineNameCn='+ lineNameCn + "&lineType=" + this.state.type +
                                          "&departureTime=" + this.state.time + "&appointDate=" + this.state.date,
             {
                 method: 'GET',
@@ -284,6 +285,3 @@ class SearchReserved extends React.Component {
 }
 
 export default SearchReserved;
-/**
- * Created by 励颖 on 2018/7/2.
- */

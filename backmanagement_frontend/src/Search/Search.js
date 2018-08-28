@@ -6,6 +6,7 @@ import React, { Component } from 'react';
 import './../App.css';
 import {Link} from "react-router-dom";
 import { withRouter } from "react-router";
+import context from "../context";
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
@@ -13,7 +14,7 @@ const { Header, Content, Footer, Sider } = Layout;
 class Search extends React.Component {
     constructor(props){
         super(props);
-        fetch('http://localhost:8080/administrator/judgestate',
+        fetch(context.api+'/administrator/judgestate',
             {
                 method: 'POST',
                 mode: 'cors',
@@ -26,7 +27,7 @@ class Search extends React.Component {
                         console.log("result:", result);
                         if (result.msg === "not logged") {
                             alert("请先登录");
-                            window.location.href = "http://localhost:3000/#/login"
+                            window.location.href = "/adminLogin"
                         }
                         else if (result.msg === "fail"){
                             alert("您暂时不可使用该功能");
@@ -52,7 +53,7 @@ class Search extends React.Component {
                         <Menu.Item key="2"><Link to="management"><span><Icon type="setting"/></span>管理信息</Link></Menu.Item>
                         <Menu.Item key="3"><Link to="search"><span><Icon type="search"/></span>查询信息</Link></Menu.Item>
                         <Menu.Item key="4"><Link to="statistics"><span><Icon type="form"/></span>统计信息</Link></Menu.Item>
-                        <Menu.Item key="5"><Link to="login"><span><Icon type="user"/></span>登录</Link></Menu.Item>
+                        {/*<Menu.Item key="5"><Link to="login"><span><Icon type="user"/></span>登录</Link></Menu.Item>*/}
                     </Menu>
                 </Header>
                 <Content style={{ padding: '0 50px' }}>
@@ -95,6 +96,4 @@ class Search extends React.Component {
 
 }
 
-export default Search;/**
- * Created by 励颖 on 2018/7/2.
- */
+export default Search;

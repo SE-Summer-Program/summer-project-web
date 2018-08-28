@@ -7,6 +7,7 @@ import './../App.css';
 import {Link} from "react-router-dom";
 import moment from 'moment';
 import $ from './../../node_modules/jquery';
+import context from "../context";
 
 
 const { SubMenu } = Menu;
@@ -84,7 +85,7 @@ class AddMessage extends React.Component {
         xhr.send(data);
 
 
-        fetch('http://localhost:8080/message/add?messageType=' + messageType + '&messageTitle=' + messageTitle
+        fetch(context.api+"/message/add?messageType=' + messageType + '&messageTitle=' + messageTitle
             + '&messageContent=' + messageContent + '&startDate=' + startDate + '&endDate=' + endDate,
             {
                 method: 'POST',
@@ -200,9 +201,6 @@ class AddMessage extends React.Component {
             </Layout>
         );
     }
-
 }
 
-export default AddMessage;/**
- * Created by 励颖 on 2018/7/2.
- */
+export default AddMessage;
