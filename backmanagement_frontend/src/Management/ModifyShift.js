@@ -71,7 +71,7 @@ class ModifyShift extends React.Component {
             count:0,
             editingKey: '',
             content:'',
-        }
+        };
         this.columns = [{
             title: '班次编号',
             dataIndex: 'shiftid',
@@ -261,10 +261,10 @@ class ModifyShift extends React.Component {
                                     data: [...data, add],
                                     count: count+1,
                                 });
-                            }
-                            this.setState({
+                            };
+                            /*this.setState({
                                 content:'',
-                            })
+                            })*/
                         }
                         else
                         {
