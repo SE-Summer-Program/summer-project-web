@@ -156,7 +156,7 @@ public class AccountController {
             response.setError(1);
             return response;
         }
-        if(session.getAttribute("role").equals("user")) {
+        if(session.getAttribute("role").equals("user") || session.getAttribute("role").equals("jaccountuser")) {
             User user = (User) session.getAttribute("user");
             response.setUser(user);
             response.setRole("user");
@@ -188,12 +188,18 @@ public class AccountController {
         if (role.equals("user")) {
             User user = (User)session.getAttribute("user");
             if (user==null || user.getUserId()!=userId) {
-                response.setMsg("完善个人信息失败!");
+                response.setMsg("Id不匹配!");
                 response.setError(1);
                 return response;
             }
             boolean result = userService.updatePersonInfos(userId, phone, studentnum, realname);
             if (result) {
+                if (studentnum != null && !studentnum.isEmpty()) {
+                    user.setStudentNumber(studentnum);
+                }
+                if (realname != null && !realname.isEmpty()) {
+                    user.setRealname(realname);
+                }
                 response.setMsg("完善个人信息成功!");
                 response.setError(0);
                 return response;
@@ -203,7 +209,7 @@ public class AccountController {
                 return response;
             }
         } else {
-            response.setMsg("身份不是用户!");
+            response.setMsg("身份不是普通用户!");
             response.setError(1);
             return response;
         }

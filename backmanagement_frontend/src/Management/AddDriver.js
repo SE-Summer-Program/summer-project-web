@@ -1,13 +1,11 @@
 /**
  * Created by 励颖 on 2018/7/4.
  */
-/**
- * Created by 励颖 on 2018/7/3.
- */
 import { Layout, Menu, Breadcrumb, Icon, Input, Select, Button} from 'antd';
 import React, { Component } from 'react';
 import './../App.css';
 import {Link} from "react-router-dom";
+import context from "../context";
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
@@ -83,7 +81,7 @@ class AddDriver extends React.Component {
         console.log("password:",password);
         console.log("phone:",phoneNumber);
         console.log("identity:",identity);
-        fetch('http://localhost:8080/driver/add?username='+ username + '&password='+ password + '&phone='+ phoneNumber,
+        fetch(context.api+'/driver/add?username='+ username + '&password='+ password + '&phone='+ phoneNumber,
             {
                 method: 'POST',
                 mode: 'cors',
@@ -207,6 +205,4 @@ class AddDriver extends React.Component {
 
 }
 
-export default AddDriver;/**
- * Created by 励颖 on 2018/7/2.
- */
+export default AddDriver;

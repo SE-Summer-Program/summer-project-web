@@ -100,6 +100,7 @@ public class OAuthController {
             session.setMaxInactiveInterval(60*60*24*3);
             System.out.println("创建session！");
             session.setAttribute("user",user);
+            session.setAttribute("role","jaccountuser");
             httpResponse.setError(0);
             httpResponse.setMsg("认证成功！");
         }else{

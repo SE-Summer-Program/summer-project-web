@@ -6,6 +6,7 @@ import { Layout, Menu, Breadcrumb, Icon, Input, Select, Button, Checkbox, Radio,
 import React, { Component } from 'react';
 import './../App.css';
 import {Link} from "react-router-dom";
+import context from "../context";
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
@@ -259,11 +260,11 @@ class AddShift extends React.Component {
             linename = start + "To" + end;
             linename_cn = start_cn + "到" + end_cn;
         }
-            console.log("route:" ,'http://localhost:8080/shift/add?lineName='+ linename + '&lineNameCn='+ linename_cn +
+            console.log("route:" ,context.api+'/shift/add?lineName='+ linename + '&lineNameCn='+ linename_cn +
                 '&lineType='+ type + '&departureTime='+ departureTime + '&reserveSeat=' + teacherSeat + '&comment=' + comment
                 + '&busId=' + bus + '&arriveTime=' + arriveTime);
 
-       fetch('http://localhost:8080/shift/add?lineName='+ linename + '&lineNameCn='+ linename_cn +
+       fetch(context.api+'/shift/add?lineName='+ linename + '&lineNameCn='+ linename_cn +
                                             '&lineType='+ type +  '&departureTime=' + departureTime +
                                             '&reserveSeat=' + teacherSeat + '&comment=' + comment +
                                             '&busId=' + bus + '&arriveTime=' + arriveTime ,
@@ -427,6 +428,4 @@ class AddShift extends React.Component {
 }
 
 export default AddShift;
-/**
- * Created by 励颖 on 2018/7/2.
- */
+

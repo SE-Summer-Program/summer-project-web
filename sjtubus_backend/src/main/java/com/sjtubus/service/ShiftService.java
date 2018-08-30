@@ -42,7 +42,7 @@ public class ShiftService {
     @Transactional
     public Schedule getSchedule(String type, String line_name){
         List<Shift> shiftInfo = shiftDao.findByLineTypeAndLineNameOrderByDepartureTime(type, line_name);
-        System.out.println("shiftInfoSize:"+shiftInfo.size());
+        //System.out.println("shiftInfoSize:"+shiftInfo.size());
         List<String> startTimeList = new ArrayList<>();
         List<String> commentList = new ArrayList<>();
         List<String> shiftidList = new ArrayList<>();
@@ -64,7 +64,7 @@ public class ShiftService {
             String shiftid = shiftInfo.get(i).getShiftId();
             shiftidList.add(shiftid);
         }
-        System.out.println("startTimeListSize:"+startTimeList.size());
+        //System.out.println("startTimeListSize:"+startTimeList.size());
         Schedule result = new Schedule(line_name, type);
         result.setLineName(line_name);
         result.setTypes(type);
@@ -165,7 +165,6 @@ public class ShiftService {
     */
     public String addShift(String lineName, String lineNameCn, String lineType, Time departureTime, int reserveSeat, String comment, int busId, Time arriveTime){
         //生成对应的id
-        System.out.println("hello");
         System.out.println("departure:"+departureTime);
         String departure = changeTimeToStringTime(departureTime);
         String shiftid;
@@ -227,7 +226,7 @@ public class ShiftService {
             char letter = (char)(sum + 65);
             shiftid = shiftid + letter;
         }
-        System.out.println(shiftid);
+        //System.out.println(shiftid);
         //存储新的shift对象
         Shift shift = new Shift();
         shift.setShiftId(shiftid);
@@ -271,7 +270,7 @@ public class ShiftService {
                 result.add(time);
             }
         }
-        System.out.println(result.size());
+        //System.out.println(result.size());
         return result;
     }
 
@@ -285,8 +284,5 @@ public class ShiftService {
     public int modifySeat(String shiftId, int reserveSeat){
         return shiftDao.updateReserveSeat(reserveSeat, shiftId);
     }
-
-
-
 
 }

@@ -77,7 +77,6 @@ public class Shift {
     @Basic
     @Column(name = "reserve_seat")
     public int getReserveSeat() {
-
         return reserveSeat;
     }
 
@@ -88,7 +87,6 @@ public class Shift {
     @Basic
     @Column(name = "departure_time")
     public Time getDepartureTime() {
-
         return departureTime;
     }
 
@@ -99,7 +97,6 @@ public class Shift {
     @Basic
     @Column(name = "arrive_time")
     public Time getArriveTime() {
-
         return arriveTime;
     }
 

@@ -1,14 +1,11 @@
 /**
  * Created by 励颖 on 2018/7/4.
  */
-/**
- * Created by 励颖 on 2018/7/3.
- */
-
 import { Layout, Menu, Breadcrumb, Icon, Input, Button, Popconfirm, Table} from 'antd';
 import React, { Component } from 'react';
 import './../App.css';
 import {Link} from "react-router-dom";
+import context from "../context";
 
 
 const { SubMenu } = Menu;
@@ -71,14 +68,12 @@ class DeleteShift extends React.Component {
                     </Popconfirm>)
             }
         }];
-
     }
 
-    /*onDelete = (key) => {
+   /* onDelete = (key) => {
         const data = [...this.state.data];
-        console.log("deleteKey:",key);
         console.log("delete:",data[key].shiftid);
-        fetch('http://localhost:8080/shift/delete?shiftId='+ data[key].shiftid,
+        fetch(context.api+'/shift/delete?shiftId='+ data[key-1].shiftid,
             {
                 method: 'POST',
                 mode: 'cors',
@@ -181,7 +176,7 @@ class DeleteShift extends React.Component {
     handleSearch = () => {
         console.log("content:",this.state.content);
         this.state.data=[];
-        fetch('http://localhost:8080/shift/search_shift?content='+this.state.content,
+        fetch(context.api+'/shift/search_shift?content='+this.state.content,
             {
                 method: 'GET',
                 mode: 'cors',
@@ -229,7 +224,6 @@ class DeleteShift extends React.Component {
                         }
                     })
             });
-
     };
 
     render(){
@@ -281,11 +275,7 @@ class DeleteShift extends React.Component {
                                 </SubMenu>
                                 <SubMenu key="sub4" title={<span><Icon type="form" />公告管理</span>}>
                                     <Menu.Item key="12"><Link to="addmessage">发布新公告</Link></Menu.Item>
-
                                 </SubMenu>
-
-
-
                             </Menu>
                         </Sider>
                         <Content>
@@ -308,6 +298,3 @@ class DeleteShift extends React.Component {
 }
 
 export default DeleteShift;
-/**
- * Created by 励颖 on 2018/7/2.
- */

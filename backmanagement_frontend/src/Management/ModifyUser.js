@@ -5,6 +5,7 @@ import { Layout, Menu, Breadcrumb, Icon, Input, InputNumber, Button, Popconfirm,
 import React, { Component } from 'react';
 import './../App.css';
 import {Link} from "react-router-dom";
+import context from "../context";
 
 
 const { SubMenu } = Menu;
@@ -184,7 +185,7 @@ class ModifyUser extends React.Component {
                 console.log("phone:", new_item['phone']);
                 console.log("credit:", new_item['credit']);
                 this.setState({ data: newData, editingKey: '' });
-                fetch('http://localhost:8080/user/modify?userId='+ new_item['userid']+ '&username=' + new_item['username'] + '&phone=' + new_item['phone'] + '&credit=' + new_item['credit'],
+                fetch(context.api+'/user/modify?userId='+ new_item['userid']+ '&username=' + new_item['username'] + '&phone=' + new_item['phone'] + '&credit=' + new_item['credit'],
                     {
                         method: 'POST',
                         mode: 'cors',
@@ -223,7 +224,7 @@ class ModifyUser extends React.Component {
 
     handleSearch = () => {
         console.log("content:",this.state.content);
-        fetch('http://localhost:8080/user/search?content='+this.state.content,
+        fetch(context.api+'/user/search?content='+this.state.content,
             {
                 method: 'GET',
                 mode: 'cors',
@@ -380,6 +381,4 @@ class ModifyUser extends React.Component {
 
 }
 
-export default ModifyUser;/**
- * Created by 励颖 on 2018/7/2.
- */
+export default ModifyUser;
