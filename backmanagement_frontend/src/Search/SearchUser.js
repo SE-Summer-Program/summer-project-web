@@ -1,14 +1,9 @@
-/**
- * Created by 励颖 on 2018/7/6.
- */
-import { Layout, Menu, Breadcrumb, Icon, Input, Button, Table } from 'antd';
+import { Layout,Icon, Input, Button, Table } from 'antd';
 import React, { Component } from 'react';
 import './../App.css';
-import {Link} from "react-router-dom";
 import context from "../context";
 
-const { SubMenu } = Menu;
-const { Header, Content, Footer, Sider } = Layout;
+const {Content} = Layout;
 
 class SearchUser extends React.Component {
     constructor(props){
@@ -64,7 +59,7 @@ class SearchUser extends React.Component {
             data:[],
             count:0,
         });
-
+        console.log(context.api+'/user/search?content='+this.state.content);
         fetch(context.api+'/user/search?content='+this.state.content,
             {
                 method: 'POST',
@@ -108,48 +103,11 @@ class SearchUser extends React.Component {
     render(){
         return(
             <Layout>
-                <Header className="header">
-                    <div className="logo" />
-                    <Menu
-                        theme="dark"
-                        mode="horizontal"
-                        defaultSelectedKeys={['3']}
-                        style={{ lineHeight: '64px' }}
-                    >
-                        <Menu.Item key="1"><Link to="./"><span><Icon type="home"/></span>主页</Link></Menu.Item>
-                        <Menu.Item key="2"><Link to="management"><span><Icon type="setting"/></span>管理信息</Link></Menu.Item>
-                        <Menu.Item key="3"><Link to="search"><span><Icon type="search"/></span>查询信息</Link></Menu.Item>
-                        <Menu.Item key="4"><Link to="statistics"><span><Icon type="form"/></span>统计信息</Link></Menu.Item>
-                        <Menu.Item key="5"><Link to="login"><span><Icon type="user"/></span>登录</Link></Menu.Item>
-                    </Menu>
-                </Header>
-                <Content style={{ padding: '0 50px' }}>
-                    <Breadcrumb style={{ margin: '16px 0' }}>
-                        <Breadcrumb.Item>主页</Breadcrumb.Item>
-                        <Breadcrumb.Item>信息查询</Breadcrumb.Item>
-                        <Breadcrumb.Item>查找用户</Breadcrumb.Item>
-                    </Breadcrumb>
+                {context.header('3')}
+                <Content style={{ marginLeft:'3%', marginRight:'3%' }}>
+                    {context.breadcrumb("信息查询","查找用户")}
                     <Layout style={{ padding: '24px 0', background: '#fff' }}>
-                        <Sider width={200} style={{ background: '#fff' }}>
-                            <Menu
-                                mode="inline"
-                                defaultSelectedKeys={['1']}
-                                defaultOpenKeys={['sub1']}
-                                style={{ height: '100%' }}
-                            >
-                                <SubMenu key="sub1" title={<span><Icon type="user" />用户信息</span>}>
-                                    <Menu.Item key="1"><Link to="searchuser">用户/司机/管理员</Link></Menu.Item>
-                                </SubMenu>
-                                <SubMenu key="sub2" title={<span><Icon type="car" />校内巴士</span>}>
-
-                                    <Menu.Item key="3"><Link to="searchinshift">始发时刻表</Link></Menu.Item>
-                                </SubMenu>
-                                <SubMenu key="sub3" title={<span><Icon type="car" />校区巴士</span>}>
-                                    <Menu.Item key="5"><Link to="searchreserved">预约信息</Link></Menu.Item>
-                                    <Menu.Item key="6"><Link to="searchoutshift">班次表</Link></Menu.Item>
-                                </SubMenu>
-                            </Menu>
-                        </Sider>
+                        {context.sider_search("sub1","1")}
                         <Content style={{ padding: '0 24px', minHeight: 280 }}>
                             <Input name="content" label="搜索内容" size="large" style={{width: '30%', marginLeft:'100px' }}
                                    prefix={<Icon type="search"/>} placeholder="请输入用户相关信息" onChange={this.onChangeContent}/>
@@ -159,13 +117,10 @@ class SearchUser extends React.Component {
                         </Content>
                     </Layout>
                 </Content>
-                <Footer style={{ textAlign: 'center' }}>
-                    SJTU BUS BACK STAGE MANAGEMENT SYSTEM
-                </Footer>
+                {context.footer}
             </Layout>
         );
     }
-
 }
 
 export default SearchUser;

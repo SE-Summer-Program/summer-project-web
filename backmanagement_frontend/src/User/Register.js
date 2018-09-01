@@ -7,6 +7,7 @@
 import React, { Component } from 'react';
 import { Button, Layout, Menu, Breadcrumb, Icon,  Form, Input, Tooltip, Cascader, Select, Row, Col, Checkbox, AutoComplete} from 'antd';
 import {Link } from "react-router-dom";
+import context from "../context";
 
 
 const { Header, Content, Footer } = Layout;
@@ -129,32 +130,32 @@ class RegistrationForm extends React.Component {
 
                         <Content style={{padding: '0 24px', minHeight: 280}}>
                             <Form onSubmit={this.handleSubmit}>
-                                <br></br>
+                                <br/>
                                 <h2 style={{marginLeft:'580px'}}>管理员注册</h2>
-                                <br></br>
+                                <br/>
                                 <span style={{marginLeft: '462px', fontSize:'18px'}}> 姓名： </span>
                                 <Input name="username" label="用户名" size="large" style={{width: '23%', }}
                                        placeholder="请输入用户名" onChange={this.handleChange}/>
 
-                                <h1></h1>
+                                <h1/>
                                 <span style={{marginLeft: '430px', fontSize:'18px'}}> 用户密码： </span>
                                 <Input name="password" label="密码" size="large" style={{width: '23%',}} placeholder="请输入密码"
                                        onChange={this.handleChange} onKeyDown={this.handleKeyDown}/>
-                                <h1></h1>
+                                <h1/>
                                 <span style={{marginLeft: '430px', fontSize:'18px'}}> 确认密码： </span>
                                 <Input name="passwordConfirm" size="large" style={{width: '23%', }} placeholder="请再次输入密码"
                                        onChange={this.handleChange} onKeyDown={this.handleKeyDown}/>
-                                <h1></h1>
+                                <h1/>
                                 <span style={{marginLeft: '445px', fontSize:'18px'}}> 验证码： </span>
                                 <Input name="phoneNumber" lable="电话" size="large" style={{width: '11%',}} placeholder="请输入验证码"
                                        onChange={this.handleChange} />
                                 &nbsp;
                                 <Button size="large">点击获取验证码</Button>
-                                <br></br>
-                                <br></br>
+                                <br/>
+                                <br/>
                                 <Checkbox size="large" style={{marginLeft: '570px', fontSize:'16px'}} onChange={this.toggleChecked}>我同意<a href="">该协议</a></Checkbox>
-                                <br></br>
-                                <br></br>
+                                <br/>
+                                <br/>
                                 <FormItem {...tailFormItemLayout}>
                                     <Button type="primary"  size="large" style={{marginLeft: '190px'}} onClick={this.handleRegister}>注册</Button>
                                 </FormItem>
@@ -162,9 +163,7 @@ class RegistrationForm extends React.Component {
                         </Content>
                     </Layout>
                 </Content>
-                <Footer style={{ textAlign: 'center' }}>
-                    SJTU BUS BACK STAGE MANAGEMENT SYSTEM
-                </Footer>
+                {context.footer}
             </Layout>
         );
     }
