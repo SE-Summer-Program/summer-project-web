@@ -81,7 +81,7 @@ public class ShiftServiceTest extends SjtubusApplicationTests {
 
     @Test
     public void f_testGetTimeList() {
-        String lineNameCn = "闵行到徐汇";
+        String lineNameCn = "闵行到七宝";
         String type = "HolidayWorkday";
         List<Time> times = shiftService.getTimeList(lineNameCn,type);
 

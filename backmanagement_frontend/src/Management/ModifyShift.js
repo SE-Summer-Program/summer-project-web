@@ -262,10 +262,10 @@ class ModifyShift extends React.Component {
                                     data: [...data, add],
                                     count: count+1,
                                 });
-                            }
-                            this.setState({
+                            };
+                            /*this.setState({
                                 content:'',
-                            })
+                            })*/
                         }
                         else
                         {

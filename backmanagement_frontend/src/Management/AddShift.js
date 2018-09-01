@@ -280,7 +280,7 @@ class AddShift extends React.Component {
                         console.log("result:",result.msg);
                         if (result.msg === "success") {
                             alert("新班次添加成功");
-                            window.location.reload();
+                            //window.location.reload();
                         }
                         else if (result.msg === "existed")
                         {

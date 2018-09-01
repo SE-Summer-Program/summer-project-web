@@ -76,7 +76,7 @@ class SearchUser extends React.Component {
                     .then(result => {
                         let len = result.userList.length;
                         console.log("response len:",len);
-                        for (var i=0; i < len; i++) {
+                        for (let i=0; i < len; i++) {
                             let user = result.userList[i];
                             const {data,count}=this.state;
                             let identity = '';
@@ -93,7 +93,6 @@ class SearchUser extends React.Component {
                                 "credit": user.credit,
                                 "identity": identity,
                                 "phone": user.phone,
-
                             };
 
                             this.setState({
