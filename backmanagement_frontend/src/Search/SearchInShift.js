@@ -162,25 +162,25 @@ class SearchInShift extends React.Component {
                 {context.header('3')}
                 <Content style={{ marginLeft:'3%', marginRight:'3%' }}>
                     {context.breadcrumb("信息查询","查询校内巴士时刻表")}
-                    <Layout style={{ padding: '24px 0', background: '#fff' }}>
+                    <Layout style={{ padding: '1.5% 1%', background: '#fff' }}>
                         {context.sider_search("sub2","3")}
-                        <Content style={{ padding: '0 24px', minHeight: 280 }}>
+                        <Content style={{ padding: '1% 1.5%', minHeight: 280 }}>
                             <br />
-                            <Select defaultValue="请选择方向" size="large" style={{marginLeft:'250px', width:'130px'}} onChange={this.handleDirectionChange}>
+                            <Select defaultValue="请选择方向" size="large" style={{marginLeft:'19%', width:'13%'}} onChange={this.handleDirectionChange}>
                                 {directionOptions}
                             </Select>
-                            <Select defaultValue="是否寒暑假" size="large" style={{marginLeft:'30px', width:'130px'}} onChange={this.handleHolidayChange}>
+                            <Select defaultValue="是否寒暑假" size="large" style={{marginLeft:'3%', width:'13%'}} onChange={this.handleHolidayChange}>
                                 <Option value="true">寒暑假</Option>
                                 <Option value="false">非寒暑假</Option>
                             </Select>
-                            <Select defaultValue="是否工作日" size="large" style={{marginLeft:'30px', width:'130px'}} onChange={this.handleWorkdayChange}>
+                            <Select defaultValue="是否工作日" size="large" style={{marginLeft:'3%', width:'13%'}} onChange={this.handleWorkdayChange}>
                                 <Option value="true">工作日</Option>
                                 <Option value="false">双休日</Option>
                             </Select>
-                            <Button type="primary"  size="large" style={{width: '10%', marginLeft: '35px'}} icon="search" onClick = {this.handleSearch}>搜索</Button>
+                            <Button type="primary"  size="large" style={{width: '10%', marginLeft: '3.5%'}} icon="search" onClick = {this.handleSearch}>搜索</Button>
                             <h1 />
                             <br />
-                            <Table style={{width:'88%', marginLeft:'70px'}} columns={this.columns} dataSource={this.state.data} />
+                            <Table style={{width:'88%', marginLeft:'6%'}} columns={this.columns} dataSource={this.state.data} />
                         </Content>
                     </Layout>
                 </Content>

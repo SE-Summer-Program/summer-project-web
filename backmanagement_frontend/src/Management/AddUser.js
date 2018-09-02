@@ -127,31 +127,31 @@ class AddUser extends React.Component {
                     <Layout style={{ padding: '24px 0', background: '#fff' }}>
                         {context.sider_management("sub1","1")}
                         <Content>
+                            <h3/>
+                            <h2 style={{marginLeft:'42.5%',fontWeight:"bold"}}>添加新用户</h2>
                             <br/>
-                            <h2 style={{marginLeft:'480px'}}>添加新用户</h2>
-                            <br/>
-                            <h1/>
-                            <span style={{marginLeft: '332px', fontSize:'16px'}}> 姓名： </span>
+                            <h6/>
+                            <span style={{marginLeft: '29%', fontSize:'120%'}}> 姓名： </span>
                             <Input name="username" label="用户名" size="large" style={{width: '30%', }}
                                    placeholder="请输入用户名" onChange={this.handleChange}/>
                             <h1/>
-                            <span style={{marginLeft: '300px', fontSize:'16px'}}> 用户密码： </span>
+                            <span style={{marginLeft: '26%', fontSize:'120%'}}> 用户密码： </span>
                             <Input name="password" label="密码" size="large" style={{width: '30%',}} placeholder="请输入密码"
                                    onChange={this.handleChange} onKeyDown={this.handleKeyDown}/>
                             <h1/>
-                            <span style={{marginLeft: '300px', fontSize:'16px'}}> 确认密码： </span>
+                            <span style={{marginLeft: '26%', fontSize:'120%'}}> 确认密码： </span>
                             <Input name="passwordConfirm" size="large" style={{width: '30%', }} placeholder="请再次输入密码"
                                    onChange={this.handleChange} onKeyDown={this.handleKeyDown}/>
                             <h1/>
-                            <span style={{marginLeft: '300px', fontSize:'16px'}}> 电话号码： </span>
+                            <span style={{marginLeft: '26%', fontSize:'120%'}}> 电话号码： </span>
                             <Input name="phoneNumber" lable="电话" size="large" style={{width: '30%',}} placeholder="请输入电话号码"
                                     onChange={this.handleChange} />
                             <h1/>
-                            <span style={{marginLeft: '300px', fontSize:'16px'}}> 用户积分： </span>
+                            <span style={{marginLeft: '26%', fontSize:'120%'}}> 用户积分： </span>
                             <InputNumber name="credit" lable="积分" size="large" style={{width: '10%',}} defaultValue={100}
                                          min={0} max={100} onChange={this.handleCredit}  />
                             <h1/>
-                            <span style={{marginLeft: '300px', fontSize:'16px'}}> 用户身份： </span>
+                            <span style={{marginLeft: '26%', fontSize:'120%'}}> 用户身份： </span>
                             <Select  name="identity" defaultValue="选择身份" size="large" onSelect={this.handleSelect}>
                                 <Option value="本科生">本科生</Option>
                                 <Option value="研究生">研究生</Option>
@@ -161,7 +161,7 @@ class AddUser extends React.Component {
                             </Select>
                             <h1/>
                             <br/>
-                            <Button type="primary"  size="large" style={{width: '10%', marginLeft: '475px'}} onClick = {this.handleAdd}>添加用户</Button>
+                            <Button type="primary"  size="large" style={{width: '15%', marginLeft: '40%'}} onClick = {this.handleAdd}>添加用户</Button>
                         </Content>
                     </Layout>
                 </Content>

@@ -142,14 +142,16 @@ class DeleteUser extends React.Component {
                 {context.header('2')}
                 <Content style={{ marginLeft:'3%', marginRight:'3%' }}>
                     {context.breadcrumb("信息管理","删除用户")}
-                    <Layout style={{ padding: '24px 0', background: '#fff' }}>
+                    <Layout style={{ padding: '1.5% 1%', background: '#fff' }}>
                         {context.sider_management("sub1","2")}
                         <Content>
-                            <Input name="content" label="搜索内容" size="large" style={{width: '30%', marginLeft:'100px' }}
+                            <br />
+                            <Input name="content" label="搜索内容" size="large" style={{width: '30%', marginLeft:'27%' }}
                                    prefix={<Icon type="search"/>} placeholder="请输入用户相关信息" onChange={this.onChangeContent}/>
-                            <Button type="primary"  size="large" style={{width: '10%', marginLeft: '10px'}} onClick = {this.handleSearch}>搜索</Button>
-                            <h1/>
-                            <Table style={{width:'88%', marginLeft:'5%'}}columns={this.columns} dataSource={this.state.data} />
+                            <Button type="primary"  size="large" style={{width: '10%', marginLeft: '1%'}} onClick = {this.handleSearch}>搜索</Button>
+                            <h6 />
+                            <br />
+                            <Table style={{width:'88%', marginLeft:'5%'}} columns={this.columns} dataSource={this.state.data} />
                         </Content>
                     </Layout>
                 </Content>

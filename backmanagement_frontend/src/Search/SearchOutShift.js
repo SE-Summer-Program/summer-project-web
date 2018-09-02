@@ -194,29 +194,28 @@ class SearchOutShift extends React.Component {
                 {context.header('3')}
                 <Content style={{ marginLeft:'3%', marginRight:'3%' }}>
                     {context.breadcrumb("信息查询","查询校区巴士班次表")}
-                    <Layout style={{ padding: '24px 0', background: '#fff' }}>
+                    <Layout style={{ padding: '1.5% 1%', background: '#fff' }}>
                         {context.sider_search("sub3","6")}
-                        <Content style={{ padding: '0 24px', minHeight: 280 }}>
-                            <h1/>
+                        <Content style={{ padding: '1% 1.5%', minHeight: 280 }}>
                             <br/>
-                            <Select defaultValue="始发站" size="large" style={{marginLeft:'180px', width:'140px'}} onChange={this.handleStartStationChange}>
+                            <Select defaultValue="始发站" size="large" style={{marginLeft:'15%', width:'14%'}} onChange={this.handleStartStationChange}>
                                 {stationOptions}
                             </Select>
-                            <Select defaultValue="终点站" size="large" style={{marginLeft:'10px', width:'140px'}} onChange={this.handleEndStationChange}>
+                            <Select defaultValue="终点站" size="large" style={{marginLeft:'1%', width:'14%'}} onChange={this.handleEndStationChange}>
                                 {stationOptions}
                             </Select>
-                            <Select defaultValue="是否寒暑假" size="large" style={{marginLeft:'10px', width:'130px'}} onChange={this.handleHolidayChange}>
+                            <Select defaultValue="是否寒暑假" size="large" style={{marginLeft:'1%', width:'13%'}} onChange={this.handleHolidayChange}>
                                 <Option value="true">寒暑假</Option>
                                 <Option value="false">非寒暑假</Option>
                             </Select>
-                            <Select defaultValue="是否工作日" size="large" style={{marginLeft:'10px', width:'130px'}} onChange={this.handleWorkdayChange}>
+                            <Select defaultValue="是否工作日" size="large" style={{marginLeft:'1%', width:'13%'}} onChange={this.handleWorkdayChange}>
                                 <Option value="true">工作日</Option>
                                 <Option value="false">节假日</Option>
                             </Select>
-                            <Button type="primary"  size="large" style={{width: '10%', marginLeft: '15px'}} icon="search" onClick = {this.handleSearch}>搜索</Button>
+                            <Button type="primary"  size="large" style={{width: '10%', marginLeft: '1.5%'}} icon="search" onClick = {this.handleSearch}>搜索</Button>
                             <h1 />
                             <br />
-                            <Table style={{width:'88%', marginLeft:'70px'}} columns={this.columns} dataSource={this.state.data} />
+                            <Table style={{width:'88%', marginLeft:'7%'}} columns={this.columns} dataSource={this.state.data} />
                         </Content>
                     </Layout>
                 </Content>

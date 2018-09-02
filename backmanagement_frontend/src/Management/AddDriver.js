@@ -112,12 +112,12 @@ class AddDriver extends React.Component {
                     <Layout style={{ padding: '1.5% 1%', background: '#fff' }}>
                         {context.sider_management("sub3","9")}
                         <Content>
+                            <h1 />
+                            <h2 style={{marginLeft:'42.5%', fontWeight:"bold"}}>添加新司机</h2>
                             <br/>
-                            <h2 style={{marginLeft:'42%'}}>添加新司机</h2>
-                            <br/>
-                            <h1/>
+                            <h6/>
                             <span style={{marginLeft:"29%", fontSize:'120%'}}> 姓名： </span>
-                            <Input name="username" label="用户名" size="large" style={{width: '30%', }}
+                            <Input name="username" label="用户名" size="large" style={{width: '30%' }}
                                    placeholder="请输入用户名" onChange={this.handleChange}/>
                             <h1/>
                             <span style={{marginLeft: "26%", fontSize:'120%'}}> 用户密码： </span>
@@ -133,13 +133,13 @@ class AddDriver extends React.Component {
                                    onChange={this.handleChange} />
                             <h1/>
                             <span style={{marginLeft: '26%', fontSize:'120%'}}> 用户身份： </span>
-                            <Select  name="identity" defaultValue="选择身份" size="large" style={{width: '20%'}}onSelect={this.handleSelect}>
+                            <Select  name="identity" defaultValue="选择身份" size="large" style={{width: '20%'}} onSelect={this.handleSelect}>
                                 <Option value="校内巴士司机">校内巴士司机</Option>
                                 <Option value="校区巴士司机">校区巴士司机</Option>
                             </Select>
                             <h1/>
                             <br/>
-                            <Button type="primary"  size="large" style={{width: '10%', marginLeft: '475px'}} onClick = {this.handleAdd}>添加司机</Button>
+                            <Button type="primary"  size="large" style={{width: '15%', marginLeft: '40%'}} onClick = {this.handleAdd}>添加司机</Button>
                         </Content>
                     </Layout>
                 </Content>

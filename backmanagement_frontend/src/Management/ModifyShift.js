@@ -301,20 +301,22 @@ class ModifyShift extends React.Component {
                 {context.header('2')}
                 <Content style={{ marginLeft:'3%', marginRight:'3%' }}>
                     {context.breadcrumb("信息管理","修改班次信息")}
-                    <Layout style={{ padding: '24px 0', background: '#fff' }}>
+                    <Layout style={{ padding: '1.5% 1%', background: '#fff' }}>
                         {context.sider_management("sub2","7")}
                         <Content>
-                            <Input name="content" label="搜索内容" size="large" style={{width: '30%', marginLeft:'100px' }}
+                            <br />
+                            <Input name="content" label="搜索内容" size="large" style={{width: '30%', marginLeft:'30%' }}
                                    prefix={<Icon type="search"/>} placeholder="请输入班次相关信息" onChange={this.onChangeContent}/>
-                            <Button type="primary"  size="large" style={{width: '10%', marginLeft: '10px'}} onClick = {this.handleSearch}>搜索</Button>
-                            <h1/>
+                            <Button type="primary"  size="large" style={{width: '10%', marginLeft: '1%'}} onClick = {this.handleSearch}>搜索</Button>
+                            <h6 />
+                            <br />
                             <Table
                                 components={components}
                                 bordered
                                 dataSource={this.state.data}
                                 columns={columns}
                                 rowClassName="editable-row"
-                                style={{width:'80%', marginLeft:'100px'}}
+                                style={{width:'80%', marginLeft:'10%'}}
                             />
                         </Content>
                     </Layout>

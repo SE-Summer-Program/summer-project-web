@@ -17,13 +17,13 @@ class DeleteShift extends React.Component {
             title: '班次编号',
             dataIndex: 'shiftid',
             key: 'shiftid',
-            width: '16%',
+            width: '15%',
             align: 'center',
         }, {
             title: '线路名',
             dataIndex: 'lineName',
             key: 'lineName',
-            width: '19%',
+            width: '18%',
             align: 'center',
         },{
             title: '运行时间',
@@ -41,7 +41,7 @@ class DeleteShift extends React.Component {
             title: '预留座位数',
             dataIndex: 'seat' ,
             key: 'seat',
-            width: '10%',
+            width: '12%',
             align: 'center',
         }, {
             title: '备注',
@@ -224,14 +224,16 @@ class DeleteShift extends React.Component {
                 {context.header('2')}
                 <Content style={{ marginLeft:'3%', marginRight:'3%' }}>
                     {context.breadcrumb("信息管理","删除班次")}
-                    <Layout style={{ padding: '24px 0', background: '#fff' }}>
+                    <Layout style={{ padding: '1.5% 1%', background: '#fff' }}>
                         {context.sider_management("sub2","6")}
                         <Content>
-                            <Input name="content" label="搜索内容" size="large" style={{width: '30%', marginLeft:'100px' }}
+                            <br />
+                            <Input name="content" label="搜索内容" size="large" style={{width: '30%', marginLeft:'30%' }}
                                    prefix={<Icon type="search"/>} placeholder="请输入车次相关信息" onChange={this.onChangeContent}/>
-                            <Button type="primary"  size="large" style={{width: '10%', marginLeft: '10px'}} onClick = {this.handleSearch}>搜索</Button>
-                            <h1/>
-                            <Table style={{width:'88%', marginLeft:'70px'}} columns={this.columns} dataSource={this.state.data} />
+                            <Button type="primary"  size="large" style={{width: '10%', marginLeft: '1%'}} onClick = {this.handleSearch}>搜索</Button>
+                            <h6 />
+                            <br />
+                            <Table style={{width:'88%', marginLeft:'7%'}} columns={this.columns} dataSource={this.state.data} />
                         </Content>
                     </Layout>
                 </Content>

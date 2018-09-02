@@ -38,7 +38,7 @@ class Search extends React.Component {
                 {context.header('3')}
                 <Content style={{ marginLeft:'3%', marginRight:'3%' }}>
                     {context.breadcrumb("信息查询","")}
-                    <Layout style={{ padding: '24px 0', background: '#fff' }}>
+                    <Layout style={{ padding: '1.5% 1%', background: '#fff' }}>
                         {context.sider_search("","")}
                     </Layout>
                 </Content>

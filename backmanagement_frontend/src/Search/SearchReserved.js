@@ -203,31 +203,30 @@ class SearchReserved extends React.Component {
                 {context.header('3')}
                 <Content style={{ marginLeft:'3%', marginRight:'3%' }}>
                     {context.breadcrumb("信息查询","查询预约信息")}
-                    <Layout style={{ padding: '24px 0', background: '#fff' }}>
+                    <Layout style={{ padding: '1.5% 1%', background: '#fff' }}>
                         {context.sider_search("sub3","5")}
-                        <Content style={{ padding: '0 24px', minHeight: 280 }}>
-                            <h1/>
+                        <Content style={{ padding: '1% 1.5%', minHeight: 280 }}>
                             <br/>
-                            <DatePicker size="large" style={{marginLeft:'20px'}} onChange={this.onDateChange} />
-                            <Select defaultValue="始发站" size="large" style={{marginLeft:'10px', width:'140px'}} onChange={this.handleStartStationChange}>
+                            <DatePicker size="large" style={{marginLeft:'2%'}} onChange={this.onDateChange} />
+                            <Select defaultValue="始发站" size="large" style={{marginLeft:'1%', width:'14%'}} onChange={this.handleStartStationChange}>
                                 {stationOptions}
                             </Select>
-                            <Select defaultValue="终点站" size="large" style={{marginLeft:'10px', width:'140px'}} onChange={this.handleEndStationChange}>
+                            <Select defaultValue="终点站" size="large" style={{marginLeft:'1%', width:'14%'}} onChange={this.handleEndStationChange}>
                                 {stationOptions}
                             </Select>
-                            <Select defaultValue="线路类型" size="large" style={{marginLeft:'10px', width:'150px'}} onSelect={this.handleTypeChange}>
+                            <Select defaultValue="线路类型" size="large" style={{marginLeft:'1%', width:'15%'}} onSelect={this.handleTypeChange}>
                                 <Option value="NormalWorkday">普通工作日</Option>
                                 <Option value="HolidayWorkday">寒暑假工作日</Option>
                                 <Option value="HolidayWeekend">寒暑假双休日</Option>
                                 <Option value="NormalWeekendAndLegalHoliday">普通节假双休日</Option>
                             </Select>
-                            <Select defaultValue="出发时刻" size="large" style={{marginLeft:'10px', width:'140px'}} onChange={this.handleTimeChange}>
+                            <Select defaultValue="出发时刻" size="large" style={{marginLeft:'1%', width:'14%'}} onChange={this.handleTimeChange}>
                                 {timeOptions}
                             </Select>
-                            <Button type="primary"  size="large" style={{width: '10%', marginLeft: '35px'}} icon="search" onClick = {this.handleSearch}>搜索</Button>
+                            <Button type="primary"  size="large" style={{width: '10%', marginLeft: '2%'}} icon="search" onClick = {this.handleSearch}>搜索</Button>
                             <h1 />
                             <br />
-                            <Table style={{width:'75%', marginLeft:'80px'}} columns={this.columns} dataSource={this.state.data} />
+                            <Table style={{width:'75%', marginLeft:'12%'}} columns={this.columns} dataSource={this.state.data} />
                         </Content>
                     </Layout>
                 </Content>

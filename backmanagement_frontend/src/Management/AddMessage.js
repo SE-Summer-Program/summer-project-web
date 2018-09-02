@@ -105,15 +105,15 @@ class AddMessage extends React.Component {
                 {context.header('2')}
                 <Content style={{ marginLeft:'3%', marginRight:'3%' }}>
                     {context.breadcrumb("信息管理","添加公告")}
-                    <Layout style={{ padding: '24px 0', background: '#fff' }}>
+                    <Layout style={{ padding: '1.5% 1%', background: '#fff' }}>
                         {context.sider_management("sub4","12")}
                         <Content>
                             <script src="./../bower_components/leancloud-push.js/src/AV.push.js"/>
                             <br/>
-                            <h2 style={{marginLeft:'480px', font_weight:'bold', width:'15%'}}>发布新公告</h2>
+                            <h2 style={{marginLeft:'43%', fontWeight:'bold', width:'15%'}}>发布新公告</h2>
                             <h1/>
                             <br/>
-                            <span style={{marginLeft: '300px', fontSize:'16px'}}> 公告类型： </span>
+                            <span style={{marginLeft: '29%', fontSize:'120%'}}> 公告类型： </span>
                             <RadioGroup onChange={this.handleTypeChange} >
                                 <Radio value={"普通公告"}>普通公告</Radio>
                                 <Radio value={"紧急通知"}>紧急通知</Radio>
@@ -121,19 +121,19 @@ class AddMessage extends React.Component {
                             </RadioGroup>
                             <h6/>
                             <br/>
-                            <span style={{marginLeft: '300px', fontSize:'16px'}}>公告标题： </span>
+                            <span style={{marginLeft: '29%', fontSize:'120%'}}>公告标题： </span>
                             <Input  size="large" style={{width:'30%'}} onChange={this.handleTitleChange}/>
                             <h6/>
                             <br/>
-                            <span style={{marginLeft: '300px', fontSize:'16px'}}> 日期范围： </span>
+                            <span style={{marginLeft: '29%', fontSize:'120%'}}> 日期范围： </span>
                             <RangePicker size="large" style={{width:'30%'}} onChange={this.handleDateChange} ranges={{ '今天': [moment(), moment()], '本月': [moment(), moment().endOf('month')] }}/>
                             <h6/>
                             <br/>
-                            <span style={{marginLeft: '300px', fontSize:'16px'}}> 公告内容： </span>
+                            <span style={{marginLeft: '29%', fontSize:'120%'}}> 公告内容： </span>
                             <TextArea size="large" style={{width:'30%'}} autosize={{ minRows: 4, maxRows: 8 }} onChange={this.handleContentChange}/>
                             <h1/>
                             <br/>
-                            <Button type="primary"  size="large" style={{width: '10%', marginLeft: '620px'}} onClick = {this.handleAdd}>发布</Button>
+                            <Button type="primary"  size="large" style={{width: '15%', marginLeft: '40%'}} onClick = {this.handleAdd}>发布</Button>
                         </Content>
                     </Layout>
                 </Content>
