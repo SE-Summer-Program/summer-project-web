@@ -107,5 +107,31 @@ export default {
             </Sider>
         )
     },
+    fetch_timedata:function(startStation, endStation, lineType){
+        let lineName = startStation + "到" + endStation;
+        let timeData=[];
+        console.log("route:", this.api+'/shift/search_time?lineNameCn=' + lineName + "&lineType=" + lineType);
+        fetch(this.api+'/shift/search_time?lineNameCn=' + lineName + "&lineType=" + lineType,
+            {
+                method: 'POST',
+                mode: 'cors',
+            })
+            .then(response => {
+                console.log('Request successful', response);
+                return response.json()
+                    .then(result => {
+                        let len = result.timeList.length;
+                        console.log("response len:", len);
+                        for (let i = 0; i < len; i++) {
+                            let add = result.timeList[i];
+                            timeData.push(add);
+                        }
+                    });
+
+            });
+        console.log("timeData:",timeData);
+        return timeData;
+
+    }
 
 }

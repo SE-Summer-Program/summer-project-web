@@ -66,12 +66,56 @@ class SearchReserved extends React.Component {
         console.log(dateString);
     };
 
+    fetch_time = (startStation, endStation, lineType)=>{
+        let lineName = startStation + "到" + endStation;
+        let timeString=[];
+        console.log("route:", context.api+'/shift/search_time?lineNameCn=' + lineName + "&lineType=" + lineType);
+        fetch(context.api+'/shift/search_time?lineNameCn=' + lineName + "&lineType=" + lineType,
+            {
+                method: 'POST',
+                mode: 'cors',
+            })
+            .then(response => {
+                console.log('Request successful', response);
+                return response.json()
+                    .then(result => {
+                        let len = result.timeList.length;
+                        console.log("response len:", len);
+                        for (let i = 0; i < len; i++) {
+                            let add = result.timeList[i];
+                            timeString.push(add);
+                        }
+                        this.setState({
+                            timeData: timeString
+                        })
+                    })
+            });
+
+    };
+
+
     handleTypeChange = (value) => {
-        this.setState({
+        /*this.setState({
             type: value,
-            timeData: [],
         }, function () {
-            let lineName = this.state.startStation + "到" + this.state.endStation;
+            this.fetch_time(this.state.startStation, this.state.endStation, this.state.type),()=>{
+                console.log("timeData:",this.state.timeData);
+            }*/
+        let start = this.state.startStation;
+        let end = this.state.endStation;
+        if (start === "" || end === ""){
+            this.setState({type:value});
+        }
+        else{
+            this.setState({
+                type: value,
+            }, function () {
+                this.fetch_time(start, end, this.state.type)
+            })
+        }
+
+
+            /*let lineName = this.state.startStation + "到" + this.state.endStation;
             console.log("route:", context.api+'/shift/search_time?lineNameCn=' + lineName + "&lineType=" + this.state.type);
             fetch(context.api+'/shift/search_time?lineNameCn=' + lineName + "&lineType=" + this.state.type,
                 {
@@ -94,8 +138,7 @@ class SearchReserved extends React.Component {
                                 });
                             }
                         })
-                });
-        });
+                });*/
     };
 
     handleTimeChange = (value) => {
@@ -106,15 +149,33 @@ class SearchReserved extends React.Component {
 
 
     handleStartStationChange = (value) => {
-        this.setState({
-            startStation: value,
-        });
+        let type = this.state.type;
+        let end = this.state.endStation;
+        if (type === "" || end === ""){
+            this.setState({startStation:value});
+        }
+        else{
+            this.setState({
+                startStation: value,
+            }, function () {
+                this.fetch_time(value, end,type)
+            })
+        }
     };
 
     handleEndStationChange = (value) => {
-        this.setState({
-            endStation: value,
-        });
+        let type = this.state.type;
+        let start= this.state.startStation;
+        if (type === "" || start === ""){
+            this.setState({endStation:value});
+        }
+        else{
+            this.setState({
+                endStation: value,
+            }, function () {
+                this.fetch_time(start, value, type)
+            })
+        }
     };
 
     handleSearch=() =>{

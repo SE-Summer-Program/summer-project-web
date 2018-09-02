@@ -1,4 +1,4 @@
-import { Layout, DatePicker, Button, Select, Card, Col, Row } from 'antd';
+import { Layout, DatePicker, Button, Select, Card, Col, Row, Radio } from 'antd';
 import React, { Component } from 'react';
 import './../App.css';
 import context from "../context";
@@ -12,6 +12,8 @@ const dateFormat = 'YYYY/MM/DD';
 const monthFormat = 'YYYY/MM';
 const Option = Select.Option;
 const stationData=["徐汇","闵行","七宝"];
+const RadioGroup = Radio.Group;
+const method=["按月统计","自选时间"];
 
 class AppointmentStatistics extends React.Component {
     constructor(props){
@@ -24,15 +26,167 @@ class AppointmentStatistics extends React.Component {
             startStation:'',
             endStation:'',
             timeData:[],
+            time:'',
             data:[],
-            count:0,
+            method:'',
+            disabled:false,
         };
-
     }
+
+    handleMethodChange = (e)=> {
+        console.log("method:",e.target.value);
+        if(e.target.value === "按月统计"){
+            this.setState({
+                disabled: false,
+                method:'month'
+            })
+        }
+        else{
+            this.setState({
+                disabled: true,
+                method:'defined'
+            })
+        }
+    };
+
 
    disabledDate=(current) => {
        return current && current> moment();
     };
+
+
+   handleMonthChange=(date,dateString) => {
+       //console.log("month:", dateString);
+       this.setState({
+           month: dateString
+       })
+   };
+
+    handleDateChange = (dates, dateStrings) => {
+        this.setState({
+            startDate: dateStrings[0],
+            endDate: dateStrings[1],
+        });
+        //console.log("date1:",dateStrings[0]);
+        // console.log("date2:",dateStrings[1]);
+    };
+
+    fetch_time = (startStation, endStation, lineType)=>{
+        let lineName = startStation + "到" + endStation;
+        let timeString=[];
+        console.log("route:", context.api+'/shift/search_time?lineNameCn=' + lineName + "&lineType=" + lineType);
+        fetch(context.api+'/shift/search_time?lineNameCn=' + lineName + "&lineType=" + lineType,
+            {
+                method: 'POST',
+                mode: 'cors',
+            })
+            .then(response => {
+                console.log('Request successful', response);
+                return response.json()
+                    .then(result => {
+                        let len = result.timeList.length;
+                        console.log("response len:", len);
+                        for (let i = 0; i < len; i++) {
+                            let add = result.timeList[i];
+                            timeString.push(add);
+                        }
+                        this.setState({
+                            timeData: timeString
+                        })
+                    })
+            });
+
+    };
+
+    handleStartStationChange = (value) => {
+        let type = this.state.type;
+        let end = this.state.endStation;
+        if (end === value){
+            alert("起点站和终点站不能相同");
+            return;
+        }
+        if (type === "" || end === ""){
+            this.setState({startStation:value});
+        }
+        else{
+            this.setState({
+                startStation: value,
+            }, function () {
+                this.fetch_time(value, end,type)
+            })
+        }
+    };
+
+    handleEndStationChange = (value) => {
+        let type = this.state.type;
+        let start= this.state.startStation;
+        if (start === value){
+            alert("起点站和终点站不能相同");
+            return;
+        }
+        if (type === "" || start === ""){
+            this.setState({endStation:value});
+        }
+        else{
+            this.setState({
+                endStation: value,
+            }, function () {
+                this.fetch_time(start, value, type)
+            })
+        }
+    };
+
+    handleTypeChange = (value) => {
+        let start = this.state.startStation;
+        let end = this.state.endStation;
+        if (start === "" || end === ""){
+            this.setState({type:value});
+        }
+        else{
+            this.setState({
+                type: value,
+            }, function () {
+                this.fetch_time(start, end, this.state.type)
+            })
+        }
+
+    };
+
+    handleTimeChange = (value) => {
+        this.setState({
+            time: value,
+        });
+    };
+
+    handleClick = () => {
+        let route = context.api + '/statistics/appointment';
+        let lineNameCn = this.state.startStation + "到" + this.state.endStation;
+        if (this.state.method === 'month'){
+            route += '_month?month=' + this.state.month ;
+        }
+        else{
+            route += '_defined?startDate=' + this.state.startDate + '&endDate=' + this.state.endDate;
+        }
+        route += '&lineNameCn=' + lineNameCn + '&lineType=' + this.state.type + '&time=' + this.state.time;
+        console.log("route:",route);
+        /*fetch(route,
+            {
+                method: 'POST',
+                mode: 'cors',
+            })
+            .then(response => {
+                console.log('Request successful', response);
+                return response.json()
+                    .then(result => {
+                        let len = result.timeList.length;
+                        console.log("response len:", len);
+                        for (let i = 0; i < len; i++) {
+                            let add = result.timeList[i];
+                        }
+                    })
+            });*/
+    };
+
 
     render(){
         const timeData = this.state.timeData;
@@ -50,12 +204,19 @@ class AppointmentStatistics extends React.Component {
                             <h1 style={{marginLeft:'40%', fontWeight:"bold"}}>预约情况统计</h1>
                             <br/>
                             <h1/>
-                            <span style={{marginLeft:"20%", fontSize:'120%'}}> 选择需要统计的月份： </span>
-                            <MonthPicker locale={zh_CN} defaultValue={moment('2018/08', monthFormat)} disabledDate={this.disabledDate} format={monthFormat} size="large" />
+                            <span style={{marginLeft: '20%', fontSize:'120%'}}>选择统计方式： </span>
+                            <RadioGroup options={method} size="large"  onChange={this.handleMethodChange}/>
+                            <br/>
+                            <br/>
+                            <h6/>
+                            <span style={{marginLeft:"20%", fontSize:'120%'}}> 选择月份： </span>
+                            <MonthPicker locale={zh_CN} defaultValue={moment(moment(), monthFormat)} disabled={this.state.disabled}
+                                         disabledDate={this.disabledDate} format={monthFormat} size="large" onChange={this.handleMonthChange} />
                             <h6 />
                             <br />
-                            <span style={{marginLeft:"20%", fontSize:'120%'}}> 自定义统计的时间段： </span>
-                            <RangePicker locale={zh_CN} disabledDate={this.disabledDate} format={dateFormat} size="large" />
+                            <span style={{marginLeft:"20%", fontSize:'120%'}}> 自定义时间段： </span>
+                            <RangePicker locale={zh_CN} disabled={!this.state.disabled} disabledDate={this.disabledDate}
+                                         format={dateFormat} size="large" onChange={this.handleDateChange}/>
                             <h6 />
                             <br />
                             <Select defaultValue="始发站" size="large" style={{marginLeft:'20%', width:'140px'}} onChange={this.handleStartStationChange}>
@@ -75,7 +236,7 @@ class AppointmentStatistics extends React.Component {
                             </Select>
                             <h6 />
                             <br />
-                            <Button type="primary" size="large" style={{marginLeft:"40%"}}>生成统计数据</Button>
+                            <Button type="primary" size="large" style={{marginLeft:"40%"}} onClick={this.handleClick}>生成统计数据</Button>
                             <h6 />
                             <br />
                             <span style={{marginLeft:"15%"}}>-----------------------------------------------------------------------------------------------------------------------------</span>
