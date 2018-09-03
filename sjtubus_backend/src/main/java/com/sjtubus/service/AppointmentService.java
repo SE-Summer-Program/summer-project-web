@@ -1,17 +1,14 @@
 package com.sjtubus.service;
 
-import com.sjtubus.dao.AppointmentDao;
-import com.sjtubus.dao.BusDao;
-import com.sjtubus.dao.ShiftDao;
-import com.sjtubus.dao.UserDao;
-import com.sjtubus.entity.Appointment;
-import com.sjtubus.entity.Bus;
-import com.sjtubus.entity.Shift;
-import com.sjtubus.entity.User;
+import com.mongodb.*;
+import com.mongodb.client.MongoDatabase;
+import com.sjtubus.dao.*;
+import com.sjtubus.entity.*;
 import com.sjtubus.model.AppointInfo;
 import com.sjtubus.utils.ShiftUtils;
 import com.sjtubus.utils.StringCalendarUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.jdbc.DatabaseDriver;
 import org.springframework.stereotype.Service;
 
 import java.sql.Time;
@@ -23,6 +20,7 @@ import java.util.List;
 public class AppointmentService {
     @Autowired
     private AppointmentDao appointmentDao;
+
     @Autowired
     private ShiftService shiftService;
 
@@ -31,6 +29,9 @@ public class AppointmentService {
 
     @Autowired
     private BusDao busDao;
+
+    @Autowired
+    private CollectionDao collectionDao;
 
     @Autowired
     private UserDao userDao;
@@ -175,4 +176,5 @@ public class AppointmentService {
             return "验证成功~";
         }
     }
+
 }
