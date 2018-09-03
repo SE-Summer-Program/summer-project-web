@@ -6,6 +6,7 @@ import moment from 'moment';
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import 'moment/locale/zh-cn';
 
+const Highcharts = require('highcharts');
 const ReactHighcharts = require('react-highcharts');
 
 const {Content} = Layout;
@@ -21,44 +22,6 @@ const daysOfMonth = {
     "04":"/30", "05":"/31", "06":"/30",
     "07":"/31", "08":"/31", "09":"/30",
     "10":"/31", "11":"/30", "12":"/31"
-};
-
-const config = {
-    chart: {
-        type: 'line'
-    },
-    title: {
-        text: '每日预约人数统计'
-    },
-    subtitle: {
-        text: '数据来源:人工统计'
-    },
-    xAxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    },
-    yAxis: {
-        title: {
-            text: '预约人数'
-        }
-    },
-    tooltip:{
-        shared:true
-    },
-    plotOptions: {
-        line: {
-            dataLabels: {
-                enabled: true
-            },
-            enableMouseTracking: true
-        }
-    },
-    series: [{
-        name: 'Jaccount',
-        data: [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
-    }, {
-        name: 'Non-Jaccount',
-        data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
-    }]
 };
 
 class AppointmentStatistics extends React.Component {
@@ -224,6 +187,57 @@ class AppointmentStatistics extends React.Component {
                 console.log('Request successful', response);
                 return response.json()
                     .then(result => {
+                        let dateArray = [];
+                        let numArray = [];
+                        let numSum = 0;
+                        for(let i = 0; i<result.statistics.length; i++){
+                            dateArray.push(result.statistics[i].date);
+                            numArray.push(result.statistics[i].appoint_num);
+                            numSum += result.statistics[i].appoint_num;
+                        }
+                        let maxNum = Math.max.apply(Math,numArray);
+                        let minNum = Math.min.apply(Math,numArray);
+                        let avgNum = numSum/numArray.length;
+                        this.setState({
+                            totalAmount:numSum,
+                            averageAmount:avgNum,
+                            maxAmount:maxNum,
+                            minAmount:minNum
+                        });
+                        Highcharts.chart('appointChart', {
+                            chart: {
+                                type: 'line'
+                            },
+                            title: {
+                                text: '每日预约人数统计'
+                            },
+                            subtitle: {
+                                text: '数据来源:人工统计'
+                            },
+                            xAxis: {
+                                categories: dateArray
+                            },
+                            yAxis: {
+                                title: {
+                                    text: '预约人数'
+                                }
+                            },
+                            tooltip:{
+                                shared:true
+                            },
+                            plotOptions: {
+                                line: {
+                                    dataLabels: {
+                                        enabled: true
+                                    },
+                                    enableMouseTracking: true
+                                }
+                            },
+                            series: [{
+                                name: '预约人数',
+                                data: numArray
+                            }]
+                        });
                         console.log("success");
                     })
             });
@@ -287,20 +301,20 @@ class AppointmentStatistics extends React.Component {
                             <div style={{ background: '#ECECEC', padding: '30px' }}>
                                 <Row gutter={16}>
                                     <Col span={6}>
-                                        <Card title="统计数据总量" style={{position:"center"}} bordered={false}>content</Card>
+                                        <Card title="统计数据总量" style={{position:"center"}} bordered={false}>{this.state.totalAmount}</Card>
                                     </Col>
                                     <Col span={6}>
-                                        <Card title="平均预约座位数" bordered={false}>content</Card>
+                                        <Card title="平均预约座位数" bordered={false}>{this.state.averageAmount}</Card>
                                     </Col>
                                     <Col span={6}>
-                                        <Card title="最大预约座位数" bordered={false}>content</Card>
+                                        <Card title="最大预约座位数" bordered={false}>{this.state.maxAmount}</Card>
                                     </Col>
                                     <Col span={6}>
-                                        <Card title="最小预约座位数" bordered={false}>content</Card>
+                                        <Card title="最小预约座位数" bordered={false}>{this.state.minAmount}</Card>
                                     </Col>
                                 </Row>
                                 <br/>
-                                <ReactHighcharts config = {config}></ReactHighcharts>
+                                <div id="appointChart"></div>
                             </div>,
                         </Content>
                     </Layout>

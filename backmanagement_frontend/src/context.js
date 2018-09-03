@@ -6,7 +6,8 @@ const { Header, Content, Footer, Sider,} = Layout;
 const { SubMenu } = Menu;
 
 export default {
-    api:"http://106.14.181.49:8080",
+    api:"http://localhost:8080",
+    //api:"http://106.14.181.49:8080",
     data: {},
     footer:(
         <Footer style={{ textAlign: 'center' }}>

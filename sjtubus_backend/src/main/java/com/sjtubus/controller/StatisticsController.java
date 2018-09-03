@@ -1,5 +1,6 @@
 package com.sjtubus.controller;
 
+import com.sjtubus.model.DailyAppointStat;
 import com.sjtubus.model.response.StaAppointResponse;
 import com.sjtubus.service.StatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class StatisticsController {
             Date date2 = formatter.parse(endDate);
             //System.out.println(date1);
             //System.out.println(date2);
-            List<Integer> result = statisticsService.dealAppointmentData(date1, date2, lineNameCn, lineType, time);
+            List<DailyAppointStat> result = statisticsService.dealAppointmentData(date1, date2, lineNameCn, lineType, time);
             response.setStatistics(result);
             response.setMsg("success");
         }

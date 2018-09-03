@@ -1,15 +1,17 @@
 package com.sjtubus.model.response;
 
+import com.sjtubus.model.DailyAppointStat;
+
 import java.util.List;
 
 public class StaAppointResponse extends HttpResponse {
-    private List<Integer> statistics;
+    private List<DailyAppointStat> statistics;
 
-    public List<Integer> getStatistics() {
+    public List<DailyAppointStat> getStatistics() {
         return statistics;
     }
 
-    public void setStatistics(List<Integer> statistics) {
+    public void setStatistics(List<DailyAppointStat> statistics) {
         this.statistics = statistics;
     }
 }

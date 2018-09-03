@@ -1,19 +1,13 @@
 package com.sjtubus.service;
 
 import com.sjtubus.dao.AppointmentDao;
-import com.sjtubus.entity.Appointment;
+import com.sjtubus.model.DailyAppointStat;
 import com.sjtubus.utils.StringCalendarUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.sql.Time;
-import java.time.Month;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class StatisticsService {
@@ -24,8 +18,8 @@ public class StatisticsService {
     ShiftService shiftService;
 
 
-    public List<Integer> dealAppointmentData(Date startDate, Date endDate, String lineNameCn, String lineType, Time time){
-        List<Integer> result = new ArrayList<>();
+    public List<DailyAppointStat> dealAppointmentData(Date startDate, Date endDate, String lineNameCn, String lineType, Time time){
+        List<DailyAppointStat> result = new ArrayList<>();
         String timeString = shiftService.changeTimeToStringTime(time);
         String shiftid;
         if (lineNameCn.equals("闵行到七宝"))
@@ -39,41 +33,16 @@ public class StatisticsService {
         shiftid = shiftid + shiftService.changeTypeToId(lineType);
         shiftid = shiftid + timeString;
         System.out.println("shiftid:"+shiftid);
-        //List<Appointment> appointmentList = appointmentDao.queryAppointmentByShiftIdAndPeriod(shiftid, StringCalendarUtils.UtilDateToSqlDate(startDate), StringCalendarUtils.UtilDateToSqlDate(endDate));
-        //System.out.println("list:"+appointmentList.size());
         List<Object[]> countList = appointmentDao.queryAppointmentGroupByDate(shiftid, StringCalendarUtils.UtilDateToSqlDate(startDate), StringCalendarUtils.UtilDateToSqlDate(endDate));
         System.out.println("list:"+countList.size());
-        System.out.println("list:"+countList);
-        Map<String,String> map = new HashMap<String,String>();
         for (Object[] objects : countList){
             System.out.println("date:"+objects[0]);
             System.out.println("count:"+objects[1]);
-            map.put(objects[0].toString(),objects[1].toString());
+            DailyAppointStat dailyStat = new DailyAppointStat();
+            dailyStat.setDate(objects[0]);
+            dailyStat.setAppoint_num(objects[1]);
+            result.add(dailyStat);
         }
-        List<Date> dateList = new ArrayList<>();
-        Calendar tempStart = Calendar.getInstance();
-        tempStart.setTime(startDate);
-        while(startDate.getTime()<=endDate.getTime()){
-            dateList.add(tempStart.getTime());
-            tempStart.add(Calendar.DAY_OF_YEAR, 1);
-            startDate = tempStart.getTime();
-        }
-
-        System.out.println(dateList.size());
-
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        for (Date date: dateList){
-
-            String dateString = formatter.format(date);
-            //System.out.println(dateString);
-            if(map.containsKey(dateString)){
-                result.add(Integer.parseInt(map.get(dateString)));
-            }
-            else{
-                result.add(0);
-            }
-        }
-        System.out.println(result);
         return result;
     }
 }
