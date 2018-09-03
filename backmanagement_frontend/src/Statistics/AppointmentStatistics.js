@@ -74,6 +74,7 @@ class AppointmentStatistics extends React.Component {
             timeData:[],
             time:'',
             data:[],
+            method:'',
             disabled:false,
         };
     }
@@ -111,9 +112,11 @@ class AppointmentStatistics extends React.Component {
 
     handleDateChange = (dates, dateStrings) => {
         console.log("date:", dates);
+        let str1 = dateStrings[0].replace(/\//g,"-");
+        let str2 = dateStrings[1].replace(/\//g,"-");
         this.setState({
-            startDate: dateStrings[0],
-            endDate: dateStrings[1],
+            startDate: str1,
+            endDate: str2,
         });
         console.log("date1:",dateStrings[0]);
         console.log("date2:",dateStrings[1]);
@@ -212,7 +215,7 @@ class AppointmentStatistics extends React.Component {
             + '&endDate=' + (this.state.method==="month"?this.state.monthEndDate:this.state.endDate).replace(new RegExp("/","gm"),"-")
             + '&lineNameCn=' + lineNameCn + '&lineType=' + this.state.type + '&time=' + this.state.time;
         console.log("route:",route);
-        /*fetch(route,
+        fetch(route,
             {
                 method: 'POST',
                 mode: 'cors',
@@ -221,13 +224,9 @@ class AppointmentStatistics extends React.Component {
                 console.log('Request successful', response);
                 return response.json()
                     .then(result => {
-                        let len = result.timeList.length;
-                        console.log("response len:", len);
-                        for (let i = 0; i < len; i++) {
-                            let add = result.timeList[i];
-                        }
+                        console.log("success");
                     })
-            });*/
+            });
     };
 
     render(){

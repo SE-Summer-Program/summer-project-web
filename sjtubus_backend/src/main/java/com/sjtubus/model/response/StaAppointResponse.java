@@ -9,7 +9,7 @@ public class StaAppointResponse extends HttpResponse {
         return statistics;
     }
 
-    public void setShiftList(List<Integer> statistics) {
+    public void setStatistics(List<Integer> statistics) {
         this.statistics = statistics;
     }
 }
