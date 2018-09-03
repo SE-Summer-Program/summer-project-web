@@ -57,15 +57,18 @@ class AppointmentStatistics extends React.Component {
 
    handleMonthChange=(date,dateString) => {
        //console.log("month:", dateString);
+       let str = dateString.replace("/","-");
        this.setState({
-           month: dateString
+           month: str
        })
    };
 
     handleDateChange = (dates, dateStrings) => {
+        let str1 = dateStrings[0].replace(/\//g,"-");
+        let str2 = dateStrings[1].replace(/\//g,"-");
         this.setState({
-            startDate: dateStrings[0],
-            endDate: dateStrings[1],
+            startDate: str1,
+            endDate: str2,
         });
         //console.log("date1:",dateStrings[0]);
         // console.log("date2:",dateStrings[1]);
@@ -75,7 +78,7 @@ class AppointmentStatistics extends React.Component {
         let lineName = startStation + "到" + endStation;
         let timeString=[];
         console.log("route:", context.api+'/shift/search_time?lineNameCn=' + lineName + "&lineType=" + lineType);
-        fetch(context.api+'/shift/search_time?lineNameCn=' + lineName + "&lineType=" + lineType,
+        fetch('http://localhost:8080/shift/search_time?lineNameCn=' + lineName + "&lineType=" + lineType,
             {
                 method: 'POST',
                 mode: 'cors',
@@ -159,17 +162,17 @@ class AppointmentStatistics extends React.Component {
     };
 
     handleClick = () => {
-        let route = context.api + '/statistics/appointment';
+        let route = 'http://localhost:8080/statistics/appointment';
         let lineNameCn = this.state.startStation + "到" + this.state.endStation;
         if (this.state.method === 'month'){
             route += '_month?month=' + this.state.month ;
         }
         else{
-            route += '_defined?startDate=' + this.state.startDate + '&endDate=' + this.state.endDate;
+            route += '?startDate=' + this.state.startDate + '&endDate=' + this.state.endDate;
         }
         route += '&lineNameCn=' + lineNameCn + '&lineType=' + this.state.type + '&time=' + this.state.time;
         console.log("route:",route);
-        /*fetch(route,
+        fetch(route,
             {
                 method: 'POST',
                 mode: 'cors',
@@ -178,13 +181,9 @@ class AppointmentStatistics extends React.Component {
                 console.log('Request successful', response);
                 return response.json()
                     .then(result => {
-                        let len = result.timeList.length;
-                        console.log("response len:", len);
-                        for (let i = 0; i < len; i++) {
-                            let add = result.timeList[i];
-                        }
+                        console.log("success");
                     })
-            });*/
+            });
     };
 
 

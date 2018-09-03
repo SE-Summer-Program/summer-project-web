@@ -45,8 +45,8 @@ class AddMessage extends React.Component {
             startDate: dateStrings[0],
             endDate: dateStrings[1],
         });
-        //console.log("date1:",dateStrings[0]);
-        //console.log("date2:",dateStrings[1]);
+        console.log("date1:",dateStrings[0]);
+        console.log("date2:",dateStrings[1]);
     };
 
     handleAdd = () => {

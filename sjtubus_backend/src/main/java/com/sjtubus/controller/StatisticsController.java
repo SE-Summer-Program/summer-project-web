@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.time.Month;
+
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -18,13 +21,29 @@ public class StatisticsController {
     @Autowired
     StatisticsService statisticsService;
 
-    @RequestMapping(path="appointment_month")
-    public StaAppointResponse getMonthData(@RequestParam("month") Month month,
+    @RequestMapping(path="/appointment")
+    public StaAppointResponse getMonthData(@RequestParam("startDate") String startDate,
+                                           @RequestParam("endDate") String endDate,
                                             @RequestParam("lineNameCn") String lineNameCn,
                                             @RequestParam("lineType") String lineType,
                                             @RequestParam("time") Time time){
         StaAppointResponse response = new StaAppointResponse();
-        List<Integer> result = statisticsService.dealMonthData(month, lineNameCn, lineType, time);
+        try {
+            //System.out.println("hello");
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date date1 = formatter.parse(startDate);
+            //SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
+            Date date2 = formatter.parse(endDate);
+            //System.out.println(date1);
+            //System.out.println(date2);
+            List<Integer> result = statisticsService.dealAppointmentData(date1, date2, lineNameCn, lineType, time);
+            response.setStatistics(result);
+            response.setMsg("success");
+        }
+        catch(Exception e){
+            response.setError(1);
+            response.setMsg("error");
+        }
         return response;
     }
 
