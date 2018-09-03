@@ -6,6 +6,8 @@ import moment from 'moment';
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import 'moment/locale/zh-cn';
 
+const ReactHighcharts = require('react-highcharts');
+
 const {Content} = Layout;
 const { MonthPicker, RangePicker } = DatePicker;
 const dateFormat = 'YYYY/MM/DD';
@@ -14,6 +16,50 @@ const Option = Select.Option;
 const stationData=["徐汇","闵行","七宝"];
 const RadioGroup = Radio.Group;
 const method=["按月统计","自选时间"];
+const daysOfMonth = {
+    "01":"/31", "02":"/28", "03":"/31",
+    "04":"/30", "05":"/31", "06":"/30",
+    "07":"/31", "08":"/31", "09":"/30",
+    "10":"/31", "11":"/30", "12":"/31"
+};
+
+const config = {
+    chart: {
+        type: 'line'
+    },
+    title: {
+        text: '每日预约人数统计'
+    },
+    subtitle: {
+        text: '数据来源:人工统计'
+    },
+    xAxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    },
+    yAxis: {
+        title: {
+            text: '预约人数'
+        }
+    },
+    tooltip:{
+        shared:true
+    },
+    plotOptions: {
+        line: {
+            dataLabels: {
+                enabled: true
+            },
+            enableMouseTracking: true
+        }
+    },
+    series: [{
+        name: 'Jaccount',
+        data: [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+    }, {
+        name: 'Non-Jaccount',
+        data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+    }]
+};
 
 class AppointmentStatistics extends React.Component {
     constructor(props){
@@ -28,7 +74,6 @@ class AppointmentStatistics extends React.Component {
             timeData:[],
             time:'',
             data:[],
-            method:'',
             disabled:false,
         };
     }
@@ -49,26 +94,29 @@ class AppointmentStatistics extends React.Component {
         }
     };
 
-
    disabledDate=(current) => {
        return current && current> moment();
     };
 
-
    handleMonthChange=(date,dateString) => {
-       //console.log("month:", dateString);
+       console.log("date:", date);
+       let monthStartDate = date.startOf('month').format('L');
+       let monthEndDate = date.endOf('month').format('L');
        this.setState({
-           month: dateString
+           month: dateString,
+           monthStartDate: monthStartDate,
+           monthEndDate: monthEndDate
        })
    };
 
     handleDateChange = (dates, dateStrings) => {
+        console.log("date:", dates);
         this.setState({
             startDate: dateStrings[0],
             endDate: dateStrings[1],
         });
-        //console.log("date1:",dateStrings[0]);
-        // console.log("date2:",dateStrings[1]);
+        console.log("date1:",dateStrings[0]);
+        console.log("date2:",dateStrings[1]);
     };
 
     fetch_time = (startStation, endStation, lineType)=>{
@@ -95,7 +143,6 @@ class AppointmentStatistics extends React.Component {
                         })
                     })
             });
-
     };
 
     handleStartStationChange = (value) => {
@@ -161,13 +208,9 @@ class AppointmentStatistics extends React.Component {
     handleClick = () => {
         let route = context.api + '/statistics/appointment';
         let lineNameCn = this.state.startStation + "到" + this.state.endStation;
-        if (this.state.method === 'month'){
-            route += '_month?month=' + this.state.month ;
-        }
-        else{
-            route += '_defined?startDate=' + this.state.startDate + '&endDate=' + this.state.endDate;
-        }
-        route += '&lineNameCn=' + lineNameCn + '&lineType=' + this.state.type + '&time=' + this.state.time;
+        route += '?startDate=' + (this.state.method==="month"?this.state.monthStartDate:this.state.startDate).replace(new RegExp("/","gm"),"-")
+            + '&endDate=' + (this.state.method==="month"?this.state.monthEndDate:this.state.endDate).replace(new RegExp("/","gm"),"-")
+            + '&lineNameCn=' + lineNameCn + '&lineType=' + this.state.type + '&time=' + this.state.time;
         console.log("route:",route);
         /*fetch(route,
             {
@@ -186,7 +229,6 @@ class AppointmentStatistics extends React.Component {
                     })
             });*/
     };
-
 
     render(){
         const timeData = this.state.timeData;
@@ -258,9 +300,9 @@ class AppointmentStatistics extends React.Component {
                                         <Card title="最小预约座位数" bordered={false}>content</Card>
                                     </Col>
                                 </Row>
-
+                                <br/>
+                                <ReactHighcharts config = {config}></ReactHighcharts>
                             </div>,
-
                         </Content>
                     </Layout>
                 </Content>
