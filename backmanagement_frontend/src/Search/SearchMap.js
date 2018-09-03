@@ -76,6 +76,4 @@ class SearchMap extends React.Component {
 
 }
 
-export default SearchMap;/**
- * Created by 励颖 on 2018/7/2.
- */
+export default SearchMap;

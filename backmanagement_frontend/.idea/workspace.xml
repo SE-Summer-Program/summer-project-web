@@ -18,8 +18,68 @@
       <file leaf-file-name="DeleteShift.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Management/DeleteShift.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="9090">
-              <caret line="209" column="0" lean-forward="false" selection-start-line="209" selection-start-column="0" selection-end-line="209" selection-end-column="0" />
+            <state relative-caret-position="4590">
+              <caret line="107" column="15" lean-forward="false" selection-start-line="107" selection-start-column="15" selection-end-line="107" selection-end-column="58" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SearchOutShift.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Search/SearchOutShift.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="7290">
+              <caret line="167" column="31" lean-forward="false" selection-start-line="167" selection-start-column="31" selection-end-line="167" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SearchReserved.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Search/SearchReserved.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="6885">
+              <caret line="158" column="81" lean-forward="false" selection-start-line="158" selection-start-column="81" selection-end-line="158" selection-end-column="81" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DeleteUser.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Management/DeleteUser.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2880">
+              <caret line="69" column="56" lean-forward="false" selection-start-line="69" selection-start-column="15" selection-end-line="69" selection-end-column="56" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SearchInShift.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Search/SearchInShift.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="5625">
+              <caret line="130" column="59" lean-forward="false" selection-start-line="130" selection-start-column="15" selection-end-line="130" selection-end-column="59" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AddMessage.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Management/AddMessage.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="7740">
+              <caret line="179" column="60" lean-forward="false" selection-start-line="179" selection-start-column="55" selection-end-line="179" selection-end-column="60" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AddDriver.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Management/AddDriver.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="131" column="59" lean-forward="false" selection-start-line="131" selection-start-column="59" selection-end-line="131" selection-end-column="59" />
               <folding>
                 <element signature="e#38#75#0" expanded="false" />
               </folding>
@@ -27,91 +87,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/index.js">
+      <file leaf-file-name="SearchUser.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Search/SearchUser.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="-908">
+              <caret line="79" column="57" lean-forward="true" selection-start-line="79" selection-start-column="57" selection-end-line="79" selection-end-column="57" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="logo.svg" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/logo.svg">
+      <file leaf-file-name="AddShift.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Management/AddShift.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="12420">
+              <caret line="281" column="30" lean-forward="false" selection-start-line="281" selection-start-column="30" selection-end-line="281" selection-end-column="30" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="registerServiceWorker.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/registerServiceWorker.js">
+      <file leaf-file-name="ModifyShift.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Management/ModifyShift.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="register.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/register.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="4" column="16" lean-forward="false" selection-start-line="4" selection-start-column="11" selection-end-line="4" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1215">
-              <caret line="27" column="25" lean-forward="false" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="25" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="App.test.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/App.test.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bus_background.jpg" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/bus_background.jpg">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AddMessage.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Management/AddMessage.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2835">
-              <caret line="100" column="30" lean-forward="false" selection-start-line="100" selection-start-column="30" selection-end-line="100" selection-end-column="30" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-                <element signature="e#39#134#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/index.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="307">
+              <caret line="263" column="30" lean-forward="false" selection-start-line="263" selection-start-column="30" selection-end-line="263" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -145,23 +145,23 @@
         <option value="$PROJECT_DIR$/src/HomePage/HomePage.js" />
         <option value="$PROJECT_DIR$/src/User/Login.js" />
         <option value="$PROJECT_DIR$/src/Search/Search.js" />
-        <option value="$PROJECT_DIR$/src/Search/SearchReserved.js" />
         <option value="$PROJECT_DIR$/src/Search/SearchOutShift.js" />
-        <option value="$PROJECT_DIR$/src/Search/SearchUser.js" />
-        <option value="$PROJECT_DIR$/src/Search/SearchInShift.js" />
         <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/src/Management/Management.js" />
-        <option value="$PROJECT_DIR$/src/Management/AddDriver.js" />
         <option value="$PROJECT_DIR$/src/Management/AddUser.js" />
         <option value="$PROJECT_DIR$/src/Management/DeleteDriver.js" />
-        <option value="$PROJECT_DIR$/src/Management/DeleteShift.js" />
         <option value="$PROJECT_DIR$/src/Management/DeleteUser.js" />
         <option value="$PROJECT_DIR$/src/Management/ModifyDriver.js" />
-        <option value="$PROJECT_DIR$/src/Management/ModifyShift.js" />
         <option value="$PROJECT_DIR$/src/Management/ModifyUser.js" />
-        <option value="$PROJECT_DIR$/src/Management/AddShift.js" />
         <option value="$PROJECT_DIR$/public/index.html" />
         <option value="$PROJECT_DIR$/src/Management/AddMessage.js" />
+        <option value="$PROJECT_DIR$/src/Search/SearchInShift.js" />
+        <option value="$PROJECT_DIR$/src/Management/AddShift.js" />
+        <option value="$PROJECT_DIR$/src/Search/SearchReserved.js" />
+        <option value="$PROJECT_DIR$/src/Management/DeleteShift.js" />
+        <option value="$PROJECT_DIR$/src/Management/AddDriver.js" />
+        <option value="$PROJECT_DIR$/src/Search/SearchUser.js" />
+        <option value="$PROJECT_DIR$/src/Management/ModifyShift.js" />
       </list>
     </option>
   </component>
@@ -177,8 +177,7 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-16" />
-    <option name="y" value="-16" />
+    <option name="x" value="-21" />
     <option name="width" value="3232" />
     <option name="height" value="1732" />
   </component>
@@ -197,6 +196,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -220,6 +221,42 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="backmanagement_frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="backmanagement_frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="User" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="backmanagement_frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="backmanagement_frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Statistics" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -293,8 +330,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -434,15 +469,18 @@
       <workItem from="1532314666657" duration="14830000" />
       <workItem from="1532360165437" duration="1679000" />
       <workItem from="1532393266752" duration="4931000" />
+      <workItem from="1532433419455" duration="21545000" />
+      <workItem from="1532672294015" duration="4645000" />
+      <workItem from="1533456633506" duration="240000" />
+      <workItem from="1534512199491" duration="898000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="252411000" />
+    <option name="totallyTimeSpent" value="279739000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-16" y="-16" width="3232" height="1732" extended-state="7" />
-    <editor active="true" />
+    <frame x="-21" y="0" width="3232" height="1732" extended-state="0" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17922735" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -615,68 +653,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/User/Login.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="141" column="118" lean-forward="false" selection-start-line="141" selection-start-column="118" selection-end-line="141" selection-end-column="118" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Search/Search.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="712">
-          <caret line="84" column="0" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Search/SearchMap.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
           <caret line="55" column="98" lean-forward="true" selection-start-line="55" selection-start-column="98" selection-end-line="55" selection-end-column="98" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Search/SearchOutShift.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="900">
-          <caret line="58" column="28" lean-forward="false" selection-start-line="58" selection-start-column="28" selection-end-line="58" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Search/SearchReserved.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="28" column="25" lean-forward="true" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Search/SearchUser.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="32" column="22" lean-forward="false" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Search/SearchInShift.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5957">
-          <caret line="209" column="92" lean-forward="false" selection-start-line="209" selection-start-column="92" selection-end-line="209" selection-end-column="92" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Management/DeleteDriver.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="900">
-          <caret line="181" column="0" lean-forward="false" selection-start-line="181" selection-start-column="0" selection-end-line="181" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Management/DeleteUser.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8505">
-          <caret line="194" column="0" lean-forward="false" selection-start-line="194" selection-start-column="0" selection-end-line="194" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -685,61 +665,6 @@
         <state relative-caret-position="3195">
           <caret line="74" column="7" lean-forward="false" selection-start-line="74" selection-start-column="7" selection-end-line="74" selection-end-column="7" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Management/ModifyDriver.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="14670">
-          <caret line="331" column="0" lean-forward="false" selection-start-line="331" selection-start-column="0" selection-end-line="331" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Management/ModifyShift.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15615">
-          <caret line="353" column="0" lean-forward="false" selection-start-line="353" selection-start-column="0" selection-end-line="353" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Management/ModifyUser.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15615">
-          <caret line="352" column="0" lean-forward="false" selection-start-line="352" selection-start-column="0" selection-end-line="352" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Management/AddUser.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9315">
-          <caret line="212" column="37" lean-forward="false" selection-start-line="212" selection-start-column="37" selection-end-line="212" selection-end-column="37" />
-          <folding>
-            <element signature="e#38#127#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Management/AddShift.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18945">
-          <caret line="426" column="1" lean-forward="false" selection-start-line="426" selection-start-column="1" selection-end-line="426" selection-end-column="1" />
-          <folding>
-            <element signature="e#39#145#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Management/AddDriver.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4725">
-          <caret line="110" column="0" lean-forward="false" selection-start-line="110" selection-start-column="0" selection-end-line="110" selection-end-column="0" />
-          <folding>
-            <element signature="e#38#75#0" expanded="false" />
-            <element signature="e#76#152#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -762,7 +687,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -775,7 +699,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -791,7 +714,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -799,17 +721,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="4" column="16" lean-forward="false" selection-start-line="4" selection-start-column="11" selection-end-line="4" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Management/DeleteShift.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9090">
-          <caret line="209" column="0" lean-forward="false" selection-start-line="209" selection-start-column="0" selection-end-line="209" selection-end-column="0" />
-          <folding>
-            <element signature="e#38#75#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -817,7 +728,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1215">
           <caret line="27" column="25" lean-forward="false" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -825,18 +735,134 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Search/Search.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="577">
+          <caret line="21" column="31" lean-forward="true" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/User/Login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="666">
+          <caret line="53" column="31" lean-forward="true" selection-start-line="53" selection-start-column="31" selection-end-line="53" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Management/DeleteDriver.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="66" column="37" lean-forward="true" selection-start-line="66" selection-start-column="37" selection-end-line="66" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Management/ModifyDriver.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3187">
+          <caret line="177" column="37" lean-forward="true" selection-start-line="177" selection-start-column="37" selection-end-line="177" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Management/AddUser.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4140">
+          <caret line="97" column="55" lean-forward="false" selection-start-line="97" selection-start-column="15" selection-end-line="97" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Management/ModifyUser.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15615">
+          <caret line="352" column="0" lean-forward="false" selection-start-line="352" selection-start-column="0" selection-end-line="352" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Management/DeleteUser.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2880">
+          <caret line="69" column="56" lean-forward="false" selection-start-line="69" selection-start-column="15" selection-end-line="69" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Search/SearchInShift.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5625">
+          <caret line="130" column="59" lean-forward="false" selection-start-line="130" selection-start-column="15" selection-end-line="130" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Search/SearchOutShift.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7290">
+          <caret line="167" column="31" lean-forward="false" selection-start-line="167" selection-start-column="31" selection-end-line="167" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Search/SearchReserved.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6885">
+          <caret line="158" column="81" lean-forward="false" selection-start-line="158" selection-start-column="81" selection-end-line="158" selection-end-column="81" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Management/AddShift.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="12420">
+          <caret line="281" column="30" lean-forward="false" selection-start-line="281" selection-start-column="30" selection-end-line="281" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Management/DeleteShift.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4590">
+          <caret line="107" column="15" lean-forward="false" selection-start-line="107" selection-start-column="15" selection-end-line="107" selection-end-column="58" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Management/AddMessage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2835">
-          <caret line="100" column="30" lean-forward="false" selection-start-line="100" selection-start-column="30" selection-end-line="100" selection-end-column="30" />
+        <state relative-caret-position="7740">
+          <caret line="179" column="60" lean-forward="false" selection-start-line="179" selection-start-column="55" selection-end-line="179" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Management/AddDriver.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="131" column="59" lean-forward="false" selection-start-line="131" selection-start-column="59" selection-end-line="131" selection-end-column="59" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#39#134#0" expanded="true" />
+            <element signature="e#38#75#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Search/SearchUser.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-908">
+          <caret line="79" column="57" lean-forward="true" selection-start-line="79" selection-start-column="57" selection-end-line="79" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Management/ModifyShift.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="307">
+          <caret line="263" column="30" lean-forward="false" selection-start-line="263" selection-start-column="30" selection-end-line="263" selection-end-column="30" />
+          <folding />
         </state>
       </provider>
     </entry>

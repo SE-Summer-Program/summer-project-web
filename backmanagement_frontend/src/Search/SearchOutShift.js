@@ -6,6 +6,7 @@ import { Layout, Menu, Breadcrumb, Icon, Select, Table, DatePicker, Button } fro
 import React, { Component } from 'react';
 import './../App.css';
 import {Link} from "react-router-dom";
+import context from "../context";
 
 
 const { SubMenu } = Menu;
@@ -160,7 +161,7 @@ class SearchOutShift extends React.Component {
         let temproute= 'line_name='+ start +'To'+ end + '&type=' + type;
         console.log("route:", temproute);
 
-        fetch('http://localhost:8080/shift/search_schedule?'+temproute,
+        fetch(context.api+'/shift/search_schedule?'+temproute,
             {
                 method: 'POST',
                 mode: 'cors',
@@ -272,6 +273,3 @@ class SearchOutShift extends React.Component {
 }
 
 export default SearchOutShift;
-/**
- * Created by 励颖 on 2018/7/2.
- */

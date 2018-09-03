@@ -55,7 +55,7 @@ public class UserServiceTests extends SjtubusApplicationTests {
     public void c_testFindUserByPhone(){
         User user = userService.findUserByPhone("12345678900");
         int judgeId = user.getUserId();
-        Assert.assertEquals("fail",21,judgeId);
+        Assert.assertEquals("fail",37,judgeId);
         user = userService.findUserByPhone("00000000000");
         Assert.assertNull(user);
     }
@@ -65,7 +65,7 @@ public class UserServiceTests extends SjtubusApplicationTests {
     public void d_testFindJaccountUserByPhone(){
         JaccountUser user = userService.findJaccountUserByPhone("12345678900");
         int judgeId = user.getUserId();
-        Assert.assertEquals("fail",22,judgeId);
+        Assert.assertEquals("fail",7,judgeId);
         user = userService.findJaccountUserByPhone("00000000000");
         Assert.assertNull(user);
     }

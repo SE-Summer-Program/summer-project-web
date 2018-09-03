@@ -6,6 +6,7 @@ import React, { Component } from 'react';
 import './../App.css';
 import {Link} from "react-router-dom";
 import moment from 'moment';
+import context from "../context";
 
 
 const { SubMenu } = Menu;
@@ -71,7 +72,7 @@ class ModifyShift extends React.Component {
             count:0,
             editingKey: '',
             content:'',
-        }
+        };
         this.columns = [{
             title: '班次编号',
             dataIndex: 'shiftid',
@@ -176,7 +177,7 @@ class ModifyShift extends React.Component {
                 console.log("phone:", new_item['seat']);
 
                 this.setState({ data: newData, editingKey: '' });
-                fetch('http://localhost:8080/shift/modify?shiftId='+ new_item['shiftid']+ '&reserveSeat=' + new_item['seat'],
+                fetch(context.api+'/shift/modify?shiftId='+ new_item['shiftid']+ '&reserveSeat=' + new_item['seat'],
                     {
                         method: 'POST',
                         mode: 'cors',
@@ -215,7 +216,7 @@ class ModifyShift extends React.Component {
 
     handleSearch = () => {
         console.log("content:",this.state.content);
-        fetch('http://localhost:8080/shift/search_shift?content='+this.state.content,
+        fetch(context.api+'/shift/search_shift?content='+this.state.content,
             {
                 method: 'GET',
                 mode: 'cors',
@@ -261,10 +262,10 @@ class ModifyShift extends React.Component {
                                     data: [...data, add],
                                     count: count+1,
                                 });
-                            }
-                            this.setState({
+                            };
+                            /*this.setState({
                                 content:'',
-                            })
+                            })*/
                         }
                         else
                         {

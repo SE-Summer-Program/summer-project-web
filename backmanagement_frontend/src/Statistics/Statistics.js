@@ -28,7 +28,7 @@ class Statistics extends React.Component {
                         <Menu.Item key="2"><Link to="management"><span><Icon type="setting"/></span>管理信息</Link></Menu.Item>
                         <Menu.Item key="3"><Link to="search"><span><Icon type="search"/></span>查询信息</Link></Menu.Item>
                         <Menu.Item key="4"><Link to="statistics"><span><Icon type="form"/></span>统计信息</Link></Menu.Item>
-                        <Menu.Item key="5"><Link to="login"><span><Icon type="user"/></span>登录</Link></Menu.Item>
+                        {/*<Menu.Item key="5"><Link to="login"><span><Icon type="user"/></span>登录</Link></Menu.Item>*/}
                     </Menu>
                 </Header>
                 <Content style={{ padding: '0 50px' }}>
@@ -69,6 +69,4 @@ class Statistics extends React.Component {
 
 }
 
-export default Statistics;/**
- * Created by 励颖 on 2018/7/2.
- */
+export default Statistics;

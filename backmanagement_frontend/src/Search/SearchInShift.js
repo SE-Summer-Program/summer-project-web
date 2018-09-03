@@ -5,6 +5,7 @@ import { Layout, Menu, Breadcrumb, Icon, Select, Table, Button } from 'antd';
 import React, { Component } from 'react';
 import './../App.css';
 import {Link} from "react-router-dom";
+import context from "../context";
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
@@ -128,7 +129,7 @@ class SearchInShift extends React.Component {
             type = 'NormalWeekendAndLegalHoliday';
         let temproute = 'line_name='+line_name+'&type='+type;
         console.log("temproute:",temproute);
-        fetch('http://localhost:8080/shift/search_schedule?'+temproute,
+        fetch(context.api+'/shift/search_schedule?'+temproute,
             {
                 method: 'POST',
                 mode: 'cors',
@@ -235,6 +236,3 @@ class SearchInShift extends React.Component {
 }
 
 export default SearchInShift;
-/**
- * Created by 励颖 on 2018/7/2.
- */

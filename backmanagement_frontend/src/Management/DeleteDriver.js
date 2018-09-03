@@ -1,13 +1,11 @@
 /**
  * Created by 励颖 on 2018/7/3.
  */
-/**
- * Created by 励颖 on 2018/7/3.
- */
 import { Layout, Menu, Breadcrumb, Icon, Input, Select, Button, Popconfirm, Table, } from 'antd';
 import React, { Component } from 'react';
 import './../App.css';
 import {Link} from "react-router-dom";
+import context from "../context";
 
 
 const { SubMenu } = Menu;
@@ -56,7 +54,7 @@ class DeleteDriver extends React.Component {
     onDelete = (key) => {
         const data = [...this.state.data];
         console.log("delete:",data[key].ID);
-        fetch('http://localhost:8080/driver/delete?driverId='+ data[key].ID,
+        fetch(context.api+'/driver/delete?driverId='+ data[key].ID,
             {
                 method: 'POST',
                 mode: 'cors',
@@ -84,7 +82,7 @@ class DeleteDriver extends React.Component {
 
     handleSearch = (e) => {
         console.log("content:",this.state.content);
-        fetch('http://localhost:8080/driver/search?content='+this.state.content,
+        fetch(context.api+'/driver/search?content='+this.state.content,
             {
                 method: 'GET',
                 mode: 'cors',
@@ -203,9 +201,3 @@ class DeleteDriver extends React.Component {
 }
 
 export default DeleteDriver;
-/**
- * Created by 励颖 on 2018/7/2.
- */
-/**
- * Created by 励颖 on 2018/7/4.
- */

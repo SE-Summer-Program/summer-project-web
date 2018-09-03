@@ -1,13 +1,11 @@
 /**
  * Created by 励颖 on 2018/7/3.
  */
-/**
- * Created by 励颖 on 2018/7/3.
- */
 import { Layout, Menu, Breadcrumb, Icon, Input, Select, Button, Popconfirm, Table, } from 'antd';
 import React, { Component } from 'react';
 import './../App.css';
 import {Link} from "react-router-dom";
+import context from "../context";
 
 
 const { SubMenu } = Menu;
@@ -67,7 +65,7 @@ class DeleteUser extends React.Component {
 
     onDelete = (key) => {
         const data = [...this.state.data];
-        fetch('http://localhost:8080/user/delete?userId='+ data[key-1].ID,
+        fetch(context.api+'/user/delete?userId='+ data[key-1].ID,
             {
                 method: 'POST',
                 mode: 'cors',
@@ -95,7 +93,7 @@ class DeleteUser extends React.Component {
 
     handleSearch = () => {
         this.state.data=[];
-        fetch('http://localhost:8080/user/search?content='+this.state.content,
+        fetch(context.api+'/user/search?content='+this.state.content,
             {
                 method: 'POST',
                 mode: 'cors',
@@ -215,6 +213,4 @@ class DeleteUser extends React.Component {
 
 }
 
-export default DeleteUser;/**
- * Created by 励颖 on 2018/7/2.
- */
+export default DeleteUser;
