@@ -99,6 +99,7 @@ public class ShiftService {
         shiftInfo.setLineName(shift.getLineName());
         shiftInfo.setLineNameCn(shift.getLineNameCn());
         shiftInfo.setDepartureTime(StringCalendarUtils.TimeToString(shift.getDepartureTime()));
+        shiftInfo.setArrvieTime(StringCalendarUtils.TimeToString(shift.getArriveTime()));
         shiftInfo.setBusPlateNum(bus.getPlateNum());
         shiftInfo.setBusSeatNum(bus.getSeatNum());
         shiftInfo.setDriverName(driver.getUsername());

@@ -9,6 +9,7 @@ public class ShiftInfo {
     private String lineName;
     private String lineNameCn;
     private String departureTime;
+    private String arriveTime;
 
     private String busPlateNum;
     private int busSeatNum;
@@ -49,6 +50,10 @@ public class ShiftInfo {
     public void setDepartureTime(String departureTime) {
         this.departureTime = departureTime;
     }
+
+    public String getArriveTime() { return arriveTime; }
+
+    public void setArriveTime(String arriveTime) { this.arriveTime = arriveTime; }
 
     public String getBusPlateNum() {
         return busPlateNum;

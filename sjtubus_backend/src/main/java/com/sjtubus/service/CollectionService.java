@@ -41,7 +41,12 @@ public class CollectionService {
      * @return:
      */
     public List<Collection> getCollection(String username) {
-        return collectionDao.findByUsername(username);
+        List<Collection> collections = collectionDao.findByUsername(username);
+
+        if(collections == null || collections.size()==0) {
+            return new ArrayList<>();
+        }
+        return collections;
     }
 
     /**
