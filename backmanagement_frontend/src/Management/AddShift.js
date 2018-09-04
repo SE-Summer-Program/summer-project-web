@@ -1,15 +1,9 @@
-/**
- * Created by 励颖 on 2018/7/3.
- */
-
-import { Layout, Menu, Breadcrumb, Icon, Input, Select, Button, Checkbox, Radio, InputNumber} from 'antd';
+import { Layout, Input, Select, Button, Checkbox, Radio, InputNumber} from 'antd';
 import React, { Component } from 'react';
 import './../App.css';
-import {Link} from "react-router-dom";
 import context from "../context";
 
-const { SubMenu } = Menu;
-const { Header, Content, Footer, Sider } = Layout;
+const {Content} = Layout;
 const Option = Select.Option;
 const CheckboxGroup = Checkbox.Group;
 const RadioGroup = Radio.Group;
@@ -303,105 +297,57 @@ class AddShift extends React.Component {
         const minuteOptions = minuteData.map(minute => <Option key={minute}>{minute}</Option>);
         return(
             <Layout>
-                <Header className="header">
-                    <div className="logo" />
-                    <Menu
-                        theme="dark"
-                        mode="horizontal"
-                        defaultSelectedKeys={['2']}
-                        style={{ lineHeight: '64px' }}
-                    >
-                        <Menu.Item key="1"><Link to="./"><span><Icon type="home"/></span>主页</Link></Menu.Item>
-                        <Menu.Item key="2"><Link to="management"><span><Icon type="setting"/></span>管理信息</Link></Menu.Item>
-                        <Menu.Item key="3"><Link to="search"><span><Icon type="search"/></span>查询信息</Link></Menu.Item>
-                        <Menu.Item key="4"><Link to="statistics"><span><Icon type="form"/></span>统计信息</Link></Menu.Item>
-                        <Menu.Item key="5"><Link to="login"><span><Icon type="user"/></span>登录</Link></Menu.Item>
-                    </Menu>
-                </Header>
-                <Content style={{ padding: '0 50px' }}>
-                    <Breadcrumb style={{ margin: '16px 0' }}>
-                        <Breadcrumb.Item>主页</Breadcrumb.Item>
-                        <Breadcrumb.Item>信息管理</Breadcrumb.Item>
-                        <Breadcrumb.Item>添加班次</Breadcrumb.Item>
-                    </Breadcrumb>
-                    <Layout style={{ padding: '24px 0', background: '#fff' }}>
-                        <Sider width={200} style={{ background: '#fff' }}>
-                            <Menu
-                                mode="inline"
-                                defaultOpenKeys={['sub2']}
-                                defaultSelectedKeys={['5']}
-                                style={{ height: '100%' }}
-                            >
-                                <SubMenu key="sub1" title={<span><Icon type="user" />普通用户管理</span>}>
-                                    <Menu.Item key="1"><Link to="adduser">添加用户</Link></Menu.Item>
-                                    <Menu.Item key="2"><Link to="deleteuser">删除用户</Link></Menu.Item>
-                                    <Menu.Item key="3"><Link to="modifyuser">修改用户</Link></Menu.Item>
-                                </SubMenu>
-                                <SubMenu key="sub2" title={<span><Icon type="car" />班次信息管理</span>}>
-                                    <Menu.Item key="5"><Link to="addshift">添加班次</Link></Menu.Item>
-                                    <Menu.Item key="6"><Link to="deleteshift">删除班次</Link></Menu.Item>
-                                    <Menu.Item key="7"><Link to="modifyshift">修改班次</Link></Menu.Item>
-                                </SubMenu>
-                                <SubMenu key="sub3" title={<span><Icon type="idcard" />司机用户管理</span>}>
-                                    <Menu.Item key="9"><Link to="adddriver">添加司机</Link></Menu.Item>
-                                    <Menu.Item key="10"><Link to="deletedriver">删除司机</Link></Menu.Item>
-                                    <Menu.Item key="11"><Link to="modifydriver">修改司机</Link></Menu.Item>
-                                </SubMenu>
-                                <SubMenu key="sub4" title={<span><Icon type="form" />公告管理</span>}>
-                                    <Menu.Item key="12"><Link to="addmessage">发布新公告</Link></Menu.Item>
-
-                                </SubMenu>
-
-
-
-                            </Menu>
-                        </Sider>
+                {context.header('2')}
+                <Content style={{ marginLeft:'3%', marginRight:'3%' }}>
+                    {context.breadcrumb("信息管理","添加班次")}
+                    <Layout style={{ padding: '1.5% 1%', background: '#fff' }}>
+                        {context.sider_management("sub2","5")}
                         <Content>
                             <h1/>
-                            <span style={{marginLeft: '284px', fontSize:'16px'}}>巴士类型： </span>
-                                <Select defaultValue={kindData[0]} size="large" style={{width:'200px'}} onChange={this.handleKindChange}>
+                            <span style={{marginLeft: '28.4%', fontSize:'120%'}}>巴士类型： </span>
+                                <Select defaultValue={kindData[0]} size="large" style={{width:'20%'}} onChange={this.handleKindChange}>
                                     {kindOptions}
                                 </Select>
                             <h1/>
-                            <span style={{marginLeft: '284px', fontSize:'16px'}}>选择方向： </span>
-                            <RadioGroup options={direction} disabled={!this.state.disabled} size="large" style={{width:'600px'}} onChange={this.handleDirectionChange}/>
+                            <span style={{marginLeft: '28.4%', fontSize:'120%'}}>选择方向： </span>
+                            <RadioGroup options={direction} disabled={!this.state.disabled} size="large" style={{width:'60%'}} onChange={this.handleDirectionChange}/>
                             <h1/>
-                            <span style={{marginLeft: '300px', fontSize:'16px'}}>始发站： </span>
-                            <Select value={this.state.startStation} size="large" style={{width:'200px'}} onChange={this.handleStartStationChange}>
+                            <span style={{marginLeft: '30%', fontSize:'120%'}}>始发站： </span>
+                            <Select value={this.state.startStation} size="large" style={{width:'20%'}} onChange={this.handleStartStationChange}>
                                 {stationOptions}
                             </Select>
                             <h1/>
-                            <span style={{marginLeft: '300px', fontSize:'16px'}}>终点站： </span>
-                            <Select value={this.state.endStation} size="large" style={{width:'200px'}} onChange={this.handleEndStationChange}>
+                            <span style={{marginLeft: '30%', fontSize:'120%'}}>终点站： </span>
+                            <Select value={this.state.endStation} size="large" style={{width:'20%'}} onChange={this.handleEndStationChange}>
                                 {stationOptions}
                             </Select>
                             <h1/>
-                            <span style={{marginLeft: '284px', fontSize:'16px'}}>出发时刻： </span>
-                            <Select  defaultValue={'6'} size="large" style={{width:'65px'}} onChange={this.handleStartTimeHour}>
+                            <span style={{marginLeft: '28.4%', fontSize:'120%'}}>出发时刻： </span>
+                            <Select  defaultValue={'6'} size="large" style={{width:'6.5%'}} onChange={this.handleStartTimeHour}>
                                 {hourOptions}
                             </Select>
-                            <span style={{marginLeft: '8px', fontSize:'16px'}}>时 </span>
-                            <Select  defaultValue={'00'} size="large" style={{marginLeft:'8px',width:'75px'}} onChange={this.handleStartTimeMinute}>
+                            <span style={{marginLeft: '0.8%', fontSize:'120%'}}>时 </span>
+                            <Select  defaultValue={'00'} size="large" style={{marginLeft:'0.8%',width:'7.5%'}} onChange={this.handleStartTimeMinute}>
                                 {minuteOptions}
                             </Select>
-                            <span style={{marginLeft: '8px', fontSize:'16px'}}>分</span>
+                            <span style={{marginLeft: '0.8%', fontSize:'120%'}}>分</span>
                             <h1/>
-                            <span style={{marginLeft: '268px', fontSize:'16px'}}>是否节假日： </span>
-                            <Select defaultValue={"否"} size="large" style={{width:'120px'}} onChange={this.handleHolidayChange}>
+                            <span style={{marginLeft: '26.8%', fontSize:'120%'}}>是否节假日： </span>
+                            <Select defaultValue={"否"} size="large" style={{width:'12%'}} onChange={this.handleHolidayChange}>
                                 <Option value="true">是</Option>
                                 <Option value="false">否</Option>
                             </Select>
                             <h1/>
-                            <span style={{marginLeft: '268px', fontSize:'16px'}}>是否工作日： </span>
-                            <Select defaultValue={"否"} size="large" style={{width:'120px'}} disabled={this.state.disabled} onChange={this.handleWorkdayChange}>
+                            <span style={{marginLeft: '26.8%', fontSize:'120%'}}>是否工作日： </span>
+                            <Select defaultValue={"否"} size="large" style={{width:'12%'}} disabled={this.state.disabled} onChange={this.handleWorkdayChange}>
                                 <Option value="true">是</Option>
                                 <Option value="false">否</Option>
                             </Select>
                             <h1/>
-                            <span style={{marginLeft: '268px', fontSize:'16px'}}>预留座位数： </span>
-                            <InputNumber disabled={this.state.disabled} defaultValue={30} min={1} max={55} size="large"  style={{width:'120px'}} onChange={this.handleSeatNumber}/>
+                            <span style={{marginLeft: '26.8%', fontSize:'120%'}}>预留座位数： </span>
+                            <InputNumber disabled={this.state.disabled} defaultValue={30} min={1} max={55} size="large"  style={{width:'12%'}} onChange={this.handleSeatNumber}/>
                             <h1/>
-                            <span style={{marginLeft: '300px', fontSize:'16px'}}>巴士ID： </span>
+                            <span style={{marginLeft: '30%', fontSize:'120%'}}>巴士ID： </span>
                             <RadioGroup onChange={this.handleChangeBus} >
                                 <Radio value={1}>巴士1</Radio>
                                 <Radio value={2}>巴士2</Radio>
@@ -409,18 +355,15 @@ class AddShift extends React.Component {
                             </RadioGroup>
 
                             <h1/>
-                            <span style={{marginLeft: '315px', fontSize:'16px'}}>备注： </span>
-                            <Input size="large" style={{width:'300px'}} onChange={this.handleCommentChange}/>
+                            <span style={{marginLeft: '31.5%', fontSize:'120%'}}>备注： </span>
+                            <Input size="large" style={{width:'30%'}} onChange={this.handleCommentChange}/>
                             <h1/>
                             <br/>
-                            <Button type="primary"  size="large" style={{width: '10%', marginLeft:'350px'}} onClick = {this.handleAdd}>添加班次</Button>
-
+                            <Button type="primary"  size="large" style={{width: '10%', marginLeft:'35%'}} onClick = {this.handleAdd}>添加班次</Button>
                         </Content>
                     </Layout>
                 </Content>
-                <Footer style={{ textAlign: 'center' }}>
-                    SJTU BUS BACK STAGE MANAGEMENT SYSTEM
-                </Footer>
+                {context.footer}
             </Layout>
         );
     }

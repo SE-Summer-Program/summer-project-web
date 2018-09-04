@@ -20,6 +20,9 @@ import SearchInShift from './Search/SearchInShift';
 import SearchOutShift from './Search/SearchOutShift';
 import SearchReserved from './Search/SearchReserved';
 import AddMessage from './Management/AddMessage';
+import UserStatistics from './Statistics/UserStatistics';
+import AppointmentStatistics from './Statistics/AppointmentStatistics';
+import ArrivingStatistics from './Statistics/ArrivingStatistics';
 
 import './App.css';
 import { HashRouter as Router, Route } from "react-router-dom";
@@ -53,19 +56,13 @@ class App extends Component {
                     <Route exact path="/searchoutshift" component={SearchOutShift}/>
                     <Route exact path="/searchreserved" component={SearchReserved}/>
                     <Route exact path="/addmessage" component={AddMessage}/>
-
+                    <Route exact path="/userstatistics" component={UserStatistics}/>
+                    <Route exact path="/appointmentstatistics" component={AppointmentStatistics}/>
+                    <Route exact path="/arrivingstatistics" component={ArrivingStatistics}/>
                 </Switch>
             </div>
         </Router>
-      /*<div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>*/
+
     );
   }
 }
