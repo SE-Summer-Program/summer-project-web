@@ -15,6 +15,7 @@ const Option = Select.Option;
 const stationData=["徐汇","闵行","七宝"];
 const RadioGroup = Radio.Group;
 const method=["按月统计","自选时间"];
+const Highcharts = require('highcharts');
 
 class UserStatistics extends React.Component {
     constructor(props){
@@ -33,6 +34,247 @@ class UserStatistics extends React.Component {
             disabled:false,
         };
     }
+
+    handleMethodChange = (e)=> {
+        console.log("method:",e.target.value);
+        if(e.target.value === "按月统计"){
+            this.setState({
+                disabled: false,
+                method:'month'
+            })
+        }
+        else{
+            this.setState({
+                disabled: true,
+                method:'defined'
+            })
+        }
+    };
+
+    disabledDate=(current) => {
+        return current && current> moment();
+    };
+
+    handleMonthChange=(date,dateString) => {
+        console.log("date:", date);
+        let monthStartDate = date.startOf('month').format('L');
+        let monthEndDate = date.endOf('month').format('L');
+        this.setState({
+            month: dateString,
+            monthStartDate: monthStartDate,
+            monthEndDate: monthEndDate
+        })
+    };
+
+    handleDateChange = (dates, dateStrings) => {
+        console.log("date:", dates);
+        let str1 = dateStrings[0].replace(/\//g,"-");
+        let str2 = dateStrings[1].replace(/\//g,"-");
+        this.setState({
+            startDate: str1,
+            endDate: str2,
+        });
+        console.log("date1:",dateStrings[0]);
+        console.log("date2:",dateStrings[1]);
+    };
+
+    fetch_time = (startStation, endStation, lineType)=>{
+        let lineName = startStation + "到" + endStation;
+        let timeString=[];
+        console.log("route:", context.api+'/shift/search_time?lineNameCn=' + lineName + "&lineType=" + lineType);
+        fetch(context.api+'/shift/search_time?lineNameCn=' + lineName + "&lineType=" + lineType,
+            {
+                method: 'POST',
+                mode: 'cors',
+            })
+            .then(response => {
+                console.log('Request successful', response);
+                return response.json()
+                    .then(result => {
+                        let len = result.timeList.length;
+                        console.log("response len:", len);
+                        for (let i = 0; i < len; i++) {
+                            let add = result.timeList[i];
+                            timeString.push(add);
+                        }
+                        this.setState({
+                            timeData: timeString
+                        })
+                    })
+            });
+    };
+
+    handleStartStationChange = (value) => {
+        let type = this.state.type;
+        let end = this.state.endStation;
+        if (end === value){
+            alert("起点站和终点站不能相同");
+            return;
+        }
+        if (type === "" || end === ""){
+            this.setState({startStation:value});
+        }
+        else{
+            this.setState({
+                startStation: value,
+            }, function () {
+                this.fetch_time(value, end,type)
+            })
+        }
+    };
+
+    handleEndStationChange = (value) => {
+        let type = this.state.type;
+        let start= this.state.startStation;
+        if (start === value){
+            alert("起点站和终点站不能相同");
+            return;
+        }
+        if (type === "" || start === ""){
+            this.setState({endStation:value});
+        }
+        else{
+            this.setState({
+                endStation: value,
+            }, function () {
+                this.fetch_time(start, value, type)
+            })
+        }
+    };
+
+    handleTypeChange = (value) => {
+        let start = this.state.startStation;
+        let end = this.state.endStation;
+        if (start === "" || end === ""){
+            this.setState({type:value});
+        }
+        else{
+            this.setState({
+                type: value,
+            }, function () {
+                this.fetch_time(start, end, this.state.type)
+            })
+        }
+
+    };
+
+    handleTimeChange = (value) => {
+        this.setState({
+            time: value,
+        });
+    };
+
+    handleClick = () => {
+        let route = context.api + '/statistics/ridebusinfo';
+        let lineNameCn = this.state.startStation + "到" + this.state.endStation;
+        route += '?startDate=' + (this.state.method==="month"?this.state.monthStartDate:this.state.startDate).replace(new RegExp("/","gm"),"-")
+            + '&endDate=' + (this.state.method==="month"?this.state.monthEndDate:this.state.endDate).replace(new RegExp("/","gm"),"-")
+            + '&lineNameCn=' + lineNameCn + '&lineType=' + this.state.type + '&time=' + this.state.time;
+        console.log("route:",route);
+        fetch(route,
+            {
+                method: 'POST',
+                mode: 'cors',
+            })
+            .then(response => {
+                console.log('Request successful', response);
+                return response.json()
+                    .then(result => {
+                        console.log(result);
+                        let seatNum = result.rideBusInfos.length!==0?result.rideBusInfos[0].seatNum:0;
+                        let appointBreakSum = 0;
+                        let studentArray = [];
+                        let teacherArray = [];
+                        let studentSum = 0;
+                        let teacherSum = 0;
+                        for(let i=0; i<result.rideBusInfos.length; i++){
+                            studentArray.push(result.rideBusInfos[i].studentNum);
+                            teacherArray.push(result.rideBusInfos[i].teacherNum);
+                            studentSum += result.rideBusInfos[i].studentNum;
+                            teacherSum += result.rideBusInfos[i].teacherNum;
+                            appointBreakSum += result.rideBusInfos[i].appointBreak;
+                        }
+                        this.setState({
+                            seatNum: seatNum,
+                            avgAboardNum: (studentSum+teacherSum)/result.rideBusInfos.length,
+                            appointBreakSum:appointBreakSum,
+                            avgStudentNum : studentSum/result.rideBusInfos.length,
+                            avgTeacherNum: teacherSum/result.rideBusInfos.length,
+                            maxStudentNum: Math.max.apply(Math,studentArray),
+                            minStudentNum: Math.min.apply(Math,studentArray),
+                            maxTeacherNum: Math.max.apply(Math,teacherArray),
+                            minTeacherNum: Math.min.apply(Math,teacherArray),
+                        });
+                        Highcharts.chart('seatRate', {
+                            chart: {
+                                type: 'pie'
+                            },
+                            title: {
+                                text: '平均入座情况'
+                            },
+                            tooltip: {
+                                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                            },
+                            plotOptions: {
+                                pie: {
+                                    allowPointSelect: true,
+                                    cursor: 'pointer',
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                    }
+                                }
+                            },
+                            series: [{
+                                name: '入座比例',
+                                colorByPoint: true,
+                                data: [{
+                                    name: '教职工',
+                                    y: teacherSum/result.rideBusInfos.length
+                                }, {
+                                    name: '非教职工',
+                                    y: studentSum/result.rideBusInfos.length
+                                }, {
+                                    name: '空位',
+                                    y: seatNum-(studentSum+teacherSum)/result.rideBusInfos.length
+                                }]
+                            }]
+                        });
+                        Highcharts.chart('appointRate', {
+                            chart: {
+                                type: 'pie'
+                            },
+                            title: {
+                                text: '总体预约出勤情况'
+                            },
+                            tooltip: {
+                                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                            },
+                            plotOptions: {
+                                pie: {
+                                    allowPointSelect: true,
+                                    cursor: 'pointer',
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                    }
+                                }
+                            },
+                            series: [{
+                                name: '比例',
+                                colorByPoint: true,
+                                data: [{
+                                    name: '按时到达',
+                                    y: studentSum+teacherSum
+                                }, {
+                                    name: '未到达',
+                                    y: appointBreakSum
+                                }]
+                            }]
+                        });
+                    })
+            });
+    };
 
     render(){
         const timeData = this.state.timeData;
@@ -88,38 +330,38 @@ class UserStatistics extends React.Component {
                             <span style={{marginLeft:"15%"}}>-----------------------------------------------------------------------------------------------------------------------------</span>
                             <h6 />
                             <br />
-                            <div style={{ background: '#ECECEC', padding: '30px' }}>
+                            <div style={{ background: '#ECECEC', padding: '20px' }}>
                                 <Row gutter={16}>
                                     <Col span={8}>
-                                        <Card title="统计数据总量" hoverable='true' bordered='true'>content</Card>
+                                        <Card title="核载人数" hoverable='true' bordered='true'>{this.state.seatNum}</Card>
                                     </Col>
                                     <Col span={8}>
-                                        <Card title="核载人数" hoverable='true' bordered='true'>content</Card>
+                                        <Card title="平均实际上车人数" hoverable='true' bordered='true'>{this.state.avgAboardNum}</Card>
                                     </Col>
                                     <Col span={8}>
-                                        <Card title="平均实际上车人数" hoverable='true' bordered='true'>content</Card>
+                                        <Card title="预约未上车总人数" hoverable='true' bordered='true'>{this.state.appointBreakSum}</Card>
                                     </Col>
                                 </Row>
                                 <Row gutter={16}>
                                     <Col span={8}>
-                                        <Card title="教工平均乘坐人数" hoverable='true' bordered='true'>content</Card>
+                                        <Card title="教工平均乘坐人数" hoverable='true' bordered='true'>{this.state.avgTeacherNum}</Card>
                                     </Col>
                                     <Col span={8}>
-                                        <Card title="教工乘坐最大人数" hoverable='true' bordered='true'>content</Card>
+                                        <Card title="教工乘坐最大人数" hoverable='true' bordered='true'>{this.state.maxTeacherNum}</Card>
                                     </Col>
                                     <Col span={8}>
-                                        <Card title="教工乘坐最小人数" hoverable='true' bordered='true'>content</Card>
+                                        <Card title="教工乘坐最小人数" hoverable='true' bordered='true'>{this.state.minTeacherNum}</Card>
                                     </Col>
                                 </Row>
                                 <Row gutter={16}>
                                     <Col span={8}>
-                                        <Card title="非教工平均乘坐人数" hoverable='true' bordered='true'>content</Card>
+                                        <Card title="非教工平均乘坐人数" hoverable='true' bordered='true'>{this.state.avgStudentNum}</Card>
                                     </Col>
                                     <Col span={8}>
-                                        <Card title="非教工乘坐最大人数" hoverable='true' bordered='true'>content</Card>
+                                        <Card title="非教工乘坐最大人数" hoverable='true' bordered='true'>{this.state.maxStudentNum}</Card>
                                     </Col>
                                     <Col span={8}>
-                                        <Card title="非教工乘坐最小人数"  hoverable='true' bordered='true'>content</Card>
+                                        <Card title="非教工乘坐最小人数"  hoverable='true' bordered='true'>{this.state.minStudentNum}</Card>
                                     </Col>
                                 </Row>
                                 <br/>
@@ -127,13 +369,13 @@ class UserStatistics extends React.Component {
                                 <br/>
                                 <h1/>
                                 <Row gutter={16}>
-                                    <Col span={12} style={{marginLeft: '25%'}}>
-                                        <Card title="平均入座率(上车人数/核载人数)" hoverable='true' bordered='true'>content</Card>
+                                    <Col span={12}>
+                                        <div id="seatRate"/>
+                                        {/*<Card title="平均入座率(上车人数/核载人数)" hoverable='true' bordered='true'>content</Card>*/}
                                     </Col>
-                                </Row>
-                                <Row gutter={16}>
-                                    <Col span={12} style={{marginLeft: '25%'}}>
-                                        <Card title="预约乘客平均入座率(预约上车人数/预约人数)" hoverable='true' bordered='true'>content</Card>
+                                    <Col span={12}>
+                                        <div id="appointRate"/>
+                                        {/*<Card title="预约乘客平均入座率(预约上车人数/预约人数)" hoverable='true' bordered='true'>content</Card>*/}
                                     </Col>
                                 </Row>
                                 <Row gutter={16}>
@@ -141,10 +383,7 @@ class UserStatistics extends React.Component {
                                         <Card title="推荐预留座位数" hoverable='true' bordered='true'>content</Card>
                                     </Col>
                                 </Row>
-
                             </div>
-
-
                         </Content>
                     </Layout>
                 </Content>

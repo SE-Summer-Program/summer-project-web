@@ -33,6 +33,8 @@ public class RideBusInfo {
     private int appointBreak ;  //check (appoint_break >= 0)
     @Column(name = "reserve_seat")
     private int reserveSeat;
+    @Column(name = "seat_num")
+    private int seatNum ;
 
     public int getRideId() {
         return rideId;
@@ -120,5 +122,13 @@ public class RideBusInfo {
 
     public void setReserveSeat(int reserveSeat) {
         this.reserveSeat = reserveSeat;
+    }
+
+    public int getSeatNum() {
+        return seatNum;
+    }
+
+    public void setSeatNum(int seatNum) {
+        this.seatNum = seatNum;
     }
 }

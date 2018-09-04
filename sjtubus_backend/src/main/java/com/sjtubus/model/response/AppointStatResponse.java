@@ -4,7 +4,7 @@ import com.sjtubus.model.DailyAppointStat;
 
 import java.util.List;
 
-public class StaAppointResponse extends HttpResponse {
+public class AppointStatResponse extends HttpResponse {
     private List<DailyAppointStat> statistics;
 
     public List<DailyAppointStat> getStatistics() {
