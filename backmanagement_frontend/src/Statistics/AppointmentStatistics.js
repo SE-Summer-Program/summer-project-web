@@ -17,12 +17,6 @@ const Option = Select.Option;
 const stationData=["徐汇","闵行","七宝"];
 const RadioGroup = Radio.Group;
 const method=["按月统计","自选时间"];
-const daysOfMonth = {
-    "01":"/31", "02":"/28", "03":"/31",
-    "04":"/30", "05":"/31", "06":"/30",
-    "07":"/31", "08":"/31", "09":"/30",
-    "10":"/31", "11":"/30", "12":"/31"
-};
 
 class AppointmentStatistics extends React.Component {
     constructor(props){
@@ -238,7 +232,6 @@ class AppointmentStatistics extends React.Component {
                                 data: numArray
                             }]
                         });
-                        console.log("success");
                     })
             });
     };
