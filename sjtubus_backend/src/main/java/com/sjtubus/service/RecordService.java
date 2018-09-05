@@ -30,8 +30,8 @@ public class RecordService {
      * @params:
      * @return:
      */
-    public List<RecordInfo> getRecordInfo(String username){
-        List<Appointment> appointments = appointmentDao.findByUserName(username);
+    public List<RecordInfo> getRecordInfo(String username,String user_role){
+        List<Appointment> appointments = appointmentDao.findByUserNameAndUserRole(username,user_role);
         List<RecordInfo> recordInfos = new ArrayList<>();
 
         System.out.println("appoint : " + appointments.size());

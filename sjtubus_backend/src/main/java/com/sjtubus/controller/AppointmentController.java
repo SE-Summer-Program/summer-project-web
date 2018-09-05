@@ -76,11 +76,11 @@ public class AppointmentController {
      * @return:
      */
     @RequestMapping(value = "/record",method = RequestMethod.GET)
-    public RecordInfoResponse getRecordInfos(String username){
+    public RecordInfoResponse getRecordInfos(String username,String user_role){
         String current_time = StringCalendarUtils.getCurrentTime();
         RecordInfoResponse response = new RecordInfoResponse();
         List<RecordInfo> recordInfos;
-        recordInfos = recordService.getRecordInfo(username);
+        recordInfos = recordService.getRecordInfo(username,user_role);
         response.setRecordInfos(recordInfos);
         return response;
     }
@@ -93,12 +93,13 @@ public class AppointmentController {
      */
     @RequestMapping(value = "/appoint",method = RequestMethod.POST)
     public HttpResponse appoint(String username,
+                                String user_role,
                                 String appoint_date,
                                 String shift_id,
                                 String line_name,
                                 String submit_time){
         HttpResponse response  = new HttpResponse();
-        boolean result = appointmentService.addAppointment(username,appoint_date,shift_id,line_name, submit_time);
+        boolean result = appointmentService.addAppointment(username,user_role,appoint_date,shift_id,line_name, submit_time);
         if(result){
             response.setMsg("预约成功!");
             response.setError(0);

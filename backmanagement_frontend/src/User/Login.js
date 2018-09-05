@@ -5,6 +5,7 @@ import { Input } from 'antd';
 import React, { Component } from 'react';
 import { Button, Layout, Menu, Breadcrumb, Icon, } from 'antd';
 import {Link } from "react-router-dom";
+import context from "../context";
 
 
 const { Header, Content, Footer } = Layout;
@@ -146,9 +147,7 @@ class Login extends React.Component {
                         </Content>
                     </Layout>
                 </Content>
-                <Footer style={{ textAlign: 'center' }}>
-                    SJTU BUS BACK STAGE MANAGEMENT SYSTEM
-                </Footer>
+                {context.footer}
             </Layout>
         );
     }

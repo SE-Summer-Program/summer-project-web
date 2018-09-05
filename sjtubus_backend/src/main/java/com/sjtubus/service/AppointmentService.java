@@ -61,14 +61,12 @@ public class AppointmentService {
      * @return: 添加结果
      */
     public boolean addAppointment(String username,
+                                  String user_role,
                                   String appoint_date,
                                   String shift_id,
                                   String line_name,
                                   String submit_time){
         Appointment appointment = new Appointment();
-        User user = userDao.findByUsername(username);
-        // Date date = Date.valueOf(appoint_date);
-
         java.sql.Date date = StringCalendarUtils.UtilDateToSqlDate(StringCalendarUtils.StringToDate(appoint_date));
 
         appointment.setAppointDate(date);
@@ -78,9 +76,8 @@ public class AppointmentService {
         appointment.setShiftId(shift_id);
         appointment.setUserName(username);
         appointment.setSubmitTimeString(submit_time);
-        appointment.setUserId(user.getUserId());
         appointment.setRealName("");
-        appointment.setUserCode("");
+        appointment.setUserRole(user_role);
 
         System.out.println("remain: " + getRemainSeat(shift_id,date));
         System.out.println("shiftid: " + shift_id);
@@ -96,10 +93,10 @@ public class AppointmentService {
      * @params:
      * @return:
      */
-    public String deleteAppointment(String username, String shiftid, String appoint_date){
+    public String deleteAppointment(String username, String user_role,String shiftid, String appoint_date){
         java.sql.Date date = StringCalendarUtils.UtilDateToSqlDate(StringCalendarUtils.StringToDate(appoint_date));
 
-        Appointment oldappointment = appointmentDao.findByUserNameAndShiftIdAndAppointDate(username, shiftid, date);
+        Appointment oldappointment = appointmentDao.findByUserNameAndUserRoleAndShiftIdAndAppointDate(username,user_role, shiftid, date);
         if(oldappointment != null ){
             appointmentDao.delete(oldappointment);
             return "success";
