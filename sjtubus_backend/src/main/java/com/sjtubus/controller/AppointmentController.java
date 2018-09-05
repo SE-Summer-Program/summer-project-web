@@ -135,10 +135,11 @@ public class AppointmentController {
      */
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public HttpResponse deleteAppoint(String username,
+                                      String user_role,
                                       String shiftid,
                                       String appoint_date){
         HttpResponse response = new HttpResponse();
-        String result = appointmentService.deleteAppointment(username, shiftid, appoint_date);
+        String result = appointmentService.deleteAppointment(username,user_role, shiftid, appoint_date);
         response.setMsg(result);
         return response;
     }
