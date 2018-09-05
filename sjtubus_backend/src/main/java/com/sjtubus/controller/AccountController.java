@@ -159,7 +159,7 @@ public class AccountController {
         if(session.getAttribute("role").equals("user") || session.getAttribute("role").equals("jaccountuser")) {
             User user = (User) session.getAttribute("user");
             response.setUser(user);
-            response.setRole("user");
+            response.setRole((String)session.getAttribute("role"));
             response.setMsg("已登陆~"+user.getUsername());
         }else if(session.getAttribute("role").equals("admin")){
             Administrator admin = (Administrator) session.getAttribute("user");

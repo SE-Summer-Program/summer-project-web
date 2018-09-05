@@ -56,7 +56,7 @@ public class CollectionService {
      * @return:
      */
     public String deleteCollection(int userid, String username, String shiftid) {
-        Collection oldcollection = collectionDao.findByUseridAndUsernameAndAndShiftid(userid, username, shiftid);
+        Collection oldcollection = collectionDao.findByUseridAndUsernameAndShiftid(userid, username, shiftid);
         if(oldcollection != null ){
             collectionDao.delete(oldcollection);
             return "success";

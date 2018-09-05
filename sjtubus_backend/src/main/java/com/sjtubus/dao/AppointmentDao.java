@@ -17,9 +17,9 @@ public interface AppointmentDao extends JpaRepository<Appointment,Integer> {
 
     List<Appointment> findByShiftIdAndAppointDate(String shiftId, java.sql.Date appointDate);
 
-    List<Appointment> findByUserName(String username);
+    List<Appointment> findByUserNameAndUserRole(String username,String user_role);
 
-    Appointment findByUserNameAndShiftIdAndAppointDate(String username, String shiftid, java.sql.Date appoint_date);
+    Appointment findByUserNameAndUserRoleAndShiftIdAndAppointDate(String username,String user_role, String shiftid, java.sql.Date appoint_date);
 
     @Query(value = "select appointment from Appointment appointment where appointment.shiftId like %:shiftId% and appointment.appointDate=:appointDate")
     List<Appointment> queryAppointmentByShiftIdAndAppointDate(@Param("shiftId") String shiftId, @Param("appointDate") java.sql.Date appointDate);

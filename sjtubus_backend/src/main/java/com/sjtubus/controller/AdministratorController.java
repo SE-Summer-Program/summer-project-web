@@ -74,7 +74,7 @@ public class AdministratorController {
     public HttpResponse judgeState(HttpSession session){
         HttpResponse response = new HttpResponse();
         try {
-            System.out.println("sessionId2:" + session.getId());
+            System.out.println("sessionId:" + session.getId());
             if (session.getAttribute("administrator") != null)
                 response.setMsg("logged");
             else

@@ -2,6 +2,7 @@ package com.sjtubus.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.sjtubus.entity.JaccountUser;
 import com.sjtubus.entity.User;
 import com.sjtubus.model.response.HttpResponse;
 import com.sjtubus.model.response.MyAccessTokenResponse;
@@ -84,15 +85,15 @@ public class OAuthController {
             JSONObject entity = profile.getJSONArray("entities")
                                        .getJSONObject(0);
             String username = entity.getString("account");
-            User user = userService.findByUserName(username);
+            JaccountUser jaccountUser = userService.findByJaccountUserName(username);
             //如果是第一次认证
-            if(user == null){
-                user = new User();
-                user.setUsername(username);
-                user.setCredit(100);
-                user.setTeacher(entity.getString("userType").equals("teacher"));
-                userService.saveUser(user);
+            if(jaccountUser == null){
+                userService.addJaccountUser(username,entity.getString("userType").equals("teacher"),"");
             }
+            User user = new User();
+            user.setUsername(username);
+            user.setTeacher(entity.getString("userType").equals("teacher"));
+            user.setCredit(100);
             user.setRealname(entity.getString("name"));
             user.setStudentNumber(entity.getString("code"));
             HttpSession session = request.getSession(true);

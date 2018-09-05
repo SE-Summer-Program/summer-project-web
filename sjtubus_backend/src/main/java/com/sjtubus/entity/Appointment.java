@@ -22,8 +22,8 @@ public class Appointment {
     private String userName;
     @Column(name = "realname")
     private String realName;
-    @Column(name = "user_code")
-    private String userCode;
+    @Column(name = "user_role")
+    private String userRole;
     @Column(name = "appoint_date")
     private Date appointDate ;
     @Column(name = "line_name")
@@ -90,15 +90,6 @@ public class Appointment {
         this.userId = userId;
     }
 
-    public String getUserCode() {
-        return userCode;
-    }
-
-    public void setUserCode(String userCode) {
-
-        this.userCode = userCode;
-    }
-
     public int getAppointmentId() {
 
         return appointmentId;
@@ -147,5 +138,15 @@ public class Appointment {
         Date submitdate = StringCalendarUtils.UtilDateToSqlDate(StringCalendarUtils.StringToTime(submitTimeString));
         this.submitTime = submitdate;
     }
+
+
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
+    }
+
 
 }
