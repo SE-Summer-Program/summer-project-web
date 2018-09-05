@@ -17,7 +17,7 @@ public interface CollectionDao extends JpaRepository<Collection,Integer> {
 
     List<Collection> findByUsername(String username);
 
-    Collection findByUseridAndUsernameAndAndShiftid(int userid, String username, String shiftid);
+    Collection findByUseridAndUsernameAndShiftid(int userid, String username, String shiftid);
 
 }
 

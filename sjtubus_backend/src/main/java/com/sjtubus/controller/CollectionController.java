@@ -25,7 +25,7 @@ public class CollectionController {
      * @params:
      * @return:
      */
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/addcollect", method = RequestMethod.POST)
     public HttpResponse addCollections(int userid,
                                       String username,
                                       String shiftid){
@@ -55,7 +55,7 @@ public class CollectionController {
      * @params:
      * @return:
      */
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/deletecollect", method = RequestMethod.POST)
     public HttpResponse deleteCollections(int userid,
                                        String username,
                                        String shiftid){
