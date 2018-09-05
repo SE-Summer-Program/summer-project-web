@@ -33,6 +33,8 @@ class AppointmentStatistics extends React.Component {
             data:[],
             method:'',
             disabled:false,
+            loading:false,
+            button_text:'生成统计数据',
         };
     }
 
@@ -108,10 +110,6 @@ class AppointmentStatistics extends React.Component {
     handleStartStationChange = (value) => {
         let type = this.state.type;
         let end = this.state.endStation;
-        if (end === value){
-            alert("起点站和终点站不能相同");
-            return;
-        }
         if (type === "" || end === ""){
             this.setState({startStation:value});
         }
@@ -127,10 +125,6 @@ class AppointmentStatistics extends React.Component {
     handleEndStationChange = (value) => {
         let type = this.state.type;
         let start= this.state.startStation;
-        if (start === value){
-            alert("起点站和终点站不能相同");
-            return;
-        }
         if (type === "" || start === ""){
             this.setState({endStation:value});
         }
@@ -166,74 +160,91 @@ class AppointmentStatistics extends React.Component {
     };
 
     handleClick = () => {
-        let route = context.api + '/statistics/appointment';
-        let lineNameCn = this.state.startStation + "到" + this.state.endStation;
-        route += '?startDate=' + (this.state.method==="month"?this.state.monthStartDate:this.state.startDate).replace(new RegExp("/","gm"),"-")
-            + '&endDate=' + (this.state.method==="month"?this.state.monthEndDate:this.state.endDate).replace(new RegExp("/","gm"),"-")
-            + '&lineNameCn=' + lineNameCn + '&lineType=' + this.state.type + '&time=' + this.state.time;
-        console.log("route:",route);
-        fetch(route,
-            {
-                method: 'POST',
-                mode: 'cors',
-            })
-            .then(response => {
-                console.log('Request successful', response);
-                return response.json()
-                    .then(result => {
-                        let dateArray = [];
-                        let numArray = [];
-                        let numSum = 0;
-                        for(let i = 0; i<result.statistics.length; i++){
-                            dateArray.push(result.statistics[i].date);
-                            numArray.push(result.statistics[i].appoint_num);
-                            numSum += result.statistics[i].appoint_num;
-                        }
-                        let maxNum = Math.max.apply(Math,numArray);
-                        let minNum = Math.min.apply(Math,numArray);
-                        let avgNum = numSum/numArray.length;
-                        this.setState({
-                            totalAmount:numSum,
-                            averageAmount:avgNum,
-                            maxAmount:maxNum,
-                            minAmount:minNum
-                        });
-                        Highcharts.chart('appointChart', {
-                            chart: {
-                                type: 'line'
-                            },
-                            title: {
-                                text: '每日预约人数统计'
-                            },
-                            subtitle: {
-                                text: '数据来源:人工统计'
-                            },
-                            xAxis: {
-                                categories: dateArray
-                            },
-                            yAxis: {
+        if(this.state.startStation === this.state.endStation){
+            alert("起点站和终点站不能相同");
+            return;
+        }
+        this.setState({
+            loading: true,
+            button_text: '正在生成..'
+        },()=>{
+            let route = context.api + '/statistics/appointment';
+            let lineNameCn = this.state.startStation + "到" + this.state.endStation;
+            route += '?startDate=' + (this.state.method==="month"?this.state.monthStartDate:this.state.startDate).replace(new RegExp("/","gm"),"-")
+                + '&endDate=' + (this.state.method==="month"?this.state.monthEndDate:this.state.endDate).replace(new RegExp("/","gm"),"-")
+                + '&lineNameCn=' + lineNameCn + '&lineType=' + this.state.type + '&time=' + this.state.time;
+            console.log("route:",route);
+            fetch(route,
+                {
+                    method: 'POST',
+                    mode: 'cors',
+                })
+                .then(response => {
+                    console.log('Request successful', response);
+                    return response.json()
+                        .then(result => {
+                            let dateArray = [];
+                            let numArray = [];
+                            let numSum = 0;
+                            for(let i = 0; i<result.statistics.length; i++){
+                                dateArray.push(result.statistics[i].date);
+                                numArray.push(result.statistics[i].appoint_num);
+                                numSum += result.statistics[i].appoint_num;
+                            }
+                            let maxNum = Math.max.apply(Math,numArray);
+                            let minNum = Math.min.apply(Math,numArray);
+                            let avgNum = numSum/numArray.length;
+                            this.setState({
+                                totalAmount:numSum,
+                                averageAmount:avgNum,
+                                maxAmount:maxNum,
+                                minAmount:minNum
+                            });
+                            Highcharts.chart('appointChart', {
+                                chart: {
+                                    type: 'line'
+                                },
                                 title: {
-                                    text: '预约人数'
-                                }
-                            },
-                            tooltip:{
-                                shared:true
-                            },
-                            plotOptions: {
-                                line: {
-                                    dataLabels: {
-                                        enabled: true
-                                    },
-                                    enableMouseTracking: true
-                                }
-                            },
-                            series: [{
-                                name: '预约人数',
-                                data: numArray
-                            }]
-                        });
-                    })
-            });
+                                    text: '每日预约人数统计'
+                                },
+                                subtitle: {
+                                    text: '数据来源:人工统计'
+                                },
+                                xAxis: {
+                                    categories: dateArray
+                                },
+                                yAxis: {
+                                    title: {
+                                        text: '预约人数'
+                                    }
+                                },
+                                tooltip:{
+                                    shared:true
+                                },
+                                plotOptions: {
+                                    line: {
+                                        dataLabels: {
+                                            enabled: true
+                                        },
+                                        enableMouseTracking: true
+                                    }
+                                },
+                                series: [{
+                                    name: '预约人数',
+                                    data: numArray
+                                }]
+                            });
+                        })
+                        .then(()=>{
+                            this.setState({
+                                loading: false,
+                                button_text:'生成统计数据'
+                            })
+
+                        })
+                })
+
+        });
     };
 
     render(){
@@ -284,7 +295,7 @@ class AppointmentStatistics extends React.Component {
                             </Select>
                             <h6 />
                             <br />
-                            <Button type="primary" size="large" style={{marginLeft:"40%"}} onClick={this.handleClick}>生成统计数据</Button>
+                            <Button type="primary" size="large" style={{marginLeft:"40%"}} onClick={this.handleClick} loading={this.state.loading}>{this.state.button_text}</Button>
                             <h6 />
                             <br />
                             <span style={{marginLeft:"15%"}}>-----------------------------------------------------------------------------------------------------------------------------</span>

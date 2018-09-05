@@ -32,6 +32,8 @@ class UserStatistics extends React.Component {
             data:[],
             method:'',
             disabled:false,
+            loading:false,
+            button_text:'生成统计数据',
         };
     }
 
@@ -107,10 +109,6 @@ class UserStatistics extends React.Component {
     handleStartStationChange = (value) => {
         let type = this.state.type;
         let end = this.state.endStation;
-        if (end === value){
-            alert("起点站和终点站不能相同");
-            return;
-        }
         if (type === "" || end === ""){
             this.setState({startStation:value});
         }
@@ -126,10 +124,6 @@ class UserStatistics extends React.Component {
     handleEndStationChange = (value) => {
         let type = this.state.type;
         let start= this.state.startStation;
-        if (start === value){
-            alert("起点站和终点站不能相同");
-            return;
-        }
         if (type === "" || start === ""){
             this.setState({endStation:value});
         }
@@ -165,115 +159,131 @@ class UserStatistics extends React.Component {
     };
 
     handleClick = () => {
-        let route = context.api + '/statistics/ridebusinfo';
-        let lineNameCn = this.state.startStation + "到" + this.state.endStation;
-        route += '?startDate=' + (this.state.method==="month"?this.state.monthStartDate:this.state.startDate).replace(new RegExp("/","gm"),"-")
-            + '&endDate=' + (this.state.method==="month"?this.state.monthEndDate:this.state.endDate).replace(new RegExp("/","gm"),"-")
-            + '&lineNameCn=' + lineNameCn + '&lineType=' + this.state.type + '&time=' + this.state.time;
-        console.log("route:",route);
-        fetch(route,
-            {
-                method: 'POST',
-                mode: 'cors',
-            })
-            .then(response => {
-                console.log('Request successful', response);
-                return response.json()
-                    .then(result => {
-                        console.log(result);
-                        let seatNum = result.rideBusInfos.length!==0?result.rideBusInfos[0].seatNum:0;
-                        let appointBreakSum = 0;
-                        let studentArray = [];
-                        let teacherArray = [];
-                        let studentSum = 0;
-                        let teacherSum = 0;
-                        for(let i=0; i<result.rideBusInfos.length; i++){
-                            studentArray.push(result.rideBusInfos[i].studentNum);
-                            teacherArray.push(result.rideBusInfos[i].teacherNum);
-                            studentSum += result.rideBusInfos[i].studentNum;
-                            teacherSum += result.rideBusInfos[i].teacherNum;
-                            appointBreakSum += result.rideBusInfos[i].appointBreak;
-                        }
-                        this.setState({
-                            seatNum: seatNum,
-                            avgAboardNum: (studentSum+teacherSum)/result.rideBusInfos.length,
-                            appointBreakSum:appointBreakSum,
-                            avgStudentNum : studentSum/result.rideBusInfos.length,
-                            avgTeacherNum: teacherSum/result.rideBusInfos.length,
-                            maxStudentNum: Math.max.apply(Math,studentArray),
-                            minStudentNum: Math.min.apply(Math,studentArray),
-                            maxTeacherNum: Math.max.apply(Math,teacherArray),
-                            minTeacherNum: Math.min.apply(Math,teacherArray),
-                        });
-                        Highcharts.chart('seatRate', {
-                            chart: {
-                                type: 'pie'
-                            },
-                            title: {
-                                text: '平均入座情况'
-                            },
-                            tooltip: {
-                                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                            },
-                            plotOptions: {
-                                pie: {
-                                    allowPointSelect: true,
-                                    cursor: 'pointer',
-                                    dataLabels: {
-                                        enabled: true,
-                                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+        if (this.state.startStation === this.state.endStation) {
+            alert("始发站和终点站不能相同");
+            return;
+        }
+        this.setState({
+            loading: true,
+            button_text: '正在生成..'
+        }, () => {
+            let route = context.api + '/statistics/ridebusinfo';
+            let lineNameCn = this.state.startStation + "到" + this.state.endStation;
+            route += '?startDate=' + (this.state.method === "month" ? this.state.monthStartDate : this.state.startDate).replace(new RegExp("/", "gm"), "-")
+                + '&endDate=' + (this.state.method === "month" ? this.state.monthEndDate : this.state.endDate).replace(new RegExp("/", "gm"), "-")
+                + '&lineNameCn=' + lineNameCn + '&lineType=' + this.state.type + '&time=' + this.state.time;
+            console.log("route:", route);
+            fetch(route,
+                {
+                    method: 'POST',
+                    mode: 'cors',
+                })
+                .then(response => {
+                    console.log('Request successful', response);
+                    return response.json()
+                        .then(result => {
+                            console.log(result);
+                            let seatNum = result.rideBusInfos.length !== 0 ? result.rideBusInfos[0].seatNum : 0;
+                            let appointBreakSum = 0;
+                            let studentArray = [];
+                            let teacherArray = [];
+                            let studentSum = 0;
+                            let teacherSum = 0;
+                            for (let i = 0; i < result.rideBusInfos.length; i++) {
+                                studentArray.push(result.rideBusInfos[i].studentNum);
+                                teacherArray.push(result.rideBusInfos[i].teacherNum);
+                                studentSum += result.rideBusInfos[i].studentNum;
+                                teacherSum += result.rideBusInfos[i].teacherNum;
+                                appointBreakSum += result.rideBusInfos[i].appointBreak;
+                            }
+                            this.setState({
+                                seatNum: seatNum,
+                                avgAboardNum: (studentSum + teacherSum) / result.rideBusInfos.length,
+                                appointBreakSum: appointBreakSum,
+                                avgStudentNum: studentSum / result.rideBusInfos.length,
+                                avgTeacherNum: teacherSum / result.rideBusInfos.length,
+                                maxStudentNum: Math.max.apply(Math, studentArray),
+                                minStudentNum: Math.min.apply(Math, studentArray),
+                                maxTeacherNum: Math.max.apply(Math, teacherArray),
+                                minTeacherNum: Math.min.apply(Math, teacherArray),
+                            });
+                            Highcharts.chart('seatRate', {
+                                chart: {
+                                    type: 'pie'
+                                },
+                                title: {
+                                    text: '平均入座情况'
+                                },
+                                tooltip: {
+                                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                                },
+                                plotOptions: {
+                                    pie: {
+                                        allowPointSelect: true,
+                                        cursor: 'pointer',
+                                        dataLabels: {
+                                            enabled: true,
+                                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                        }
                                     }
-                                }
-                            },
-                            series: [{
-                                name: '入座比例',
-                                colorByPoint: true,
-                                data: [{
-                                    name: '教职工',
-                                    y: teacherSum/result.rideBusInfos.length
-                                }, {
-                                    name: '非教职工',
-                                    y: studentSum/result.rideBusInfos.length
-                                }, {
-                                    name: '空位',
-                                    y: seatNum-(studentSum+teacherSum)/result.rideBusInfos.length
+                                },
+                                series: [{
+                                    name: '入座比例',
+                                    colorByPoint: true,
+                                    data: [{
+                                        name: '教职工',
+                                        y: teacherSum / result.rideBusInfos.length
+                                    }, {
+                                        name: '非教职工',
+                                        y: studentSum / result.rideBusInfos.length
+                                    }, {
+                                        name: '空位',
+                                        y: seatNum - (studentSum + teacherSum) / result.rideBusInfos.length
+                                    }]
                                 }]
-                            }]
-                        });
-                        Highcharts.chart('appointRate', {
-                            chart: {
-                                type: 'pie'
-                            },
-                            title: {
-                                text: '总体预约出勤情况'
-                            },
-                            tooltip: {
-                                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                            },
-                            plotOptions: {
-                                pie: {
-                                    allowPointSelect: true,
-                                    cursor: 'pointer',
-                                    dataLabels: {
-                                        enabled: true,
-                                        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                            });
+                            Highcharts.chart('appointRate', {
+                                chart: {
+                                    type: 'pie'
+                                },
+                                title: {
+                                    text: '总体预约出勤情况'
+                                },
+                                tooltip: {
+                                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                                },
+                                plotOptions: {
+                                    pie: {
+                                        allowPointSelect: true,
+                                        cursor: 'pointer',
+                                        dataLabels: {
+                                            enabled: true,
+                                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                        }
                                     }
-                                }
-                            },
-                            series: [{
-                                name: '比例',
-                                colorByPoint: true,
-                                data: [{
-                                    name: '按时到达',
-                                    y: studentSum+teacherSum
-                                }, {
-                                    name: '未到达',
-                                    y: appointBreakSum
+                                },
+                                series: [{
+                                    name: '比例',
+                                    colorByPoint: true,
+                                    data: [{
+                                        name: '按时到达',
+                                        y: studentSum + teacherSum
+                                    }, {
+                                        name: '未到达',
+                                        y: appointBreakSum
+                                    }]
                                 }]
-                            }]
-                        });
-                    })
-            });
+                            });
+                        })
+                        .then(() => {
+                            this.setState({
+                                loading: false,
+                                button_text: '生成统计数据'
+                            })
+
+                        })
+                });
+        })
     };
 
     render(){
