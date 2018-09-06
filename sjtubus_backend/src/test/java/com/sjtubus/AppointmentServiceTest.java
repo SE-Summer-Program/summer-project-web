@@ -46,6 +46,7 @@ public class AppointmentServiceTest extends SjtubusApplicationTests {
         Assert.assertEquals("fail",45,infos.get(1).getRemainSeat());
     }
 
+
 //    @Test
 //    public void b_testAddAppointment() {
 //        java.sql.Date date = UtilDateToSqlDate(StringToDate("2018-07-27 17:00:00"));
@@ -62,6 +63,7 @@ public class AppointmentServiceTest extends SjtubusApplicationTests {
 //        Assert.assertEquals("fail",44,seat_num);
 //        Assert.assertNull(null);
 //    }
+
 
     @Test
     public void c_testSearchAppointment() {

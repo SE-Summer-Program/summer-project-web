@@ -67,6 +67,7 @@ public class SjtubusApplicationTests {
 		lineController.getLineInfo("NormalWorkday");
 	}
 
+
 //	@Test
 //	public void testPostAppoint(){
 //		appointmentController.appoint("wxw","2018-07-19","MXHD1215",
@@ -76,5 +77,6 @@ public class SjtubusApplicationTests {
 	@Test
 	public void testRecordSerivce(){
 		appointmentController.getRecordInfos("王鑫伟","user");
+
 	}
 }

@@ -24,14 +24,14 @@ public class CollectionService {
       * @params:
       * @return:
       */
-    public String addCollection(int userid, String username, String shiftid) {
+    public boolean addCollection(int userid, String username, String shiftid) {
         Collection collection = new Collection();
         collection.setUserid(userid);
         collection.setUsername(username);
         collection.setShiftid(shiftid);
         collection.setFrequence(0);
         collectionDao.save(collection);
-        return "success";
+        return true;
     }
 
     /**
