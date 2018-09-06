@@ -111,7 +111,6 @@ public class DriverController {
             HttpSession session = request.getSession(true);
             //session过期时间为3天
             session.setMaxInactiveInterval(60*60*24*3);
-            System.out.println("创建session！");
             session.setAttribute("user",driver);
             session.setAttribute("role","driver");
             response.setError(0);

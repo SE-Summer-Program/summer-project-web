@@ -35,12 +35,12 @@ public class Appointment {
     @Column(name = "isnormal")
     private boolean isNormal ;
 
-    public boolean isNormal() {
+    public boolean getIsNormal() {
         return isNormal;
     }
 
-    public void setNormal(boolean normal) {
-        isNormal = normal;
+    public void setIsNormal(boolean isNormal) {
+        isNormal = isNormal;
     }
 
     public String getLineName() {
@@ -123,9 +123,7 @@ public class Appointment {
     }
 
     public String getSubmitTimeString() {
-
-        String submitTimeString = StringCalendarUtils.DateToString(submitTime);
-        return submitTimeString;
+        return StringCalendarUtils.DateToString(submitTime);
     }
 
     public void setSubmitTime(Date submitTime) {

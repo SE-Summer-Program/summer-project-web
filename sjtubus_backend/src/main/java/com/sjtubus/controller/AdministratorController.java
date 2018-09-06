@@ -38,9 +38,8 @@ public class AdministratorController {
                 response.setMsg("wrong password");
             else{
                 Administrator administrator = administratorList.get(0);
-                System.out.println("sessionid:"+session.getId());
                 session.setAttribute("administrator", administrator);
-                System.out.println("reserved:"+((Administrator)session.getAttribute("administrator")).getUsername());
+                session.setAttribute("role","admin");
                 response.setMsg("success");
             }
         }

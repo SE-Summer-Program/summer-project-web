@@ -16,13 +16,11 @@ public class RideBusInfo {
     @Column(name = "shift_id")
     private String shiftId ;
     @Column(name = "bus_id")
-    private int busId;
+    private String busId;
     @Column(name = "ride_date")
     private Date rideDate;
-    @Column(name = "ishoilday")
-    private boolean isHoilday ;  //enum('true', 'false')
-    @Column(name = "isweekday")
-    private boolean isWeekday;   //enum('true', 'shiftfalse')
+    @Column(name = "line_type")
+    private String line_type;
     @Column(name = "student_num")
     private int studentNum ;  //check (student_num >= 0)
     @Column(name = "teacher_num")
@@ -52,36 +50,12 @@ public class RideBusInfo {
         this.shiftId = shiftId;
     }
 
-    public int getBusId() {
-        return busId;
-    }
-
-    public void setBusId(int busId) {
-        this.busId = busId;
-    }
-
     public Date getRideDate() {
         return rideDate;
     }
 
     public void setRideDate(Date rideDate) {
         this.rideDate = rideDate;
-    }
-
-    public boolean isHoilday() {
-        return isHoilday;
-    }
-
-    public void setHoilday(boolean hoilday) {
-        isHoilday = hoilday;
-    }
-
-    public boolean isWeekday() {
-        return isWeekday;
-    }
-
-    public void setWeekday(boolean weekday) {
-        isWeekday = weekday;
     }
 
     public int getStudentNum() {
@@ -130,5 +104,22 @@ public class RideBusInfo {
 
     public void setSeatNum(int seatNum) {
         this.seatNum = seatNum;
+    }
+
+
+    public String getBusId() {
+        return busId;
+    }
+
+    public void setBusId(String busId) {
+        this.busId = busId;
+    }
+
+    public String getLine_type() {
+        return line_type;
+    }
+
+    public void setLine_type(String line_type) {
+        this.line_type = line_type;
     }
 }

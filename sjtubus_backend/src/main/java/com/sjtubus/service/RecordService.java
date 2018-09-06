@@ -65,11 +65,11 @@ public class RecordService {
                 info.setStatus("已出行");
                 System.out.println("status : 1");
             }
-            else if (! appointment.isNormal()){
+            else if (! appointment.getIsNormal()){
                 info.setStatus("预约失败");
                 System.out.println("status : 2");
             }
-            else if (appointment.isNormal()){
+            else if (appointment.getIsNormal()){
                 info.setStatus("预约成功");
                 System.out.println("status : 3");
             }

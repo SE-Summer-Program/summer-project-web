@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -120,8 +121,13 @@ public class AppointmentController {
     @RequestMapping(value = "/verify",method = RequestMethod.POST)
     public HttpResponse verifyUser(String username,
                                    String departure_date,
-                                   String shift_id){
+                                   String shift_id, HttpSession session){
         HttpResponse response = new HttpResponse();
+        String role = (String)session.getAttribute("role");
+        if(!role.equals("admin")){
+            response.setMsg("非管理员操作！");
+            response.setError(1);
+        }
         String result = appointmentService.verifyAppointment(username,departure_date,shift_id);
         response.setMsg(result);
         return response;
@@ -133,7 +139,7 @@ public class AppointmentController {
      * @params:
      * @return:
      */
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/cancel", method = RequestMethod.POST)
     public HttpResponse deleteAppoint(String username,
                                       String user_role,
                                       String shiftid,
