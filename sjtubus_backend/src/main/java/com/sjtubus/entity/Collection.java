@@ -9,7 +9,7 @@ public class Collection {
 
     @Id
     @Column(name = "id")
-    private String id ;
+    private int id ;
 
     @Basic
     @Column(name = "user_id")
@@ -27,11 +27,11 @@ public class Collection {
     @Column(name = "frequence")
     private int frequence;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

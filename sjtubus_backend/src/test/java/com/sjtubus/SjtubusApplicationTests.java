@@ -69,12 +69,12 @@ public class SjtubusApplicationTests {
 
 	@Test
 	public void testPostAppoint(){
-		appointmentController.appoint("wxw","2018-07-19","MXHD1215",
+		appointmentController.appoint("wxw","user","2018-07-19","MXHD1215",
 				"MinHangToXuHui","2018-07-19 08:50:00");
 	}
 
 	@Test
 	public void testRecordSerivce(){
-		appointmentController.getRecordInfos("王鑫伟");
+		appointmentController.getRecordInfos("王鑫伟", "user");
 	}
 }

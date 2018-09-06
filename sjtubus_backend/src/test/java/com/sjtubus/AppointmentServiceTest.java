@@ -53,10 +53,11 @@ public class AppointmentServiceTest extends SjtubusApplicationTests {
         int seat_num = appointmentService.getRemainSeat(shift_id,date);
         Assert.assertEquals("fail",45,seat_num);
         String username = "姚子航";
+        String user_role = "user";
         String appoint_date = "2018-07-27";
         String line_name = "MinHangToQiBao";
         String submit_time = "2018-07-27 09:00:00";
-        boolean result = appointmentService.addAppointment(username,appoint_date,shift_id,line_name,submit_time);
+        boolean result = appointmentService.addAppointment(username,user_role,appoint_date,shift_id,line_name,submit_time);
         Assert.assertTrue("fail", result);
         seat_num = appointmentService.getRemainSeat(shift_id,date);
         Assert.assertEquals("fail",44,seat_num);
