@@ -72,7 +72,7 @@ public class AppointmentService {
         appointment.setAppointDate(date);
         appointment.setLineName(line_name);
         appointment.setLineNameCn(ShiftUtils.getChiLineName(line_name));
-        appointment.setNormal(false);
+        appointment.setIsNormal(false);
         appointment.setShiftId(shift_id);
         appointment.setUserName(username);
         appointment.setSubmitTimeString(submit_time);
@@ -147,7 +147,7 @@ public class AppointmentService {
      * @params:
      * @return:
      */
-    public int getRemainSeat(String shiftId, java.sql.Date appoint_date){
+    private int getRemainSeat(String shiftId, java.sql.Date appoint_date){
         List<Appointment> appointments = appointmentDao.findByShiftIdAndAppointDate(shiftId, appoint_date);
         Shift shift = shiftDao.findByShiftId(shiftId);
         Bus bus = busDao.findByBusId(shift.getBusId());
@@ -168,7 +168,7 @@ public class AppointmentService {
         if(appointment == null){
             return "您没有预约该班次~";
         }else{
-            appointment.setNormal(true);
+            appointment.setIsNormal(true);
             appointmentDao.save(appointment);
             return "验证成功~";
         }

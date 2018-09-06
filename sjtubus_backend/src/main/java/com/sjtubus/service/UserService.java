@@ -86,12 +86,14 @@ public class UserService {
      * @params: 用户名、是否教师、电话
      * @return: 所添加用户
      */
-    public JaccountUser addJaccountUser(String username, boolean isTeacher, String phone){
+    public JaccountUser addJaccountUser(String username, boolean isTeacher, String phone,String realname,String student_num){
         JaccountUser user = new JaccountUser();
         user.setUsername(username);
         user.setCredit(100);
         user.setTeacher(isTeacher);
         user.setPhone(phone);
+        user.setRealname(realname);
+        user.setStudentNumber(student_num);
         return jaccountUserDao.save(user);
     }
 

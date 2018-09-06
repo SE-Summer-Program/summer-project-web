@@ -17,6 +17,8 @@ public interface AppointmentDao extends JpaRepository<Appointment,Integer> {
 
     List<Appointment> findByShiftIdAndAppointDate(String shiftId, java.sql.Date appointDate);
 
+    List<Appointment> findByShiftIdAndAppointDateAndIsNormal(String shiftId,java.sql.Date appointDate,boolean isNormal);
+
     List<Appointment> findByUserNameAndUserRole(String username,String user_role);
 
     Appointment findByUserNameAndUserRoleAndShiftIdAndAppointDate(String username,String user_role, String shiftid, java.sql.Date appoint_date);
@@ -28,8 +30,6 @@ public interface AppointmentDao extends JpaRepository<Appointment,Integer> {
 
     @Query(value = "select appointment from Appointment appointment where appointment.shiftId like %:shiftId% and appointment.appointDate between :startDate and :endDate")
     List<Appointment> queryAppointmentByShiftIdAndPeriod(@Param("shiftId") String shiftId, @Param("startDate") Date startDate, @Param("endDate") Date endDate);
-
-
 
     @Query(value = "select appointment.appointDate, count(appointment) from Appointment appointment where appointment.shiftId like %:shiftId% and appointment.appointDate between :startDate and :endDate group by appointment.appointDate order by appointment.appointDate asc ")
     List<Object[]> queryAppointmentGroupByDate(@Param("shiftId")String shiftId, @Param("startDate") Date startDate, @Param("endDate") Date endDate);

@@ -88,7 +88,8 @@ public class OAuthController {
             JaccountUser jaccountUser = userService.findByJaccountUserName(username);
             //如果是第一次认证
             if(jaccountUser == null){
-                userService.addJaccountUser(username,entity.getString("userType").equals("teacher"),"");
+                userService.addJaccountUser(username, entity.getString("userType").equals("teacher"),
+                        "",entity.getString("name"),entity.getString("code"));
             }
             User user = new User();
             user.setUsername(username);
