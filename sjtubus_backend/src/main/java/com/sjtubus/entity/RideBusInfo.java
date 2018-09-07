@@ -1,26 +1,23 @@
 package com.sjtubus.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name="Ridebusinfo")
+@Table(name="RideBusInfo")
 public class RideBusInfo {
 
     @Id
     @Column(name = "ride_id")
-    private int rideId ;
+    private String rideId ;
     @Column(name = "shift_id")
     private String shiftId ;
-    @Column(name = "bus_id")
-    private String busId;
+    @Column(name = "bus_plate")
+    private String busPlate;
     @Column(name = "ride_date")
     private Date rideDate;
     @Column(name = "line_type")
-    private String line_type;
+    private String lineType;
     @Column(name = "student_num")
     private int studentNum ;  //check (student_num >= 0)
     @Column(name = "teacher_num")
@@ -34,11 +31,11 @@ public class RideBusInfo {
     @Column(name = "seat_num")
     private int seatNum ;
 
-    public int getRideId() {
+    public String getRideId() {
         return rideId;
     }
 
-    public void setRideId(int rideId) {
+    public void setRideId(String rideId) {
         this.rideId = rideId;
     }
 
@@ -107,19 +104,19 @@ public class RideBusInfo {
     }
 
 
-    public String getBusId() {
-        return busId;
+    public String getBusPlate() {
+        return busPlate;
     }
 
-    public void setBusId(String busId) {
-        this.busId = busId;
+    public void setBusPlate(String busPlate) {
+        this.busPlate = busPlate;
     }
 
-    public String getLine_type() {
-        return line_type;
+    public String getLineType() {
+        return lineType;
     }
 
-    public void setLine_type(String line_type) {
-        this.line_type = line_type;
+    public void setLineType(String lineType) {
+        this.lineType = lineType;
     }
 }

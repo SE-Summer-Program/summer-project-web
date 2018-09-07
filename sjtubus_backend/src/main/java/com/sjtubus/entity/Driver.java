@@ -12,6 +12,7 @@ public class Driver {
     private String phone;
 
     @Id
+    @GeneratedValue
     @Column(name = "driver_id")
     public int getDriverId() {
         return driverId;

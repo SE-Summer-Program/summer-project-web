@@ -122,7 +122,7 @@ public class AppointmentController {
                                    String shift_id, HttpSession session){
         HttpResponse response = new HttpResponse();
         String role = (String)session.getAttribute("role");
-        if(!role.equals("admin")){
+        if(role==null||!role.equals("admin")){
             response.setMsg("非管理员操作！");
             response.setError(1);
         }

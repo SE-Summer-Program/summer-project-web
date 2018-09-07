@@ -28,7 +28,6 @@ public class MessageController {
                                    @RequestParam("endDate") Date endDate){
         HttpResponse response = new HttpResponse();
         try{
-            System.out.println("hello");
             response.setMsg(messageService.addMessage(messageType, messageTitle, messageContent, startDate, endDate));
         }
         catch (Exception e){

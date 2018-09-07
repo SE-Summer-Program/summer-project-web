@@ -127,7 +127,6 @@ public class Appointment {
     }
 
     public void setSubmitTime(Date submitTime) {
-
         this.submitTime = submitTime;
     }
 

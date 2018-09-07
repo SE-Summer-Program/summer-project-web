@@ -10,7 +10,7 @@ import java.sql.Date;
 import java.util.List;
 
 @Service
-public class RideBusInfoService {
+public class RideBusInfoService{
     @Autowired
     RideBusInfoDao rideBusInfoDao;
     @Autowired
@@ -21,6 +21,8 @@ public class RideBusInfoService {
     UserDao userDao;
     @Autowired
     JaccountUserDao jaccountUserDao;
+    @Autowired
+    MessageService messageService;
 
     /**
      * @description: 管理员录入发车信息
@@ -29,15 +31,16 @@ public class RideBusInfoService {
      * @return: [String] success:"success"
     */
     public String addRideBusInfo(String ride_date, String shift_id,
-                                 String bus_id, String line_type,
+                                 String bus_plate, String line_type,
                                  int teacher_num, int student_num,
                                  int remain_num, int seat_num){
         RideBusInfo rideBusInfo = new RideBusInfo();
         Date date = new Date(StringCalendarUtils.StringToDate(ride_date).getTime());
+        rideBusInfo.setRideId(ride_date+":"+shift_id);
         rideBusInfo.setRideDate(date);
-        rideBusInfo.setBusId(bus_id);
+        rideBusInfo.setBusPlate(bus_plate);
         rideBusInfo.setShiftId(shift_id);
-        rideBusInfo.setLine_type(line_type);
+        rideBusInfo.setLineType(line_type);
         rideBusInfo.setSeatNum(seat_num);
         rideBusInfo.setStudentNum(student_num);
         rideBusInfo.setTeacherNum(teacher_num);
@@ -55,12 +58,24 @@ public class RideBusInfoService {
                 if(user!=null){
                     user.setCredit(user.getCredit()-10);
                     userDao.save(user);
+                    messageService.addMessage("坏消息",
+                            appointment.getUserRole()+"预约未上车",
+                            appointment.getUserName()+
+                            "预定的"+ride_date+"发车的"+shift_id+
+                            "班次("+appointment.getLineNameCn()+")未按时到达上车，信用积分扣10分，扣满20分无法继续使用SJTUBUS",
+                            date,date);
                 }
             }else if (appointment.getUserRole().equals("jaccountuser")){
                 JaccountUser jaccountUser = jaccountUserDao.findByUsername(appointment.getUserName());
                 if(jaccountUser!=null) {
                     jaccountUser.setCredit(jaccountUser.getCredit() - 10);
                     jaccountUserDao.save(jaccountUser);
+                    messageService.addMessage("坏消息",
+                            appointment.getUserRole()+"预约未上车",
+                            appointment.getUserName()+
+                                    "预定的"+ride_date+"发车的"+shift_id+
+                                    "班次("+appointment.getLineNameCn()+")未按时到达上车，信用积分扣10分，扣满20分无法继续使用SJTUBUS",
+                            date,date);
                 }
             }
         }
