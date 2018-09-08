@@ -5,6 +5,7 @@ import com.mongodb.client.MongoDatabase;
 import com.sjtubus.dao.*;
 import com.sjtubus.entity.*;
 import com.sjtubus.model.AppointInfo;
+import com.sjtubus.utils.LunarUtils;
 import com.sjtubus.utils.ShiftUtils;
 import com.sjtubus.utils.StringCalendarUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -119,7 +120,12 @@ public class AppointmentService {
         List<Shift> shifts =  shiftDao.findByLineTypeAndLineNameOrderByDepartureTime(type, line_name);
         List<AppointInfo> appointInfos = new ArrayList<>();
 
-        if(shifts == null || shifts.size()==0) {
+        if (shifts == null || shifts.size()==0) {
+            return new ArrayList<>();
+        }
+
+        String legalholiday = LunarUtils.isLegalHoliday(appoint_date);
+        if (! legalholiday.equals("无")){
             return new ArrayList<>();
         }
 
