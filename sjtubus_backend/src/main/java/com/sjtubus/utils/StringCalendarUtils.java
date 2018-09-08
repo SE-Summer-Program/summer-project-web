@@ -4,9 +4,24 @@ import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class StringCalendarUtils {
+
+    /* 由 2018-07-17 格式的字符串获取 calendar */
+    public static Calendar StringToCalendar(String datestr){
+        Calendar calendar = new GregorianCalendar();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date date = dateFormat.parse(datestr); //start_date是类似"2013-02-02"的字符串
+            calendar.setTime(date);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return calendar;
+    }
 
     public static java.util.Date StringToDate(String datestr){
         java.util.Date date= new java.util.Date();
