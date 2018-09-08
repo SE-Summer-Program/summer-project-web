@@ -126,6 +126,7 @@ public class AppointmentController {
         if(role==null||!role.equals("admin")){
             response.setMsg("非管理员操作！");
             response.setError(1);
+            return response;
         }
         String result = appointmentService.verifyAppointment(username,departure_date,shift_id);
         response.setMsg(result);

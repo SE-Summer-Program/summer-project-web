@@ -15,8 +15,8 @@ public class SjtubusApplication {
 		SpringApplication.run(SjtubusApplication.class, args);
 	}
 
-//	@Bean
-//	public ConcurrentMapCacheManager cacheManager() {
-//		return new ConcurrentMapCacheManager();
-//	}
+	@Bean
+	public ConcurrentMapCacheManager cacheManager() {
+		return new ConcurrentMapCacheManager();
+	}
 }

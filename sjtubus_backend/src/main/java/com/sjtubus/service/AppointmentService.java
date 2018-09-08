@@ -171,7 +171,8 @@ public class AppointmentService {
             return "您没有预约该班次~";
         }else{
             appointment.setIsNormal(true);
-            appointmentDao.save(appointment);
+            Appointment result = appointmentDao.save(appointment);
+            System.out.println(result.getAppointDate()+" "+result.getUserName()+" Normal:"+result.getIsNormal());
             return "验证成功~";
         }
     }

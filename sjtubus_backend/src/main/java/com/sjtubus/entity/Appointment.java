@@ -42,7 +42,7 @@ public class Appointment {
     }
 
     public void setIsNormal(boolean isNormal) {
-        isNormal = isNormal;
+        this.isNormal = isNormal;
     }
 
     public String getLineName() {
