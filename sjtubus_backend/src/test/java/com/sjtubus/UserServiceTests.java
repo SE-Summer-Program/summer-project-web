@@ -74,7 +74,7 @@ public class UserServiceTests extends SjtubusApplicationTests {
     @Test
     public void e_testListAllUsers(){
         List<User> result = userService.listAllUsers();
-        Assert.assertEquals(8,result.size());
+        Assert.assertEquals(62,result.size());
     }
 
 

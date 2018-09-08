@@ -38,7 +38,7 @@ public class AppointmentServiceTest extends SjtubusApplicationTests {
     public void a_testGetAppointInfo() {
         String line_name = "MinHangToQiBao";
         String type = "HolidayWorkday";
-        String appoint_date = "2018-07-27";
+        String appoint_date = "2018-09-30";
         List<AppointInfo> infos = appointmentService.getAppointInfo(line_name,type,appoint_date);
         Assert.assertEquals("fail",2,infos.size());
         Assert.assertEquals("fail","17:00:00",infos.get(1).getDepartureTime());
@@ -46,23 +46,22 @@ public class AppointmentServiceTest extends SjtubusApplicationTests {
         Assert.assertEquals("fail",45,infos.get(1).getRemainSeat());
     }
 
-
-//    @Test
-//    public void b_testAddAppointment() {
-//        java.sql.Date date = UtilDateToSqlDate(StringToDate("2018-07-27 17:00:00"));
-//        String shift_id = "MQHD1700";
-//        int seat_num = appointmentService.getRemainSeat(shift_id,date);
-//        Assert.assertEquals("fail",45,seat_num);
-//        String username = "姚子航";
-//        String appoint_date = "2018-07-27";
-//        String line_name = "MinHangToQiBao";
-//        String submit_time = "2018-07-27 09:00:00";
-//        boolean result = appointmentService.addAppointment(username,appoint_date,shift_id,line_name,submit_time);
-//        Assert.assertTrue("fail", result);
-//        seat_num = appointmentService.getRemainSeat(shift_id,date);
-//        Assert.assertEquals("fail",44,seat_num);
-//        Assert.assertNull(null);
-//    }
+    @Test
+    public void b_testAddAppointment() {
+        java.sql.Date date = UtilDateToSqlDate(StringToDate("2018-07-27 17:00:00"));
+        String shift_id = "MQHD1700";
+        int seat_num = appointmentService.getRemainSeat(shift_id,date);
+        Assert.assertEquals("fail",45,seat_num);
+        String username = "姚子航";
+        String appoint_date = "2018-07-27";
+        String line_name = "MinHangToQiBao";
+        String submit_time = "2018-07-27 09:00:00";
+        boolean result = appointmentService.addAppointment(username, "user",appoint_date,shift_id,line_name,submit_time);
+        Assert.assertTrue("fail", result);
+        seat_num = appointmentService.getRemainSeat(shift_id,date);
+        Assert.assertEquals("fail",44,seat_num);
+        Assert.assertNull(null);
+   }
 
 
     @Test
@@ -70,7 +69,8 @@ public class AppointmentServiceTest extends SjtubusApplicationTests {
         String lineNameCN = "闵行到七宝";
         String line_type = "HolidayWorkday";
         Time time = new Time(17,0,0);
-        Date date = new Date(2018,7,27);
+        Date date = new Date(118,6,27);
+        System.out.println("date:" + date);
         List<Appointment> appointments =
                 appointmentService.searchAppointment(lineNameCN,line_type,time,date);
         Assert.assertEquals("fail",1,appointments.size());
@@ -82,15 +82,19 @@ public class AppointmentServiceTest extends SjtubusApplicationTests {
         String departure_date = "2018-07-27";
         String shift_id = "MQHD1700";
 
-        Appointment appointment = appointmentDao.findDistinctByShiftIdAndAppointDateAndUserName(
+        Appointment appointment = appointmentDao.queryAppointmentByShiftIdAndAppointDateAndUserName(
                 shift_id,UtilDateToSqlDate(StringToDate(departure_date)),username);
+        System.out.println(appointment.getIsNormal());
         Assert.assertFalse("fail", appointment.getIsNormal());
 
         String result = appointmentService.verifyAppointment(username,departure_date,shift_id);
+        System.out.println(result);
         Assert.assertEquals("fail","验证成功~",result);
 
-        appointment = appointmentDao.findDistinctByShiftIdAndAppointDateAndUserName(
+        appointment = appointmentDao.queryAppointmentByShiftIdAndAppointDateAndUserName(
                 shift_id,UtilDateToSqlDate(StringToDate(departure_date)),username);
+        System.out.println(appointment.getShiftId());
+        System.out.println(appointment.getIsNormal());
         Assert.assertTrue("fail", appointment.getIsNormal());
     }
 }

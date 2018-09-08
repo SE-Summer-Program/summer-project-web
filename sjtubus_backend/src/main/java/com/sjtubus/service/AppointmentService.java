@@ -1,7 +1,5 @@
 package com.sjtubus.service;
 
-import com.mongodb.*;
-import com.mongodb.client.MongoDatabase;
 import com.sjtubus.dao.*;
 import com.sjtubus.entity.*;
 import com.sjtubus.model.AppointInfo;
@@ -51,6 +49,8 @@ public class AppointmentService {
         shiftid = shiftid + shiftService.changeTypeToId(lineType);
         shiftid = shiftid + time;
         System.out.println("shiftid:"+shiftid);
+        System.out.println("appointdate1:"+appointDate);
+        System.out.println("appointdate2:"+StringCalendarUtils.UtilDateToSqlDate(appointDate));
         List<Appointment> appointmentList = appointmentDao.queryAppointmentByShiftIdAndAppointDate(shiftid, StringCalendarUtils.UtilDateToSqlDate(appointDate));
         return appointmentList;
     }
@@ -86,6 +86,7 @@ public class AppointmentService {
         System.out.println("shiftid: " + shift_id);
         if(getRemainSeat(shift_id,date) > 0){
             appointmentDao.save(appointment);
+            System.out.println("hello");
             return true;
         }else return false;
     }
@@ -155,7 +156,7 @@ public class AppointmentService {
      * @params:
      * @return:
      */
-    private int getRemainSeat(String shiftId, java.sql.Date appoint_date){
+    public int getRemainSeat(String shiftId, java.sql.Date appoint_date){
         List<Appointment> appointments = appointmentDao.findByShiftIdAndAppointDate(shiftId, appoint_date);
         Shift shift = shiftDao.findByShiftId(shiftId);
         Bus bus = busDao.findByBusId(shift.getBusId());
