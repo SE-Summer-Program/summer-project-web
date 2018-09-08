@@ -50,33 +50,33 @@ public class RecordService {
             info.setDepartureTime(departuretime);
             info.setArriveTime(arrivetime);
             info.setShiftid(shift.getShiftId());
+            info.setComment(appointment.getComment());
 
             // info.setSubmitTime(appointment.getSubmitTime());
             info.setSubmitTime(appointment.getSubmitTimeString());
-            info.setStatus("预约成功");
+            if(appointment.getIsNormal()) {
+                info.setStatus("预约已上车");
+            }else{
+                info.setStatus("预约未上车");
+            }
 
-            System.out.println("status : 0");
-
-            // 预约成功 时间未到，normal
-            // 预约失败 时间未到，unnormal
-            // 已出行  时间已到
-            String departure = departuredate + " " + departuretime;
-            if (!StringCalendarUtils.isBeforeCurrentTime(departure)) {
-                info.setStatus("已出行");
-                System.out.println("status : 1");
-            }
-            else if (! appointment.getIsNormal()){
-                info.setStatus("预约失败");
-                System.out.println("status : 2");
-            }
-            else if (appointment.getIsNormal()){
-                info.setStatus("预约成功");
-                System.out.println("status : 3");
-            }
-            else{
-                info.setStatus("系统错误");
-                System.out.println("status : 4");
-            }
+//            String departure = departuredate + " " + departuretime;
+//            if (!StringCalendarUtils.isBeforeCurrentTime(departure)) {
+//                info.setStatus("已出行");
+//                System.out.println("status : 1");
+//            }
+//            else if (! appointment.getIsNormal()){
+//                info.setStatus("预约失败");
+//                System.out.println("status : 2");
+//            }
+//            else if (appointment.getIsNormal()){
+//                info.setStatus("预约成功");
+//                System.out.println("status : 3");
+//            }
+//            else{
+//                info.setStatus("系统错误");
+//                System.out.println("status : 4");
+//            }
             recordInfos.add(info);
         }
         return recordInfos;

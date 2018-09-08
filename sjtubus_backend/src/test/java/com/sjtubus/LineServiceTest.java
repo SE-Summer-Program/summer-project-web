@@ -47,7 +47,7 @@ public class LineServiceTest extends SjtubusApplicationTests{
     @Test
     public void c_testGetAllLineName() {
         String type = "HolidayWorkday";
-        List<String> names = lineService.getAllLineName(type);
+        List<String> names = lineService.getAllLineName();
         Assert.assertEquals("fail",6,names.size());
     }
 

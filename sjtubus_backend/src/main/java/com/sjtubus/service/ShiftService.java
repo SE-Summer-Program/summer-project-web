@@ -12,6 +12,8 @@ import com.sjtubus.model.Schedule;
 import com.sjtubus.model.ShiftInfo;
 import com.sjtubus.utils.StringCalendarUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,9 +42,9 @@ public class ShiftService {
      * @return: Schedule - Schedule对象
     */
     @Transactional
+    @Cacheable(cacheNames = "Schedule",key = "#type+#line_name")
     public Schedule getSchedule(String type, String line_name){
         List<Shift> shiftInfo = shiftDao.findByLineTypeAndLineNameOrderByDepartureTime(type, line_name);
-        //System.out.println("shiftInfoSize:"+shiftInfo.size());
         List<String> startTimeList = new ArrayList<>();
         List<String> commentList = new ArrayList<>();
         List<String> shiftidList = new ArrayList<>();
@@ -75,21 +77,12 @@ public class ShiftService {
     }
 
     /**
-     * @description: 获取校园巴士环线上某一具体站点的时刻表信息
-     * @date: 2018/7/24 16：29
-     * @params:
-     * @return:
-     */
-    public TimeTable getScheduleOfLoopLine(String station){
-        return timeTableDao.findByStation(station);
-    }
-
-    /**
      * @description: 通过shiftid获取某一班次的详细信息
      * @date: 2018/7/22 11：07
      * @params: shiftid
      * @return: ShiftInfo对象
      */
+    @Cacheable(cacheNames = "ShiftInfo",key = "#shiftid")
     public ShiftInfo getShiftInfo(String shiftid){
         ShiftInfo shiftInfo = new ShiftInfo();
         Shift shift = shiftDao.findByShiftId(shiftid);
@@ -109,67 +102,18 @@ public class ShiftService {
     }
 
     /**
-     * @description: 将线路类型转换成shiftid中的类型部分，仅限于校区间巴士
-     * @date: 2018/7/15 11:41
-     * @params: lineType
-     * @return: shiftidType 如WD、WE...
-    */
-    public String changeTypeToId(String lineType){
-        String shiftidType = "";
-        switch(lineType) {
-            case "NormalWorkday":
-                shiftidType = "WD";
-                break;
-            case "NormalWeekendAndLegalHoliday":
-                shiftidType = "WE";
-                break;
-            case "HolidayWorkday":
-                shiftidType = "HD";
-                break;
-            default:
-                shiftidType = "HE";
-        }
-        return shiftidType;
-    }
-
-    /**
-     * @description: 将一个Time类型的出发时间转换成shiftid中的时间格式
-     * @date: 2018/7/15 11:57
-     * @params: departureTime，如08:00:00
-     * @return: 字符串型的时间，如0800
-     */
-    public String changeTimeToStringTime(Time departureTime){
-        String tempHour = String.valueOf(departureTime.getHours());
-        String tempMinute = String.valueOf(departureTime.getMinutes());
-        int hourLen = tempHour.length();
-        int minuteLen = tempMinute.length();
-        String tempZero = "";
-        for (int i = 0; i < (2-hourLen); i++){
-            tempZero += '0';
-        }
-        tempHour = tempZero + tempHour;
-        tempZero = "";
-        for (int i = 0; i < (2-minuteLen); i++){
-            tempZero += '0';
-        }
-        tempMinute = tempZero + tempMinute;
-        return tempHour + tempMinute;
-
-    }
-
-
-    /**
      * @description: 管理员通过该添加班次，先根据参数解析成id，然后存入数据库，返回一个字符串
      * @date: 2018/7/11 23:28
      * @params: lineName, lineNameCn, lineType, departureTime, reserveSeat, comment
      * @return:
     */
+    @CacheEvict(cacheNames = {"Schedule","LineInfo"},key = "#lineType+#lineName")
     public String addShift(String lineName, String lineNameCn, String lineType, Time departureTime, int reserveSeat, String comment, int busId, Time arriveTime){
         //生成对应的id
         System.out.println("departure:"+departureTime);
         String departure = changeTimeToStringTime(departureTime);
         String shiftid;
-        if (lineName.equals("LoopLineAntiClockwise")){
+        if(lineName.equals("LoopLineAntiClockwise")){
             if (lineType.equals("HolidayWorkday"))
                 shiftid = "LLAH" + departure;
             else
@@ -253,7 +197,7 @@ public class ShiftService {
         return shiftDao.queryByRelatedContent(content);
     }
 
-
+    @CacheEvict(cacheNames = {"Schedule","LineInfo"},allEntries = true)
     public String deleteShift(String shiftId){
         System.out.println("delete:"+ shiftId);
         Shift oldShift = shiftDao.queryShiftByShiftId(shiftId);
@@ -271,19 +215,68 @@ public class ShiftService {
                 result.add(time);
             }
         }
-        //System.out.println(result.size());
         return result;
     }
 
 
-/**
- * @description: 根据shiftid寻找班次，修改其预约座位数为reserveSeat
- * @date: 2018/7/17 21:07
- * @params: 班次号shiftid，预约座位数reserveSeat
- * @return: 修改条目数
-*/
+    /**
+     * @description: 根据shiftid寻找班次，修改其预约座位数为reserveSeat
+     * @date: 2018/7/17 21:07
+     * @params: 班次号shiftid，预约座位数reserveSeat
+     * @return: 修改条目数
+    */
+    @CacheEvict(cacheNames = "ShiftInfo",key = "#shiftId")
     public int modifySeat(String shiftId, int reserveSeat){
         return shiftDao.updateReserveSeat(reserveSeat, shiftId);
     }
 
+
+    /**
+     * @description: 将线路类型转换成shiftid中的类型部分，仅限于校区间巴士
+     * @date: 2018/7/15 11:41
+     * @params: lineType
+     * @return: shiftidType 如WD、WE...
+     */
+    public String changeTypeToId(String lineType){
+        String shiftidType = "";
+        switch(lineType) {
+            case "NormalWorkday":
+                shiftidType = "WD";
+                break;
+            case "NormalWeekendAndLegalHoliday":
+                shiftidType = "WE";
+                break;
+            case "HolidayWorkday":
+                shiftidType = "HD";
+                break;
+            default:
+                shiftidType = "HE";
+        }
+        return shiftidType;
+    }
+
+    /**
+     * @description: 将一个Time类型的出发时间转换成shiftid中的时间格式
+     * @date: 2018/7/15 11:57
+     * @params: departureTime，如08:00:00
+     * @return: 字符串型的时间，如0800
+     */
+    public String changeTimeToStringTime(Time departureTime){
+        String tempHour = String.valueOf(departureTime.getHours());
+        String tempMinute = String.valueOf(departureTime.getMinutes());
+        int hourLen = tempHour.length();
+        int minuteLen = tempMinute.length();
+        String tempZero = "";
+        for (int i = 0; i < (2-hourLen); i++){
+            tempZero += '0';
+        }
+        tempHour = tempZero + tempHour;
+        tempZero = "";
+        for (int i = 0; i < (2-minuteLen); i++){
+            tempZero += '0';
+        }
+        tempMinute = tempZero + tempMinute;
+        return tempHour + tempMinute;
+
+    }
 }

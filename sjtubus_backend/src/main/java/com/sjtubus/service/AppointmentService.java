@@ -3,6 +3,7 @@ package com.sjtubus.service;
 import com.sjtubus.dao.*;
 import com.sjtubus.entity.*;
 import com.sjtubus.model.AppointInfo;
+import com.sjtubus.utils.LunarUtils;
 import com.sjtubus.utils.ShiftUtils;
 import com.sjtubus.utils.StringCalendarUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +66,8 @@ public class AppointmentService {
                                   String appoint_date,
                                   String shift_id,
                                   String line_name,
-                                  String submit_time){
+                                  String submit_time,
+                                  String comment){
         Appointment appointment = new Appointment();
         java.sql.Date date = StringCalendarUtils.UtilDateToSqlDate(StringCalendarUtils.StringToDate(appoint_date));
 
@@ -78,6 +80,7 @@ public class AppointmentService {
         appointment.setSubmitTimeString(submit_time);
         appointment.setRealName("");
         appointment.setUserRole(user_role);
+        appointment.setComment(comment);
 
         System.out.println("remain: " + getRemainSeat(shift_id,date));
         System.out.println("shiftid: " + shift_id);
@@ -118,7 +121,12 @@ public class AppointmentService {
         List<Shift> shifts =  shiftDao.findByLineTypeAndLineNameOrderByDepartureTime(type, line_name);
         List<AppointInfo> appointInfos = new ArrayList<>();
 
-        if(shifts == null || shifts.size()==0) {
+        if (shifts == null || shifts.size()==0) {
+            return new ArrayList<>();
+        }
+
+        String legalholiday = LunarUtils.isLegalHoliday(appoint_date);
+        if (! legalholiday.equals("无")){
             return new ArrayList<>();
         }
 

@@ -1,9 +1,6 @@
 package com.sjtubus.model.response;
 
 import com.sjtubus.entity.TimeTable;
-import com.sjtubus.model.Station;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class StationResponse extends HttpResponse {

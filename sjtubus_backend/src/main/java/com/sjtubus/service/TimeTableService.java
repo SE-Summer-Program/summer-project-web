@@ -15,4 +15,14 @@ public class TimeTableService {
     public TimeTable getTimeTableByLineName(String station, String type) {
     	return timeTableDao.findByStationAndType(station, type);
     }
+
+    /**
+     * @description: 获取校园巴士环线上某一具体站点的时刻表信息
+     * @date: 2018/7/24 16：29
+     * @params:
+     * @return:
+     */
+    public TimeTable getScheduleOfLoopLine(String station){
+        return timeTableDao.findByStation(station);
+    }
 }

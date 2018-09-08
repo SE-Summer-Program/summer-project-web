@@ -33,11 +33,11 @@ public class CollectionController {
         HttpResponse response = new HttpResponse();
         boolean result = collectionService.addCollection(userid, username, shiftid);
         if(result){
-            response.setMsg("预约成功!");
+            response.setMsg("收藏成功!");
             response.setError(0);
             return response;
         }else{
-            response.setMsg("预约失败!");
+            response.setMsg("收藏失败!");
             response.setError(1);
             return response;
         }

@@ -5,10 +5,11 @@ import com.sjtubus.entity.Shift;
 import com.sjtubus.entity.TimeTable;
 import com.sjtubus.model.Schedule;
 import com.sjtubus.model.ShiftInfo;
-import com.sjtubus.model.Station;
 import com.sjtubus.model.response.*;
 import com.sjtubus.service.ShiftService;
+import com.sjtubus.service.TimeTableService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,11 +25,8 @@ public class ShiftController {
     ShiftService shiftService;
     @Autowired
     ShiftDao shiftDao;
-
-    @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public List<Shift> listAll(){
-        return shiftDao.findAll();
-    }
+    @Autowired
+    TimeTableService timeTableService;
 
     /**
      * @description: 根据line_type和line_name获取schedule对象
@@ -51,10 +49,23 @@ public class ShiftController {
         return response;
     }
 
+    @RequestMapping(value = "infos")
+    public ShiftInfoResponse getShiftInfos(String shiftid){
+        ShiftInfoResponse response = new ShiftInfoResponse();
+        ShiftInfo shiftInfo;
+        shiftInfo = shiftService.getShiftInfo(shiftid);
+        if(shiftInfo == null){
+            response.setError(1);
+            response.setMsg("班次详细信息获取失败");
+        }
+        response.setShiftInfo(shiftInfo);
+        return response;
+    }
+
     @RequestMapping(path="/search_schedule_loopline",method = RequestMethod.GET)
     public StationSingleResponse getScheduleOfLoopLine(@RequestParam("station") String station){
         StationSingleResponse response = new StationSingleResponse();
-        TimeTable timeTable = shiftService.getScheduleOfLoopLine(station);
+        TimeTable timeTable = timeTableService.getScheduleOfLoopLine(station);
         if (timeTable == null){
             response.setError(1);
             response.setMsg("站点信息获取失败");
@@ -87,6 +98,12 @@ public class ShiftController {
     }
 
 
+    /**
+     * @description: 管理员方法
+     * @date: 2018/9/8 9:52
+     * @params: content：匹配字符串
+     * @return: 搜索结果
+    */
     @RequestMapping(path="/search_shift")
     public ShiftListResponse searchShift(@RequestParam("content") String content){
         ShiftListResponse response = new ShiftListResponse();
@@ -104,7 +121,7 @@ public class ShiftController {
     }
 
 
-    @RequestMapping(path="/delete" )
+    @RequestMapping(value="/delete" )
     public HttpResponse deleteShift(@RequestParam("shiftId") String shiftId){
         HttpResponse response = new HttpResponse();
         try {
@@ -149,16 +166,9 @@ public class ShiftController {
         return response;
     }
 
-    @RequestMapping(path = "infos")
-    public ShiftInfoResponse getShiftInfos(String shiftid){
-        ShiftInfoResponse response = new ShiftInfoResponse();
-        ShiftInfo shiftInfo;
-        shiftInfo = shiftService.getShiftInfo(shiftid);
-        if(shiftInfo == null){
-            response.setError(1);
-            response.setMsg("班次详细信息获取失败");
-        }
-        response.setShiftInfo(shiftInfo);
-        return response;
-    }
+    //测试方法
+//    @RequestMapping(value = "/list",method = RequestMethod.GET)
+//    public List<Shift> listAll(){
+//        return shiftDao.findAll();
+//    }
 }
