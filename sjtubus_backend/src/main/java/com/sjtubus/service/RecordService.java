@@ -50,6 +50,7 @@ public class RecordService {
             info.setDepartureTime(departuretime);
             info.setArriveTime(arrivetime);
             info.setShiftid(shift.getShiftId());
+            info.setComment(appointment.getComment());
 
             // info.setSubmitTime(appointment.getSubmitTime());
             info.setSubmitTime(appointment.getSubmitTimeString());

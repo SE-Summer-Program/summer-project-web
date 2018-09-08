@@ -9,6 +9,7 @@ public class RecordInfo {
     private String shiftid;
     private String status;
     private String submitTime;
+    private String comment;
 
     public String getLineName() {
         return lineName;
@@ -51,4 +52,12 @@ public class RecordInfo {
     public String getSubmitTime() { return submitTime; }
 
     public void setSubmitTime(String submitTime) { this.submitTime = submitTime; }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 }

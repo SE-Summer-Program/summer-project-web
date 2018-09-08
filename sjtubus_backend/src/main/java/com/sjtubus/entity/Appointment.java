@@ -34,6 +34,8 @@ public class Appointment {
     private Date submitTime;
     @Column(name = "isnormal")
     private boolean isNormal ;
+    @Column(name = "comment")
+    private String comment;
 
     public boolean getIsNormal() {
         return isNormal;
@@ -136,7 +138,6 @@ public class Appointment {
         this.submitTime = submitdate;
     }
 
-
     public String getUserRole() {
         return userRole;
     }
@@ -145,5 +146,11 @@ public class Appointment {
         this.userRole = userRole;
     }
 
+    public String getComment(){
+        return comment;
+    }
 
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 }

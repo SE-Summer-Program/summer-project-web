@@ -65,7 +65,8 @@ public class AppointmentService {
                                   String appoint_date,
                                   String shift_id,
                                   String line_name,
-                                  String submit_time){
+                                  String submit_time,
+                                  String comment){
         Appointment appointment = new Appointment();
         java.sql.Date date = StringCalendarUtils.UtilDateToSqlDate(StringCalendarUtils.StringToDate(appoint_date));
 
@@ -78,6 +79,7 @@ public class AppointmentService {
         appointment.setSubmitTimeString(submit_time);
         appointment.setRealName("");
         appointment.setUserRole(user_role);
+        appointment.setComment(comment);
 
         System.out.println("remain: " + getRemainSeat(shift_id,date));
         System.out.println("shiftid: " + shift_id);
