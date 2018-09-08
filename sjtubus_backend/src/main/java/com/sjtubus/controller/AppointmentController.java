@@ -1,6 +1,7 @@
 package com.sjtubus.controller;
 
 import com.sjtubus.entity.Appointment;
+import com.sjtubus.entity.User;
 import com.sjtubus.model.AppointInfo;
 import com.sjtubus.model.RecordInfo;
 import com.sjtubus.model.response.AppointInfoResponse;
@@ -60,10 +61,15 @@ public class AppointmentController {
      * @return:
      */
     @RequestMapping(value = "/infos")
-    public AppointInfoResponse getAppointInfo(String line_name, String type, String appoint_date){
+    public AppointInfoResponse getAppointInfo(String line_name, String type, String appoint_date,HttpSession session){
+        String role = (String)session.getAttribute("role");
         AppointInfoResponse response = new AppointInfoResponse();
         List<AppointInfo> appoints;
-        appoints = appointmentService.getAppointInfo(line_name, type, appoint_date);
+        if(role!=null&&(role.equals("admin")||role.equals("driver"))){
+            appoints = appointmentService.getAppointInfo(line_name, type, appoint_date,true);
+        }else {
+            appoints = appointmentService.getAppointInfo(line_name, type, appoint_date,false);
+        }
         response.setAppointInfos(appoints);
         return response;
     }

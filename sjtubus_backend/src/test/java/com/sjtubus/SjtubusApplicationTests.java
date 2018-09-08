@@ -58,11 +58,6 @@ public class SjtubusApplicationTests {
 	}
 
 	@Test
-	public void testAppointController(){
-		appointmentController.getAppointInfo("MinHangToXuHui" ,"HolidayWorkday","2018-07-16");
-	}
-
-	@Test
 	public void testLineController(){
 		lineController.getLineInfo("NormalWorkday");
 	}

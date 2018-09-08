@@ -55,18 +55,8 @@ public class UserServiceTests extends SjtubusApplicationTests {
     public void c_testFindUserByPhone(){
         User user = userService.findUserByPhone("12345678900");
         int judgeId = user.getUserId();
-        Assert.assertEquals("fail",37,judgeId);
+        Assert.assertEquals("fail",1,judgeId);
         user = userService.findUserByPhone("00000000000");
-        Assert.assertNull(user);
-    }
-
-
-    @Test
-    public void d_testFindJaccountUserByPhone(){
-        JaccountUser user = userService.findJaccountUserByPhone("12345678900");
-        int judgeId = user.getUserId();
-        Assert.assertEquals("fail",7,judgeId);
-        user = userService.findJaccountUserByPhone("00000000000");
         Assert.assertNull(user);
     }
 
@@ -77,39 +67,15 @@ public class UserServiceTests extends SjtubusApplicationTests {
         Assert.assertEquals(62,result.size());
     }
 
-
-    @Test
-    public void f_testAddUser(){
-        int size = userService.listAllUsers().size();
-        userService.addUser("xyx","password",false,"13262600000",100);
-        int new_size = userService.listAllUsers().size();
-        Assert.assertEquals(size+1, new_size);
-        User user = userService.findByUserName("xyx");
-        Assert.assertNotNull(user);
-    }
-
-
     @Test
     public void g_testModifyUser(){
-        User user = userService.findByUserName("xyx");
+        User user = userService.findByUserName("yzh");
         int old_credit = user.getCredit();
-        int result = userService.modifyUser(user.getUserId(), "xyx", user.getPhone(), old_credit-5);
+        int result = userService.modifyUser(user.getUserId(), "yzh", user.getPhone(), old_credit-5);
         Assert.assertEquals(1, result);
-        user = userService.findByUserName("xyx");
+        user = userService.findByUserName("yzh");
         int new_credit = user.getCredit();
         Assert.assertEquals(old_credit-5, new_credit);
-    }
-
-
-    @Test
-    public void h_testDeleteUser(){
-        int size = userService.listAllUsers().size();
-        User user = userService.findByUserName("xyx");
-        userService.deleteUser(user.getUserId());
-        int new_size = userService.listAllUsers().size();
-        Assert.assertEquals(size-1, new_size);
-        user = userService.findByUserName("xyx");
-        Assert.assertNull(user);
     }
 
 
@@ -168,10 +134,10 @@ public class UserServiceTests extends SjtubusApplicationTests {
     @Test
     public void m_testAddDriver(){
         int size = driverDao.findAll().size();
-        driverService.addDriver("driver3","driver3","13262600000");
+        driverService.addDriver("driver111","driver111","13262600000");
         int new_size = driverDao.findAll().size();
         Assert.assertEquals(size+1, new_size);
-        Driver driver = driverDao.queryDriverByUsername("driver3");
+        Driver driver = driverDao.queryDriverByUsername("driver111");
         Assert.assertNotNull(driver);
     }
 
@@ -197,6 +163,7 @@ public class UserServiceTests extends SjtubusApplicationTests {
         Assert.assertEquals(size-1, new_size);
         driver = driverDao.queryDriverByUsername("driver3");
         Assert.assertNull(driver);
+        driverService.addDriver("driver3","password","18767600000");
     }
 
 }

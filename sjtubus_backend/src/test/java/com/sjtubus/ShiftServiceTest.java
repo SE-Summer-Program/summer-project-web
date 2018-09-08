@@ -33,8 +33,8 @@ public class ShiftServiceTest extends SjtubusApplicationTests {
         String line_name = "MinHangToQiBao";
         String type = "HolidayWorkday";
         Schedule schedule = shiftService.getSchedule(type,line_name);
-        Assert.assertEquals("fail",2,schedule.getScheduleShift().size());
-        Assert.assertEquals("fail","08:50:00",schedule.getScheduleTime().get(0));
+        Assert.assertEquals("fail",4,schedule.getScheduleShift().size());
+        Assert.assertEquals("fail","08:00:00",schedule.getScheduleTime().get(0));
     }
 
     @Test
@@ -85,7 +85,7 @@ public class ShiftServiceTest extends SjtubusApplicationTests {
         String type = "HolidayWorkday";
         List<Time> times = shiftService.getTimeList(lineNameCn,type);
 
-        Assert.assertEquals("fail",2,times.size());
-        Assert.assertEquals("fail","17:00:00",TimeToString(times.get(1)));
+        Assert.assertEquals("fail",4,times.size());
+        Assert.assertEquals("fail","12:20:00",TimeToString(times.get(1)));
     }
 }
