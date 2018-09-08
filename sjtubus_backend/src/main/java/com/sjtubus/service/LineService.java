@@ -11,9 +11,9 @@ import java.util.List;
 import com.sjtubus.entity.Shift;
 import com.sjtubus.entity.TimeTable;
 import com.sjtubus.model.LineInfo;
-import com.sjtubus.model.Station;
 import com.sjtubus.utils.StringCalendarUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,8 +34,9 @@ public class LineService {
      * @params: line_name - 线路名称
      * @return: 站点列表（String）
     */
-    public List<TimeTable> getStationByLineName(String name) {
-    	List<String> station_names = lineDao.findByName(name).getStation();
+    @Cacheable(cacheNames = "TimeTable")
+    public List<TimeTable> getStationByLineName(String line_name) {
+    	List<String> station_names = lineDao.findByName(line_name).getStation();
     	List<TimeTable> stations = new ArrayList<>(station_names.size());
     	for(String station_name: station_names){
     	    stations.add(timeTableDao.findByStation(station_name));
@@ -50,6 +51,7 @@ public class LineService {
      * @return: LineInfo - 线路信息
     */
     @Transactional
+    @Cacheable(cacheNames = "LineInfo",key = "#type+#line_name")
     public LineInfo getLineInfo(String type,String line_name){
         List<Shift> shifts = shiftDao.findByLineTypeAndLineNameOrderByDepartureTime(type,line_name);
         LineInfo info = new LineInfo();
@@ -79,10 +81,10 @@ public class LineService {
      * @return: 线路名列表
     */
     @Transactional
-    public List<String> getAllLineName(String type){
+    @Cacheable(cacheNames = "AllLineName")
+    public List<String> getAllLineName(){
         List<String> result = new ArrayList<>();
         List<Line> lines = lineDao.findAll();
-        //System.out.println("lines:" + lines.size());
         for (Line line:lines){
             String line_name = line.getName();
             result.add(line_name);

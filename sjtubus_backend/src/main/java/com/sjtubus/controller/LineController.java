@@ -29,7 +29,7 @@ public class LineController {
     public LineInfoResponse getLineInfo(String type){
         LineInfoResponse response = new LineInfoResponse();
         System.out.println("type:" + type);
-        List<String> names = lineService.getAllLineName(type);
+        List<String> names = lineService.getAllLineName();
         System.out.println("name:" + names.size());
         List<LineInfo> lines = new ArrayList<>();
         for(String name:names){
