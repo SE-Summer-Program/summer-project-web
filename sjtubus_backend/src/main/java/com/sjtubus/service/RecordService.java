@@ -50,12 +50,11 @@ public class RecordService {
             info.setDepartureTime(departuretime);
             info.setArriveTime(arrivetime);
             info.setShiftid(shift.getShiftId());
+            info.setComment(appointment.getComment());
 
             // info.setSubmitTime(appointment.getSubmitTime());
             info.setSubmitTime(appointment.getSubmitTimeString());
             info.setStatus("预约成功");
-
-            System.out.println("status : 0");
 
             // 预约成功 时间未到，normal
             // 预约失败 时间未到，unnormal
