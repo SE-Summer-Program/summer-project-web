@@ -40,8 +40,8 @@ public class LineServiceTest extends SjtubusApplicationTests{
         String type = "HolidayWorkday";
         LineInfo info = lineService.getLineInfo(type,line_name);
         Assert.assertEquals("fail",1,info.getRemainShift());
-        Assert.assertEquals("fail","08:50:00",info.getFirstTime());
-        Assert.assertEquals("fail","17:00:00",info.getLastTime());
+        Assert.assertEquals("fail","08:00:00",info.getFirstTime());
+        Assert.assertEquals("fail","20:30:00",info.getLastTime());
     }
 
     @Test

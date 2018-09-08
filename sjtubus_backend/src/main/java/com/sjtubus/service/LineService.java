@@ -34,7 +34,7 @@ public class LineService {
      * @params: line_name - 线路名称
      * @return: 站点列表（String）
     */
-    @Cacheable(cacheNames = "TimeTable")
+    @Cacheable(cacheNames = "TimeTable",key = "#line_name")
     public List<TimeTable> getStationByLineName(String line_name) {
     	List<String> station_names = lineDao.findByName(line_name).getStation();
     	List<TimeTable> stations = new ArrayList<>(station_names.size());

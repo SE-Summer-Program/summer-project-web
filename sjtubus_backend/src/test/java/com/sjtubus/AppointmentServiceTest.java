@@ -39,30 +39,12 @@ public class AppointmentServiceTest extends SjtubusApplicationTests {
         String line_name = "MinHangToQiBao";
         String type = "HolidayWorkday";
         String appoint_date = "2018-09-30";
-        List<AppointInfo> infos = appointmentService.getAppointInfo(line_name,type,appoint_date);
-        Assert.assertEquals("fail",2,infos.size());
-        Assert.assertEquals("fail","17:00:00",infos.get(1).getDepartureTime());
-        Assert.assertEquals("fail","MQHD1700",infos.get(1).getShiftId());
+        List<AppointInfo> infos = appointmentService.getAppointInfo(line_name,type,appoint_date,true);
+        Assert.assertEquals("fail",4,infos.size());
+        Assert.assertEquals("fail","12:20:00",infos.get(1).getDepartureTime());
+        Assert.assertEquals("fail","MQHD1220",infos.get(1).getShiftId());
         Assert.assertEquals("fail",45,infos.get(1).getRemainSeat());
     }
-
-    @Test
-    public void b_testAddAppointment() {
-        java.sql.Date date = UtilDateToSqlDate(StringToDate("2018-07-27 17:00:00"));
-        String shift_id = "MQHD1700";
-        int seat_num = appointmentService.getRemainSeat(shift_id,date);
-        Assert.assertEquals("fail",45,seat_num);
-        String username = "姚子航";
-        String appoint_date = "2018-07-27";
-        String line_name = "MinHangToQiBao";
-        String submit_time = "2018-07-27 09:00:00";
-        boolean result = appointmentService.addAppointment(username, "user",appoint_date,shift_id,line_name,submit_time);
-        Assert.assertTrue("fail", result);
-        seat_num = appointmentService.getRemainSeat(shift_id,date);
-        Assert.assertEquals("fail",44,seat_num);
-        Assert.assertNull(null);
-   }
-
 
     @Test
     public void c_testSearchAppointment() {
@@ -85,7 +67,7 @@ public class AppointmentServiceTest extends SjtubusApplicationTests {
         Appointment appointment = appointmentDao.queryAppointmentByShiftIdAndAppointDateAndUserName(
                 shift_id,UtilDateToSqlDate(StringToDate(departure_date)),username);
         System.out.println(appointment.getIsNormal());
-        Assert.assertFalse("fail", appointment.getIsNormal());
+        Assert.assertTrue("fail", appointment.getIsNormal());
 
         String result = appointmentService.verifyAppointment(username,departure_date,shift_id);
         System.out.println(result);

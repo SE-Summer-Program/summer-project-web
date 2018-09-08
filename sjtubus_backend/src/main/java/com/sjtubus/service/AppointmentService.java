@@ -116,7 +116,7 @@ public class AppointmentService {
      * @params:
      * @return: List<AppointInfo>
      */
-    public List<AppointInfo> getAppointInfo(String line_name, String type, String appoint_date){
+    public List<AppointInfo> getAppointInfo(String line_name, String type, String appoint_date,boolean AdminOrDriver){
 
         List<Shift> shifts =  shiftDao.findByLineTypeAndLineNameOrderByDepartureTime(type, line_name);
         List<AppointInfo> appointInfos = new ArrayList<>();
@@ -134,7 +134,7 @@ public class AppointmentService {
             String departure_time = shift.getDepartureTime().toString();
             //比较发车时间和当前时间的先后
             String departure = appoint_date + " " + departure_time;
-            if (StringCalendarUtils.isBeforeCurrentTime(departure))
+            if (!AdminOrDriver && StringCalendarUtils.isBeforeCurrentTime(departure))
                 continue;
 
             AppointInfo info = new AppointInfo();
@@ -173,7 +173,7 @@ public class AppointmentService {
      * @return:
      */
     public String verifyAppointment(String username,String departure_date,String shift_id){
-        Appointment appointment = appointmentDao.findDistinctByShiftIdAndAppointDateAndUserName(shift_id, java.sql.Date.valueOf(departure_date),username);
+        Appointment appointment = appointmentDao.queryAppointmentByShiftIdAndAppointDateAndUserName(shift_id, java.sql.Date.valueOf(departure_date),username);
         if(appointment == null){
             return "您没有预约该班次~";
         }else{

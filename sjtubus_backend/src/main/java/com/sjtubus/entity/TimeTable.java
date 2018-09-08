@@ -16,11 +16,12 @@ public class TimeTable {
     private Double latitude;
     private Double longitude;
     private String type;
+    private String image_url;
     private List<String> AntiClockLoop;
     private List<String> AntiClockNonLoop;
     private List<String> ClockLoop;
     private List<String> ClockNonLoop;
-    private List<String> VacAntiClockLoop ;
+    private List<String> VacAntiClockLoop;
     private List<String> VacAntiClockNonLoop;
     private List<String> VacClockLoop;
     private List<String> VacClockNonLoop;
@@ -122,5 +123,13 @@ public class TimeTable {
 
     public void setVacClockNonLoop(List<String> vacClockNonLoop) {
         VacClockNonLoop = vacClockNonLoop;
+    }
+
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
     }
 }
