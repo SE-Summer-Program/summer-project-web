@@ -28,6 +28,6 @@ public interface UserDao extends JpaRepository<User,Integer> {
     @Query("update User user set user.username=:username, user.phone=:phone, user.credit=:credit where user.userId =:userId")
     int modifyUser(@Param("userId") int UserId, @Param("username") String username, @Param("phone") String phone, @Param("credit") int credit);
 
-    @Query(value = "select user from User user where user.username like %:content% or user.phone like %:content%")
+    @Query(value = "select user from User user where user.username like %:content% or user.phone like %:content% or user.realname like %:content% or user.studentNumber like %:content%")
     List<User> queryByRelatedContent(@Param("content") String content);
 }
