@@ -18,12 +18,14 @@ package com.sjtubus.config;
 import com.sjtubus.service.AdministratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.cors.CorsUtils;
 
 /**
  * @author Allen
@@ -39,6 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 				.authorizeRequests()
+				.antMatchers(HttpMethod.OPTIONS).permitAll()
+				.requestMatchers(CorsUtils::isPreFlightRequest).permitAll() //对preflight放行
 				.antMatchers("/css/**","/js/**","/images/**").permitAll()
 				.antMatchers("/**/search").authenticated()
 				.antMatchers("/**/add").authenticated()

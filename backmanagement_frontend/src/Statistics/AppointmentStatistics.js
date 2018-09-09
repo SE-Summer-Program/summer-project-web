@@ -186,6 +186,10 @@ class AppointmentStatistics extends React.Component {
                             let dateArray = [];
                             let numArray = [];
                             let numSum = 0;
+                            if(result.statistics==null){
+                                alert("无数据!");
+                                return;
+                            }
                             for(let i = 0; i<result.statistics.length; i++){
                                 dateArray.push(result.statistics[i].date);
                                 numArray.push(result.statistics[i].appoint_num);

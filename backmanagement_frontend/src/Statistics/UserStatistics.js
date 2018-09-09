@@ -183,6 +183,10 @@ class UserStatistics extends React.Component {
                     return response.json()
                         .then(result => {
                             console.log(result);
+                            if(result.rideBusInfos==null||result.rideBusInfos.length===0){
+                                alert("无数据!");
+                                return;
+                            }
                             let seatNum = result.rideBusInfos.length !== 0 ? result.rideBusInfos[0].seatNum : 0;
                             let appointBreakSum = 0;
                             let studentArray = [];

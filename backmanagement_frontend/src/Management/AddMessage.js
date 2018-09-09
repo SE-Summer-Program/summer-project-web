@@ -86,8 +86,8 @@ class AddMessage extends React.Component {
                 //console.log('Request successful', response);
                 return response.json()
                     .then(result => {
-                        //console.log("result:",result);
-                        //console.log("result:",result.msg);
+                        console.log("result:",result);
+                        console.log("result:",result.msg);
                         if (result.msg === "success") {
                             alert("公告发布成功");
                             //window.location.reload();

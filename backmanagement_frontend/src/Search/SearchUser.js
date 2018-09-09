@@ -63,7 +63,7 @@ class SearchUser extends React.Component {
         fetch(context.api+'/user/search?content='+this.state.content,
             {
                 method: 'POST',
-                mode: 'cors',
+                mode: 'no-cors',
             })
             .then(response => {
                 console.log('Request successful', response);
