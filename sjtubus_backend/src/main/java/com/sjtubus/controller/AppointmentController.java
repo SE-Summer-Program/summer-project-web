@@ -61,7 +61,10 @@ public class AppointmentController {
      * @return:
      */
     @RequestMapping(value = "/infos")
-    public AppointInfoResponse getAppointInfo(String line_name, String type, String appoint_date,HttpSession session){
+    public AppointInfoResponse getAppointInfo(String line_name,
+                                              String type,
+                                              String appoint_date,
+                                              HttpSession session){
         String role = (String)session.getAttribute("role");
         AppointInfoResponse response = new AppointInfoResponse();
         List<AppointInfo> appoints;
