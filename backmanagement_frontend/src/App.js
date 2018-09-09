@@ -22,7 +22,6 @@ import SearchReserved from './Search/SearchReserved';
 import AddMessage from './Management/AddMessage';
 import UserStatistics from './Statistics/UserStatistics';
 import AppointmentStatistics from './Statistics/AppointmentStatistics';
-import ArrivingStatistics from './Statistics/ArrivingStatistics';
 
 import './App.css';
 import { HashRouter as Router, Route } from "react-router-dom";
@@ -58,7 +57,6 @@ class App extends Component {
                     <Route exact path="/addmessage" component={AddMessage}/>
                     <Route exact path="/userstatistics" component={UserStatistics}/>
                     <Route exact path="/appointmentstatistics" component={AppointmentStatistics}/>
-                    <Route exact path="/arrivingstatistics" component={ArrivingStatistics}/>
                 </Switch>
             </div>
         </Router>

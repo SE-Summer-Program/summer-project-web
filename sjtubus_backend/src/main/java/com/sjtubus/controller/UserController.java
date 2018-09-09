@@ -33,8 +33,10 @@ public class UserController {
 
     @RequestMapping(path="/search")
     public UserListResponse getRelatedUsers(@RequestParam("content") String content){
+        System.out.println("hello");
         UserListResponse response = new UserListResponse();
         try{
+            System.out.println("hello");
             response.setUserList(userService.getUserInfo(content));
             response.setMsg("success");
         }

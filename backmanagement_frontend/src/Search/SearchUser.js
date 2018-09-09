@@ -14,18 +14,30 @@ class SearchUser extends React.Component {
             content:''
         };
         this.columns = [{
-            title: '姓名',
+            title: '用户名',
             dataIndex: 'name',
             key: 'name',
-            width: '18%',
+            width: '13%',
             align: 'center',
         }, {
             title: 'ID',
             dataIndex: 'ID',
             key: 'ID',
-            width: '15%',
+            width: '13%',
             align: 'center',
         }, {
+            title: '真实姓名',
+            dataIndex: 'realname',
+            key: 'realname',
+            width: '13%',
+            align: 'center',
+        }, {
+            title: '学号',
+            dataIndex: 'studentnumber',
+            key: 'studentnumber',
+            width: '17%',
+            align: 'center',
+        },{
             title: '电话号码',
             dataIndex: 'phone',
             key: 'phone',
@@ -41,7 +53,7 @@ class SearchUser extends React.Component {
             title: '身份',
             dataIndex: 'identity' ,
             key: 'identity',
-            width: '18%',
+            width: '15%',
             align: 'center',
         }];
     }
@@ -62,8 +74,8 @@ class SearchUser extends React.Component {
         console.log(context.api+'/user/search?content='+this.state.content);
         fetch(context.api+'/user/search?content='+this.state.content,
             {
-                method: 'POST',
-                mode: 'no-cors',
+                method: 'GET',
+                mode: 'cors',
             })
             .then(response => {
                 console.log('Request successful', response);
@@ -86,6 +98,8 @@ class SearchUser extends React.Component {
                                 "ID": user.userId,
                                 "name": user.username,
                                 "credit": user.credit,
+                                "realname": user.realname,
+                                "studentnumber": user.studentNumber,
                                 "identity": identity,
                                 "phone": user.phone,
                             };
@@ -115,7 +129,7 @@ class SearchUser extends React.Component {
                             <Button type="primary"  size="large" style={{width: '10%', marginLeft: '1%'}} onClick = {this.handleSearch}>搜索</Button>
                             <h6/>
                             <br/>
-                            <Table style={{width:'78%', marginLeft:'11%'}} columns={this.columns} dataSource={this.state.data} />
+                            <Table style={{width:'90%', marginLeft:'6%'}} columns={this.columns} dataSource={this.state.data} />
                         </Content>
                     </Layout>
                 </Content>
