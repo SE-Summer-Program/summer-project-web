@@ -112,4 +112,34 @@ public class StringCalendarUtils {
         return new Date(sql_date.getTime());
     }
 
+    public static String addHalfHour(String datestr){
+        Calendar cal = StringCalendarUtils.StringTimeToCalendar(datestr);
+        cal.add(Calendar.MINUTE, 30);
+
+        return StringCalendarUtils.CalendarToStringTime(cal);
+    }
+
+    public static String minusHalfHour(String datestr){
+        Calendar cal = StringCalendarUtils.StringTimeToCalendar(datestr);
+        cal.add(Calendar.MINUTE, -30);
+
+        return StringCalendarUtils.CalendarToStringTime(cal);
+    }
+
+    public static String CalendarToStringTime(Calendar calendar){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置你想要的格式
+        return dateFormat.format(calendar.getTime());
+    }
+
+    public static Calendar StringTimeToCalendar(String datestr){
+        Calendar calendar = new GregorianCalendar();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date date = dateFormat.parse(datestr); //start_date是类似"2013-02-02"的字符串
+            calendar.setTime(date);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return calendar;
+    }
 }

@@ -174,9 +174,16 @@ public class AppointmentService {
      */
     public String verifyAppointment(String username,String departure_date,String shift_id){
         Appointment appointment = appointmentDao.queryAppointmentByShiftIdAndAppointDateAndUserName(shift_id, java.sql.Date.valueOf(departure_date),username);
+        Shift shift = shiftDao.findByShiftId(shift_id);
         if(appointment == null){
             return "您没有预约该班次~";
-        }else{
+        } else if (StringCalendarUtils.isBeforeCurrentTime
+                (StringCalendarUtils.addHalfHour(StringCalendarUtils.TimeToString(shift.getArriveTime())))) {
+            return "班车已到站";
+        } else if (! StringCalendarUtils.isBeforeCurrentTime
+                (StringCalendarUtils.minusHalfHour(StringCalendarUtils.TimeToString(shift.getDepartureTime())))) {
+            return "班车未发出";
+        } else{
             appointment.setIsNormal(true);
             Appointment result = appointmentDao.save(appointment);
             System.out.println(result.getAppointDate()+" "+result.getUserName()+" Normal:"+result.getIsNormal());
