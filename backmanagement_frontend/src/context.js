@@ -103,7 +103,6 @@ export default {
                 >
                     <Menu.Item key="1" style={{fontSize:"105%"}}><Link to="userstatistics"><Icon type="user"/>已发车次乘客统计</Link></Menu.Item>
                     <Menu.Item key="2" style={{fontSize:"105%"}}><Link to="appointmentstatistics"><Icon type="table"/>预约信息统计</Link></Menu.Item>
-                    <Menu.Item key="3" style={{fontSize:"105%"}}><Link to="arrivingstatistics"><Icon type="clock-circle-o"/>巴士到站时间统计</Link></Menu.Item>
                 </Menu>
             </Sider>
         )

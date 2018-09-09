@@ -213,7 +213,7 @@ class SearchReserved extends React.Component {
         fetch(context.api+'/appointment/search?lineNameCn='+ lineNameCn + "&lineType=" + this.state.type +
                                          "&departureTime=" + this.state.time + "&appointDate=" + this.state.date,
             {
-                method: 'GET',
+                method: 'POST',
                 mode: 'cors',
             })
             .then(response => {
